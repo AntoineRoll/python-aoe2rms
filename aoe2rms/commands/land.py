@@ -1,137 +1,105 @@
-import pydantic as pdt
-
-from aoe2rms.commands import CommandModel
+from pydantic import Field
+from typing import Tuple
+from aoe2rms.commands.base import CommandModel
 
 
 class CreateLand(CommandModel):
-    """Create a single land area on the map.
-
-    This command creates a non-player (neutral) land which can be assigned to a player
-    with assign_to_player or assign_to attributes.
+    """
+    Command to create a single non-player (neutral) land according to the RMS specification.
     """
 
     _command_name: str = "create_land"
+    _command_parameters = ("terrain_type",)
 
-    terrain_type: str = pdt.Field(
-        description="Specifies which terrain the land should have",
-        examples=["GRASS", "WATER", "DESERT", "SNOW"],
+    # Parameters and attributes as described in RmsLandReference.md
+    terrain_type: str | None = Field(
+        default=None, description="Specify which terrain the land should have."
     )
-    land_percent: int = pdt.Field(
+    land_percent: int | None = Field(
         default=None,
-        strict=True,
         ge=0,
         le=100,
-        description="Percentage of the total map that the land should grow to cover. "
-        "If land growth is constrained by borders or other lands, "
-        "lands may be smaller than specified.",
-        examples=[10, 20, 50],
+        description="Percentage of the total map that the land should grow to cover.",
     )
-
-    number_of_tiles: int = pdt.Field(
-        default=None,
-        description="Fixed number of tiles that the land should grow by. "
-        "Total size of the land is number_of_tiles in addition "
-        "to the square origin specified by base_size.",
-        examples=[100, 250, 500],
+    number_of_tiles: int | None = Field(
+        default=None, description="Fixed number of tiles that the land should grow by."
     )
-
-    base_size: int = pdt.Field(
+    base_size: int | None = Field(
         default=3,
-        description="Square radius of the initially placed land origin, before any growth. "
-        "The default of 3 results in a 7x7 land origin (49 tiles total).",
-        examples=[3, 6, 12],
+        ge=1,
+        description="Square radius of the initially placed land origin, before any growth.",
     )
-
-    land_position: str = pdt.Field(
+    land_position: Tuple[int, int] | None = Field(
         default=None,
-        description="Specifies the exact origin point for a land, as a percentage of total map dimensions. "
-        "Format: 'X Y' where both are percentages. 50 50 is the center of the map.",
-        examples=["50 50", "25 75", "10 90"],
+        min_items=2,
+        max_items=2,
+        description="Exact origin point for a land, as a percentage of total map dimensions.",
     )
-
-    left_border: int = pdt.Field(
+    circle_radius: Tuple[int, int] | None = Field(
         default=None,
-        description="Percentage of map width for land placement and growth to stay away from the left (southwest) border",
-        examples=[5, 10, 40],
+        min_items=1,
+        max_items=2,
+        description="Position the player lands in a circle with equal distance to the center, with specified variance.",
     )
-
-    right_border: int = pdt.Field(
-        default=None,
-        description="Percentage of map width for land placement and growth to stay away from the right (northeast) border",
-        examples=[5, 10, 40],
+    left_border: int | None = Field(
+        default=0,
+        ge=0,
+        le=99,
+        description="Specify a percentage of map width for land placement and growth to stay away from the left border.",
     )
-
-    top_border: int = pdt.Field(
-        default=None,
-        description="Percentage of map width for land placement and growth to stay away from the top (northwest) border",
-        examples=[5, 10, 40],
+    right_border: int | None = Field(
+        default=0,
+        ge=0,
+        le=99,
+        description="Specify a percentage of map width for land placement and growth to stay away from the right border.",
     )
-
-    bottom_border: int = pdt.Field(
-        default=None,
-        description="Percentage of map width for land placement and growth to stay away from the bottom (southeast) border",
-        examples=[5, 10, 40],
+    top_border: int | None = Field(
+        default=0,
+        ge=0,
+        le=99,
+        description="Specify a percentage of map width for land placement and growth to stay away from the top border.",
     )
-
-    border_fuzziness: int = pdt.Field(
+    bottom_border: int | None = Field(
+        default=0,
+        ge=0,
+        le=99,
+        description="Specify a percentage of map width for land placement and growth to stay away from the bottom border.",
+    )
+    border_fuzziness: int | None = Field(
         default=20,
-        description="Specifies the extent to which land growth respects borders. "
-        "Low values allow lands to exceed borders, high values (closer to 100) "
-        "make borders more strict.",
-        examples=[0, 20, 100],
+        ge=0,
+        le=100,
+        description="Specifies the extent to which land growth respects borders and actually stops at a border.",
     )
-
-    clumping_factor: int = pdt.Field(
+    clumping_factor: int | None = Field(
         default=8,
-        description="The extent to which land growth prefers to clump together. "
-        "Moderate values (11-40) create rounder lands, while low values (0-10) "
-        "create more irregular lands.",
-        examples=[2, 8, 30],
+        description="The extent to which land growth prefers to clump together near existing tiles.",
     )
-
-    base_elevation: int = pdt.Field(
-        default=None,
+    base_elevation: int | None = Field(
+        default=0,
         ge=0,
         le=16,
-        description="Elevate the entire land to the specified height. "
-        "Values higher than 7 may cause rendering issues.",
-        examples=[1, 2, 3],
+        description="Elevate the entire land to the specified height.",
     )
-
-    assign_to_player: int = pdt.Field(
-        default=None,
-        description="Assign a land to one specific player (1-8), allows placing starting "
-        "objects for that player on this land.",
-        examples=[1, 2, 3],
+    assign_to_player: int | None = Field(
+        default=None, ge=1, le=8, description="Assign a land to one specific player."
     )
-
-    zone: int = pdt.Field(
+    assign_to: Tuple[str, int, int, int] | None = Field(
         default=None,
+        description="A more powerful version of assign_to_player. Assign a land to one specific player, allowing you to place starting objects on that land for that player.",
+    )
+    zone: int | None = Field(
+        default=None,
+        ge=-99,
         description="Set a numeric zone. Lands sharing the same zone can grow to touch each other.",
-        examples=[1, 2, -1],
     )
-
-    other_zone_avoidance_distance: int = pdt.Field(
+    other_zone_avoidance_distance: int | None = Field(
+        default=0,
+        ge=0,
+        description="Number of tiles away from a land with a different zone to stop land growth.",
+    )
+    min_placement_distance: int | None = Field(
         default=None,
-        description="Number of tiles away from a land with a different zone to stop land growth. "
-        "Used to create river maps and island maps.",
-        examples=[5, 10, 20],
+        ge=0,
+        description="Number of tiles to stay away from the origins of previously created lands when randomly selecting an origin for this land.",
     )
-
-    min_placement_distance: int = pdt.Field(
-        default=None,
-        description="Number of tiles to stay away from the origins of previously created lands "
-        "when randomly selecting an origin for this land.",
-        examples=[10, 25, 40],
-    )
-
-    land_id: int = pdt.Field(
-        default=None,
-        description="Assign a numeric label to a land, which can later be used to place objects "
-        "specifically on that land with place_on_specific_land_id.",
-        examples=[1, 13, 42],
-    )
-
-
-class CreatePlayerLands(CreateLand):
-    _command_name = "create_player_lands"

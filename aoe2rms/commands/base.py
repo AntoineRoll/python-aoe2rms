@@ -21,18 +21,18 @@ class CommandModel(pdt.BaseModel):
 
         for attr, val in self.__dict__.items():
             if val is not None and attr not in self._command_parameters:
-                if isinstance(val, bool) and val:
+                if isinstance(val, tuple):
+                    # Handle tuples like land_position, circle_radius, and replace_terrain
+                    result += f"\t{attr} {' '.join(map(str, val))}\n"
+                elif isinstance(val, bool) and val:
                     result += f"\t{attr}\n"
                 else:
                     result += f"\t{attr} {val}\n"
-
-
 
         result += "}\n\n"
         return result
 
     def model_post_init(self, context):
-
         section_commands = BaseGenerationModel.get_current_commands()
 
         # Explicit section definition
@@ -40,7 +40,7 @@ class CommandModel(pdt.BaseModel):
             section_commands.append(self)
 
         section_constants = BaseGenerationModel.get_current_constants()
-        # Appending constants for top of section declaration 
+        # Appending constants for top of section declaration
         for attr, val in self.__dict__.items():
             if isinstance(val, Constant):
                 section_constants.append(val)

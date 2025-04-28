@@ -2,6 +2,7 @@ import pydantic as pdt
 
 from aoe2rms.generations import BaseGenerationModel
 
+
 class ConnectionGeneration(BaseGenerationModel):
     """
     Model for CONNECTION_GENERATION section in RMS scripts.

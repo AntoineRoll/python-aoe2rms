@@ -723,10 +723,10 @@ class Constant(BaseModel):
             if elem.get("id") == self.id:
                 self.elem = elem
                 break
-        
+
         if self.elem is None:
             raise ValueError(f"Provided id {self.id} is not a valid {self._type} ID.")
-        
+
         return super().model_post_init(context)
 
     def declare(self):
@@ -739,9 +739,11 @@ class Constant(BaseModel):
     def __str__(self):
         return self.name
 
+
 class TerrainConstant(Constant):
     _constants_list = TERRAIN_CONSTANTS
     _type = "terrain"
+
 
 class ObjectConstant(Constant):
     _constants_list = OBJECT_CONSTANTS

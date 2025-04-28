@@ -40,4 +40,3 @@ class CreateTerrain(CommandModel):
 
     # Height-based placement
     height_limits: list[int] | None = pdt.Field(default=None, min_items=2, max_items=2)
-

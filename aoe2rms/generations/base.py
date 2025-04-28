@@ -8,7 +8,6 @@ class BaseGenerationModel(BaseModel):
     constants: list[Constant] = Field(default_factory=list)
     commands: list[BaseModel] = Field(default_factory=list)
 
-
     def compile(self):
         result = f"{self._header}\n\n"
 
@@ -24,11 +23,11 @@ class BaseGenerationModel(BaseModel):
             result += command.compile()
 
         return result
-    
+
     @classmethod
     def get_current_commands(self):
         return self.commands
-    
+
     @classmethod
     def get_current_constants(self):
         return self.constants
