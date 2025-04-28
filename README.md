@@ -18,14 +18,18 @@
 
 ## Installation
 
-### From source
+### From source with pip
 ```bash
-pip install https://www.github.com/.../
+pip install git+https://github.com/AntoineRoll/python-aoe2rms.git
 ```
+
+### From source with uv
+```bash
+uv pip install git+https://github.com/AntoineRoll/python-aoe2rms.git
+```
+
 ### From PyPi
-```bash
-pip install aoe2rms
-```
+This package is not yet available on PyPi.
 
 ## Quick Start
 
