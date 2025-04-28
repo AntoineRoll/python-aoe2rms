@@ -1,0 +1,24 @@
+[project]
+name = "aoe2rms"
+version = "0.1.0"
+description = "Write your RMS scripts in a pythonic way!"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.11.3",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+    "ruff>=0.11.6",
+    "markitdown>=0.1.1",
+    "pytest>=8.3.5",
+]
+
+[build-system]
+requires = ['setuptools >= 61.0.0']
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools.packages.find]
+include = ['aoe2rms']
