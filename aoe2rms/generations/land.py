@@ -32,3 +32,6 @@ class LandGeneration(BaseGenerationModel):
         "Waves are only visible if the player has 'Render Beach Waves' turned on in the game settings.",
         examples=[True, False],
     )
+
+    def assign_to_map(self):
+        self.map.land_generation = self

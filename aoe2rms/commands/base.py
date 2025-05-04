@@ -9,9 +9,14 @@ class CommandModel(pdt.BaseModel):
     _command_name: str
     _command_parameters: Iterable[str] = tuple()
     _generation_section_commands: list | None = None
+    comment: str = ""
 
     def compile(self):
-        result = f"{self._command_name} "
+        result = ""
+        
+        if self.comment:
+            result += f"/* {self.comment}  */\n"
+        result += f"{self._command_name} "
 
         # Parameters passed right after command name
         for cmd_param in self._command_parameters:

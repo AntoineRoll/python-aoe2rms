@@ -1,3 +1,4 @@
+import logging
 from pydantic import BaseModel, Field
 from typing import Optional, List, Union
 
@@ -125,6 +126,7 @@ class Map(BaseModel):
             script += f"/* {self.description} */\n"
 
         script += "\n"
+        logging.debug("%s - Header comments scripted.", self.__class__.__name__)
 
         # Add global elements
         for comment in self.global_comments:
@@ -138,26 +140,39 @@ class Map(BaseModel):
 
         for conditional in self.conditional_scripts:
             script += f"{conditional}\n"
+        logging.debug("%s - Global elements scripted.", self.__class__.__name__)
 
         script += "\n"
 
         # Compile each section in order
         script += self.player_setup.compile()
+        logging.debug("%s - Player setup scripted.", self.__class__.__name__)
+
         script += self.land_generation.compile()
+        logging.debug("%s - Land generation scripted.", self.__class__.__name__)
 
         if self.elevation_generation:
             script += self.elevation_generation.compile()
+            logging.debug("%s - Elevation generation scripted.", self.__class__.__name__)
 
         if self.cliff_generation:
             script += self.cliff_generation.compile()
+            logging.debug("%s - Cliff generation scripted.", self.__class__.__name__)
 
         if self.terrain_generation:
             script += self.terrain_generation.compile()
+            logging.debug("%s - Terrain generation scripted.", self.__class__.__name__)
 
         if self.connection_generation:
             script += self.connection_generation.compile()
+            logging.debug("%s - Connection generation scripted.", self.__class__.__name__)
 
         if self.objects_generation:
             script += self.objects_generation.compile()
+            logging.debug("%s - Objects generation scripted.", self.__class__.__name__)
 
         return script.strip()
+
+    def save_to_file(self, file_path):
+        with open(file_path, "w") as file:
+            file.write(self.compile())
