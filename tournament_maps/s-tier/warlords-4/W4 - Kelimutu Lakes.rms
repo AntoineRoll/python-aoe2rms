@@ -1,0 +1,1380 @@
+/* KELIMUTU */
+/* by Xingxing#0070 */
+/* used for Clash of Anatolia 3 */
+/* 2021-09-13 - 2021-09-24 */
+
+/* Description (Wikipedia):
+ Kelimutu (pronounced [kəliˈmutu]) is a volcano, close to the small town of Moni in central Flores island in Indonesia. 
+It is around 50 km (31 mi) to the east of Ende, Indonesia, the capital of Ende regency in East Nusa Tenggara province. 
+It has three volcanic crater lakes that differ in color.
+The science of the Kelimutu lakes is relatively well-known.
+Lake colors periodically change due to adjustments in the oxidation-reduction status of the fluid of each lake, and also considering the abundance of different major elements, such as iron and manganese. 
+Oxidation-reduction status depends on the balance of volcanic gas input and rainfall rate,[3] and is thought to be mediated by the groundwater system in the volcano itself.
+The colors in the lakes change independently from each other, as each has its own unique connectivity to the underlying volcano's activity. 
+Between January and November 2016, the colors of the craters changed six times.
+Although it is widely believed that the changes are unpredictable, it is more accurate to say that the lack of any regular monitoring of the volcanic system 
+precludes scientists from having the data necessary to drive widely available predictive models.
+*/
+
+/* Mythology:
+According to some, the lakes act as a resting place for departed souls. The souls of the dead are directed by the gatekeeper, Kondo Ratu, who decides based on the age and the behaviour of the recently deceased the lake they will go to.
+Tiwu Ko’o Fai Nuwa Muri (Lake of Young Men and Maidens) and Tiwu Ata Polo (Bewitched or Enchanted Lake) slumber to the east.
+It’s the third, Tiwu Ata Bupu (Lake of Old People), the westernmost body, which seems the most bewitched. 
+Long after the sun has risen and cleared the sky of any clouds, a thick mist stays swirling around the crater. Faint outlines, vaguely human in shape, form and dissipate in the vapour.
+*/
+
+
+/* Map description:
+Players start with only 4 gold mines and no stone mines close to their tc. The 3 volcanic lakes (1 big one in the center and 2 small in N and S) have high
+amount of fish. The water is shallow everywhere. When a fish is completely harvested, a gold mine with 400 gold spawns.
+The 2 small lakes have stone mines with 700 stone each on their shore. When a stone mine is depleted, a holy relic spawns. 
+Close to each small lake, a shrine is located, which if you control it gives you the option to train priests. 
+They only have 25 HP and 4 range, while also costing 100 gold, and you cannnot deposit relics in the shrines, so you have to consider your investment.
+*/
+
+/* PROBLEMS
+The 2 lands in S and N where the smaller lakes should generate, do not generate reliably, sometimes too far away from the corner. If used competitively, this has to be fixed.
+*/
+
+
+/* Some volcanic vent and debris structure taken from Mount Bromo by HenkDeSuperNerd. Shrine control mechanic taken from Aftermath by Chrazini. */
+
+
+/* CONSTANTS */
+
+/* Terrain */
+#const SWAMP 111
+#const LAVA 69
+#const WATER_AZURE 58
+#const WATER_GREEN 95
+#const WATER_BROWN 96
+#const BEACH_WET_UNSAILABLE 80
+#const BEACH_GRAVEL_UNSAILABLE 81
+#const BEACH_GRAVEL_UNSAILABLE 82
+#const SHALLOW 4
+#const FOREST_JUNGLE 17
+#const FOREST_BAMBOO 18
+#const ROCK_TERRAIN 40
+#const CRACKED_SAND 45
+#const BLACK_TERRAIN 47
+#const FOREST_DRAGON 48
+#const FOREST_BAOBAB 49
+#const FOREST_ACACIA 50
+#const FOREST_MANGROVE 55
+#const MANGROVE_SHALLOW 54
+#const GRASS_JUNGLE 60
+#const DIRT_MUD 76
+#const GRAVEL 70
+#const GRASS_RAINFOREST 83
+#const FOREST_RAIN 56
+#const SHALLOW_AZURE 59
+#const BEACH_ROCK 109
+#const UNDERBRUSH 5
+
+/* Animals */
+#const BUFFALO 1142
+#const DEER 65
+#const ELEPHANT 1301
+#const RHINO 1139
+#const BOAR 48
+#const TIGER 1137
+#const KOMODO_DRAGON 1135
+#const CROCODILE 1031
+
+/* Birds */
+#const HAWK 96
+#const MACAW 816
+#const VULTURE 917
+#const FALCON 1056
+#const SEAGULLS 303
+
+/* Aquatic */
+#const SHORE_FISH 69
+#const BOX_TURTLES 1141
+#const FISH_MARLIN_A 450
+#const FISH_MARLIN_B 451
+
+/* Trees */
+#const TREE_PALM 351
+#const TREE_JUNGLE 414
+#const TREE_BAMBOO 348
+#const TREE_DRAGON 1051
+#const TREE_BAOBAB 1052
+#const TREE_ACACIA 1063
+#const TREE_MANGROVE 1144
+#const TREE_RAIN 1146
+#const TREE_ITALIAN 1348
+#const TREE_OLIVE 1349
+#const TREE_REEDS 1350
+#const TREE_BIRCH 1717
+#const FORAGE 59
+#const FRUIT_BUSH 1059
+#const BUSH_A 302
+
+/* Rocks, plants, flowers, etc. */
+#const RAIN 900
+#const DEBRIS1 918
+#const DEBRIS2 1323
+#const ANIMAL_SKELETON 1091
+#const RUBBLE1 1439
+#const RUBBLE2 1483
+#const DEADPLANTS 1365
+#const BUSHDRY 1361	
+#const SMOKE1 1308
+#const SMOKE2 902
+#const PLACEH 278
+#const LOOT_GOLD 472
+#const GOLD_OLD 352
+#const WOOD_PILE 253
+#const FOOD_PILE 262
+#const GOLD_PILE 252
+#const STUPA 1191
+#const ROCK_JUNGLE 1149
+#const PLANT_RAIN 1354
+#const PLANT_FLOWERS 1366
+#const PAGODA_C 1203
+#const PATCH_FERN 1175
+#const BONFIRE 304
+
+/* Units */
+#const SPECIAL_BUILDING 826
+#const PRIEST 1023
+#const PRIEST_RELIC 1400
+#const SHRINE 1712
+
+<PLAYER_SETUP>
+					effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+					effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -90
+direct_placement
+ai_info_map_type 			ARABIA 					0 0 0
+
+/* EFFECT AMOUNT */
+
+effect_amount GAIA_SET_ATTRIBUTE SNAPPER ATTR_TERRAIN_ID 6 /* Water */
+effect_amount GAIA_SET_ATTRIBUTE SHORE_FISH ATTR_TERRAIN_ID 6 /* Water */
+
+#const PH_GENERIC_ON 1291 /* Life Support */
+#const PH_GENERIC_OFF 647 /* Dead Unit */
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_LINE_OF_SIGHT 		0
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_HITPOINTS 		0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_LINE_OF_SIGHT 		0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_HITPOINTS 		0
+
+
+
+/* allow mining camps on water */
+
+
+<LAND_GENERATION>
+base_terrain 				DIRT_MUD
+
+start_random
+	percent_chance 50 #define LEFT-RIGHT
+	percent_chance 50 #define RIGH-LEFT
+end_random
+
+create_land { 
+	land_position 			25 25  
+	if LEFT-RIGHT
+		assign_to_player 1 
+	elseif RIGH-LEFT
+		assign_to_player 2
+	endif
+	number_of_tiles 		300 
+	terrain_type 			DLC_DRYGRASS
+	base_size 			9
+}
+
+
+create_land { 
+	land_position 			75 75  
+	if LEFT-RIGHT
+		assign_to_player 2 
+	elseif RIGH-LEFT
+		assign_to_player 1
+	endif
+	number_of_tiles 		300 
+	terrain_type 			DLC_DRYGRASS 
+	base_size 			9
+}
+
+
+create_land { 
+	land_position 			87 87  
+	land_id				44
+	number_of_tiles 		40 
+	terrain_type 			UNDERBRUSH 
+	base_size 			1
+}
+
+
+create_land { 
+	land_position 			13 13  
+	land_id				45
+	number_of_tiles 		40 
+	terrain_type 			UNDERBRUSH 
+	base_size 			1
+}
+
+create_land {
+	terrain_type 			GRAVEL
+	land_position 			40 40
+	left_border 			34	
+	right_border 			34	
+	top_border 			34
+	bottom_border 			34
+	base_elevation 			16
+	base_size 			0
+}
+
+create_land {
+	terrain_type 			BEACH_GRAVEL_UNSAILABLE
+	number_of_tiles 		400
+	base_size 			1
+	border_fuzziness 		100
+	clumping_factor 		100
+	land_position 			15 85
+	other_zone_avoidance_distance 	1
+	base_elevation 			14
+}
+
+create_land {
+	terrain_type 			BEACH_GRAVEL_UNSAILABLE
+	number_of_tiles 		400
+	base_size 			1
+	border_fuzziness 		0
+	clumping_factor 		100
+	land_position 			85 15
+	other_zone_avoidance_distance 	1
+	base_elevation 			14
+}
+
+create_land {
+	terrain_type 			SHALLOW_AZURE
+	number_of_tiles 		100
+	base_size 			1
+	border_fuzziness 		100
+	clumping_factor 		100
+	land_position 			15 85
+	other_zone_avoidance_distance 	1
+	base_elevation 			2
+
+	land_id 666
+}
+
+
+create_land {
+	terrain_type 			SHALLOW_AZURE
+	number_of_tiles 		100
+	base_size 			1
+	border_fuzziness 		0
+	clumping_factor 		100
+	land_position 			85 15
+	base_elevation 			2
+
+	land_id 666
+}
+
+create_land {
+	terrain_type 			DLC_DESERTGRAVEL
+	land_position 			45 45
+	left_border 			40	
+	right_border 			40	
+	top_border 			40
+	bottom_border 			40
+	base_elevation 			8
+}
+
+create_land {
+	terrain_type 			DLC_DESERTGRAVEL
+	land_position 			50 50
+	base_elevation 			8
+	land_percent 0
+	base_size 0
+	land_id 555
+
+}
+
+create_land {
+	terrain_type 			DLC_DESERTGRAVEL
+	land_position 			55 55
+	left_border 			38	
+	right_border 			38	
+	top_border 			38
+	bottom_border 			38
+	base_elevation 			8
+}
+
+create_land {
+	terrain_type 			DLC_DESERTGRAVEL
+	land_position 			55 45
+	left_border 			38	
+	right_border 			38	
+	top_border 			38
+	bottom_border 			38
+	base_elevation 			8
+}
+
+create_land {
+	terrain_type 			DLC_DESERTGRAVEL
+	land_position 			45 55
+	left_border 			38	
+	right_border 			38	
+	top_border 			38
+	bottom_border 			38
+	base_elevation 			8
+}
+
+create_land {
+	land_position 			25 75
+	top_border 65
+	right_border 65
+	bottom_border 2
+	left_border 2
+	terrain_type 			BEACH_GRAVEL_UNSAILABLE
+	base_size 			3
+	land_percent 			8
+	land_id				198
+}
+
+create_land {
+	land_position 			75 25
+	top_border 2
+	right_border 2
+	bottom_border 65
+	left_border 65
+	terrain_type 			DLC_ROCK
+	base_size 			3
+	land_percent 			8
+	land_id				199
+}
+
+<ELEVATION_GENERATION>
+
+create_elevation 7 
+{
+	base_terrain 			DLC_ROCK
+	number_of_tiles 		4000
+	enable_balanced_elevation
+}
+create_elevation 7 
+{
+	base_terrain 			BEACH_GRAVEL_UNSAILABLE
+	number_of_tiles 		4000
+	enable_balanced_elevation
+}
+create_elevation 7 
+{
+	base_terrain 			DLC_ROCK
+	number_of_clumps 		25
+	number_of_tiles 		4000
+	set_scale_by_groups
+	enable_balanced_elevation
+}
+create_elevation 7 
+{
+	base_terrain 			BEACH_GRAVEL_UNSAILABLE
+	number_of_clumps 		25
+	number_of_tiles 		4000
+	set_scale_by_groups
+	enable_balanced_elevation
+}
+
+create_elevation 3 
+{
+	base_terrain DIRT_MUD
+	number_of_clumps 		20
+	number_of_tiles 		1000
+	set_scale_by_groups
+	enable_balanced_elevation           
+}
+
+
+<TERRAIN_GENERATION>
+
+create_terrain BEACH_GRAVEL_UNSAILABLE {
+	base_terrain 			DLC_ROCK
+	land_percent 			100
+	number_of_clumps 		9320
+}
+
+create_terrain GRASS_RAINFOREST {
+	base_terrain 			DIRT_MUD
+	land_percent 			33
+	number_of_clumps 		999
+	spacing_to_other_terrain_types 	5
+}
+
+create_terrain BEACH_GRAVEL_UNSAILABLE {
+	base_terrain 			GRAVEL
+	land_percent 			100
+	number_of_clumps 		9320
+}
+create_terrain BEACH_GRAVEL_UNSAILABLE {
+	base_terrain 			GRAVEL
+	land_percent 			100
+	number_of_clumps 		9320
+}
+create_terrain BEACH_GRAVEL_UNSAILABLE {
+	base_terrain 			GRAVEL
+	land_percent 			100
+	number_of_clumps 		9320
+}
+
+create_terrain BEACH_GRAVEL_UNSAILABLE {
+	base_terrain 			DIRT_MUD
+	land_percent 			100
+	number_of_clumps 		9320
+	height_limits 			2 10
+}
+
+create_terrain SHALLOW_AZURE {
+	base_terrain 			DLC_DESERTGRAVEL
+	land_percent 			100
+	number_of_clumps 		9320
+	spacing_to_other_terrain_types 	2
+}
+
+create_terrain WATER_GREEN {
+	base_terrain 			SHALLOW_AZURE
+	land_percent 			100
+	number_of_clumps 		1
+	terrain_mask 			1
+}
+
+create_terrain WATER_BROWN {
+	base_terrain 			SHALLOW_AZURE
+	land_percent 			100
+	number_of_clumps 		1
+	terrain_mask 			1
+}
+
+
+
+create_terrain FOREST_RAIN {
+	base_terrain 			GRASS_RAINFOREST
+	land_percent 			10
+	number_of_clumps 		15
+	set_scale_by_groups
+	spacing_to_other_terrain_types 0
+	set_avoid_player_start_areas
+	terrain_mask 			2
+}
+
+create_terrain SWAMP {
+	base_terrain 			GRASS_RAINFOREST
+	land_percent 			100
+	number_of_clumps 		1000
+	set_scale_by_groups
+	spacing_to_other_terrain_types 	0
+	set_avoid_player_start_areas
+	terrain_mask 			1
+}
+
+create_terrain SWAMP {
+	base_terrain 			UNDERBRUSH 
+	land_percent 			100
+	number_of_clumps 		1000
+	set_scale_by_groups
+	spacing_to_other_terrain_types 	0
+	set_avoid_player_start_areas
+	terrain_mask 			1
+}
+
+create_terrain UNDERBRUSH {
+	base_terrain 			DIRT_MUD
+	land_percent 			6
+	number_of_clumps 		12
+	set_scale_by_groups
+	spacing_to_other_terrain_types 	0
+	set_avoid_player_start_areas
+	terrain_mask 			1
+}
+
+create_terrain SWAMP {
+	base_terrain 			DIRT_MUD
+	land_percent 			10
+	number_of_clumps 		12
+	set_scale_by_groups
+	spacing_to_other_terrain_types 	0
+	set_avoid_player_start_areas
+	terrain_mask 			1
+}
+
+create_terrain FOREST_ACACIA {
+	base_terrain 			DIRT_MUD
+	land_percent 			5
+	number_of_clumps 		8
+	set_scale_by_groups
+	spacing_to_other_terrain_types 	0
+	set_avoid_player_start_areas
+	terrain_mask 			2
+}
+
+create_terrain FOREST_BAOBAB {
+	base_terrain 			FOREST_ACACIA
+	land_percent 			2
+	number_of_clumps 		8
+	set_scale_by_groups
+	spacing_to_other_terrain_types 	0
+	set_avoid_player_start_areas
+	terrain_mask 			2
+}
+
+
+<OBJECTS_GENERATION>
+		/* Placeholder object with no terrain restrictions. */
+		#const PH_GENERIC_ON 600
+		#const PH_GENERIC_OFF 649
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_TERRAIN_ID 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_STORAGE_VALUE 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_TERRAIN_ID 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_STORAGE_VALUE 0
+	
+		/* Placeholder object that may only generate on land terrains. */
+		#const PH_LAND_ON 601
+		#const PH_LAND_OFF 643
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_TERRAIN_ID 8
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_STORAGE_VALUE 0
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_TERRAIN_ID 8
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_STORAGE_VALUE 0
+	
+		#const LAZY_MALE 1285 /* FE Flag */
+		effect_amount SET_ATTRIBUTE LAZY_MALE ATTR_DEAD_ID 83
+		effect_amount SET_ATTRIBUTE LAZY_MALE ATTR_HITPOINTS 0
+	
+		#const LAZY_FEMALE 851 /* ES Flag */
+		effect_amount SET_ATTRIBUTE LAZY_FEMALE ATTR_DEAD_ID 293
+		effect_amount SET_ATTRIBUTE LAZY_FEMALE ATTR_HITPOINTS 0
+
+		#const ESCALATION_REVEALER 1775
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_TERRAIN_ID 0
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_LINE_OF_SIGHT 20
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_HITPOINTS 0
+
+				create_object ESCALATION_REVEALER
+				{
+					set_place_for_every_player
+					min_distance_to_players 0
+					max_distance_to_players 0
+				}
+
+
+
+				create_object PH_GENERIC_OFF
+				{
+					place_on_specific_land_id 555
+					max_distance_to_players 20
+					set_circular_placement
+					temp_min_distance_group_placement 1
+					number_of_objects 999
+
+					actor_area 6724
+					actor_area_radius 2
+				}
+
+
+
+				create_object PH_GENERIC_OFF
+				{
+					temp_min_distance_group_placement 1
+					number_of_objects 999
+					terrain_to_place_on 		SHALLOW_AZURE
+
+					avoid_actor_area 6724
+
+					actor_area 6767
+					actor_area_radius 6
+				}
+
+
+
+				create_object PH_GENERIC_OFF
+				{
+					temp_min_distance_group_placement 1
+					number_of_objects 999
+					terrain_to_place_on 		BEACH_GRAVEL_UNSAILABLE
+					avoid_actor_area 6767
+					actor_area 6768
+					actor_area_radius 3
+				}
+				
+/* PLAYER START OBJECTS */
+
+create_object TOWN_CENTER {
+	set_place_for_every_player
+	max_distance_to_players 	0
+	actor_area 			1030
+	actor_area_radius 		30
+}
+
+
+
+
+			
+				create_object PH_GENERIC_OFF
+				{
+					set_place_for_every_player
+					set_gaia_object_only
+					min_distance_to_players 0
+					max_distance_to_players 0
+			
+					actor_area 6001
+					actor_area_radius 1
+				}
+
+					create_object PH_GENERIC_OFF /* Near Positioner */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						number_of_objects 5
+						min_distance_to_players 1
+						max_distance_to_players 1
+						find_closest
+
+						actor_area 5100
+						actor_area_radius 0
+
+						if DEBUG_MODE
+							second_object FLAG_A
+						endif
+					}
+
+					create_object PH_GENERIC_OFF /* Far Positioner */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						number_of_objects 5
+						max_distance_to_players 2
+						temp_min_distance_group_placement 1
+						find_closest
+
+						actor_area 5101
+						actor_area_radius 1
+
+						avoid_actor_area 6001 /* Minimum Player Distance */
+
+						if DEBUG_MODE
+							second_object FLAG_B
+						endif
+					}
+
+					create_object PH_GENERIC_OFF /* Villager Avoider */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						min_distance_to_players 1
+						max_distance_to_players 1
+						find_closest
+
+						actor_area 5102
+						actor_area_radius 0
+
+						avoid_actor_area 5100 /* Near Positioner */
+
+						if DEBUG_MODE
+							second_object FLAG_C
+						endif
+					}
+
+					create_object PH_GENERIC_OFF /* Blocking Seventh Villager */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						max_distance_to_players 2
+						find_closest
+
+						actor_area 5103
+						actor_area_radius 0
+
+						avoid_actor_area 5101 /* Far Positioner */
+						avoid_actor_area 6001 /* Minimum Player Distance */
+
+						if DEBUG_MODE
+							second_object FLAG_D
+						endif
+					}
+
+					if CENTRALISE_OBJECT
+						create_object PH_GENERIC_ON
+					else
+						create_object PH_GENERIC_OFF
+					endif
+					{
+						second_object BUFFALO
+						set_place_for_every_player
+						min_distance_to_players 1
+						max_distance_to_players 1
+						find_closest
+
+						actor_area 2000
+						actor_area_radius 1
+
+						avoid_actor_area 5100 /* Herdable Positioner */
+					}
+
+				start_random
+				  percent_chance 50 #define LM_A
+				  percent_chance 50 #define LF_A
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_A
+				   create_object LAZY_MALE
+				  elseif LF_A
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_A
+				     second_object LAZY_MALE
+				    elseif LF_A
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_B
+				  percent_chance 50 #define LF_B
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_B
+				   create_object LAZY_MALE
+				  elseif LF_B
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_B
+				     second_object LAZY_MALE
+				    elseif LF_B
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_C
+				  percent_chance 50 #define LF_C
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_C
+				   create_object LAZY_MALE
+				  elseif LF_C
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_C
+				     second_object LAZY_MALE
+				    elseif LF_C
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_D
+				  percent_chance 50 #define LF_D
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_D
+				   create_object LAZY_MALE
+				  elseif LF_D
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_D
+				     second_object LAZY_MALE
+				    elseif LF_D
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_E
+				  percent_chance 50 #define LF_E
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_E
+				   create_object LAZY_MALE
+				  elseif LF_E
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_E
+				     second_object LAZY_MALE
+				    elseif LF_E
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_F
+				  percent_chance 50 #define LF_F
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_F
+				   create_object LAZY_MALE
+				  elseif LF_F
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_F
+				     second_object LAZY_MALE
+				    elseif LF_F
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+
+create_object TREE_BAMBOO
+{ 
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 5
+	max_distance_to_players 6
+	set_circular_placement
+	enable_tile_shuffling
+	avoid_forest_zone 2
+	avoid_actor_area 9
+	number_of_objects 1
+	actor_area 5423
+	actor_area_radius 1
+}
+
+create_object VILLAGER
+{
+	set_place_for_every_player
+	number_of_objects 3
+	actor_area_to_place_in 5423
+}
+
+create_object HOUSE 
+{
+	number_of_objects 2
+	temp_min_distance_group_placement 6
+	find_closest
+	set_place_for_every_player
+	min_distance_to_players 8
+}
+
+
+
+create_object FORAGE {
+	number_of_objects          	6
+	group_placement_radius     	3
+	set_tight_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	max_distance_to_players    	10
+	temp_min_distance_group_placement   6
+	min_distance_group_placement 	2
+	avoid_forest_zone 		3
+	actor_area 			9
+	actor_area_radius 		4
+	avoid_actor_area 		10
+	avoid_actor_area 		11
+	find_closest_to_map_edge
+}
+
+create_object SCOUT {
+	number_of_objects             	1
+	set_place_for_every_player
+	min_distance_to_players       	7
+	max_distance_to_players       	9
+	avoid_forest_zone 		2
+}
+
+
+create_object TREE_MANGROVE {
+	set_gaia_object_only
+	number_of_objects 		9999
+	terrain_to_place_on FOREST_BAOBAB
+}
+
+create_object TREE_JUNGLE {
+	set_gaia_object_only
+	number_of_objects 		9999
+	terrain_to_place_on FOREST_ACACIA
+}
+
+
+/* ANIMALS */
+
+create_object BUFFALO
+{
+    number_of_objects 2
+    set_loose_grouping
+    set_place_for_every_player
+    min_distance_to_players 8
+    max_distance_to_players 10
+    actor_area 600
+    actor_area_radius 1
+}
+create_object BUFFALO {
+    number_of_objects 1
+    set_place_for_every_player
+    actor_area_to_place_in 600
+}
+
+
+create_object BUFFALO {
+	number_of_objects 		2
+	number_of_groups  		1
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players    	22
+	max_distance_to_players    	24
+	min_distance_group_placement 	2
+	temp_min_distance_group_placement 7
+	avoid_forest_zone 1
+}
+
+create_object DEER {
+	number_of_objects          	4
+	group_placement_radius     	3
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players    	14
+	max_distance_to_players   	22
+	avoid_forest_zone 		1
+	terrain_to_place_on DIRT_MUD
+}
+
+
+
+create_object ELEPHANT {
+	number_of_objects          	1
+	set_loose_grouping  
+	set_gaia_object_only
+	set_place_for_every_player
+	set_circular_placement
+	min_distance_to_players    	16
+	max_distance_to_players    	18
+	avoid_forest_zone 3
+}
+
+create_object RHINO
+{
+	number_of_objects          	1
+	set_gaia_object_only
+	set_place_for_every_player
+	set_circular_placement
+	min_distance_to_players    	16
+	max_distance_to_players    	18
+	avoid_forest_zone 3
+}
+
+create_object KOMODO_DRAGON
+{
+	number_of_objects          	1
+	number_of_groups		1
+	temp_min_distance_group_placement 0
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players    	28
+	max_distance_to_players    	40
+	actor_area 737
+	actor_area_radius 20
+	avoid_actor_area 738
+}
+
+
+/* OTHER OBJECTS */
+
+/* create_actor_area 0 0 399 5
+create_actor_area 99 99 398 5 */
+
+/* NEAR GOLD */
+create_object GOLD
+{
+	set_place_for_every_player
+	number_of_objects          	2
+	number_of_groups		2
+	group_placement_radius     	3
+	set_tight_grouping
+	set_gaia_object_only
+	min_distance_group_placement 	2
+	temp_min_distance_group_placement 12
+	avoid_actor_area 		9
+	avoid_forest_zone 		2
+	min_distance_to_players	12
+	max_distance_to_players 14
+	avoid_actor_area 6768
+}
+
+
+create_object SNAPPER {
+	number_of_objects 		1
+	number_of_groups 		99
+	actor_area 			722
+	temp_min_distance_group_placement 4	
+	terrain_to_place_on 		SHALLOW_AZURE
+	max_distance_to_other_zones 5
+
+	avoid_actor_area 6724
+
+}
+create_object SNAPPER {
+	number_of_objects 		1
+	number_of_groups 		99
+	actor_area 			722
+	temp_min_distance_group_placement 8
+	terrain_to_place_on 		SHALLOW_AZURE
+	max_distance_to_other_zones 5
+
+	actor_area_to_place_in 6724
+}
+
+create_object SHORE_FISH {
+	number_of_objects 		1
+	number_of_groups 		99
+	actor_area 			722
+	temp_min_distance_group_placement 3
+	terrain_to_place_on 		SHALLOW_AZURE
+	max_distance_to_other_zones 2
+
+	avoid_actor_area 6724
+}
+
+create_object STONE {
+	number_of_objects 		3
+	number_of_groups 		99
+	actor_area 			723
+	temp_min_distance_group_placement 	6
+	set_tight_grouping
+	terrain_to_place_on BEACH_GRAVEL_UNSAILABLE
+	max_distance_to_other_zones 2
+
+	avoid_actor_area 6768
+}
+
+create_object PLACEH {
+	number_of_objects 		2
+	number_of_groups 		99
+	actor_area 			723
+	min_distance_group_placement 	8
+	terrain_to_place_on 		BEACH_ROCK
+	second_object 			GOLD
+
+	avoid_actor_area 6724
+}
+
+create_object PH_GENERIC_ON {
+	number_of_objects 		2
+	number_of_groups 		99
+	actor_area 			723
+	temp_min_distance_group_placement 6
+	terrain_to_place_on 		SHALLOW_AZURE
+	ignore_terrain_restrictions
+	second_object 			OYSTERS
+
+}
+/* STRAGGLER TREES */
+
+create_object TREE_BAMBOO {
+	number_of_objects 		2
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 	4
+	max_distance_to_players 	5
+	min_distance_group_placement 	2
+}
+
+create_object TREE_BAMBOO
+{
+	number_of_objects 		2
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 	6
+	max_distance_to_players 	8
+	temp_min_distance_group_placement 2
+}
+
+create_object MACAW {
+	set_gaia_object_only
+	number_of_objects         	3
+	set_scaling_to_map_size
+}
+
+create_object FALCON {
+	set_gaia_object_only
+	number_of_objects         	3
+	set_scaling_to_map_size
+}
+	
+create_object TIGER {
+	number_of_objects          	1
+	number_of_groups		2
+	temp_min_distance_group_placement 30
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players    	28
+	actor_area 738
+	actor_area_radius 20
+	avoid_actor_area 737
+}
+
+
+create_object BONFIRE {
+	number_of_objects          	1
+	number_of_groups		88
+	temp_min_distance_group_placement 8
+	set_place_for_every_player
+	terrain_to_place_on		DLC_DESERTGRAVEL
+	actor_area 742
+}
+
+create_object PAGODA_C {
+	number_of_objects          	1
+	number_of_groups		8
+	temp_min_distance_group_placement 16
+	set_gaia_object_only
+	terrain_to_place_on		DLC_DESERTGRAVEL
+	actor_area 743
+}
+
+
+
+/* VISUALS */
+/* volcanic debris and active vents */
+/* outer debris */
+	create_object DEBRIS1 {
+	set_gaia_object_only
+	number_of_objects 		24
+	terrain_to_place_on 		BEACH_GRAVEL_UNSAILABLE
+	avoid_actor_area 		3
+}
+	
+
+create_object DEBRIS2 {
+	set_gaia_object_only
+	avoid_actor_area 		2
+	number_of_objects 		2
+	max_distance_to_players 	5
+	temp_min_distance_group_placement 5
+	min_distance_group_placement 	2
+}
+
+
+
+
+
+create_object BUSH_A {
+	number_of_objects          	4
+	group_placement_radius     	3
+	number_of_groups 8
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	terrain_to_place_on GRASS_RAINFOREST
+	temp_min_distance_group_placement 10
+	avoid_actor_area 105
+}
+
+create_object ROCK_JUNGLE {
+	number_of_objects          	1
+	group_placement_radius     	3
+	number_of_groups 8
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	terrain_to_place_on GRASS_RAINFOREST
+	temp_min_distance_group_placement 10
+	avoid_actor_area 105
+}
+
+create_object PLANT_RAIN {
+	number_of_objects          	1
+	group_placement_radius     	3
+	number_of_groups 28
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	terrain_to_place_on GRASS_RAINFOREST
+	temp_min_distance_group_placement 5
+	avoid_actor_area 105
+}
+
+create_object PLANT_FLOWERS {
+	number_of_objects          	1
+	group_placement_radius     	3
+	number_of_groups 28
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	temp_min_distance_group_placement 5
+	terrain_to_place_on GRASS_RAINFOREST
+	avoid_actor_area 105
+}
+
+create_object PLANT_FLOWERS {
+	number_of_objects          	1
+	group_placement_radius     	3
+	number_of_groups 28
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	terrain_to_place_on DIRT_MUD
+	temp_min_distance_group_placement 5
+	avoid_actor_area 105
+}
+
+create_object PATCH_FERN {
+	number_of_objects          	1
+	group_placement_radius     	3
+	number_of_groups 28
+	set_loose_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	temp_min_distance_group_placement 5
+	layer_to_place_on SWAMP
+	avoid_actor_area 105
+}
+
+create_object RELIC
+{
+	place_on_specific_land_id 666
+	set_gaia_object_only
+	number_of_objects 3
+	temp_min_distance_group_placement 14
+	find_closest
+	set_circular_placement
+	min_distance_to_players 10
+}
+
+
+<CONNECTION_GENERATION>
+	create_connect_all_lands {
+	replace_terrain 		BEACH BEACH_ROCK
+	terrain_size BEACH 		999 0
+}
+
+
+/*
+
+<CLIFF_GENERATION>
+	min_number_of_cliffs 9
+	max_number_of_cliffs 12
+	min_length_of_cliff  5
+	max_length_of_cliff  8
+	
+*/
+

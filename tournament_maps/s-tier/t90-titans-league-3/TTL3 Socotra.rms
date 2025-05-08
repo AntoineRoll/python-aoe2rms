@@ -1,0 +1,996 @@
+#include_drs random_map.def
+#const TERRAIN_BLOCKER 1613
+#const PH_GENERIC_OFF 649
+if TINY_MAP
+elseif SMALL_MAP
+override_map_size 108
+elseif MEDIUM_MAP
+override_map_size 120
+elseif LARGE_MAP
+override_map_size 128
+elseif HUGE_MAP
+override_map_size 148
+elseif GIGANTIC_MAP
+override_map_size 172
+elseif LUDIKRIS_MAP
+override_map_size 400
+endif
+start_random
+percent_chance 50 #define SAVCA
+percent_chance 50 #define POUST
+end_random
+<PLAYER_SETUP>
+random_placement
+ai_info_map_type ARABIA 0 0 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_STORAGE_VALUE 0
+effect_amount SET_ATTRIBUTE HAWK ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE MACAW ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE 917 ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE 1305 ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE DLC_VULTURE ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE 1056 ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE DLC_STORK ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE HAWK ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE MACAW ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE 917 ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE 1305 ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE DLC_VULTURE ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE 1056 ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE DLC_STORK ATTR_LINE_OF_SIGHT 0
+<LAND_GENERATION>
+base_terrain LEAVES
+#const DIRT4 42
+#const SAVANNAH 41
+if HUGE_MAP
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size 28
+land_position 99 99
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(24,26)
+land_position 95 99
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(22,24)
+land_position 90 99
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(21,23)
+land_position 85 99
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(20,22)
+land_position 80 99
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(24,26)
+land_position 99 95
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(22,24)
+land_position 99 90
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(21,23)
+land_position 99 85
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(20,22)
+land_position 99 80
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size 28
+land_position 1 1
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(24,26)
+land_position 5 1
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(22,24)
+land_position 10 1
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(21,23)
+land_position 15 1
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(20,22)
+land_position 20 1
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(24,26)
+land_position 1 5
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(22,24)
+land_position 1 10
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(21,23)
+land_position 1 15
+zone 1
+}
+create_land
+{
+terrain_type LEAVES
+land_percent 0
+base_size rnd(20,22)
+land_position 1 20
+zone 1
+}
+endif
+if SAVCA
+create_player_lands {
+terrain_type SAVANNAH
+land_percent 100
+base_size 6
+if TINY_MAP
+left_border 25
+right_border 25
+top_border 25
+bottom_border 25
+circle_radius 19 0
+border_fuzziness 20
+clumping_factor 20
+elseif SMALL_MAP
+left_border 17
+right_border 17
+top_border 17
+bottom_border 17
+circle_radius 25 0
+border_fuzziness 20
+clumping_factor 20
+elseif MEDIUM_MAP
+left_border 15
+right_border 15
+top_border 15
+bottom_border 15
+circle_radius 27 0
+border_fuzziness 20
+clumping_factor 20
+elseif LARGE_MAP
+left_border 15
+right_border 15
+top_border 15
+bottom_border 15
+circle_radius 30 0
+border_fuzziness 20
+clumping_factor 20
+elseif HUGE_MAP
+left_border 13
+right_border 13
+top_border 14
+bottom_border 14
+circle_radius 34 0
+border_fuzziness 20
+clumping_factor 20
+elseif GIGANTIC_MAP
+left_border 16
+right_border 16
+top_border 16
+bottom_border 16
+circle_radius 32 0
+border_fuzziness 20
+clumping_factor 20
+else
+left_border 20
+right_border 20
+top_border 20
+bottom_border 20
+circle_radius 27 0
+border_fuzziness 5
+clumping_factor 20
+endif
+zone 1
+}
+elseif POUST
+create_player_lands {
+terrain_type DIRT4
+land_percent 100
+base_size 6
+if TINY_MAP
+left_border 25
+right_border 25
+top_border 25
+bottom_border 25
+circle_radius 19
+border_fuzziness 20
+clumping_factor 20
+elseif SMALL_MAP
+left_border 17
+right_border 17
+top_border 17
+bottom_border 17
+circle_radius 25 0
+border_fuzziness 20
+clumping_factor 20
+elseif MEDIUM_MAP
+left_border 15
+right_border 15
+top_border 15
+bottom_border 15
+circle_radius 27 0
+border_fuzziness 20
+clumping_factor 20
+elseif LARGE_MAP
+left_border 15
+right_border 15
+top_border 15
+bottom_border 15
+circle_radius 30 0
+border_fuzziness 20
+clumping_factor 20
+elseif HUGE_MAP
+left_border 13
+right_border 13
+top_border 14
+bottom_border 14
+circle_radius 34 0
+border_fuzziness 20
+clumping_factor 20
+elseif GIGANTIC_MAP
+left_border 16
+right_border 16
+top_border 16
+bottom_border 16
+circle_radius 32 0
+border_fuzziness 20
+clumping_factor 20
+else
+left_border 20
+right_border 20
+top_border 20
+bottom_border 20
+circle_radius 27 0
+border_fuzziness 5
+clumping_factor 20
+endif
+zone 1
+}
+endif
+<ELEVATION_GENERATION>
+if SAVCA
+#const LAYER_D 41
+else
+#const LAYER_D 42
+endif
+#define GNRELEV_HEIGHT03
+#define GNRELEV_INTENSITY_I
+#define GNRELEV_LAY_D
+#include_drs GeneratingElevation.inc
+<TERRAIN_GENERATION>
+color_correction CC_DESERT
+create_terrain SNOW
+{
+base_terrain LEAVES
+if LUDIKRIS_MAP
+spacing_to_other_terrain_types 27
+else
+spacing_to_other_terrain_types 9
+endif
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas
+set_scale_by_groups
+}
+create_terrain DEEP_WATER
+{
+base_terrain SNOW
+spacing_to_other_terrain_types 2
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas
+set_scale_by_groups
+}
+#const DRAGONFOREST 48
+create_terrain DRAGONFOREST
+{
+base_terrain LEAVES
+if TINY_MAP
+land_percent 9
+number_of_clumps 80
+elseif SMALL_MAP
+land_percent 16
+number_of_clumps 110
+elseif MEDIUM_MAP
+land_percent 18
+number_of_clumps 140
+elseif LARGE_MAP
+land_percent 18
+number_of_clumps 140
+elseif HUGE_MAP
+land_percent 18
+number_of_clumps 140
+elseif GIGANTIC_MAP
+land_percent 15
+number_of_clumps 140
+elseif LUDIKRIS_MAP
+land_percent 16
+number_of_clumps 160
+endif
+set_scale_by_groups
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 10000
+}
+create_terrain LEAVES
+{
+base_terrain SNOW
+land_percent 100
+number_of_clumps 1000
+}
+create_terrain LEAVES
+{
+base_terrain SNOW
+land_percent 100
+number_of_clumps 1000
+}
+create_terrain LEAVES
+{
+base_terrain SNOW
+land_percent 100
+number_of_clumps 1000
+}
+create_terrain LEAVES
+{
+base_terrain SNOW
+land_percent 100
+number_of_clumps 1000
+}
+if SAVCA
+create_terrain DIRT4
+elseif POUST
+create_terrain SAVANNAH
+endif
+{
+if SAVCA
+base_terrain SAVANNAH
+elseif POUST
+base_terrain DIRT4
+endif
+land_percent 100
+number_of_clumps 1000
+if TINY_MAP
+spacing_to_other_terrain_types 14
+elseif SMALL_MAP
+spacing_to_other_terrain_types 14
+elseif MEDIUM_MAP
+spacing_to_other_terrain_types 24
+else
+spacing_to_other_terrain_types 24
+endif
+set_avoid_player_start_areas
+}
+if SAVCA
+create_terrain SAVANNAH
+elseif POUST
+create_terrain DIRT4
+endif
+{
+if SAVCA
+base_terrain DIRT4
+elseif POUST
+base_terrain SAVANNAH
+endif
+land_percent 1
+number_of_clumps 12
+terrain_mask 1
+}
+if SAVCA
+create_terrain DIRT4
+elseif POUST
+create_terrain SAVANNAH
+endif
+{
+if SAVCA
+base_terrain SAVANNAH
+elseif POUST
+base_terrain DIRT4
+endif
+land_percent 8
+number_of_clumps 24
+terrain_mask 1
+}
+create_terrain DRAGONFOREST
+{
+if SAVCA
+base_terrain SAVANNAH
+elseif POUST
+base_terrain DIRT4
+endif
+spacing_to_other_terrain_types 4
+land_percent 1
+number_of_clumps 6
+set_avoid_player_start_areas
+set_scale_by_groups
+}
+create_terrain DRAGONFOREST
+{
+if SAVCA
+base_terrain DIRT4
+elseif POUST
+base_terrain SAVANNAH
+endif
+spacing_to_other_terrain_types 4
+number_of_tiles 20
+number_of_clumps 2
+set_avoid_player_start_areas
+set_scale_by_groups
+}
+#const MOORLAND 44
+if SAVCA
+create_terrain DIRT
+{
+base_terrain SAVANNAH
+land_percent 3
+number_of_clumps 10
+set_scale_by_groups
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS
+{
+base_terrain SAVANNAH
+spacing_to_other_terrain_types 3
+land_percent 1
+number_of_clumps 10
+set_scale_by_groups
+terrain_mask 1
+}
+endif
+if POUST
+create_terrain GRASS3
+{
+base_terrain DIRT4
+spacing_to_other_terrain_types 4
+land_percent 2
+number_of_clumps 15
+set_scale_by_groups
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS
+{
+base_terrain DIRT4
+spacing_to_other_terrain_types 3
+land_percent 1
+number_of_clumps 10
+set_scale_by_groups
+terrain_mask 1
+}
+endif
+<OBJECTS_GENERATION>
+create_actor_area 59 59 20000 11
+create_object ROCK {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on LEAVES
+actor_area 20001
+actor_area_radius 4
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+actor_area_to_place_in 20001
+terrain_to_place_on DRAGONFOREST
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area_to_place_in 20002
+actor_area 20002
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+actor_area_to_place_in 20002
+actor_area 20003
+actor_area_radius 5
+}
+create_object ROCK {
+number_of_objects 1
+number_of_groups 9999
+set_gaia_object_only
+terrain_to_place_on DEEP_WATER
+temp_min_distance_group_placement 7
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 9999
+set_gaia_object_only
+terrain_to_place_on DRAGONFOREST
+actor_area 20004
+actor_area_radius 2
+}
+create_object TERRAIN_BLOCKER {
+number_of_objects 9999
+set_gaia_object_only
+actor_area_to_place_in 20004
+}
+#define GNR_NORMALTC
+#define GNR_STARTVILLS
+#define GNR_CLASSICSCOUT
+#define GNR_REGICIDETOWER
+#define GNR_EMP_CLUMPLUMBER
+#define GNR_EMP_LIMITTO5FARMS
+#const HERDABLE_A 1060
+#const HERDABLE_B 1060
+create_object HERDABLE_A {
+number_of_objects 6
+set_loose_grouping
+set_place_for_every_player
+min_distance_to_players 7
+max_distance_to_players 10
+find_closest
+avoid_forest_zone 2
+avoid_cliff_zone 2
+}
+#define GNR_RESCLOSE
+start_random
+percent_chance 50
+#const HUNTABLE 1019
+percent_chance 50
+#const HUNTABLE 1026
+end_random
+#define GNR_HUNTABLE_AVOID_BERRIES
+#define GNR_GIVELURES
+#const LURABLE_A 1301
+#const LURABLE_B 1301
+#define GNR_CLASSICLURES_ONE
+#define GNR_STARTINGGOLD
+#define GNR_STARTINGSTONE
+#define GNR_SPLITSTARTGOLDS
+#define GNR_SPLITSTARTSTONES
+#define GNR_STARTGOLD44M
+#define GNR_STARTSTONE22M
+#define GNR_STARTGS_0WBLOCK
+#define GNR_6KER
+#const KERICEK 1059
+#const STRAGGLER 1051
+#define GNR_HOMESTRAGGLE
+#const BIRDS_A 1028
+#define GNR_ABIRDS_ONLY
+#include_drs GeneratingObjects.inc
+create_object BLANKOBJECT {
+actor_area_to_place_in 14
+number_of_objects 99
+set_gaia_object_only
+set_place_for_every_player
+actor_area 20005
+actor_area_radius 3
+}
+create_object HUNTABLE {
+number_of_objects 5
+group_placement_radius 4
+set_tight_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players 10
+max_distance_to_players 16
+set_circular_placement
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+avoid_actor_area 20005
+actor_area 20006
+actor_area_radius 3
+avoid_actor_area 20000
+avoid_actor_area 20003
+}
+if DEATH_MATCH
+elseif INFINITE_RESOURCES
+else
+create_object STRAGGLER
+{
+if TINY_MAP
+number_of_objects 6
+elseif SMALL_MAP
+number_of_objects 8
+elseif MEDIUM_MAP
+number_of_objects 12
+elseif LARGE_MAP
+number_of_objects 16
+elseif HUGE_MAP
+number_of_objects 24
+else
+number_of_objects 30
+endif
+set_gaia_object_only
+if SAVCA
+terrain_to_place_on DIRT4
+elseif POUST
+terrain_to_place_on SAVANNAH
+endif
+temp_min_distance_group_placement 3
+min_distance_group_placement 2
+}
+endif
+if INFINITE_RESOURCES
+else
+create_object GOLD
+{
+number_of_objects 3
+number_of_groups 1
+group_placement_radius 2
+if TINY_MAP
+min_distance_group_placement 6
+elseif SMALL_MAP
+min_distance_group_placement 6
+elseif MEDIUM_MAP
+min_distance_group_placement 6
+elseif LARGE_MAP
+min_distance_group_placement 10
+else
+min_distance_group_placement 12
+endif
+set_gaia_object_only
+set_place_for_every_player
+set_tight_grouping
+find_closest
+avoid_forest_zone 1
+max_distance_to_other_zones 4
+avoid_actor_area 20001
+if SAVCA
+terrain_to_place_on DIRT4
+elseif POUST
+terrain_to_place_on SAVANNAH
+endif
+if TINY_MAP
+min_distance_to_players 20
+elseif SMALL_MAP
+min_distance_to_players 18
+elseif MEDIUM_MAP
+min_distance_to_players 16
+elseif LARGE_MAP
+min_distance_to_players 23
+else
+min_distance_to_players 23
+endif
+}
+create_object GOLD
+{
+number_of_objects 2
+number_of_groups 1
+group_placement_radius 2
+if TINY_MAP
+min_distance_group_placement 6
+elseif SMALL_MAP
+min_distance_group_placement 6
+elseif MEDIUM_MAP
+min_distance_group_placement 6
+elseif LARGE_MAP
+min_distance_group_placement 10
+else
+min_distance_group_placement 12
+endif
+set_gaia_object_only
+set_place_for_every_player
+set_tight_grouping
+find_closest
+avoid_forest_zone 2
+max_distance_to_other_zones 4
+avoid_actor_area 20001
+if SAVCA
+terrain_to_place_on SAVANNAH
+elseif POUST
+terrain_to_place_on DIRT4
+endif
+if TINY_MAP
+min_distance_to_players 20
+elseif SMALL_MAP
+min_distance_to_players 18
+elseif MEDIUM_MAP
+min_distance_to_players 16
+elseif LARGE_MAP
+min_distance_to_players 23
+else
+min_distance_to_players 23
+endif
+}
+endif
+create_object RELIC
+{
+if LUDIKRIS_MAP
+number_of_objects 10
+elseif GIGANTIC_MAP
+number_of_objects 8
+elseif HUGE_MAP
+number_of_objects 8
+elseif LARGE_MAP
+number_of_objects 6
+else
+number_of_objects 5
+endif
+min_distance_group_placement 1
+if TINY_MAP
+temp_min_distance_group_placement 14
+elseif SMALL_MAP
+temp_min_distance_group_placement 14
+elseif MEDIUM_MAP
+temp_min_distance_group_placement 18
+else
+temp_min_distance_group_placement 20
+endif
+set_gaia_object_only
+avoid_forest_zone 2
+max_distance_to_other_zones 4
+avoid_actor_area 20001
+if TINY_MAP
+min_distance_to_players 14
+elseif SMALL_MAP
+min_distance_to_players 16
+elseif MEDIUM_MAP
+min_distance_to_players 16
+else
+min_distance_to_players 16
+endif
+}
+if DEATH_MATCH
+elseif INFINITE_RESOURCES
+else
+create_object DLC_LION
+{
+if TINY_MAP
+number_of_objects 1
+elseif SMALL_MAP
+number_of_objects 1
+elseif MEDIUM_MAP
+number_of_objects 2
+elseif LARGE_MAP
+number_of_objects 3
+elseif HUGE_MAP
+number_of_objects 4
+else
+number_of_objects 6
+endif
+set_gaia_object_only
+if SAVCA
+terrain_to_place_on DIRT4
+elseif POUST
+terrain_to_place_on SAVANNAH
+endif
+min_distance_to_players 24
+min_distance_group_placement 6
+}
+endif

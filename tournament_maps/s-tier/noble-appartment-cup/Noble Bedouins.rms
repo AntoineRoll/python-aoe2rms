@@ -1,0 +1,332 @@
+/*
+ * Bedouins map for Warlords. Based on the maps from ECL and NWL3.
+ * 9 Villager start with +50 Wood.
+ * Initially edited by T-West, October, 2022.
+ * Edited by Doc Maggie, October, 2024.
+ */
+
+#const UNDERTCVILL 1285
+#const UNDERTCVILL_B 851
+#const PH_GENERIC_OFF 649
+<PLAYER_SETUP>
+
+random_placement
+nomad_resources
+
+/* adjust starting resources */
+effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -100
+
+effect_amount SET_ATTRIBUTE UNDERTCVILL ATTR_DEAD_ID 590
+effect_amount SET_ATTRIBUTE UNDERTCVILL ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE UNDERTCVILL_B ATTR_DEAD_ID 592
+effect_amount SET_ATTRIBUTE UNDERTCVILL_B ATTR_HITPOINTS 0
+
+
+<LAND_GENERATION>
+
+base_terrain DLC_DRAGONFOREST
+
+create_player_lands {
+  terrain_type DIRT
+  land_percent 100
+  clumping_factor 15
+  left_border 7
+  right_border 7
+  top_border 7
+  bottom_border 7
+}
+
+<TERRAIN_GENERATION>
+
+create_terrain DESERT {
+  base_terrain DIRT
+  land_percent 100
+  spacing_to_other_terrain_types 7
+}
+
+create_terrain DESERT {
+  base_terrain DIRT
+  land_percent 100
+  terrain_mask 1
+}
+
+create_terrain PALM_DESERT {
+  base_terrain DESERT
+  spacing_to_other_terrain_types 2
+  land_percent 8
+  number_of_clumps 20
+  set_avoid_player_start_areas
+  set_scale_by_groups
+}
+
+create_terrain DLC_WATER5 {
+  base_terrain PALM_DESERT
+  land_percent 2
+  number_of_clumps 18
+  set_scale_by_groups
+  clumping_factor 100
+}
+
+create_terrain WATER {
+  base_terrain DLC_WATER5
+  spacing_to_other_terrain_types 2
+  land_percent 100
+  number_of_clumps 9999
+  terrain_mask 2
+}
+
+create_terrain LEAVES {
+	land_percent 100
+	base_terrain DLC_DRAGONFOREST
+	number_of_clumps 10000
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+
+<OBJECTS_GENERATION>
+
+create_object VILLAGER {
+  set_place_for_every_player
+  number_of_objects 8
+  min_distance_to_players 0
+  max_distance_to_players 70
+}
+
+create_object VILLAGER {
+  set_place_for_every_player
+  number_of_objects 1
+  min_distance_to_players 0
+  max_distance_to_players 0
+}
+
+create_object DLC_GOAT {
+  set_place_for_every_player
+  number_of_objects 3
+  number_of_groups 1
+  set_loose_grouping
+  min_distance_to_players 1
+  max_distance_to_players 2
+}
+
+if REGICIDE
+  create_object KING {
+    set_place_for_every_player
+    min_distance_to_players 6
+    max_distance_to_players 7
+  }
+endif
+
+create_object SHORE_FISH {
+  number_of_objects 1
+  number_of_groups 9999
+  set_scaling_to_map_size
+  set_gaia_object_only
+  resource_delta 100
+  temp_min_distance_group_placement 1
+}
+
+create_object DLC_GOAT {
+  number_of_objects 3
+  number_of_groups 5
+  group_placement_radius 3
+  set_loose_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  min_distance_to_players 12
+  temp_min_distance_group_placement 25
+  terrain_to_place_on DESERT
+}
+
+create_object BOAR {
+  number_of_objects 1
+  number_of_groups 4
+  set_loose_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  temp_min_distance_group_placement 28
+  terrain_to_place_on DESERT
+}
+
+create_object DLC_IBEX {
+  number_of_objects 3
+  number_of_groups 3
+  group_placement_radius 3
+  set_loose_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  temp_min_distance_group_placement 32
+  terrain_to_place_on DESERT
+}
+
+create_object RELIC {
+  number_of_objects 5
+  min_distance_to_players 15
+  min_distance_group_placement 5
+  temp_min_distance_group_placement 25
+  terrain_to_place_on DESERT
+  avoid_forest_zone 2
+}
+
+create_object FORAGE {
+  number_of_objects 5
+  number_of_groups 3
+  group_placement_radius 3
+  set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  temp_min_distance_group_placement 30
+  min_distance_group_placement 9
+  terrain_to_place_on DESERT
+  avoid_forest_zone 2
+}
+
+create_actor_area 20 20 101 30
+create_actor_area 60 20 102 30
+create_actor_area 100 20 103 30
+create_actor_area 20 60 104 30
+create_actor_area 60 60 105 30
+create_actor_area 100 60 106 30
+create_actor_area 20 100 107 30
+create_actor_area 60 100 108 30
+create_actor_area 100 100 109 30
+
+/* create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 101
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 102
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 103
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 104
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 105
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 106
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 107
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 108
+}
+
+create_object GOLD {
+  number_of_objects 6
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement 12
+  avoid_forest_zone 4
+  min_distance_to_map_edge 9
+  actor_area_to_place_in 109
+} */
+
+create_object GOLD {
+  number_of_objects 6
+  number_of_groups 9
+  set_tight_grouping
+  set_gaia_object_only
+  temp_min_distance_group_placement 24
+  min_distance_group_placement 7
+  avoid_forest_zone 4
+  terrain_to_place_on DESERT
+}
+
+create_object STONE {
+  number_of_objects 4
+  number_of_groups 4
+  group_placement_radius 3
+  set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  temp_min_distance_group_placement 25
+  min_distance_group_placement 9
+  terrain_to_place_on DESERT
+  avoid_forest_zone 2
+}
+
+create_object DLC_WILD_CAMEL {
+  number_of_objects 3
+  number_of_groups 3
+  group_placement_radius 6
+  set_loose_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  temp_min_distance_group_placement 32
+  terrain_to_place_on DESERT
+  avoid_forest_zone 7
+  min_distance_group_placement 7
+}
+
+create_object SKELETON {
+  number_of_objects 99999
+  temp_min_distance_group_placement 10
+  terrain_to_place_on DIRT
+}
+
+create_object DLC_ANIMALSKELETON {
+  number_of_objects 99999
+  temp_min_distance_group_placement 10
+  terrain_to_place_on DIRT
+}

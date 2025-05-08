@@ -1,0 +1,4 @@
+#define ESCALATION_MODE
+					effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+					effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -90
+#include_drs Arena.rms

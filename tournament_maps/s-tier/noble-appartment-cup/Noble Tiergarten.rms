@@ -1,0 +1,1536 @@
+/* ************ Citadel ************ */
+/* October 9 2024 */
+
+/* special 9-villager start version for Noble Apartment Cup by Doc Maggie */
+
+/* Note: random_map.def is automatically included in every rms script */
+
+/* use two different different herdables so that you aren't giving all sheep 70 food */
+#const HERDABLE_A 1245 /* Pig */
+#const HERDABLE_B 1060 /* Goat */
+
+/* placeholders used for positioning */
+#const PH_NEUTRAL_OFF 346 /* Off-Grid Object - only used for gaia objects */
+#const PH_PLAYER_OFF 647 /* Off-Grid Object - only used for player objects */
+
+/* used to spawn 6 villagers in exact positions under the TC */
+#const LAZY_VILLAGER 1285 /* FE Flag */
+
+/* used to explore tiles around the TC */
+#const EW_REVEALER 851 /* ES Flag */
+
+#const REED_FOREST 92
+
+<PLAYER_SETUP>
+  /* grouped_by_team */
+  direct_placement
+  
+  /* creates the villagers from the flags under the TC */
+effect_amount SET_ATTRIBUTE LAZY_VILLAGER ATTR_DEAD_ID 83
+effect_amount SET_ATTRIBUTE LAZY_VILLAGER ATTR_HITPOINTS 0
+
+/* adjust starting resources */
+effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -100
+
+/* make the herdable under the TC die and only have 70 food */
+/* note that you should NOT place this herdable type for gaia anywhere else */
+effect_amount GAIA_ADD_ATTRIBUTE HERDABLE_A ATTR_STORAGE_VALUE -30	
+effect_amount GAIA_SET_ATTRIBUTE HERDABLE_A ATTR_HITPOINTS 0
+
+/* revealer line of sight */
+effect_amount SET_ATTRIBUTE EW_REVEALER ATTR_LINE_OF_SIGHT 18
+effect_amount SET_ATTRIBUTE EW_REVEALER ATTR_HITPOINTS 0
+
+#const PH_NEUTRAL_OFF 346 /* Off-Grid Object - only used for gaia objects */
+#const PH_PLAYER_OFF 647 /* Off-Grid Object - only used for player objects */
+
+/* used to spawn 6 villagers in exact positions under the TC */
+#const LAZY_VILLAGER 1285 /* FE Flag */
+
+<PLAYER_SETUP>
+
+    direct_placement
+    #const DEAD_FISH_TRAP 278
+    #const INDIAN_STATUE 1777
+    #const PAGAN_SHRINE 1712
+
+<LAND_GENERATION>
+
+    base_terrain GRASS
+
+    start_random
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 81 28
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 19 72
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 85 65
+                top_border 52
+                bottom_border 22
+                left_border 80
+                right_border 5
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 15 35
+                top_border 22
+                bottom_border 52
+                left_border 5
+                right_border 80
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 60 0 202 8
+            create_actor_area 120 0 203 8
+            create_actor_area 0 120 204 8
+            create_actor_area 60 120 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 35 15 1201 7
+            create_actor_area 65 15 1202 7
+            create_actor_area 55 105 1203 7
+            create_actor_area 85 105 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 81 28
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 19 72
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 85 65
+                top_border 52
+                bottom_border 22
+                left_border 80
+                right_border 5
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 15 35
+                top_border 22
+                bottom_border 52
+                left_border 5
+                right_border 80
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 60 0 202 8
+            create_actor_area 120 0 203 8
+            create_actor_area 0 120 204 8
+            create_actor_area 60 120 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 35 15 1201 7
+            create_actor_area 65 15 1202 7
+            create_actor_area 55 105 1203 7
+            create_actor_area 85 105 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 19 28
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 81 72
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 85 35
+                top_border 22
+                bottom_border 52
+                left_border 80
+                right_border 5
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 15 64
+                top_border 52
+                bottom_border 22
+                left_border 5
+                right_border 80
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 60 0 202 8
+            create_actor_area 120 0 203 8
+            create_actor_area 0 120 204 8
+            create_actor_area 60 120 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 55 15 1201 7
+            create_actor_area 85 15 1202 7
+            create_actor_area 35 105 1203 7
+            create_actor_area 65 105 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 19 28
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 81 72
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 85 35
+                top_border 22
+                bottom_border 52
+                left_border 80
+                right_border 5
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 15 64
+                top_border 52
+                bottom_border 22
+                left_border 5
+                right_border 80
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 60 0 202 8
+            create_actor_area 120 0 203 8
+            create_actor_area 0 120 204 8
+            create_actor_area 60 120 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 55 15 1201 7
+            create_actor_area 85 15 1202 7
+            create_actor_area 35 105 1203 7
+            create_actor_area 65 105 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 72 19
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 28 81
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 35 15
+                top_border 5
+                bottom_border 80
+                left_border 22
+                right_border 52
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 65 85
+                top_border 80
+                bottom_border 5
+                left_border 52
+                right_border 22
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 0 60 202 8
+            create_actor_area 0 120 203 8
+            create_actor_area 120 0 204 8
+            create_actor_area 120 60 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 105 55 1201 7
+            create_actor_area 105 85 1202 7
+            create_actor_area 15 35 1203 7
+            create_actor_area 15 65 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 72 19
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 28 81
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 35 15
+                top_border 5
+                bottom_border 80
+                left_border 22
+                right_border 52
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 65 85
+                top_border 80
+                bottom_border 5
+                left_border 52
+                right_border 22
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 0 60 202 8
+            create_actor_area 0 120 203 8
+            create_actor_area 120 0 204 8
+            create_actor_area 120 60 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 105 55 1201 7
+            create_actor_area 105 85 1202 7
+            create_actor_area 15 35 1203 7
+            create_actor_area 15 65 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 72 81
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 28 19
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 64 15
+                top_border 5
+                bottom_border 80
+                left_border 52
+                right_border 22
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 35 85
+                top_border 80
+                bottom_border 5
+                left_border 22
+                right_border 52
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 0 60 202 8
+            create_actor_area 0 120 203 8
+            create_actor_area 120 0 204 8
+            create_actor_area 120 60 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 105 35 1201 7
+            create_actor_area 105 65 1202 7
+            create_actor_area 15 55 1203 7
+            create_actor_area 15 85 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                land_position 0 0
+                base_size 0
+            }
+
+            /* START: Player lands */
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 72 81
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 0
+                base_size 10
+                land_position 28 19
+                base_elevation 1
+                spacing_to_other_terrain_types 2
+                other_zone_avoidance_distance 5
+                assign_to_player 1
+            }
+
+            /* END: Player lands */
+
+            /* START: Berries and baobab patches */
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 64 15
+                top_border 5
+                bottom_border 80
+                left_border 52
+                right_border 22
+            }
+
+            create_land {
+                terrain_type DIRT2
+                land_percent 100
+                land_position 35 85
+                top_border 80
+                bottom_border 5
+                left_border 22
+                right_border 52
+            }
+
+            /* END: Berries and baobab patches */
+        
+        <OBJECTS_GENERATION>
+
+            create_actor_area 0 0 201 8
+            create_actor_area 0 60 202 8
+            create_actor_area 0 120 203 8
+            create_actor_area 120 0 204 8
+            create_actor_area 120 60 205 8
+            create_actor_area 120 120 206 8
+
+            create_actor_area 105 35 1201 7
+            create_actor_area 105 65 1202 7
+            create_actor_area 15 55 1203 7
+            create_actor_area 15 85 1204 7
+
+            create_object RELIC {
+                actor_area_to_place_in 201
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 202
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 203
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 204
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 205
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+            create_object RELIC {
+                actor_area_to_place_in 206
+                avoid_forest_zone 2
+                min_distance_group_placement 2
+            }
+
+    end_random
+
+<LAND_GENERATION>
+
+    /* START: Middle park */
+
+    create_land {
+        terrain_type DLC_ROCK
+        land_percent 100
+        land_position 50 50
+        top_border 27
+        bottom_border 27
+        left_border 27
+        right_border 27
+    }
+
+    /* END: Middle park */
+
+<TERRAIN_GENERATION>
+    
+    create_terrain DLC_MOORLAND {
+        base_terrain GRASS
+        land_percent 10
+        number_of_clumps 40
+        terrain_mask 2
+    }
+
+    create_terrain GRASS3 {
+        base_terrain GRASS
+        land_percent 30
+        number_of_clumps 40
+        terrain_mask 2
+    }
+
+    create_terrain DIRT3 {
+        base_terrain DLC_ROCK
+        land_percent 100
+        spacing_to_other_terrain_types 1
+    }
+
+    create_terrain FOREST {
+        base_terrain DIRT3
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain DLC_ROCK {
+        base_terrain FOREST
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain DIRT3 {
+        base_terrain DLC_ROCK
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain FOREST {
+        base_terrain DIRT3
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain GRASS2 {
+        base_terrain FOREST
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain GRASS2 {
+        base_terrain DLC_ROCK
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain GRASS2 {
+        base_terrain DLC_DIRT4
+        land_percent 100
+        spacing_to_other_terrain_types 4
+    }
+
+    create_terrain LEAVES {
+        base_terrain DIRT2
+        land_percent 100
+        spacing_to_other_terrain_types 3
+    }
+
+    create_terrain LEAVES {
+        base_terrain DIRT2
+        land_percent 100
+        spacing_to_other_terrain_types 3
+    }
+
+    create_terrain BIRCH_FOREST {
+        base_terrain GRASS
+        land_percent 5
+        number_of_clumps 80
+        set_avoid_player_start_areas 30
+    }
+
+<OBJECTS_GENERATION>
+
+    create_object TOWN_CENTER {
+        set_place_for_every_player
+        max_distance_to_players 0
+    }
+
+    create_object OUTPOST {
+        set_place_for_every_player
+        terrain_to_place_on LEAVES
+        find_closest
+        actor_area 1001
+    }
+
+    create_object DEER {
+        number_of_objects 2
+        set_gaia_object_only
+        set_gaia_unconvertible
+        set_place_for_every_player
+        terrain_to_place_on LEAVES
+        find_closest
+    }
+    
+    create_object DEER {
+        number_of_objects 3
+        set_loose_grouping
+        set_gaia_object_only
+        actor_area_to_place_in 1201
+    }
+
+    create_object DEER {
+        number_of_objects 3
+        set_loose_grouping
+        set_gaia_object_only
+        actor_area_to_place_in 1202
+    }
+
+    create_object DEER {
+        number_of_objects 3
+        set_loose_grouping
+        set_gaia_object_only
+        actor_area_to_place_in 1203
+    }
+
+    create_object DEER {
+        number_of_objects 3
+        set_loose_grouping
+        set_gaia_object_only
+        actor_area_to_place_in 1204
+    }
+
+/* PLAYER STARTS */
+
+/* explore the area around the TC */
+create_object EW_REVEALER
+{
+	set_place_for_every_player
+	max_distance_to_players 0
+}
+
+create_object SCOUT
+{
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 7
+	set_circular_placement
+	min_distance_group_placement 1
+}
+
+/* these actor areas are used to help position the villagers under the TC */
+create_object PH_NEUTRAL_OFF /* Near Positioner */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 5
+	min_distance_to_players 1
+	max_distance_to_players 1
+	find_closest
+	actor_area 5100
+	actor_area_radius 0
+}
+
+create_object PH_NEUTRAL_OFF /* Villager Avoider */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 1
+	max_distance_to_players 1
+	find_closest
+	actor_area 5101
+	actor_area_radius 0
+	avoid_actor_area 5100 /* Near Positioner */
+}
+
+create_object PH_NEUTRAL_OFF /* Far Positioner */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 5
+	min_distance_to_players 2
+	max_distance_to_players 2
+	temp_min_distance_group_placement 1
+	find_closest
+	actor_area 5103
+	actor_area_radius 1
+}
+
+create_object PH_NEUTRAL_OFF /* Blocking Seventh Villager */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 2
+	max_distance_to_players 2
+	find_closest
+	actor_area 5104
+	actor_area_radius 0
+	avoid_actor_area 5103 /* Far Positioner */
+}
+
+
+/* this is the sheep under the TC */
+create_object PH_NEUTRAL_OFF
+{
+	set_place_for_every_player
+	second_object HERDABLE_A
+	set_gaia_object_only
+	min_distance_to_players 1
+	max_distance_to_players 1
+	actor_area_radius 1
+	avoid_actor_area 5100 /* Herdable Positioner */
+	find_closest
+	actor_area 20
+}
+
+/* the other 3 starting sheep */
+create_object HERDABLE_A
+{
+	set_place_for_every_player
+	number_of_objects 3
+	set_loose_grouping
+	group_placement_radius 2
+	min_distance_to_players 5
+	max_distance_to_players 6
+	set_circular_placement
+	actor_area 1113
+	actor_area_radius 3
+}
+
+/* these are the sheep that are outside of the explored area - note that we only have 2 total */
+/* this should NOT be the same herdable as is used for the decaying 70 food herdable under the TC */
+create_object HERDABLE_B
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 2
+	number_of_groups 1
+	set_loose_grouping
+	group_placement_radius 1
+	min_distance_group_placement 2
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
+	avoid_cliff_zone 2
+	min_distance_to_players 18
+	max_distance_to_players 20
+	set_circular_placement
+}
+
+/* this code is used to place 6 villagers under the TC in exactly optimal positions around the sheep */
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+
+/* this straggler will have 3 villagers near it */
+create_object DLC_AUTUMNTREE
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	find_closest
+	actor_area 11
+	actor_area_radius 1
+	min_distance_to_players 5
+	avoid_actor_area 1113
+}
+
+/* 3 villagers */
+create_object VILLAGER {
+	number_of_objects 3
+	set_place_for_every_player
+	actor_area_to_place_in 11 /* Straggler */
+	place_on_forest_zone
+}
+
+create_object PAVILION {
+	set_place_for_every_player
+	number_of_objects 2
+	find_closest
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
+	min_distance_to_players 8
+	avoid_actor_area 1113
+	min_distance_group_placement 3
+}
+
+/* resources */
+
+create_object DLC_AUTUMNTREE {
+    number_of_objects 3
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_to_players 5
+    max_distance_to_players 6
+    temp_min_distance_group_placement 3
+    set_circular_placement
+}
+
+/* forage */
+create_object DLC_ORANGEBUSH {
+    number_of_objects 4
+    group_placement_radius 2
+    set_loose_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_to_players 11
+    max_distance_to_players 14
+    set_circular_placement
+    min_distance_group_placement 3
+    avoid_forest_zone 3
+    min_distance_to_map_edge 2
+    max_distance_to_other_zones 5
+}
+
+/* create_object DEER {
+    number_of_objects 2
+    group_placement_radius 3
+    set_loose_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_to_players 26
+    find_closest
+    set_circular_placement
+    min_distance_group_placement 3
+    avoid_forest_zone 3
+    min_distance_to_map_edge 1
+    max_distance_to_other_zones 5
+} */
+
+create_object DEER {
+    number_of_objects 4
+    number_of_groups 2
+    set_gaia_object_only
+    terrain_to_place_on LEAVES
+    temp_min_distance_group_placement 30
+    min_distance_to_players 46
+    max_distance_to_players 48
+    set_loose_grouping
+}
+
+/* create_object DLC_BEAR { */
+create_object BOAR {
+  number_of_objects 1
+  number_of_groups 2
+  group_placement_radius 3
+  set_loose_grouping
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players 15
+  max_distance_to_players 17
+  set_circular_placement
+  temp_min_distance_group_placement 10
+  avoid_forest_zone 3
+  /* resource_delta 260 */
+}
+
+create_object GOLD {
+    number_of_objects 4
+    number_of_groups 2
+    group_placement_radius 3
+    set_tight_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_to_players 10
+    max_distance_to_players 15
+    set_circular_placement
+    min_distance_group_placement 5
+    temp_min_distance_group_placement 11
+    avoid_forest_zone 2
+    min_distance_to_map_edge 2
+    max_distance_to_other_zones 6
+}
+
+create_object GOLD {
+    number_of_objects 2
+    number_of_groups 99999
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_to_players 25
+    min_distance_group_placement 2
+    temp_min_distance_group_placement 28
+    avoid_forest_zone 2
+    terrain_to_place_on GRASS3
+}
+
+/* neutrals */
+
+create_object ROCK {
+    number_of_groups 99999
+    number_of_objects 1
+    terrain_to_place_on	GRASS
+    temp_min_distance_group_placement 22
+    min_distance_to_players 13
+    min_distance_to_map_edge 9
+    set_gaia_object_only
+    avoid_forest_zone 3
+    actor_area 301
+}
+
+create_object STONE {
+    number_of_groups 99999
+    number_of_objects 2
+    min_distance_group_placement 2
+    temp_min_distance_group_placement 10
+    set_gaia_object_only
+    set_tight_grouping
+    min_distance_to_map_edge 5
+    actor_area_to_place_in 301
+    resource_delta 200
+}
+
+create_object FLOWERS_2 {
+    number_of_groups 99999
+    number_of_objects 1
+    temp_min_distance_group_placement 10
+    set_gaia_object_only
+    set_tight_grouping
+    actor_area_to_place_in 301
+}
+
+create_object DLC_DEADTREE {
+    number_of_objects 99999
+    place_on_specific_land_id 1
+    terrain_to_place_on GRASS2
+    temp_min_distance_group_placement 3
+}
+
+create_object WOLF {
+    number_of_objects 99999
+    terrain_to_place_on DLC_MOORLAND
+    temp_min_distance_group_placement 25
+    min_distance_to_players 30
+}
+
+create_actor_area 60 60 101 0
+create_object DLC_STELAE_C { actor_area_to_place_in 101 }
+
+create_actor_area 60 60 102 4
+create_actor_area 64 64 103 1
+create_actor_area 62 65 104 1
+create_actor_area 65 62 105 1
+create_actor_area 64 56 106 1
+create_actor_area 65 58 107 1
+create_actor_area 62 55 108 1
+create_actor_area 56 56 109 1
+create_actor_area 58 55 110 1
+create_actor_area 55 58 111 1
+create_actor_area 56 64 112 1
+create_actor_area 58 65 113 1
+create_actor_area 55 62 114 1
+create_actor_area 60 60 115 1
+create_actor_area 68 60 116 0
+create_actor_area 54 61 117 0
+create_actor_area 62 68 118 0
+create_actor_area 59 54 119 0
+create_actor_area 73 59 120 0
+create_actor_area 49 62 121 0
+create_actor_area 65 75 122 0
+create_actor_area 56 47 123 0
+create_object GOLD {
+    number_of_objects 99999
+    avoid_actor_area 101
+    avoid_actor_area 103
+    avoid_actor_area 104
+    avoid_actor_area 105
+    avoid_actor_area 106
+    avoid_actor_area 107
+    avoid_actor_area 108
+    avoid_actor_area 109
+    avoid_actor_area 110
+    avoid_actor_area 111
+    avoid_actor_area 112
+    avoid_actor_area 113
+    avoid_actor_area 114
+    avoid_actor_area 115
+    actor_area_to_place_in 102
+}
+
+create_object DLC_ORANGEBUSH {
+    number_of_objects 9
+    actor_area_to_place_in 115
+}
+
+create_object PATH_4 { actor_area_to_place_in 116 }
+create_object PATH_4 { actor_area_to_place_in 117 }
+create_object PATH_1 { actor_area_to_place_in 118 }
+create_object PATH_1 { actor_area_to_place_in 119 }
+create_object PATH_4 { actor_area_to_place_in 120 }
+create_object PATH_4 { actor_area_to_place_in 121 }
+create_object PATH_1 { actor_area_to_place_in 122 }
+create_object PATH_1 { actor_area_to_place_in 123 }
+
+create_object FORAGE {
+    number_of_objects 3
+    number_of_groups 99999
+    set_tight_grouping
+    temp_min_distance_group_placement 3
+    terrain_to_place_on LEAVES
+}
+
+create_object BIRCH_TREE {
+    number_of_objects 99999
+    terrain_to_place_on GRASS3
+    temp_min_distance_group_placement 5
+    min_distance_to_players 12
+}
+
+create_actor_area 60 60 1101 35
+
+create_object ROMAN_RUINS {
+    number_of_objects 99999
+    temp_min_distance_group_placement 20
+    set_gaia_object_only
+    set_gaia_unconvertible
+    make_indestructible
+    min_distance_to_players 20
+    terrain_to_place_on DLC_MOORLAND
+    actor_area 10000
+    avoid_actor_area 1101
+}
+
+create_object FLOWER_BED {
+    number_of_objects 100
+    actor_area_to_place_in 10000
+    temp_min_distance_group_placement 1
+    ignore_terrain_restrictions
+}
+
+create_object FLOWERS_1 {
+    number_of_objects 100
+    temp_min_distance_group_placement 20
+    ignore_terrain_restrictions
+    min_distance_to_players 25
+    min_distance_to_map_edge 5
+    terrain_to_place_on GRASS
+}
+
+create_object FLOWERS_2 {
+    number_of_objects 100
+    temp_min_distance_group_placement 20
+    ignore_terrain_restrictions
+    min_distance_to_players 25
+    min_distance_to_map_edge 5
+    terrain_to_place_on GRASS
+}
+
+create_object FLOWERS_3 {
+    number_of_objects 100
+    temp_min_distance_group_placement 20
+    ignore_terrain_restrictions
+    min_distance_to_players 25
+    min_distance_to_map_edge 5
+    terrain_to_place_on GRASS
+}
+
+create_object FLOWERS_4 {
+    number_of_objects 100
+    temp_min_distance_group_placement 20
+    ignore_terrain_restrictions
+    min_distance_to_players 25
+    min_distance_to_map_edge 5
+    terrain_to_place_on GRASS
+}
+
+<ELEVATION_GENERATION>
+
+/* hills */
+
+create_elevation 1 {
+    base_terrain GRASS
+    number_of_tiles 100000
+    number_of_clumps 10
+    set_scale_by_groups
+    enable_balanced_elevation
+}

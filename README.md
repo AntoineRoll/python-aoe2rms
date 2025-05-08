@@ -42,7 +42,7 @@ from aoe2rms.generations.objects import CreateObject
 my_map = Map(
     name="My First Map",
     author="Your Name",
-    description="A map created with aoe2rms"
+    description="A map created with python-aoe2rms"
 )
 
 # Add a create_land command to the land_generation section
@@ -105,6 +105,14 @@ The RMS structure in `aoe2rms` follows the official RMS sections:
 For detailed documentation on RMS scripting, refer to Zetnus' [Definitive Random Map Scripting Guide
 ](https://docs.google.com/document/d/1jnhZXoeL9mkRUJxcGlKnO98fIwFKStP_OBozpr0CHXo/edit?pli=1&tab=t.0)
 which contains comprehensive information on Age of Empires II random map scripting. The included `RmsGuide.md` was generated from an extract of the guide in April 2025 and used as context for AI-assisted coding.
+
+## Tournament maps
+
+Tournament maps have been included in this repository. First, it offers access to the RMS scripts without opening the Age of Empires game. Secondly, we want in the future to showcase the value `python-aoe2rms` can bring by recreating identically some maps with Python scripts.
+
+For now, we have included almost all maps from S-Tier tournaments (RM, 1v1) of 2024-2025. Feel free to contribute with more map scripts!
+
+All credits are due to Map scripters and Tournament organizers. You will usually find the map author in a commented section at the top of the script file.
 
 ## Advanced Usage
 

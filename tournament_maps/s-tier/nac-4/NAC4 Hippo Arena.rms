@@ -1,0 +1,7291 @@
+/* use two different different herdables so that you aren't giving all sheep 70 food */
+#const HERDABLE_A 1245 /* Pig */
+#const HERDABLE_B 594 /* Sheep */
+
+/* palceholders used for positioning */
+#const PH_NEUTRAL_OFF 346 /* Off-Grid Object - only used for gaia objects */
+#const PH_PLAYER_OFF 647 /* Off-Grid Object - only used for player objects */
+
+/* used to spawn 6 villagers in exact positions under the TC */
+#const LAZY_VILLAGER 1285 /* FE Flag */
+
+/* used to explore tiles around the TC */
+#const EW_REVEALER 851 /* ES Flag */
+
+#const STORMY 862
+
+<PLAYER_SETUP>
+  direct_placement 
+
+	
+/* creates the villagers from the flags under the TC */
+effect_amount SET_ATTRIBUTE LAZY_VILLAGER ATTR_DEAD_ID 83
+effect_amount SET_ATTRIBUTE LAZY_VILLAGER ATTR_HITPOINTS 0
+
+/* adjust starting resources */
+effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -100
+
+/* make the herdable under the TC die and only have 70 food */
+/* note that you should NOT place this herdable type for gaia anywhere else */
+effect_amount GAIA_ADD_ATTRIBUTE HERDABLE_A ATTR_STORAGE_VALUE -30	
+effect_amount GAIA_SET_ATTRIBUTE HERDABLE_A ATTR_HITPOINTS 0
+
+/* revealer line of sight */
+effect_amount SET_ATTRIBUTE EW_REVEALER ATTR_LINE_OF_SIGHT 18
+effect_amount SET_ATTRIBUTE EW_REVEALER ATTR_HITPOINTS 0
+
+<LAND_GENERATION>
+base_terrain GRASS
+
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 1 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 1 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 1 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 1 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 1 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 1 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 65
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 66
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 67
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 68
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 2 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 62
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 63
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 64
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 65
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 66
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 79
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 80
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 81
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 82
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 3 83
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 4 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 4 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 4 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 4 83
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 4 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 4 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 5 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 5 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 5 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 5 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 5 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 5 87
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 6 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 6 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 6 87
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 6 88
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 6 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 7 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 7 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 7 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 7 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 7 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 7 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 8 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 9 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 9 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 9 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 10 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 10 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 10 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 11 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 11 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 11 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 11 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 12 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 12 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 12 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 12 95
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 13 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 13 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 13 95
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 14 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 14 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 14 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 14 95
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 14 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 15 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 15 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 16 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 16 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 16 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 17 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 17 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 17 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 17 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 18 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 88
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 18 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 18 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 19 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 19 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 19 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 19 87
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 19 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 19 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 20 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 20 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 20 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 20 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 20 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 20 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 20 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 21 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 21 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 21 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 21 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 21 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 21 62
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 21 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 21 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 21 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 21 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 22 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 22 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 62
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 22 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 22 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 23 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 62
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 23 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 23 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 24 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 24 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 24 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 24 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 24 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 25 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 25 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 25 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 25 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 25 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 26 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 26 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 26 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 27 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 27 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 27 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 27 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 27 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 28 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 28 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 28 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 28 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 29 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 29 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 88
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 29 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 29 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 29 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 30 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 87
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 30 88
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 30 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 30 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 31 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 31 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 31 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 31 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 31 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 31 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 31 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 31 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 31 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 32 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 32 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 32 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 33 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 33 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 34 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 34 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 34 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 35 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 35 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 35 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 35 98
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 36 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 36 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 36 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 37 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 37 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 37 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 38 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 38 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 38 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 38 79
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 38 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 38 97
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 39 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 39 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 39 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 39 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 39 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 39 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 39 79
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 39 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 40 26
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 40 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 40 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 40 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 40 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 40 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 40 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 40 79
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 40 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 41 26
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 41 79
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 41 95
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 41 96
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 42 25
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 42 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 42 95
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 43 24
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 43 25
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_QUICKSAND
+  land_position 43 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 43 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 43 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 43 95
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 44 23
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 44 24
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 44 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 44 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 45 23
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 45 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 45 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 45 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 46 22
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 46 23
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 46 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 46 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 46 94
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 47 21
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 47 22
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 47 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 47 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 48 21
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 48 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 48 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 48 93
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 49 19
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 49 20
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 49 21
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 49 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 49 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 49 92
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 50 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 50 18
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 50 19
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 50 20
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 50 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 50 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 51 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 51 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 51 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_QUICKSAND
+  land_position 51 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 51 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 51 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 51 91
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 52 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 52 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 52 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 52 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 52 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 52 90
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 53 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 53 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 53 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_QUICKSAND
+  land_position 53 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 53 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 53 88
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 53 89
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 18
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 54 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 87
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 54 88
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 18
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 55 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 55 87
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 18
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 56 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 56 86
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 57 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 57 85
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 58 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 83
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 58 84
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 59 6
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 59 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 59 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 59 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 59 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 59 82
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 59 83
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 5
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 6
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 60 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 81
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 60 82
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 61 5
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 61 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 61 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 61 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 61 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 61 80
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 61 81
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 62 4
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 62 5
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 62 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 62 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 62 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 62 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 62 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 62 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 62 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 62 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 62 79
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 62 80
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 4
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 63 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 63 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 63 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 63 78
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 4
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 64 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_QUICKSAND
+  land_position 64 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 64 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 76
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 64 77
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 65 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 65 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 65 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 65 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 65 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 65 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 65 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 65 74
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 65 75
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 66 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 66 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 66 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 72
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 66 73
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 67 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 67 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 67 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 70
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 67 71
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 68 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 68 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 68 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 68 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 67
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 68
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 68 69
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 69 2
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 69 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 69 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 69 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 69 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 69 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 69 65
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 69 66
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 69 67
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 70 2
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 70 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 70 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 70 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 70 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 70 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 70 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 70 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 70 64
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 70 65
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 71 2
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 71 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 71 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 71 62
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 71 63
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 71 64
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 72 3
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 72 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 72 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 72 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 72 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 72 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 72 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DESERT
+  land_position 72 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 72 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 72 62
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 4
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 5
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 6
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 7
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 8
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 9
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 10
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 73 61
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 74 5
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 74 11
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 74 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 74 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 74 60
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 75 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 75 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 75 58
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 75 59
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 76 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 76 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 76 57
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 77 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 77 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 77 56
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 78 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 78 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 78 55
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 79 12
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 79 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 79 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 79 54
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 80 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 80 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 80 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 80 53
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 81 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 81 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 81 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 81 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 81 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 81 52
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 13
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 82 51
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 14
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 83 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 15
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 84 50
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 16
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 85 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 17
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 18
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 86 49
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 18
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 19
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 20
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 87 48
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 20
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 21
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 22
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 88 47
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 21
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 22
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 23
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 24
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 25
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 26
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 89 46
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 90 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 90 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 90 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 90 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 90 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 90 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 44
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 91 45
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 92 43
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 93 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 94 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 94 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 94 41
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 94 42
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 95 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 95 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 95 40
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 96 27
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 96 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 96 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 96 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 96 38
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 96 39
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 97 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 97 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 97 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 97 36
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 97 37
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 28
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 29
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 31
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 32
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 33
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 34
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 35
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 30
+  base_size 1
+  number_of_tiles 0
+}
+create_land
+{
+  terrain_type  DLC_BLACK
+  land_position 98 31
+  base_size 1
+  number_of_tiles 0
+}
+
+
+
+start_random 
+percent_chance 100
+create_land { land_position 80 80 assign_to_player 1 land_percent 3 terrain_type GRASS base_size 15 } 
+create_land { land_position 20 20 assign_to_player 2 land_percent 3 terrain_type GRASS base_size 15 } 
+percent_chance 0
+create_land { land_position 80 80 assign_to_player 2 land_percent 3 terrain_type GRASS base_size 15 } 
+create_land { land_position 20 20 assign_to_player 1 land_percent 3 terrain_type GRASS base_size 15 } 
+end_random 
+
+
+create_land
+{
+land_position 1 1 
+land_percent 100
+terrain_type JUNGLE
+}
+create_land
+{
+land_position 1 50 
+land_percent 100
+terrain_type JUNGLE
+}
+create_land
+{
+land_position 99 99 
+land_percent 100
+terrain_type JUNGLE
+}
+create_land
+{
+land_position 1 99 
+land_percent 100
+terrain_type JUNGLE
+}
+create_land
+{
+land_position 99 1 
+land_percent 100
+terrain_type JUNGLE
+}
+
+<TERRAIN_GENERATION>
+
+
+create_terrain DESERT
+{
+	base_terrain DLC_BLACK
+	land_percent 100
+}
+create_terrain DESERT
+{
+	base_terrain DLC_BLACK
+	land_percent 100
+}
+create_terrain DESERT
+{
+	base_terrain DLC_BLACK
+	land_percent 100
+}
+create_terrain DESERT
+{
+	base_terrain DLC_BLACK
+	land_percent 100
+}
+create_terrain DESERT
+{
+	base_terrain DLC_BLACK
+	land_percent 100
+}
+/*masking*/ 
+create_terrain LEAVES 
+{
+  base_terrain                   GRASS
+  number_of_clumps               8
+  spacing_to_other_terrain_types 0
+  land_percent                   4
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain LEAVES 
+{
+  base_terrain                   DESERT
+  number_of_clumps               8
+  spacing_to_other_terrain_types 0
+  land_percent                   4
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain LEAVES 
+{
+  base_terrain                   DESERT
+  number_of_clumps               8
+  spacing_to_other_terrain_types 0
+  land_percent                   4
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain DESERT 
+{
+  base_terrain                   GRASS
+  number_of_clumps               8
+  spacing_to_other_terrain_types 0
+  land_percent                   4
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain GRASS
+{
+  base_terrain                   DESERT
+  number_of_clumps               8
+  spacing_to_other_terrain_types 0
+  land_percent                   4
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain GRASS
+{
+  base_terrain                   DESERT
+  number_of_clumps               8
+  spacing_to_other_terrain_types 0
+  land_percent                   4
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain ROAD 
+{
+  base_terrain                   GRASS
+  number_of_clumps               1
+  spacing_to_other_terrain_types 0
+  land_percent                   1
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain ROAD
+{
+  base_terrain                   DESERT
+  number_of_clumps               1
+  spacing_to_other_terrain_types 0
+  land_percent                   1
+  set_scale_by_size
+  terrain_mask 1
+}
+create_terrain ROAD
+{
+  base_terrain                   DESERT
+  number_of_clumps               1
+  spacing_to_other_terrain_types 0
+  land_percent                   1
+  set_scale_by_size
+  terrain_mask 1
+} 
+<OBJECTS_GENERATION>
+
+/* explore the area around the TC */
+create_object EW_REVEALER
+{
+	set_place_for_every_player
+	max_distance_to_players 0
+}
+create_object PH_PLAYER_OFF {
+	set_place_for_every_player
+	max_distance_to_players 0
+	actor_area 45
+	actor_area_radius 45
+}
+
+create_object TOWN_CENTER {
+	set_place_for_every_player
+	max_distance_to_players 0
+}
+
+create_object SCOUT
+{
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 7
+	set_circular_placement
+	min_distance_group_placement 1
+}
+
+/* these actor areas are used to help position the villagers under the TC */
+create_object PH_NEUTRAL_OFF /* Near Positioner */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 5
+	min_distance_to_players 1
+	max_distance_to_players 1
+	find_closest
+	actor_area 5100
+	actor_area_radius 0
+}
+create_object PH_NEUTRAL_OFF /* Villager Avoider */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 1
+	max_distance_to_players 1
+	find_closest
+	actor_area 5101
+	actor_area_radius 0
+	avoid_actor_area 5100 /* Near Positioner */
+}
+create_object PH_NEUTRAL_OFF /* Far Positioner */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 5
+	min_distance_to_players 2
+	max_distance_to_players 2
+	temp_min_distance_group_placement 1
+	find_closest
+	actor_area 5103
+	actor_area_radius 1
+}
+create_object PH_NEUTRAL_OFF /* Blocking Seventh Villager */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 2
+	max_distance_to_players 2
+	find_closest
+	actor_area 5104
+	actor_area_radius 0
+	avoid_actor_area 5103 /* Far Positioner */
+}
+
+
+/* this is the sheep under the TC */
+create_object PH_NEUTRAL_OFF
+{
+	set_place_for_every_player
+	second_object HERDABLE_A
+	set_gaia_object_only
+	min_distance_to_players 1
+	max_distance_to_players 1
+	actor_area_radius 1
+	avoid_actor_area 5100 /* Herdable Positioner */
+	find_closest
+	actor_area 20
+}
+
+/* the other 3 starting sheep */
+create_object HERDABLE_A
+{
+	set_place_for_every_player
+	number_of_objects 3
+	set_loose_grouping
+	group_placement_radius 2
+	min_distance_to_players 5
+	max_distance_to_players 6
+	set_circular_placement
+	actor_area 1113
+	actor_area_radius 3
+}
+
+/* these are the sheep that are outside of the explored area - note that we only have 2 total */
+/* this should NOT be the same herdable as is used for the decaying 70 food herdable under the TC */
+create_object HERDABLE_B
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 2
+	number_of_groups 1
+	set_loose_grouping
+	group_placement_radius 1
+	min_distance_group_placement 2
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
+	avoid_cliff_zone 2
+	min_distance_to_players 16
+	max_distance_to_players 20
+	set_circular_placement
+}
+
+/* this code is used to place 6 villagers under the TC in exactly optimal positions around the sheep */
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+
+/* this straggler will have 3 villagers near it */
+create_object OAKTREE
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	find_closest
+	actor_area 11
+	actor_area_radius 1
+	min_distance_to_players 5
+	avoid_actor_area 1113
+}
+
+/* 3 villagers */
+create_object VILLAGER
+{
+	number_of_objects 3
+	set_place_for_every_player
+	actor_area_to_place_in 11 /* Straggler */
+	place_on_forest_zone
+}
+
+/* 2 starting houses */
+create_object HOUSE
+{
+	set_place_for_every_player
+	number_of_objects 2
+	find_closest
+	avoid_forest_zone 2
+	min_distance_to_players 7
+	avoid_actor_area 1113
+	min_distance_group_placement 3
+}
+
+create_object WALL
+{
+	set_place_for_every_player
+	min_distance_to_players 22
+	max_distance_to_players 22
+	actor_area 1
+	actor_area_radius 6
+}
+
+create_actor_area 100 20 905 4
+create_actor_area 90 30 905 4
+create_actor_area 80 40 905 4
+create_actor_area 70 50 905 4
+create_actor_area 60 60 905 4
+create_actor_area 50 70 905 4
+create_actor_area 40 80 905 4
+create_actor_area 30 90 905 4
+create_actor_area 20 100 905 4
+create_actor_area 10 110 905 4
+create_object RELIC {
+	number_of_objects 1
+	actor_area_to_place_in 905
+	min_distance_group_placement 10
+	avoid_forest_zone 1
+	}
+create_object GOLD {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 905
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+
+create_actor_area 70 15 906 15
+
+create_object RELIC {
+	number_of_objects 1
+	actor_area_to_place_in 906
+	min_distance_group_placement 5
+	avoid_forest_zone 1
+	}
+create_object GOLD {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 906
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+create_object STONE {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 906
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+	
+create_actor_area 105 50 907 15
+
+create_object RELIC {
+	number_of_objects 1
+	actor_area_to_place_in 907
+	min_distance_group_placement 5
+	avoid_forest_zone 1
+	}
+create_object GOLD {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 907
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+create_object STONE {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 907
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+
+create_actor_area 10 75 909 16
+
+create_object RELIC {
+	number_of_objects 1
+	actor_area_to_place_in 909
+	min_distance_group_placement 5
+	avoid_forest_zone 1
+	}
+create_object GOLD {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 909
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+create_object STONE {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 909
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+	
+create_actor_area 45 110 910 16
+
+create_object RELIC {
+	number_of_objects 1
+	actor_area_to_place_in 910
+	min_distance_group_placement 5
+	avoid_forest_zone 1
+	}
+create_object GOLD {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 910
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+create_object STONE {
+	number_of_objects 5
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 1
+	actor_area_to_place_in 910
+	min_distance_group_placement 10
+	avoid_forest_zone 2
+}
+
+
+create_object GOLD
+{
+	set_gaia_object_only
+	set_place_for_every_player
+	number_of_objects 7
+	set_tight_grouping
+	min_distance_to_players 12
+	max_distance_to_players 16
+	min_distance_group_placement 4
+	avoid_forest_zone 3
+	actor_area 9995
+	actor_area_radius 10
+}
+create_object STONE
+{
+	set_gaia_object_only
+	set_place_for_every_player
+	number_of_objects 5
+	set_tight_grouping
+	min_distance_to_players 12
+	max_distance_to_players 15
+	min_distance_group_placement 5
+	avoid_forest_zone 3
+	avoid_actor_area 9995
+	actor_area 9994
+	actor_area_radius 10
+}
+
+
+create_object BOAR
+{
+	set_gaia_object_only
+	set_place_for_every_player
+	number_of_groups 2
+	max_distance_to_players 17
+	set_circular_placement
+	min_distance_group_placement 10
+	min_distance_to_players 13
+	avoid_forest_zone 1
+}
+
+create_object DLC_ORANGEBUSH
+{
+	set_gaia_object_only
+	set_place_for_every_player
+	number_of_objects 5
+	set_tight_grouping
+	min_distance_to_players 10
+	set_circular_placement
+	find_closest
+	min_distance_group_placement 2
+	avoid_actor_area 9995
+	avoid_actor_area 9994
+}
+
+
+
+create_object GOLD
+{
+	set_gaia_object_only
+	set_place_for_every_player
+	number_of_objects 4
+	set_tight_grouping
+	group_placement_radius 2
+	actor_area_to_place_in 1
+	avoid_forest_zone 8
+	max_distance_to_players 19
+	min_distance_group_placement 3
+	avoid_actor_area 9995
+	avoid_actor_area 9994
+}
+
+create_object DLC_BEAR
+{
+	number_of_objects 1
+	number_of_groups 10
+	temp_min_distance_group_placement 10
+	min_distance_to_players 25
+}
+
+create_object MACAW
+{
+	number_of_objects 1
+	number_of_groups 3
+	temp_min_distance_group_placement 30
+}
+create_object DEER 
+{
+	set_gaia_object_only
+	set_place_for_every_player
+	number_of_objects 4
+	actor_area_to_place_in 1
+	max_distance_to_players 20
+	set_tight_grouping
+	min_distance_group_placement 3
+	avoid_forest_zone 3
+	avoid_actor_area 9995
+	avoid_actor_area 9994
+}

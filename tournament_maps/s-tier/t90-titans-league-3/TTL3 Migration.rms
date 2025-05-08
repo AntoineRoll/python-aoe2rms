@@ -1,0 +1,7274 @@
+#const BLANKOBJECT 647
+#const PLAYER_UNDER 9
+#const MAIN_UNDER 3
+start_random
+percent_chance 20 #define DESERT_MAP
+percent_chance 20 #define ALPINE_MAP
+end_random
+if DESERT_MAP
+#const SURFACE 6
+#const WOODIES 13
+#const WOODIESB 13
+#const PATCH1 14
+#const PATCH2 3
+#const PATCH3 9
+#const STRAGGLER 351
+#const FISH_A 455
+#const FISH_B 458
+elseif ALPINE_MAP
+#const SURFACE 12
+#const WOODIES 19
+#const WOODIESB 10
+#const PATCH1 9
+#const PATCH2 3
+#const PATCH3 0
+#const STRAGGLER 350
+#const FISH_A 456
+#const FISH_B 458
+else
+#const SURFACE 0
+#const WOODIES 10
+#const WOODIESB 10
+#const PATCH1 6
+#const PATCH2 9
+#const PATCH3 3
+#const STRAGGLER 349
+#const FISH_A 455
+#const FISH_B 457
+endif
+#const PH_GENERIC_OFF 649
+start_random
+percent_chance 1 #define P1_POINT_0
+percent_chance 1 #define P1_POINT_1
+percent_chance 1 #define P1_POINT_2
+percent_chance 1 #define P1_POINT_3
+percent_chance 1 #define P1_POINT_4
+percent_chance 1 #define P1_POINT_5
+percent_chance 1 #define P1_POINT_6
+percent_chance 1 #define P1_POINT_7
+percent_chance 1 #define P1_POINT_8
+percent_chance 1 #define P1_POINT_9
+percent_chance 1 #define P1_POINT_10
+percent_chance 1 #define P1_POINT_11
+percent_chance 1 #define P1_POINT_12
+percent_chance 1 #define P1_POINT_13
+percent_chance 1 #define P1_POINT_14
+percent_chance 1 #define P1_POINT_15
+percent_chance 1 #define P1_POINT_16
+percent_chance 1 #define P1_POINT_17
+percent_chance 1 #define P1_POINT_18
+percent_chance 1 #define P1_POINT_19
+percent_chance 1 #define P1_POINT_20
+percent_chance 1 #define P1_POINT_21
+percent_chance 1 #define P1_POINT_22
+percent_chance 1 #define P1_POINT_23
+percent_chance 1 #define P1_POINT_24
+percent_chance 1 #define P1_POINT_25
+percent_chance 1 #define P1_POINT_26
+percent_chance 1 #define P1_POINT_27
+percent_chance 1 #define P1_POINT_28
+percent_chance 1 #define P1_POINT_29
+percent_chance 1 #define P1_POINT_30
+percent_chance 1 #define P1_POINT_31
+percent_chance 1 #define P1_POINT_32
+percent_chance 1 #define P1_POINT_33
+percent_chance 1 #define P1_POINT_34
+percent_chance 1 #define P1_POINT_35
+percent_chance 1 #define P1_POINT_36
+percent_chance 1 #define P1_POINT_37
+percent_chance 1 #define P1_POINT_38
+percent_chance 1 #define P1_POINT_39
+percent_chance 1 #define P1_POINT_40
+percent_chance 1 #define P1_POINT_41
+percent_chance 1 #define P1_POINT_42
+percent_chance 1 #define P1_POINT_43
+percent_chance 1 #define P1_POINT_44
+percent_chance 1 #define P1_POINT_45
+percent_chance 1 #define P1_POINT_46
+percent_chance 1 #define P1_POINT_47
+percent_chance 1 #define P1_POINT_48
+percent_chance 1 #define P1_POINT_49
+percent_chance 1 #define P1_POINT_50
+percent_chance 1 #define P1_POINT_51
+percent_chance 1 #define P1_POINT_52
+percent_chance 1 #define P1_POINT_53
+percent_chance 1 #define P1_POINT_54
+percent_chance 1 #define P1_POINT_55
+percent_chance 1 #define P1_POINT_56
+percent_chance 1 #define P1_POINT_57
+percent_chance 1 #define P1_POINT_58
+percent_chance 1 #define P1_POINT_59
+percent_chance 1 #define P1_POINT_60
+percent_chance 1 #define P1_POINT_61
+percent_chance 1 #define P1_POINT_62
+percent_chance 1 #define P1_POINT_63
+percent_chance 1 #define P1_POINT_64
+percent_chance 1 #define P1_POINT_65
+percent_chance 1 #define P1_POINT_66
+percent_chance 1 #define P1_POINT_67
+percent_chance 1 #define P1_POINT_68
+percent_chance 1 #define P1_POINT_69
+percent_chance 1 #define P1_POINT_70
+percent_chance 1 #define P1_POINT_71
+percent_chance 1 #define P1_POINT_72
+percent_chance 1 #define P1_POINT_73
+percent_chance 1 #define P1_POINT_74
+percent_chance 1 #define P1_POINT_75
+percent_chance 1 #define P1_POINT_76
+percent_chance 1 #define P1_POINT_77
+percent_chance 1 #define P1_POINT_78
+percent_chance 1 #define P1_POINT_79
+percent_chance 1 #define P1_POINT_80
+percent_chance 1 #define P1_POINT_81
+percent_chance 1 #define P1_POINT_82
+percent_chance 1 #define P1_POINT_83
+percent_chance 1 #define P1_POINT_84
+percent_chance 1 #define P1_POINT_85
+percent_chance 1 #define P1_POINT_86
+percent_chance 1 #define P1_POINT_87
+percent_chance 1 #define P1_POINT_88
+percent_chance 1 #define P1_POINT_89
+percent_chance 1 #define P1_POINT_90
+percent_chance 1 #define P1_POINT_91
+percent_chance 1 #define P1_POINT_92
+percent_chance 1 #define P1_POINT_93
+percent_chance 1 #define P1_POINT_94
+percent_chance 1 #define P1_POINT_95
+percent_chance 1 #define P1_POINT_96
+percent_chance 1 #define P1_POINT_97
+percent_chance 1 #define P1_POINT_98
+percent_chance 1 #define P1_POINT_99
+end_random
+start_random
+percent_chance 2 #define P2_OFFSET_36
+percent_chance 3 #define P2_OFFSET_37
+percent_chance 3 #define P2_OFFSET_38
+percent_chance 3 #define P2_OFFSET_39
+percent_chance 3 #define P2_OFFSET_40
+percent_chance 3 #define P2_OFFSET_41
+percent_chance 3 #define P2_OFFSET_42
+percent_chance 4 #define P2_OFFSET_43
+percent_chance 4 #define P2_OFFSET_44
+percent_chance 4 #define P2_OFFSET_45
+percent_chance 4 #define P2_OFFSET_46
+percent_chance 4 #define P2_OFFSET_47
+percent_chance 4 #define P2_OFFSET_48
+percent_chance 4 #define P2_OFFSET_49
+percent_chance 4 #define P2_OFFSET_50
+percent_chance 4 #define P2_OFFSET_51
+percent_chance 4 #define P2_OFFSET_52
+percent_chance 4 #define P2_OFFSET_53
+percent_chance 4 #define P2_OFFSET_54
+percent_chance 4 #define P2_OFFSET_55
+percent_chance 4 #define P2_OFFSET_56
+percent_chance 4 #define P2_OFFSET_57
+percent_chance 3 #define P2_OFFSET_58
+percent_chance 3 #define P2_OFFSET_59
+percent_chance 3 #define P2_OFFSET_60
+percent_chance 3 #define P2_OFFSET_61
+percent_chance 3 #define P2_OFFSET_62
+percent_chance 3 #define P2_OFFSET_63
+percent_chance 2 #define P2_OFFSET_64
+end_random
+<PLAYER_SETUP>
+direct_placement
+ai_info_map_type MIGRATION
+behavior_version 1
+effect_amount SET_ATTRIBUTE HAWK ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE MACAW ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE 917 ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE 1305 ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE DLC_VULTURE ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE 1056 ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE DLC_STORK ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE HAWK ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE MACAW ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE 917 ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE 1305 ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE DLC_VULTURE ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE 1056 ATTR_LINE_OF_SIGHT 0
+effect_amount GAIA_SET_ATTRIBUTE DLC_STORK ATTR_LINE_OF_SIGHT 0
+<LAND_GENERATION>
+base_terrain WATER
+create_land {
+terrain_type PLAYER_UNDER
+base_size 15
+land_percent 9
+other_zone_avoidance_distance 10
+clumping_factor 30
+assign_to_player 1
+land_id 1
+zone 1
+land_position 5 5
+if P1_POINT_0
+land_position 90 50
+elseif P1_POINT_1
+land_position 90 53
+elseif P1_POINT_2
+land_position 90 56
+elseif P1_POINT_3
+land_position 90 60
+elseif P1_POINT_4
+land_position 90 63
+elseif P1_POINT_5
+land_position 90 66
+elseif P1_POINT_6
+land_position 90 69
+elseif P1_POINT_7
+land_position 90 73
+elseif P1_POINT_8
+land_position 90 76
+elseif P1_POINT_9
+land_position 90 79
+elseif P1_POINT_10
+land_position 90 82
+elseif P1_POINT_11
+land_position 90 86
+elseif P1_POINT_12
+land_position 90 89
+elseif P1_POINT_13
+land_position 89 90
+elseif P1_POINT_14
+land_position 86 90
+elseif P1_POINT_15
+land_position 82 90
+elseif P1_POINT_16
+land_position 79 90
+elseif P1_POINT_17
+land_position 76 90
+elseif P1_POINT_18
+land_position 73 90
+elseif P1_POINT_19
+land_position 69 90
+elseif P1_POINT_20
+land_position 66 90
+elseif P1_POINT_21
+land_position 63 90
+elseif P1_POINT_22
+land_position 60 90
+elseif P1_POINT_23
+land_position 56 90
+elseif P1_POINT_24
+land_position 53 90
+elseif P1_POINT_25
+land_position 50 90
+elseif P1_POINT_26
+land_position 47 90
+elseif P1_POINT_27
+land_position 44 90
+elseif P1_POINT_28
+land_position 40 90
+elseif P1_POINT_29
+land_position 37 90
+elseif P1_POINT_30
+land_position 34 90
+elseif P1_POINT_31
+land_position 31 90
+elseif P1_POINT_32
+land_position 27 90
+elseif P1_POINT_33
+land_position 24 90
+elseif P1_POINT_34
+land_position 21 90
+elseif P1_POINT_35
+land_position 18 90
+elseif P1_POINT_36
+land_position 14 90
+elseif P1_POINT_37
+land_position 11 90
+elseif P1_POINT_38
+land_position 10 89
+elseif P1_POINT_39
+land_position 10 86
+elseif P1_POINT_40
+land_position 10 82
+elseif P1_POINT_41
+land_position 10 79
+elseif P1_POINT_42
+land_position 10 76
+elseif P1_POINT_43
+land_position 10 73
+elseif P1_POINT_44
+land_position 10 69
+elseif P1_POINT_45
+land_position 10 66
+elseif P1_POINT_46
+land_position 10 63
+elseif P1_POINT_47
+land_position 10 60
+elseif P1_POINT_48
+land_position 10 56
+elseif P1_POINT_49
+land_position 10 53
+elseif P1_POINT_50
+land_position 10 50
+elseif P1_POINT_51
+land_position 10 47
+elseif P1_POINT_52
+land_position 10 44
+elseif P1_POINT_53
+land_position 10 40
+elseif P1_POINT_54
+land_position 10 37
+elseif P1_POINT_55
+land_position 10 34
+elseif P1_POINT_56
+land_position 10 31
+elseif P1_POINT_57
+land_position 10 27
+elseif P1_POINT_58
+land_position 10 24
+elseif P1_POINT_59
+land_position 10 21
+elseif P1_POINT_60
+land_position 10 18
+elseif P1_POINT_61
+land_position 10 14
+elseif P1_POINT_62
+land_position 10 11
+elseif P1_POINT_63
+land_position 11 10
+elseif P1_POINT_64
+land_position 14 10
+elseif P1_POINT_65
+land_position 18 10
+elseif P1_POINT_66
+land_position 21 10
+elseif P1_POINT_67
+land_position 24 10
+elseif P1_POINT_68
+land_position 27 10
+elseif P1_POINT_69
+land_position 31 10
+elseif P1_POINT_70
+land_position 34 10
+elseif P1_POINT_71
+land_position 37 10
+elseif P1_POINT_72
+land_position 40 10
+elseif P1_POINT_73
+land_position 44 10
+elseif P1_POINT_74
+land_position 47 10
+elseif P1_POINT_75
+land_position 50 10
+elseif P1_POINT_76
+land_position 53 10
+elseif P1_POINT_77
+land_position 56 10
+elseif P1_POINT_78
+land_position 60 10
+elseif P1_POINT_79
+land_position 63 10
+elseif P1_POINT_80
+land_position 66 10
+elseif P1_POINT_81
+land_position 69 10
+elseif P1_POINT_82
+land_position 73 10
+elseif P1_POINT_83
+land_position 76 10
+elseif P1_POINT_84
+land_position 79 10
+elseif P1_POINT_85
+land_position 82 10
+elseif P1_POINT_86
+land_position 86 10
+elseif P1_POINT_87
+land_position 89 10
+elseif P1_POINT_88
+land_position 90 11
+elseif P1_POINT_89
+land_position 90 14
+elseif P1_POINT_90
+land_position 90 18
+elseif P1_POINT_91
+land_position 90 21
+elseif P1_POINT_92
+land_position 90 24
+elseif P1_POINT_93
+land_position 90 27
+elseif P1_POINT_94
+land_position 90 31
+elseif P1_POINT_95
+land_position 90 34
+elseif P1_POINT_96
+land_position 90 37
+elseif P1_POINT_97
+land_position 90 40
+elseif P1_POINT_98
+land_position 90 44
+elseif P1_POINT_99
+land_position 90 47
+endif
+}
+create_land {
+terrain_type PLAYER_UNDER
+base_size 15
+land_percent 9
+other_zone_avoidance_distance 10
+clumping_factor 30
+assign_to_player 2
+land_id 2
+zone 2
+land_position 95 95
+if P1_POINT_0
+if P2_OFFSET_36
+land_position 14 90
+elseif P2_OFFSET_37
+land_position 11 90
+elseif P2_OFFSET_38
+land_position 10 89
+elseif P2_OFFSET_39
+land_position 10 86
+elseif P2_OFFSET_40
+land_position 10 82
+elseif P2_OFFSET_41
+land_position 10 79
+elseif P2_OFFSET_42
+land_position 10 76
+elseif P2_OFFSET_43
+land_position 10 73
+elseif P2_OFFSET_44
+land_position 10 69
+elseif P2_OFFSET_45
+land_position 10 66
+elseif P2_OFFSET_46
+land_position 10 63
+elseif P2_OFFSET_47
+land_position 10 60
+elseif P2_OFFSET_48
+land_position 10 56
+elseif P2_OFFSET_49
+land_position 10 53
+elseif P2_OFFSET_50
+land_position 10 50
+elseif P2_OFFSET_51
+land_position 10 47
+elseif P2_OFFSET_52
+land_position 10 44
+elseif P2_OFFSET_53
+land_position 10 40
+elseif P2_OFFSET_54
+land_position 10 37
+elseif P2_OFFSET_55
+land_position 10 34
+elseif P2_OFFSET_56
+land_position 10 31
+elseif P2_OFFSET_57
+land_position 10 27
+elseif P2_OFFSET_58
+land_position 10 24
+elseif P2_OFFSET_59
+land_position 10 21
+elseif P2_OFFSET_60
+land_position 10 18
+elseif P2_OFFSET_61
+land_position 10 14
+elseif P2_OFFSET_62
+land_position 10 11
+elseif P2_OFFSET_63
+land_position 11 10
+elseif P2_OFFSET_64
+land_position 14 10
+endif
+elseif P1_POINT_1
+if P2_OFFSET_36
+land_position 11 90
+elseif P2_OFFSET_37
+land_position 10 89
+elseif P2_OFFSET_38
+land_position 10 86
+elseif P2_OFFSET_39
+land_position 10 82
+elseif P2_OFFSET_40
+land_position 10 79
+elseif P2_OFFSET_41
+land_position 10 76
+elseif P2_OFFSET_42
+land_position 10 73
+elseif P2_OFFSET_43
+land_position 10 69
+elseif P2_OFFSET_44
+land_position 10 66
+elseif P2_OFFSET_45
+land_position 10 63
+elseif P2_OFFSET_46
+land_position 10 60
+elseif P2_OFFSET_47
+land_position 10 56
+elseif P2_OFFSET_48
+land_position 10 53
+elseif P2_OFFSET_49
+land_position 10 50
+elseif P2_OFFSET_50
+land_position 10 47
+elseif P2_OFFSET_51
+land_position 10 44
+elseif P2_OFFSET_52
+land_position 10 40
+elseif P2_OFFSET_53
+land_position 10 37
+elseif P2_OFFSET_54
+land_position 10 34
+elseif P2_OFFSET_55
+land_position 10 31
+elseif P2_OFFSET_56
+land_position 10 27
+elseif P2_OFFSET_57
+land_position 10 24
+elseif P2_OFFSET_58
+land_position 10 21
+elseif P2_OFFSET_59
+land_position 10 18
+elseif P2_OFFSET_60
+land_position 10 14
+elseif P2_OFFSET_61
+land_position 10 11
+elseif P2_OFFSET_62
+land_position 11 10
+elseif P2_OFFSET_63
+land_position 14 10
+elseif P2_OFFSET_64
+land_position 18 10
+endif
+elseif P1_POINT_2
+if P2_OFFSET_36
+land_position 10 89
+elseif P2_OFFSET_37
+land_position 10 86
+elseif P2_OFFSET_38
+land_position 10 82
+elseif P2_OFFSET_39
+land_position 10 79
+elseif P2_OFFSET_40
+land_position 10 76
+elseif P2_OFFSET_41
+land_position 10 73
+elseif P2_OFFSET_42
+land_position 10 69
+elseif P2_OFFSET_43
+land_position 10 66
+elseif P2_OFFSET_44
+land_position 10 63
+elseif P2_OFFSET_45
+land_position 10 60
+elseif P2_OFFSET_46
+land_position 10 56
+elseif P2_OFFSET_47
+land_position 10 53
+elseif P2_OFFSET_48
+land_position 10 50
+elseif P2_OFFSET_49
+land_position 10 47
+elseif P2_OFFSET_50
+land_position 10 44
+elseif P2_OFFSET_51
+land_position 10 40
+elseif P2_OFFSET_52
+land_position 10 37
+elseif P2_OFFSET_53
+land_position 10 34
+elseif P2_OFFSET_54
+land_position 10 31
+elseif P2_OFFSET_55
+land_position 10 27
+elseif P2_OFFSET_56
+land_position 10 24
+elseif P2_OFFSET_57
+land_position 10 21
+elseif P2_OFFSET_58
+land_position 10 18
+elseif P2_OFFSET_59
+land_position 10 14
+elseif P2_OFFSET_60
+land_position 10 11
+elseif P2_OFFSET_61
+land_position 11 10
+elseif P2_OFFSET_62
+land_position 14 10
+elseif P2_OFFSET_63
+land_position 18 10
+elseif P2_OFFSET_64
+land_position 21 10
+endif
+elseif P1_POINT_3
+if P2_OFFSET_36
+land_position 10 86
+elseif P2_OFFSET_37
+land_position 10 82
+elseif P2_OFFSET_38
+land_position 10 79
+elseif P2_OFFSET_39
+land_position 10 76
+elseif P2_OFFSET_40
+land_position 10 73
+elseif P2_OFFSET_41
+land_position 10 69
+elseif P2_OFFSET_42
+land_position 10 66
+elseif P2_OFFSET_43
+land_position 10 63
+elseif P2_OFFSET_44
+land_position 10 60
+elseif P2_OFFSET_45
+land_position 10 56
+elseif P2_OFFSET_46
+land_position 10 53
+elseif P2_OFFSET_47
+land_position 10 50
+elseif P2_OFFSET_48
+land_position 10 47
+elseif P2_OFFSET_49
+land_position 10 44
+elseif P2_OFFSET_50
+land_position 10 40
+elseif P2_OFFSET_51
+land_position 10 37
+elseif P2_OFFSET_52
+land_position 10 34
+elseif P2_OFFSET_53
+land_position 10 31
+elseif P2_OFFSET_54
+land_position 10 27
+elseif P2_OFFSET_55
+land_position 10 24
+elseif P2_OFFSET_56
+land_position 10 21
+elseif P2_OFFSET_57
+land_position 10 18
+elseif P2_OFFSET_58
+land_position 10 14
+elseif P2_OFFSET_59
+land_position 10 11
+elseif P2_OFFSET_60
+land_position 11 10
+elseif P2_OFFSET_61
+land_position 14 10
+elseif P2_OFFSET_62
+land_position 18 10
+elseif P2_OFFSET_63
+land_position 21 10
+elseif P2_OFFSET_64
+land_position 24 10
+endif
+elseif P1_POINT_4
+if P2_OFFSET_36
+land_position 10 82
+elseif P2_OFFSET_37
+land_position 10 79
+elseif P2_OFFSET_38
+land_position 10 76
+elseif P2_OFFSET_39
+land_position 10 73
+elseif P2_OFFSET_40
+land_position 10 69
+elseif P2_OFFSET_41
+land_position 10 66
+elseif P2_OFFSET_42
+land_position 10 63
+elseif P2_OFFSET_43
+land_position 10 60
+elseif P2_OFFSET_44
+land_position 10 56
+elseif P2_OFFSET_45
+land_position 10 53
+elseif P2_OFFSET_46
+land_position 10 50
+elseif P2_OFFSET_47
+land_position 10 47
+elseif P2_OFFSET_48
+land_position 10 44
+elseif P2_OFFSET_49
+land_position 10 40
+elseif P2_OFFSET_50
+land_position 10 37
+elseif P2_OFFSET_51
+land_position 10 34
+elseif P2_OFFSET_52
+land_position 10 31
+elseif P2_OFFSET_53
+land_position 10 27
+elseif P2_OFFSET_54
+land_position 10 24
+elseif P2_OFFSET_55
+land_position 10 21
+elseif P2_OFFSET_56
+land_position 10 18
+elseif P2_OFFSET_57
+land_position 10 14
+elseif P2_OFFSET_58
+land_position 10 11
+elseif P2_OFFSET_59
+land_position 11 10
+elseif P2_OFFSET_60
+land_position 14 10
+elseif P2_OFFSET_61
+land_position 18 10
+elseif P2_OFFSET_62
+land_position 21 10
+elseif P2_OFFSET_63
+land_position 24 10
+elseif P2_OFFSET_64
+land_position 27 10
+endif
+elseif P1_POINT_5
+if P2_OFFSET_36
+land_position 10 79
+elseif P2_OFFSET_37
+land_position 10 76
+elseif P2_OFFSET_38
+land_position 10 73
+elseif P2_OFFSET_39
+land_position 10 69
+elseif P2_OFFSET_40
+land_position 10 66
+elseif P2_OFFSET_41
+land_position 10 63
+elseif P2_OFFSET_42
+land_position 10 60
+elseif P2_OFFSET_43
+land_position 10 56
+elseif P2_OFFSET_44
+land_position 10 53
+elseif P2_OFFSET_45
+land_position 10 50
+elseif P2_OFFSET_46
+land_position 10 47
+elseif P2_OFFSET_47
+land_position 10 44
+elseif P2_OFFSET_48
+land_position 10 40
+elseif P2_OFFSET_49
+land_position 10 37
+elseif P2_OFFSET_50
+land_position 10 34
+elseif P2_OFFSET_51
+land_position 10 31
+elseif P2_OFFSET_52
+land_position 10 27
+elseif P2_OFFSET_53
+land_position 10 24
+elseif P2_OFFSET_54
+land_position 10 21
+elseif P2_OFFSET_55
+land_position 10 18
+elseif P2_OFFSET_56
+land_position 10 14
+elseif P2_OFFSET_57
+land_position 10 11
+elseif P2_OFFSET_58
+land_position 11 10
+elseif P2_OFFSET_59
+land_position 14 10
+elseif P2_OFFSET_60
+land_position 18 10
+elseif P2_OFFSET_61
+land_position 21 10
+elseif P2_OFFSET_62
+land_position 24 10
+elseif P2_OFFSET_63
+land_position 27 10
+elseif P2_OFFSET_64
+land_position 31 10
+endif
+elseif P1_POINT_6
+if P2_OFFSET_36
+land_position 10 76
+elseif P2_OFFSET_37
+land_position 10 73
+elseif P2_OFFSET_38
+land_position 10 69
+elseif P2_OFFSET_39
+land_position 10 66
+elseif P2_OFFSET_40
+land_position 10 63
+elseif P2_OFFSET_41
+land_position 10 60
+elseif P2_OFFSET_42
+land_position 10 56
+elseif P2_OFFSET_43
+land_position 10 53
+elseif P2_OFFSET_44
+land_position 10 50
+elseif P2_OFFSET_45
+land_position 10 47
+elseif P2_OFFSET_46
+land_position 10 44
+elseif P2_OFFSET_47
+land_position 10 40
+elseif P2_OFFSET_48
+land_position 10 37
+elseif P2_OFFSET_49
+land_position 10 34
+elseif P2_OFFSET_50
+land_position 10 31
+elseif P2_OFFSET_51
+land_position 10 27
+elseif P2_OFFSET_52
+land_position 10 24
+elseif P2_OFFSET_53
+land_position 10 21
+elseif P2_OFFSET_54
+land_position 10 18
+elseif P2_OFFSET_55
+land_position 10 14
+elseif P2_OFFSET_56
+land_position 10 11
+elseif P2_OFFSET_57
+land_position 11 10
+elseif P2_OFFSET_58
+land_position 14 10
+elseif P2_OFFSET_59
+land_position 18 10
+elseif P2_OFFSET_60
+land_position 21 10
+elseif P2_OFFSET_61
+land_position 24 10
+elseif P2_OFFSET_62
+land_position 27 10
+elseif P2_OFFSET_63
+land_position 31 10
+elseif P2_OFFSET_64
+land_position 34 10
+endif
+elseif P1_POINT_7
+if P2_OFFSET_36
+land_position 10 73
+elseif P2_OFFSET_37
+land_position 10 69
+elseif P2_OFFSET_38
+land_position 10 66
+elseif P2_OFFSET_39
+land_position 10 63
+elseif P2_OFFSET_40
+land_position 10 60
+elseif P2_OFFSET_41
+land_position 10 56
+elseif P2_OFFSET_42
+land_position 10 53
+elseif P2_OFFSET_43
+land_position 10 50
+elseif P2_OFFSET_44
+land_position 10 47
+elseif P2_OFFSET_45
+land_position 10 44
+elseif P2_OFFSET_46
+land_position 10 40
+elseif P2_OFFSET_47
+land_position 10 37
+elseif P2_OFFSET_48
+land_position 10 34
+elseif P2_OFFSET_49
+land_position 10 31
+elseif P2_OFFSET_50
+land_position 10 27
+elseif P2_OFFSET_51
+land_position 10 24
+elseif P2_OFFSET_52
+land_position 10 21
+elseif P2_OFFSET_53
+land_position 10 18
+elseif P2_OFFSET_54
+land_position 10 14
+elseif P2_OFFSET_55
+land_position 10 11
+elseif P2_OFFSET_56
+land_position 11 10
+elseif P2_OFFSET_57
+land_position 14 10
+elseif P2_OFFSET_58
+land_position 18 10
+elseif P2_OFFSET_59
+land_position 21 10
+elseif P2_OFFSET_60
+land_position 24 10
+elseif P2_OFFSET_61
+land_position 27 10
+elseif P2_OFFSET_62
+land_position 31 10
+elseif P2_OFFSET_63
+land_position 34 10
+elseif P2_OFFSET_64
+land_position 37 10
+endif
+elseif P1_POINT_8
+if P2_OFFSET_36
+land_position 10 69
+elseif P2_OFFSET_37
+land_position 10 66
+elseif P2_OFFSET_38
+land_position 10 63
+elseif P2_OFFSET_39
+land_position 10 60
+elseif P2_OFFSET_40
+land_position 10 56
+elseif P2_OFFSET_41
+land_position 10 53
+elseif P2_OFFSET_42
+land_position 10 50
+elseif P2_OFFSET_43
+land_position 10 47
+elseif P2_OFFSET_44
+land_position 10 44
+elseif P2_OFFSET_45
+land_position 10 40
+elseif P2_OFFSET_46
+land_position 10 37
+elseif P2_OFFSET_47
+land_position 10 34
+elseif P2_OFFSET_48
+land_position 10 31
+elseif P2_OFFSET_49
+land_position 10 27
+elseif P2_OFFSET_50
+land_position 10 24
+elseif P2_OFFSET_51
+land_position 10 21
+elseif P2_OFFSET_52
+land_position 10 18
+elseif P2_OFFSET_53
+land_position 10 14
+elseif P2_OFFSET_54
+land_position 10 11
+elseif P2_OFFSET_55
+land_position 11 10
+elseif P2_OFFSET_56
+land_position 14 10
+elseif P2_OFFSET_57
+land_position 18 10
+elseif P2_OFFSET_58
+land_position 21 10
+elseif P2_OFFSET_59
+land_position 24 10
+elseif P2_OFFSET_60
+land_position 27 10
+elseif P2_OFFSET_61
+land_position 31 10
+elseif P2_OFFSET_62
+land_position 34 10
+elseif P2_OFFSET_63
+land_position 37 10
+elseif P2_OFFSET_64
+land_position 40 10
+endif
+elseif P1_POINT_9
+if P2_OFFSET_36
+land_position 10 66
+elseif P2_OFFSET_37
+land_position 10 63
+elseif P2_OFFSET_38
+land_position 10 60
+elseif P2_OFFSET_39
+land_position 10 56
+elseif P2_OFFSET_40
+land_position 10 53
+elseif P2_OFFSET_41
+land_position 10 50
+elseif P2_OFFSET_42
+land_position 10 47
+elseif P2_OFFSET_43
+land_position 10 44
+elseif P2_OFFSET_44
+land_position 10 40
+elseif P2_OFFSET_45
+land_position 10 37
+elseif P2_OFFSET_46
+land_position 10 34
+elseif P2_OFFSET_47
+land_position 10 31
+elseif P2_OFFSET_48
+land_position 10 27
+elseif P2_OFFSET_49
+land_position 10 24
+elseif P2_OFFSET_50
+land_position 10 21
+elseif P2_OFFSET_51
+land_position 10 18
+elseif P2_OFFSET_52
+land_position 10 14
+elseif P2_OFFSET_53
+land_position 10 11
+elseif P2_OFFSET_54
+land_position 11 10
+elseif P2_OFFSET_55
+land_position 14 10
+elseif P2_OFFSET_56
+land_position 18 10
+elseif P2_OFFSET_57
+land_position 21 10
+elseif P2_OFFSET_58
+land_position 24 10
+elseif P2_OFFSET_59
+land_position 27 10
+elseif P2_OFFSET_60
+land_position 31 10
+elseif P2_OFFSET_61
+land_position 34 10
+elseif P2_OFFSET_62
+land_position 37 10
+elseif P2_OFFSET_63
+land_position 40 10
+elseif P2_OFFSET_64
+land_position 44 10
+endif
+elseif P1_POINT_10
+if P2_OFFSET_36
+land_position 10 63
+elseif P2_OFFSET_37
+land_position 10 60
+elseif P2_OFFSET_38
+land_position 10 56
+elseif P2_OFFSET_39
+land_position 10 53
+elseif P2_OFFSET_40
+land_position 10 50
+elseif P2_OFFSET_41
+land_position 10 47
+elseif P2_OFFSET_42
+land_position 10 44
+elseif P2_OFFSET_43
+land_position 10 40
+elseif P2_OFFSET_44
+land_position 10 37
+elseif P2_OFFSET_45
+land_position 10 34
+elseif P2_OFFSET_46
+land_position 10 31
+elseif P2_OFFSET_47
+land_position 10 27
+elseif P2_OFFSET_48
+land_position 10 24
+elseif P2_OFFSET_49
+land_position 10 21
+elseif P2_OFFSET_50
+land_position 10 18
+elseif P2_OFFSET_51
+land_position 10 14
+elseif P2_OFFSET_52
+land_position 10 11
+elseif P2_OFFSET_53
+land_position 11 10
+elseif P2_OFFSET_54
+land_position 14 10
+elseif P2_OFFSET_55
+land_position 18 10
+elseif P2_OFFSET_56
+land_position 21 10
+elseif P2_OFFSET_57
+land_position 24 10
+elseif P2_OFFSET_58
+land_position 27 10
+elseif P2_OFFSET_59
+land_position 31 10
+elseif P2_OFFSET_60
+land_position 34 10
+elseif P2_OFFSET_61
+land_position 37 10
+elseif P2_OFFSET_62
+land_position 40 10
+elseif P2_OFFSET_63
+land_position 44 10
+elseif P2_OFFSET_64
+land_position 47 10
+endif
+elseif P1_POINT_11
+if P2_OFFSET_36
+land_position 10 60
+elseif P2_OFFSET_37
+land_position 10 56
+elseif P2_OFFSET_38
+land_position 10 53
+elseif P2_OFFSET_39
+land_position 10 50
+elseif P2_OFFSET_40
+land_position 10 47
+elseif P2_OFFSET_41
+land_position 10 44
+elseif P2_OFFSET_42
+land_position 10 40
+elseif P2_OFFSET_43
+land_position 10 37
+elseif P2_OFFSET_44
+land_position 10 34
+elseif P2_OFFSET_45
+land_position 10 31
+elseif P2_OFFSET_46
+land_position 10 27
+elseif P2_OFFSET_47
+land_position 10 24
+elseif P2_OFFSET_48
+land_position 10 21
+elseif P2_OFFSET_49
+land_position 10 18
+elseif P2_OFFSET_50
+land_position 10 14
+elseif P2_OFFSET_51
+land_position 10 11
+elseif P2_OFFSET_52
+land_position 11 10
+elseif P2_OFFSET_53
+land_position 14 10
+elseif P2_OFFSET_54
+land_position 18 10
+elseif P2_OFFSET_55
+land_position 21 10
+elseif P2_OFFSET_56
+land_position 24 10
+elseif P2_OFFSET_57
+land_position 27 10
+elseif P2_OFFSET_58
+land_position 31 10
+elseif P2_OFFSET_59
+land_position 34 10
+elseif P2_OFFSET_60
+land_position 37 10
+elseif P2_OFFSET_61
+land_position 40 10
+elseif P2_OFFSET_62
+land_position 44 10
+elseif P2_OFFSET_63
+land_position 47 10
+elseif P2_OFFSET_64
+land_position 50 10
+endif
+elseif P1_POINT_12
+if P2_OFFSET_36
+land_position 10 56
+elseif P2_OFFSET_37
+land_position 10 53
+elseif P2_OFFSET_38
+land_position 10 50
+elseif P2_OFFSET_39
+land_position 10 47
+elseif P2_OFFSET_40
+land_position 10 44
+elseif P2_OFFSET_41
+land_position 10 40
+elseif P2_OFFSET_42
+land_position 10 37
+elseif P2_OFFSET_43
+land_position 10 34
+elseif P2_OFFSET_44
+land_position 10 31
+elseif P2_OFFSET_45
+land_position 10 27
+elseif P2_OFFSET_46
+land_position 10 24
+elseif P2_OFFSET_47
+land_position 10 21
+elseif P2_OFFSET_48
+land_position 10 18
+elseif P2_OFFSET_49
+land_position 10 14
+elseif P2_OFFSET_50
+land_position 10 11
+elseif P2_OFFSET_51
+land_position 11 10
+elseif P2_OFFSET_52
+land_position 14 10
+elseif P2_OFFSET_53
+land_position 18 10
+elseif P2_OFFSET_54
+land_position 21 10
+elseif P2_OFFSET_55
+land_position 24 10
+elseif P2_OFFSET_56
+land_position 27 10
+elseif P2_OFFSET_57
+land_position 31 10
+elseif P2_OFFSET_58
+land_position 34 10
+elseif P2_OFFSET_59
+land_position 37 10
+elseif P2_OFFSET_60
+land_position 40 10
+elseif P2_OFFSET_61
+land_position 44 10
+elseif P2_OFFSET_62
+land_position 47 10
+elseif P2_OFFSET_63
+land_position 50 10
+elseif P2_OFFSET_64
+land_position 53 10
+endif
+elseif P1_POINT_13
+if P2_OFFSET_36
+land_position 10 53
+elseif P2_OFFSET_37
+land_position 10 50
+elseif P2_OFFSET_38
+land_position 10 47
+elseif P2_OFFSET_39
+land_position 10 44
+elseif P2_OFFSET_40
+land_position 10 40
+elseif P2_OFFSET_41
+land_position 10 37
+elseif P2_OFFSET_42
+land_position 10 34
+elseif P2_OFFSET_43
+land_position 10 31
+elseif P2_OFFSET_44
+land_position 10 27
+elseif P2_OFFSET_45
+land_position 10 24
+elseif P2_OFFSET_46
+land_position 10 21
+elseif P2_OFFSET_47
+land_position 10 18
+elseif P2_OFFSET_48
+land_position 10 14
+elseif P2_OFFSET_49
+land_position 10 11
+elseif P2_OFFSET_50
+land_position 11 10
+elseif P2_OFFSET_51
+land_position 14 10
+elseif P2_OFFSET_52
+land_position 18 10
+elseif P2_OFFSET_53
+land_position 21 10
+elseif P2_OFFSET_54
+land_position 24 10
+elseif P2_OFFSET_55
+land_position 27 10
+elseif P2_OFFSET_56
+land_position 31 10
+elseif P2_OFFSET_57
+land_position 34 10
+elseif P2_OFFSET_58
+land_position 37 10
+elseif P2_OFFSET_59
+land_position 40 10
+elseif P2_OFFSET_60
+land_position 44 10
+elseif P2_OFFSET_61
+land_position 47 10
+elseif P2_OFFSET_62
+land_position 50 10
+elseif P2_OFFSET_63
+land_position 53 10
+elseif P2_OFFSET_64
+land_position 56 10
+endif
+elseif P1_POINT_14
+if P2_OFFSET_36
+land_position 10 50
+elseif P2_OFFSET_37
+land_position 10 47
+elseif P2_OFFSET_38
+land_position 10 44
+elseif P2_OFFSET_39
+land_position 10 40
+elseif P2_OFFSET_40
+land_position 10 37
+elseif P2_OFFSET_41
+land_position 10 34
+elseif P2_OFFSET_42
+land_position 10 31
+elseif P2_OFFSET_43
+land_position 10 27
+elseif P2_OFFSET_44
+land_position 10 24
+elseif P2_OFFSET_45
+land_position 10 21
+elseif P2_OFFSET_46
+land_position 10 18
+elseif P2_OFFSET_47
+land_position 10 14
+elseif P2_OFFSET_48
+land_position 10 11
+elseif P2_OFFSET_49
+land_position 11 10
+elseif P2_OFFSET_50
+land_position 14 10
+elseif P2_OFFSET_51
+land_position 18 10
+elseif P2_OFFSET_52
+land_position 21 10
+elseif P2_OFFSET_53
+land_position 24 10
+elseif P2_OFFSET_54
+land_position 27 10
+elseif P2_OFFSET_55
+land_position 31 10
+elseif P2_OFFSET_56
+land_position 34 10
+elseif P2_OFFSET_57
+land_position 37 10
+elseif P2_OFFSET_58
+land_position 40 10
+elseif P2_OFFSET_59
+land_position 44 10
+elseif P2_OFFSET_60
+land_position 47 10
+elseif P2_OFFSET_61
+land_position 50 10
+elseif P2_OFFSET_62
+land_position 53 10
+elseif P2_OFFSET_63
+land_position 56 10
+elseif P2_OFFSET_64
+land_position 60 10
+endif
+elseif P1_POINT_15
+if P2_OFFSET_36
+land_position 10 47
+elseif P2_OFFSET_37
+land_position 10 44
+elseif P2_OFFSET_38
+land_position 10 40
+elseif P2_OFFSET_39
+land_position 10 37
+elseif P2_OFFSET_40
+land_position 10 34
+elseif P2_OFFSET_41
+land_position 10 31
+elseif P2_OFFSET_42
+land_position 10 27
+elseif P2_OFFSET_43
+land_position 10 24
+elseif P2_OFFSET_44
+land_position 10 21
+elseif P2_OFFSET_45
+land_position 10 18
+elseif P2_OFFSET_46
+land_position 10 14
+elseif P2_OFFSET_47
+land_position 10 11
+elseif P2_OFFSET_48
+land_position 11 10
+elseif P2_OFFSET_49
+land_position 14 10
+elseif P2_OFFSET_50
+land_position 18 10
+elseif P2_OFFSET_51
+land_position 21 10
+elseif P2_OFFSET_52
+land_position 24 10
+elseif P2_OFFSET_53
+land_position 27 10
+elseif P2_OFFSET_54
+land_position 31 10
+elseif P2_OFFSET_55
+land_position 34 10
+elseif P2_OFFSET_56
+land_position 37 10
+elseif P2_OFFSET_57
+land_position 40 10
+elseif P2_OFFSET_58
+land_position 44 10
+elseif P2_OFFSET_59
+land_position 47 10
+elseif P2_OFFSET_60
+land_position 50 10
+elseif P2_OFFSET_61
+land_position 53 10
+elseif P2_OFFSET_62
+land_position 56 10
+elseif P2_OFFSET_63
+land_position 60 10
+elseif P2_OFFSET_64
+land_position 63 10
+endif
+elseif P1_POINT_16
+if P2_OFFSET_36
+land_position 10 44
+elseif P2_OFFSET_37
+land_position 10 40
+elseif P2_OFFSET_38
+land_position 10 37
+elseif P2_OFFSET_39
+land_position 10 34
+elseif P2_OFFSET_40
+land_position 10 31
+elseif P2_OFFSET_41
+land_position 10 27
+elseif P2_OFFSET_42
+land_position 10 24
+elseif P2_OFFSET_43
+land_position 10 21
+elseif P2_OFFSET_44
+land_position 10 18
+elseif P2_OFFSET_45
+land_position 10 14
+elseif P2_OFFSET_46
+land_position 10 11
+elseif P2_OFFSET_47
+land_position 11 10
+elseif P2_OFFSET_48
+land_position 14 10
+elseif P2_OFFSET_49
+land_position 18 10
+elseif P2_OFFSET_50
+land_position 21 10
+elseif P2_OFFSET_51
+land_position 24 10
+elseif P2_OFFSET_52
+land_position 27 10
+elseif P2_OFFSET_53
+land_position 31 10
+elseif P2_OFFSET_54
+land_position 34 10
+elseif P2_OFFSET_55
+land_position 37 10
+elseif P2_OFFSET_56
+land_position 40 10
+elseif P2_OFFSET_57
+land_position 44 10
+elseif P2_OFFSET_58
+land_position 47 10
+elseif P2_OFFSET_59
+land_position 50 10
+elseif P2_OFFSET_60
+land_position 53 10
+elseif P2_OFFSET_61
+land_position 56 10
+elseif P2_OFFSET_62
+land_position 60 10
+elseif P2_OFFSET_63
+land_position 63 10
+elseif P2_OFFSET_64
+land_position 66 10
+endif
+elseif P1_POINT_17
+if P2_OFFSET_36
+land_position 10 40
+elseif P2_OFFSET_37
+land_position 10 37
+elseif P2_OFFSET_38
+land_position 10 34
+elseif P2_OFFSET_39
+land_position 10 31
+elseif P2_OFFSET_40
+land_position 10 27
+elseif P2_OFFSET_41
+land_position 10 24
+elseif P2_OFFSET_42
+land_position 10 21
+elseif P2_OFFSET_43
+land_position 10 18
+elseif P2_OFFSET_44
+land_position 10 14
+elseif P2_OFFSET_45
+land_position 10 11
+elseif P2_OFFSET_46
+land_position 11 10
+elseif P2_OFFSET_47
+land_position 14 10
+elseif P2_OFFSET_48
+land_position 18 10
+elseif P2_OFFSET_49
+land_position 21 10
+elseif P2_OFFSET_50
+land_position 24 10
+elseif P2_OFFSET_51
+land_position 27 10
+elseif P2_OFFSET_52
+land_position 31 10
+elseif P2_OFFSET_53
+land_position 34 10
+elseif P2_OFFSET_54
+land_position 37 10
+elseif P2_OFFSET_55
+land_position 40 10
+elseif P2_OFFSET_56
+land_position 44 10
+elseif P2_OFFSET_57
+land_position 47 10
+elseif P2_OFFSET_58
+land_position 50 10
+elseif P2_OFFSET_59
+land_position 53 10
+elseif P2_OFFSET_60
+land_position 56 10
+elseif P2_OFFSET_61
+land_position 60 10
+elseif P2_OFFSET_62
+land_position 63 10
+elseif P2_OFFSET_63
+land_position 66 10
+elseif P2_OFFSET_64
+land_position 69 10
+endif
+elseif P1_POINT_18
+if P2_OFFSET_36
+land_position 10 37
+elseif P2_OFFSET_37
+land_position 10 34
+elseif P2_OFFSET_38
+land_position 10 31
+elseif P2_OFFSET_39
+land_position 10 27
+elseif P2_OFFSET_40
+land_position 10 24
+elseif P2_OFFSET_41
+land_position 10 21
+elseif P2_OFFSET_42
+land_position 10 18
+elseif P2_OFFSET_43
+land_position 10 14
+elseif P2_OFFSET_44
+land_position 10 11
+elseif P2_OFFSET_45
+land_position 11 10
+elseif P2_OFFSET_46
+land_position 14 10
+elseif P2_OFFSET_47
+land_position 18 10
+elseif P2_OFFSET_48
+land_position 21 10
+elseif P2_OFFSET_49
+land_position 24 10
+elseif P2_OFFSET_50
+land_position 27 10
+elseif P2_OFFSET_51
+land_position 31 10
+elseif P2_OFFSET_52
+land_position 34 10
+elseif P2_OFFSET_53
+land_position 37 10
+elseif P2_OFFSET_54
+land_position 40 10
+elseif P2_OFFSET_55
+land_position 44 10
+elseif P2_OFFSET_56
+land_position 47 10
+elseif P2_OFFSET_57
+land_position 50 10
+elseif P2_OFFSET_58
+land_position 53 10
+elseif P2_OFFSET_59
+land_position 56 10
+elseif P2_OFFSET_60
+land_position 60 10
+elseif P2_OFFSET_61
+land_position 63 10
+elseif P2_OFFSET_62
+land_position 66 10
+elseif P2_OFFSET_63
+land_position 69 10
+elseif P2_OFFSET_64
+land_position 73 10
+endif
+elseif P1_POINT_19
+if P2_OFFSET_36
+land_position 10 34
+elseif P2_OFFSET_37
+land_position 10 31
+elseif P2_OFFSET_38
+land_position 10 27
+elseif P2_OFFSET_39
+land_position 10 24
+elseif P2_OFFSET_40
+land_position 10 21
+elseif P2_OFFSET_41
+land_position 10 18
+elseif P2_OFFSET_42
+land_position 10 14
+elseif P2_OFFSET_43
+land_position 10 11
+elseif P2_OFFSET_44
+land_position 11 10
+elseif P2_OFFSET_45
+land_position 14 10
+elseif P2_OFFSET_46
+land_position 18 10
+elseif P2_OFFSET_47
+land_position 21 10
+elseif P2_OFFSET_48
+land_position 24 10
+elseif P2_OFFSET_49
+land_position 27 10
+elseif P2_OFFSET_50
+land_position 31 10
+elseif P2_OFFSET_51
+land_position 34 10
+elseif P2_OFFSET_52
+land_position 37 10
+elseif P2_OFFSET_53
+land_position 40 10
+elseif P2_OFFSET_54
+land_position 44 10
+elseif P2_OFFSET_55
+land_position 47 10
+elseif P2_OFFSET_56
+land_position 50 10
+elseif P2_OFFSET_57
+land_position 53 10
+elseif P2_OFFSET_58
+land_position 56 10
+elseif P2_OFFSET_59
+land_position 60 10
+elseif P2_OFFSET_60
+land_position 63 10
+elseif P2_OFFSET_61
+land_position 66 10
+elseif P2_OFFSET_62
+land_position 69 10
+elseif P2_OFFSET_63
+land_position 73 10
+elseif P2_OFFSET_64
+land_position 76 10
+endif
+elseif P1_POINT_20
+if P2_OFFSET_36
+land_position 10 31
+elseif P2_OFFSET_37
+land_position 10 27
+elseif P2_OFFSET_38
+land_position 10 24
+elseif P2_OFFSET_39
+land_position 10 21
+elseif P2_OFFSET_40
+land_position 10 18
+elseif P2_OFFSET_41
+land_position 10 14
+elseif P2_OFFSET_42
+land_position 10 11
+elseif P2_OFFSET_43
+land_position 11 10
+elseif P2_OFFSET_44
+land_position 14 10
+elseif P2_OFFSET_45
+land_position 18 10
+elseif P2_OFFSET_46
+land_position 21 10
+elseif P2_OFFSET_47
+land_position 24 10
+elseif P2_OFFSET_48
+land_position 27 10
+elseif P2_OFFSET_49
+land_position 31 10
+elseif P2_OFFSET_50
+land_position 34 10
+elseif P2_OFFSET_51
+land_position 37 10
+elseif P2_OFFSET_52
+land_position 40 10
+elseif P2_OFFSET_53
+land_position 44 10
+elseif P2_OFFSET_54
+land_position 47 10
+elseif P2_OFFSET_55
+land_position 50 10
+elseif P2_OFFSET_56
+land_position 53 10
+elseif P2_OFFSET_57
+land_position 56 10
+elseif P2_OFFSET_58
+land_position 60 10
+elseif P2_OFFSET_59
+land_position 63 10
+elseif P2_OFFSET_60
+land_position 66 10
+elseif P2_OFFSET_61
+land_position 69 10
+elseif P2_OFFSET_62
+land_position 73 10
+elseif P2_OFFSET_63
+land_position 76 10
+elseif P2_OFFSET_64
+land_position 79 10
+endif
+elseif P1_POINT_21
+if P2_OFFSET_36
+land_position 10 27
+elseif P2_OFFSET_37
+land_position 10 24
+elseif P2_OFFSET_38
+land_position 10 21
+elseif P2_OFFSET_39
+land_position 10 18
+elseif P2_OFFSET_40
+land_position 10 14
+elseif P2_OFFSET_41
+land_position 10 11
+elseif P2_OFFSET_42
+land_position 11 10
+elseif P2_OFFSET_43
+land_position 14 10
+elseif P2_OFFSET_44
+land_position 18 10
+elseif P2_OFFSET_45
+land_position 21 10
+elseif P2_OFFSET_46
+land_position 24 10
+elseif P2_OFFSET_47
+land_position 27 10
+elseif P2_OFFSET_48
+land_position 31 10
+elseif P2_OFFSET_49
+land_position 34 10
+elseif P2_OFFSET_50
+land_position 37 10
+elseif P2_OFFSET_51
+land_position 40 10
+elseif P2_OFFSET_52
+land_position 44 10
+elseif P2_OFFSET_53
+land_position 47 10
+elseif P2_OFFSET_54
+land_position 50 10
+elseif P2_OFFSET_55
+land_position 53 10
+elseif P2_OFFSET_56
+land_position 56 10
+elseif P2_OFFSET_57
+land_position 60 10
+elseif P2_OFFSET_58
+land_position 63 10
+elseif P2_OFFSET_59
+land_position 66 10
+elseif P2_OFFSET_60
+land_position 69 10
+elseif P2_OFFSET_61
+land_position 73 10
+elseif P2_OFFSET_62
+land_position 76 10
+elseif P2_OFFSET_63
+land_position 79 10
+elseif P2_OFFSET_64
+land_position 82 10
+endif
+elseif P1_POINT_22
+if P2_OFFSET_36
+land_position 10 24
+elseif P2_OFFSET_37
+land_position 10 21
+elseif P2_OFFSET_38
+land_position 10 18
+elseif P2_OFFSET_39
+land_position 10 14
+elseif P2_OFFSET_40
+land_position 10 11
+elseif P2_OFFSET_41
+land_position 11 10
+elseif P2_OFFSET_42
+land_position 14 10
+elseif P2_OFFSET_43
+land_position 18 10
+elseif P2_OFFSET_44
+land_position 21 10
+elseif P2_OFFSET_45
+land_position 24 10
+elseif P2_OFFSET_46
+land_position 27 10
+elseif P2_OFFSET_47
+land_position 31 10
+elseif P2_OFFSET_48
+land_position 34 10
+elseif P2_OFFSET_49
+land_position 37 10
+elseif P2_OFFSET_50
+land_position 40 10
+elseif P2_OFFSET_51
+land_position 44 10
+elseif P2_OFFSET_52
+land_position 47 10
+elseif P2_OFFSET_53
+land_position 50 10
+elseif P2_OFFSET_54
+land_position 53 10
+elseif P2_OFFSET_55
+land_position 56 10
+elseif P2_OFFSET_56
+land_position 60 10
+elseif P2_OFFSET_57
+land_position 63 10
+elseif P2_OFFSET_58
+land_position 66 10
+elseif P2_OFFSET_59
+land_position 69 10
+elseif P2_OFFSET_60
+land_position 73 10
+elseif P2_OFFSET_61
+land_position 76 10
+elseif P2_OFFSET_62
+land_position 79 10
+elseif P2_OFFSET_63
+land_position 82 10
+elseif P2_OFFSET_64
+land_position 86 10
+endif
+elseif P1_POINT_23
+if P2_OFFSET_36
+land_position 10 21
+elseif P2_OFFSET_37
+land_position 10 18
+elseif P2_OFFSET_38
+land_position 10 14
+elseif P2_OFFSET_39
+land_position 10 11
+elseif P2_OFFSET_40
+land_position 11 10
+elseif P2_OFFSET_41
+land_position 14 10
+elseif P2_OFFSET_42
+land_position 18 10
+elseif P2_OFFSET_43
+land_position 21 10
+elseif P2_OFFSET_44
+land_position 24 10
+elseif P2_OFFSET_45
+land_position 27 10
+elseif P2_OFFSET_46
+land_position 31 10
+elseif P2_OFFSET_47
+land_position 34 10
+elseif P2_OFFSET_48
+land_position 37 10
+elseif P2_OFFSET_49
+land_position 40 10
+elseif P2_OFFSET_50
+land_position 44 10
+elseif P2_OFFSET_51
+land_position 47 10
+elseif P2_OFFSET_52
+land_position 50 10
+elseif P2_OFFSET_53
+land_position 53 10
+elseif P2_OFFSET_54
+land_position 56 10
+elseif P2_OFFSET_55
+land_position 60 10
+elseif P2_OFFSET_56
+land_position 63 10
+elseif P2_OFFSET_57
+land_position 66 10
+elseif P2_OFFSET_58
+land_position 69 10
+elseif P2_OFFSET_59
+land_position 73 10
+elseif P2_OFFSET_60
+land_position 76 10
+elseif P2_OFFSET_61
+land_position 79 10
+elseif P2_OFFSET_62
+land_position 82 10
+elseif P2_OFFSET_63
+land_position 86 10
+elseif P2_OFFSET_64
+land_position 89 10
+endif
+elseif P1_POINT_24
+if P2_OFFSET_36
+land_position 10 18
+elseif P2_OFFSET_37
+land_position 10 14
+elseif P2_OFFSET_38
+land_position 10 11
+elseif P2_OFFSET_39
+land_position 11 10
+elseif P2_OFFSET_40
+land_position 14 10
+elseif P2_OFFSET_41
+land_position 18 10
+elseif P2_OFFSET_42
+land_position 21 10
+elseif P2_OFFSET_43
+land_position 24 10
+elseif P2_OFFSET_44
+land_position 27 10
+elseif P2_OFFSET_45
+land_position 31 10
+elseif P2_OFFSET_46
+land_position 34 10
+elseif P2_OFFSET_47
+land_position 37 10
+elseif P2_OFFSET_48
+land_position 40 10
+elseif P2_OFFSET_49
+land_position 44 10
+elseif P2_OFFSET_50
+land_position 47 10
+elseif P2_OFFSET_51
+land_position 50 10
+elseif P2_OFFSET_52
+land_position 53 10
+elseif P2_OFFSET_53
+land_position 56 10
+elseif P2_OFFSET_54
+land_position 60 10
+elseif P2_OFFSET_55
+land_position 63 10
+elseif P2_OFFSET_56
+land_position 66 10
+elseif P2_OFFSET_57
+land_position 69 10
+elseif P2_OFFSET_58
+land_position 73 10
+elseif P2_OFFSET_59
+land_position 76 10
+elseif P2_OFFSET_60
+land_position 79 10
+elseif P2_OFFSET_61
+land_position 82 10
+elseif P2_OFFSET_62
+land_position 86 10
+elseif P2_OFFSET_63
+land_position 89 10
+elseif P2_OFFSET_64
+land_position 90 11
+endif
+elseif P1_POINT_25
+if P2_OFFSET_36
+land_position 10 14
+elseif P2_OFFSET_37
+land_position 10 11
+elseif P2_OFFSET_38
+land_position 11 10
+elseif P2_OFFSET_39
+land_position 14 10
+elseif P2_OFFSET_40
+land_position 18 10
+elseif P2_OFFSET_41
+land_position 21 10
+elseif P2_OFFSET_42
+land_position 24 10
+elseif P2_OFFSET_43
+land_position 27 10
+elseif P2_OFFSET_44
+land_position 31 10
+elseif P2_OFFSET_45
+land_position 34 10
+elseif P2_OFFSET_46
+land_position 37 10
+elseif P2_OFFSET_47
+land_position 40 10
+elseif P2_OFFSET_48
+land_position 44 10
+elseif P2_OFFSET_49
+land_position 47 10
+elseif P2_OFFSET_50
+land_position 50 10
+elseif P2_OFFSET_51
+land_position 53 10
+elseif P2_OFFSET_52
+land_position 56 10
+elseif P2_OFFSET_53
+land_position 60 10
+elseif P2_OFFSET_54
+land_position 63 10
+elseif P2_OFFSET_55
+land_position 66 10
+elseif P2_OFFSET_56
+land_position 69 10
+elseif P2_OFFSET_57
+land_position 73 10
+elseif P2_OFFSET_58
+land_position 76 10
+elseif P2_OFFSET_59
+land_position 79 10
+elseif P2_OFFSET_60
+land_position 82 10
+elseif P2_OFFSET_61
+land_position 86 10
+elseif P2_OFFSET_62
+land_position 89 10
+elseif P2_OFFSET_63
+land_position 90 11
+elseif P2_OFFSET_64
+land_position 90 14
+endif
+elseif P1_POINT_26
+if P2_OFFSET_36
+land_position 10 11
+elseif P2_OFFSET_37
+land_position 11 10
+elseif P2_OFFSET_38
+land_position 14 10
+elseif P2_OFFSET_39
+land_position 18 10
+elseif P2_OFFSET_40
+land_position 21 10
+elseif P2_OFFSET_41
+land_position 24 10
+elseif P2_OFFSET_42
+land_position 27 10
+elseif P2_OFFSET_43
+land_position 31 10
+elseif P2_OFFSET_44
+land_position 34 10
+elseif P2_OFFSET_45
+land_position 37 10
+elseif P2_OFFSET_46
+land_position 40 10
+elseif P2_OFFSET_47
+land_position 44 10
+elseif P2_OFFSET_48
+land_position 47 10
+elseif P2_OFFSET_49
+land_position 50 10
+elseif P2_OFFSET_50
+land_position 53 10
+elseif P2_OFFSET_51
+land_position 56 10
+elseif P2_OFFSET_52
+land_position 60 10
+elseif P2_OFFSET_53
+land_position 63 10
+elseif P2_OFFSET_54
+land_position 66 10
+elseif P2_OFFSET_55
+land_position 69 10
+elseif P2_OFFSET_56
+land_position 73 10
+elseif P2_OFFSET_57
+land_position 76 10
+elseif P2_OFFSET_58
+land_position 79 10
+elseif P2_OFFSET_59
+land_position 82 10
+elseif P2_OFFSET_60
+land_position 86 10
+elseif P2_OFFSET_61
+land_position 89 10
+elseif P2_OFFSET_62
+land_position 90 11
+elseif P2_OFFSET_63
+land_position 90 14
+elseif P2_OFFSET_64
+land_position 90 18
+endif
+elseif P1_POINT_27
+if P2_OFFSET_36
+land_position 11 10
+elseif P2_OFFSET_37
+land_position 14 10
+elseif P2_OFFSET_38
+land_position 18 10
+elseif P2_OFFSET_39
+land_position 21 10
+elseif P2_OFFSET_40
+land_position 24 10
+elseif P2_OFFSET_41
+land_position 27 10
+elseif P2_OFFSET_42
+land_position 31 10
+elseif P2_OFFSET_43
+land_position 34 10
+elseif P2_OFFSET_44
+land_position 37 10
+elseif P2_OFFSET_45
+land_position 40 10
+elseif P2_OFFSET_46
+land_position 44 10
+elseif P2_OFFSET_47
+land_position 47 10
+elseif P2_OFFSET_48
+land_position 50 10
+elseif P2_OFFSET_49
+land_position 53 10
+elseif P2_OFFSET_50
+land_position 56 10
+elseif P2_OFFSET_51
+land_position 60 10
+elseif P2_OFFSET_52
+land_position 63 10
+elseif P2_OFFSET_53
+land_position 66 10
+elseif P2_OFFSET_54
+land_position 69 10
+elseif P2_OFFSET_55
+land_position 73 10
+elseif P2_OFFSET_56
+land_position 76 10
+elseif P2_OFFSET_57
+land_position 79 10
+elseif P2_OFFSET_58
+land_position 82 10
+elseif P2_OFFSET_59
+land_position 86 10
+elseif P2_OFFSET_60
+land_position 89 10
+elseif P2_OFFSET_61
+land_position 90 11
+elseif P2_OFFSET_62
+land_position 90 14
+elseif P2_OFFSET_63
+land_position 90 18
+elseif P2_OFFSET_64
+land_position 90 21
+endif
+elseif P1_POINT_28
+if P2_OFFSET_36
+land_position 14 10
+elseif P2_OFFSET_37
+land_position 18 10
+elseif P2_OFFSET_38
+land_position 21 10
+elseif P2_OFFSET_39
+land_position 24 10
+elseif P2_OFFSET_40
+land_position 27 10
+elseif P2_OFFSET_41
+land_position 31 10
+elseif P2_OFFSET_42
+land_position 34 10
+elseif P2_OFFSET_43
+land_position 37 10
+elseif P2_OFFSET_44
+land_position 40 10
+elseif P2_OFFSET_45
+land_position 44 10
+elseif P2_OFFSET_46
+land_position 47 10
+elseif P2_OFFSET_47
+land_position 50 10
+elseif P2_OFFSET_48
+land_position 53 10
+elseif P2_OFFSET_49
+land_position 56 10
+elseif P2_OFFSET_50
+land_position 60 10
+elseif P2_OFFSET_51
+land_position 63 10
+elseif P2_OFFSET_52
+land_position 66 10
+elseif P2_OFFSET_53
+land_position 69 10
+elseif P2_OFFSET_54
+land_position 73 10
+elseif P2_OFFSET_55
+land_position 76 10
+elseif P2_OFFSET_56
+land_position 79 10
+elseif P2_OFFSET_57
+land_position 82 10
+elseif P2_OFFSET_58
+land_position 86 10
+elseif P2_OFFSET_59
+land_position 89 10
+elseif P2_OFFSET_60
+land_position 90 11
+elseif P2_OFFSET_61
+land_position 90 14
+elseif P2_OFFSET_62
+land_position 90 18
+elseif P2_OFFSET_63
+land_position 90 21
+elseif P2_OFFSET_64
+land_position 90 24
+endif
+elseif P1_POINT_29
+if P2_OFFSET_36
+land_position 18 10
+elseif P2_OFFSET_37
+land_position 21 10
+elseif P2_OFFSET_38
+land_position 24 10
+elseif P2_OFFSET_39
+land_position 27 10
+elseif P2_OFFSET_40
+land_position 31 10
+elseif P2_OFFSET_41
+land_position 34 10
+elseif P2_OFFSET_42
+land_position 37 10
+elseif P2_OFFSET_43
+land_position 40 10
+elseif P2_OFFSET_44
+land_position 44 10
+elseif P2_OFFSET_45
+land_position 47 10
+elseif P2_OFFSET_46
+land_position 50 10
+elseif P2_OFFSET_47
+land_position 53 10
+elseif P2_OFFSET_48
+land_position 56 10
+elseif P2_OFFSET_49
+land_position 60 10
+elseif P2_OFFSET_50
+land_position 63 10
+elseif P2_OFFSET_51
+land_position 66 10
+elseif P2_OFFSET_52
+land_position 69 10
+elseif P2_OFFSET_53
+land_position 73 10
+elseif P2_OFFSET_54
+land_position 76 10
+elseif P2_OFFSET_55
+land_position 79 10
+elseif P2_OFFSET_56
+land_position 82 10
+elseif P2_OFFSET_57
+land_position 86 10
+elseif P2_OFFSET_58
+land_position 89 10
+elseif P2_OFFSET_59
+land_position 90 11
+elseif P2_OFFSET_60
+land_position 90 14
+elseif P2_OFFSET_61
+land_position 90 18
+elseif P2_OFFSET_62
+land_position 90 21
+elseif P2_OFFSET_63
+land_position 90 24
+elseif P2_OFFSET_64
+land_position 90 27
+endif
+elseif P1_POINT_30
+if P2_OFFSET_36
+land_position 21 10
+elseif P2_OFFSET_37
+land_position 24 10
+elseif P2_OFFSET_38
+land_position 27 10
+elseif P2_OFFSET_39
+land_position 31 10
+elseif P2_OFFSET_40
+land_position 34 10
+elseif P2_OFFSET_41
+land_position 37 10
+elseif P2_OFFSET_42
+land_position 40 10
+elseif P2_OFFSET_43
+land_position 44 10
+elseif P2_OFFSET_44
+land_position 47 10
+elseif P2_OFFSET_45
+land_position 50 10
+elseif P2_OFFSET_46
+land_position 53 10
+elseif P2_OFFSET_47
+land_position 56 10
+elseif P2_OFFSET_48
+land_position 60 10
+elseif P2_OFFSET_49
+land_position 63 10
+elseif P2_OFFSET_50
+land_position 66 10
+elseif P2_OFFSET_51
+land_position 69 10
+elseif P2_OFFSET_52
+land_position 73 10
+elseif P2_OFFSET_53
+land_position 76 10
+elseif P2_OFFSET_54
+land_position 79 10
+elseif P2_OFFSET_55
+land_position 82 10
+elseif P2_OFFSET_56
+land_position 86 10
+elseif P2_OFFSET_57
+land_position 89 10
+elseif P2_OFFSET_58
+land_position 90 11
+elseif P2_OFFSET_59
+land_position 90 14
+elseif P2_OFFSET_60
+land_position 90 18
+elseif P2_OFFSET_61
+land_position 90 21
+elseif P2_OFFSET_62
+land_position 90 24
+elseif P2_OFFSET_63
+land_position 90 27
+elseif P2_OFFSET_64
+land_position 90 31
+endif
+elseif P1_POINT_31
+if P2_OFFSET_36
+land_position 24 10
+elseif P2_OFFSET_37
+land_position 27 10
+elseif P2_OFFSET_38
+land_position 31 10
+elseif P2_OFFSET_39
+land_position 34 10
+elseif P2_OFFSET_40
+land_position 37 10
+elseif P2_OFFSET_41
+land_position 40 10
+elseif P2_OFFSET_42
+land_position 44 10
+elseif P2_OFFSET_43
+land_position 47 10
+elseif P2_OFFSET_44
+land_position 50 10
+elseif P2_OFFSET_45
+land_position 53 10
+elseif P2_OFFSET_46
+land_position 56 10
+elseif P2_OFFSET_47
+land_position 60 10
+elseif P2_OFFSET_48
+land_position 63 10
+elseif P2_OFFSET_49
+land_position 66 10
+elseif P2_OFFSET_50
+land_position 69 10
+elseif P2_OFFSET_51
+land_position 73 10
+elseif P2_OFFSET_52
+land_position 76 10
+elseif P2_OFFSET_53
+land_position 79 10
+elseif P2_OFFSET_54
+land_position 82 10
+elseif P2_OFFSET_55
+land_position 86 10
+elseif P2_OFFSET_56
+land_position 89 10
+elseif P2_OFFSET_57
+land_position 90 11
+elseif P2_OFFSET_58
+land_position 90 14
+elseif P2_OFFSET_59
+land_position 90 18
+elseif P2_OFFSET_60
+land_position 90 21
+elseif P2_OFFSET_61
+land_position 90 24
+elseif P2_OFFSET_62
+land_position 90 27
+elseif P2_OFFSET_63
+land_position 90 31
+elseif P2_OFFSET_64
+land_position 90 34
+endif
+elseif P1_POINT_32
+if P2_OFFSET_36
+land_position 27 10
+elseif P2_OFFSET_37
+land_position 31 10
+elseif P2_OFFSET_38
+land_position 34 10
+elseif P2_OFFSET_39
+land_position 37 10
+elseif P2_OFFSET_40
+land_position 40 10
+elseif P2_OFFSET_41
+land_position 44 10
+elseif P2_OFFSET_42
+land_position 47 10
+elseif P2_OFFSET_43
+land_position 50 10
+elseif P2_OFFSET_44
+land_position 53 10
+elseif P2_OFFSET_45
+land_position 56 10
+elseif P2_OFFSET_46
+land_position 60 10
+elseif P2_OFFSET_47
+land_position 63 10
+elseif P2_OFFSET_48
+land_position 66 10
+elseif P2_OFFSET_49
+land_position 69 10
+elseif P2_OFFSET_50
+land_position 73 10
+elseif P2_OFFSET_51
+land_position 76 10
+elseif P2_OFFSET_52
+land_position 79 10
+elseif P2_OFFSET_53
+land_position 82 10
+elseif P2_OFFSET_54
+land_position 86 10
+elseif P2_OFFSET_55
+land_position 89 10
+elseif P2_OFFSET_56
+land_position 90 11
+elseif P2_OFFSET_57
+land_position 90 14
+elseif P2_OFFSET_58
+land_position 90 18
+elseif P2_OFFSET_59
+land_position 90 21
+elseif P2_OFFSET_60
+land_position 90 24
+elseif P2_OFFSET_61
+land_position 90 27
+elseif P2_OFFSET_62
+land_position 90 31
+elseif P2_OFFSET_63
+land_position 90 34
+elseif P2_OFFSET_64
+land_position 90 37
+endif
+elseif P1_POINT_33
+if P2_OFFSET_36
+land_position 31 10
+elseif P2_OFFSET_37
+land_position 34 10
+elseif P2_OFFSET_38
+land_position 37 10
+elseif P2_OFFSET_39
+land_position 40 10
+elseif P2_OFFSET_40
+land_position 44 10
+elseif P2_OFFSET_41
+land_position 47 10
+elseif P2_OFFSET_42
+land_position 50 10
+elseif P2_OFFSET_43
+land_position 53 10
+elseif P2_OFFSET_44
+land_position 56 10
+elseif P2_OFFSET_45
+land_position 60 10
+elseif P2_OFFSET_46
+land_position 63 10
+elseif P2_OFFSET_47
+land_position 66 10
+elseif P2_OFFSET_48
+land_position 69 10
+elseif P2_OFFSET_49
+land_position 73 10
+elseif P2_OFFSET_50
+land_position 76 10
+elseif P2_OFFSET_51
+land_position 79 10
+elseif P2_OFFSET_52
+land_position 82 10
+elseif P2_OFFSET_53
+land_position 86 10
+elseif P2_OFFSET_54
+land_position 89 10
+elseif P2_OFFSET_55
+land_position 90 11
+elseif P2_OFFSET_56
+land_position 90 14
+elseif P2_OFFSET_57
+land_position 90 18
+elseif P2_OFFSET_58
+land_position 90 21
+elseif P2_OFFSET_59
+land_position 90 24
+elseif P2_OFFSET_60
+land_position 90 27
+elseif P2_OFFSET_61
+land_position 90 31
+elseif P2_OFFSET_62
+land_position 90 34
+elseif P2_OFFSET_63
+land_position 90 37
+elseif P2_OFFSET_64
+land_position 90 40
+endif
+elseif P1_POINT_34
+if P2_OFFSET_36
+land_position 34 10
+elseif P2_OFFSET_37
+land_position 37 10
+elseif P2_OFFSET_38
+land_position 40 10
+elseif P2_OFFSET_39
+land_position 44 10
+elseif P2_OFFSET_40
+land_position 47 10
+elseif P2_OFFSET_41
+land_position 50 10
+elseif P2_OFFSET_42
+land_position 53 10
+elseif P2_OFFSET_43
+land_position 56 10
+elseif P2_OFFSET_44
+land_position 60 10
+elseif P2_OFFSET_45
+land_position 63 10
+elseif P2_OFFSET_46
+land_position 66 10
+elseif P2_OFFSET_47
+land_position 69 10
+elseif P2_OFFSET_48
+land_position 73 10
+elseif P2_OFFSET_49
+land_position 76 10
+elseif P2_OFFSET_50
+land_position 79 10
+elseif P2_OFFSET_51
+land_position 82 10
+elseif P2_OFFSET_52
+land_position 86 10
+elseif P2_OFFSET_53
+land_position 89 10
+elseif P2_OFFSET_54
+land_position 90 11
+elseif P2_OFFSET_55
+land_position 90 14
+elseif P2_OFFSET_56
+land_position 90 18
+elseif P2_OFFSET_57
+land_position 90 21
+elseif P2_OFFSET_58
+land_position 90 24
+elseif P2_OFFSET_59
+land_position 90 27
+elseif P2_OFFSET_60
+land_position 90 31
+elseif P2_OFFSET_61
+land_position 90 34
+elseif P2_OFFSET_62
+land_position 90 37
+elseif P2_OFFSET_63
+land_position 90 40
+elseif P2_OFFSET_64
+land_position 90 44
+endif
+elseif P1_POINT_35
+if P2_OFFSET_36
+land_position 37 10
+elseif P2_OFFSET_37
+land_position 40 10
+elseif P2_OFFSET_38
+land_position 44 10
+elseif P2_OFFSET_39
+land_position 47 10
+elseif P2_OFFSET_40
+land_position 50 10
+elseif P2_OFFSET_41
+land_position 53 10
+elseif P2_OFFSET_42
+land_position 56 10
+elseif P2_OFFSET_43
+land_position 60 10
+elseif P2_OFFSET_44
+land_position 63 10
+elseif P2_OFFSET_45
+land_position 66 10
+elseif P2_OFFSET_46
+land_position 69 10
+elseif P2_OFFSET_47
+land_position 73 10
+elseif P2_OFFSET_48
+land_position 76 10
+elseif P2_OFFSET_49
+land_position 79 10
+elseif P2_OFFSET_50
+land_position 82 10
+elseif P2_OFFSET_51
+land_position 86 10
+elseif P2_OFFSET_52
+land_position 89 10
+elseif P2_OFFSET_53
+land_position 90 11
+elseif P2_OFFSET_54
+land_position 90 14
+elseif P2_OFFSET_55
+land_position 90 18
+elseif P2_OFFSET_56
+land_position 90 21
+elseif P2_OFFSET_57
+land_position 90 24
+elseif P2_OFFSET_58
+land_position 90 27
+elseif P2_OFFSET_59
+land_position 90 31
+elseif P2_OFFSET_60
+land_position 90 34
+elseif P2_OFFSET_61
+land_position 90 37
+elseif P2_OFFSET_62
+land_position 90 40
+elseif P2_OFFSET_63
+land_position 90 44
+elseif P2_OFFSET_64
+land_position 90 47
+endif
+elseif P1_POINT_36
+if P2_OFFSET_36
+land_position 40 10
+elseif P2_OFFSET_37
+land_position 44 10
+elseif P2_OFFSET_38
+land_position 47 10
+elseif P2_OFFSET_39
+land_position 50 10
+elseif P2_OFFSET_40
+land_position 53 10
+elseif P2_OFFSET_41
+land_position 56 10
+elseif P2_OFFSET_42
+land_position 60 10
+elseif P2_OFFSET_43
+land_position 63 10
+elseif P2_OFFSET_44
+land_position 66 10
+elseif P2_OFFSET_45
+land_position 69 10
+elseif P2_OFFSET_46
+land_position 73 10
+elseif P2_OFFSET_47
+land_position 76 10
+elseif P2_OFFSET_48
+land_position 79 10
+elseif P2_OFFSET_49
+land_position 82 10
+elseif P2_OFFSET_50
+land_position 86 10
+elseif P2_OFFSET_51
+land_position 89 10
+elseif P2_OFFSET_52
+land_position 90 11
+elseif P2_OFFSET_53
+land_position 90 14
+elseif P2_OFFSET_54
+land_position 90 18
+elseif P2_OFFSET_55
+land_position 90 21
+elseif P2_OFFSET_56
+land_position 90 24
+elseif P2_OFFSET_57
+land_position 90 27
+elseif P2_OFFSET_58
+land_position 90 31
+elseif P2_OFFSET_59
+land_position 90 34
+elseif P2_OFFSET_60
+land_position 90 37
+elseif P2_OFFSET_61
+land_position 90 40
+elseif P2_OFFSET_62
+land_position 90 44
+elseif P2_OFFSET_63
+land_position 90 47
+elseif P2_OFFSET_64
+land_position 90 50
+endif
+elseif P1_POINT_37
+if P2_OFFSET_36
+land_position 44 10
+elseif P2_OFFSET_37
+land_position 47 10
+elseif P2_OFFSET_38
+land_position 50 10
+elseif P2_OFFSET_39
+land_position 53 10
+elseif P2_OFFSET_40
+land_position 56 10
+elseif P2_OFFSET_41
+land_position 60 10
+elseif P2_OFFSET_42
+land_position 63 10
+elseif P2_OFFSET_43
+land_position 66 10
+elseif P2_OFFSET_44
+land_position 69 10
+elseif P2_OFFSET_45
+land_position 73 10
+elseif P2_OFFSET_46
+land_position 76 10
+elseif P2_OFFSET_47
+land_position 79 10
+elseif P2_OFFSET_48
+land_position 82 10
+elseif P2_OFFSET_49
+land_position 86 10
+elseif P2_OFFSET_50
+land_position 89 10
+elseif P2_OFFSET_51
+land_position 90 11
+elseif P2_OFFSET_52
+land_position 90 14
+elseif P2_OFFSET_53
+land_position 90 18
+elseif P2_OFFSET_54
+land_position 90 21
+elseif P2_OFFSET_55
+land_position 90 24
+elseif P2_OFFSET_56
+land_position 90 27
+elseif P2_OFFSET_57
+land_position 90 31
+elseif P2_OFFSET_58
+land_position 90 34
+elseif P2_OFFSET_59
+land_position 90 37
+elseif P2_OFFSET_60
+land_position 90 40
+elseif P2_OFFSET_61
+land_position 90 44
+elseif P2_OFFSET_62
+land_position 90 47
+elseif P2_OFFSET_63
+land_position 90 50
+elseif P2_OFFSET_64
+land_position 90 53
+endif
+elseif P1_POINT_38
+if P2_OFFSET_36
+land_position 47 10
+elseif P2_OFFSET_37
+land_position 50 10
+elseif P2_OFFSET_38
+land_position 53 10
+elseif P2_OFFSET_39
+land_position 56 10
+elseif P2_OFFSET_40
+land_position 60 10
+elseif P2_OFFSET_41
+land_position 63 10
+elseif P2_OFFSET_42
+land_position 66 10
+elseif P2_OFFSET_43
+land_position 69 10
+elseif P2_OFFSET_44
+land_position 73 10
+elseif P2_OFFSET_45
+land_position 76 10
+elseif P2_OFFSET_46
+land_position 79 10
+elseif P2_OFFSET_47
+land_position 82 10
+elseif P2_OFFSET_48
+land_position 86 10
+elseif P2_OFFSET_49
+land_position 89 10
+elseif P2_OFFSET_50
+land_position 90 11
+elseif P2_OFFSET_51
+land_position 90 14
+elseif P2_OFFSET_52
+land_position 90 18
+elseif P2_OFFSET_53
+land_position 90 21
+elseif P2_OFFSET_54
+land_position 90 24
+elseif P2_OFFSET_55
+land_position 90 27
+elseif P2_OFFSET_56
+land_position 90 31
+elseif P2_OFFSET_57
+land_position 90 34
+elseif P2_OFFSET_58
+land_position 90 37
+elseif P2_OFFSET_59
+land_position 90 40
+elseif P2_OFFSET_60
+land_position 90 44
+elseif P2_OFFSET_61
+land_position 90 47
+elseif P2_OFFSET_62
+land_position 90 50
+elseif P2_OFFSET_63
+land_position 90 53
+elseif P2_OFFSET_64
+land_position 90 56
+endif
+elseif P1_POINT_39
+if P2_OFFSET_36
+land_position 50 10
+elseif P2_OFFSET_37
+land_position 53 10
+elseif P2_OFFSET_38
+land_position 56 10
+elseif P2_OFFSET_39
+land_position 60 10
+elseif P2_OFFSET_40
+land_position 63 10
+elseif P2_OFFSET_41
+land_position 66 10
+elseif P2_OFFSET_42
+land_position 69 10
+elseif P2_OFFSET_43
+land_position 73 10
+elseif P2_OFFSET_44
+land_position 76 10
+elseif P2_OFFSET_45
+land_position 79 10
+elseif P2_OFFSET_46
+land_position 82 10
+elseif P2_OFFSET_47
+land_position 86 10
+elseif P2_OFFSET_48
+land_position 89 10
+elseif P2_OFFSET_49
+land_position 90 11
+elseif P2_OFFSET_50
+land_position 90 14
+elseif P2_OFFSET_51
+land_position 90 18
+elseif P2_OFFSET_52
+land_position 90 21
+elseif P2_OFFSET_53
+land_position 90 24
+elseif P2_OFFSET_54
+land_position 90 27
+elseif P2_OFFSET_55
+land_position 90 31
+elseif P2_OFFSET_56
+land_position 90 34
+elseif P2_OFFSET_57
+land_position 90 37
+elseif P2_OFFSET_58
+land_position 90 40
+elseif P2_OFFSET_59
+land_position 90 44
+elseif P2_OFFSET_60
+land_position 90 47
+elseif P2_OFFSET_61
+land_position 90 50
+elseif P2_OFFSET_62
+land_position 90 53
+elseif P2_OFFSET_63
+land_position 90 56
+elseif P2_OFFSET_64
+land_position 90 60
+endif
+elseif P1_POINT_40
+if P2_OFFSET_36
+land_position 53 10
+elseif P2_OFFSET_37
+land_position 56 10
+elseif P2_OFFSET_38
+land_position 60 10
+elseif P2_OFFSET_39
+land_position 63 10
+elseif P2_OFFSET_40
+land_position 66 10
+elseif P2_OFFSET_41
+land_position 69 10
+elseif P2_OFFSET_42
+land_position 73 10
+elseif P2_OFFSET_43
+land_position 76 10
+elseif P2_OFFSET_44
+land_position 79 10
+elseif P2_OFFSET_45
+land_position 82 10
+elseif P2_OFFSET_46
+land_position 86 10
+elseif P2_OFFSET_47
+land_position 89 10
+elseif P2_OFFSET_48
+land_position 90 11
+elseif P2_OFFSET_49
+land_position 90 14
+elseif P2_OFFSET_50
+land_position 90 18
+elseif P2_OFFSET_51
+land_position 90 21
+elseif P2_OFFSET_52
+land_position 90 24
+elseif P2_OFFSET_53
+land_position 90 27
+elseif P2_OFFSET_54
+land_position 90 31
+elseif P2_OFFSET_55
+land_position 90 34
+elseif P2_OFFSET_56
+land_position 90 37
+elseif P2_OFFSET_57
+land_position 90 40
+elseif P2_OFFSET_58
+land_position 90 44
+elseif P2_OFFSET_59
+land_position 90 47
+elseif P2_OFFSET_60
+land_position 90 50
+elseif P2_OFFSET_61
+land_position 90 53
+elseif P2_OFFSET_62
+land_position 90 56
+elseif P2_OFFSET_63
+land_position 90 60
+elseif P2_OFFSET_64
+land_position 90 63
+endif
+elseif P1_POINT_41
+if P2_OFFSET_36
+land_position 56 10
+elseif P2_OFFSET_37
+land_position 60 10
+elseif P2_OFFSET_38
+land_position 63 10
+elseif P2_OFFSET_39
+land_position 66 10
+elseif P2_OFFSET_40
+land_position 69 10
+elseif P2_OFFSET_41
+land_position 73 10
+elseif P2_OFFSET_42
+land_position 76 10
+elseif P2_OFFSET_43
+land_position 79 10
+elseif P2_OFFSET_44
+land_position 82 10
+elseif P2_OFFSET_45
+land_position 86 10
+elseif P2_OFFSET_46
+land_position 89 10
+elseif P2_OFFSET_47
+land_position 90 11
+elseif P2_OFFSET_48
+land_position 90 14
+elseif P2_OFFSET_49
+land_position 90 18
+elseif P2_OFFSET_50
+land_position 90 21
+elseif P2_OFFSET_51
+land_position 90 24
+elseif P2_OFFSET_52
+land_position 90 27
+elseif P2_OFFSET_53
+land_position 90 31
+elseif P2_OFFSET_54
+land_position 90 34
+elseif P2_OFFSET_55
+land_position 90 37
+elseif P2_OFFSET_56
+land_position 90 40
+elseif P2_OFFSET_57
+land_position 90 44
+elseif P2_OFFSET_58
+land_position 90 47
+elseif P2_OFFSET_59
+land_position 90 50
+elseif P2_OFFSET_60
+land_position 90 53
+elseif P2_OFFSET_61
+land_position 90 56
+elseif P2_OFFSET_62
+land_position 90 60
+elseif P2_OFFSET_63
+land_position 90 63
+elseif P2_OFFSET_64
+land_position 90 66
+endif
+elseif P1_POINT_42
+if P2_OFFSET_36
+land_position 60 10
+elseif P2_OFFSET_37
+land_position 63 10
+elseif P2_OFFSET_38
+land_position 66 10
+elseif P2_OFFSET_39
+land_position 69 10
+elseif P2_OFFSET_40
+land_position 73 10
+elseif P2_OFFSET_41
+land_position 76 10
+elseif P2_OFFSET_42
+land_position 79 10
+elseif P2_OFFSET_43
+land_position 82 10
+elseif P2_OFFSET_44
+land_position 86 10
+elseif P2_OFFSET_45
+land_position 89 10
+elseif P2_OFFSET_46
+land_position 90 11
+elseif P2_OFFSET_47
+land_position 90 14
+elseif P2_OFFSET_48
+land_position 90 18
+elseif P2_OFFSET_49
+land_position 90 21
+elseif P2_OFFSET_50
+land_position 90 24
+elseif P2_OFFSET_51
+land_position 90 27
+elseif P2_OFFSET_52
+land_position 90 31
+elseif P2_OFFSET_53
+land_position 90 34
+elseif P2_OFFSET_54
+land_position 90 37
+elseif P2_OFFSET_55
+land_position 90 40
+elseif P2_OFFSET_56
+land_position 90 44
+elseif P2_OFFSET_57
+land_position 90 47
+elseif P2_OFFSET_58
+land_position 90 50
+elseif P2_OFFSET_59
+land_position 90 53
+elseif P2_OFFSET_60
+land_position 90 56
+elseif P2_OFFSET_61
+land_position 90 60
+elseif P2_OFFSET_62
+land_position 90 63
+elseif P2_OFFSET_63
+land_position 90 66
+elseif P2_OFFSET_64
+land_position 90 69
+endif
+elseif P1_POINT_43
+if P2_OFFSET_36
+land_position 63 10
+elseif P2_OFFSET_37
+land_position 66 10
+elseif P2_OFFSET_38
+land_position 69 10
+elseif P2_OFFSET_39
+land_position 73 10
+elseif P2_OFFSET_40
+land_position 76 10
+elseif P2_OFFSET_41
+land_position 79 10
+elseif P2_OFFSET_42
+land_position 82 10
+elseif P2_OFFSET_43
+land_position 86 10
+elseif P2_OFFSET_44
+land_position 89 10
+elseif P2_OFFSET_45
+land_position 90 11
+elseif P2_OFFSET_46
+land_position 90 14
+elseif P2_OFFSET_47
+land_position 90 18
+elseif P2_OFFSET_48
+land_position 90 21
+elseif P2_OFFSET_49
+land_position 90 24
+elseif P2_OFFSET_50
+land_position 90 27
+elseif P2_OFFSET_51
+land_position 90 31
+elseif P2_OFFSET_52
+land_position 90 34
+elseif P2_OFFSET_53
+land_position 90 37
+elseif P2_OFFSET_54
+land_position 90 40
+elseif P2_OFFSET_55
+land_position 90 44
+elseif P2_OFFSET_56
+land_position 90 47
+elseif P2_OFFSET_57
+land_position 90 50
+elseif P2_OFFSET_58
+land_position 90 53
+elseif P2_OFFSET_59
+land_position 90 56
+elseif P2_OFFSET_60
+land_position 90 60
+elseif P2_OFFSET_61
+land_position 90 63
+elseif P2_OFFSET_62
+land_position 90 66
+elseif P2_OFFSET_63
+land_position 90 69
+elseif P2_OFFSET_64
+land_position 90 73
+endif
+elseif P1_POINT_44
+if P2_OFFSET_36
+land_position 66 10
+elseif P2_OFFSET_37
+land_position 69 10
+elseif P2_OFFSET_38
+land_position 73 10
+elseif P2_OFFSET_39
+land_position 76 10
+elseif P2_OFFSET_40
+land_position 79 10
+elseif P2_OFFSET_41
+land_position 82 10
+elseif P2_OFFSET_42
+land_position 86 10
+elseif P2_OFFSET_43
+land_position 89 10
+elseif P2_OFFSET_44
+land_position 90 11
+elseif P2_OFFSET_45
+land_position 90 14
+elseif P2_OFFSET_46
+land_position 90 18
+elseif P2_OFFSET_47
+land_position 90 21
+elseif P2_OFFSET_48
+land_position 90 24
+elseif P2_OFFSET_49
+land_position 90 27
+elseif P2_OFFSET_50
+land_position 90 31
+elseif P2_OFFSET_51
+land_position 90 34
+elseif P2_OFFSET_52
+land_position 90 37
+elseif P2_OFFSET_53
+land_position 90 40
+elseif P2_OFFSET_54
+land_position 90 44
+elseif P2_OFFSET_55
+land_position 90 47
+elseif P2_OFFSET_56
+land_position 90 50
+elseif P2_OFFSET_57
+land_position 90 53
+elseif P2_OFFSET_58
+land_position 90 56
+elseif P2_OFFSET_59
+land_position 90 60
+elseif P2_OFFSET_60
+land_position 90 63
+elseif P2_OFFSET_61
+land_position 90 66
+elseif P2_OFFSET_62
+land_position 90 69
+elseif P2_OFFSET_63
+land_position 90 73
+elseif P2_OFFSET_64
+land_position 90 76
+endif
+elseif P1_POINT_45
+if P2_OFFSET_36
+land_position 69 10
+elseif P2_OFFSET_37
+land_position 73 10
+elseif P2_OFFSET_38
+land_position 76 10
+elseif P2_OFFSET_39
+land_position 79 10
+elseif P2_OFFSET_40
+land_position 82 10
+elseif P2_OFFSET_41
+land_position 86 10
+elseif P2_OFFSET_42
+land_position 89 10
+elseif P2_OFFSET_43
+land_position 90 11
+elseif P2_OFFSET_44
+land_position 90 14
+elseif P2_OFFSET_45
+land_position 90 18
+elseif P2_OFFSET_46
+land_position 90 21
+elseif P2_OFFSET_47
+land_position 90 24
+elseif P2_OFFSET_48
+land_position 90 27
+elseif P2_OFFSET_49
+land_position 90 31
+elseif P2_OFFSET_50
+land_position 90 34
+elseif P2_OFFSET_51
+land_position 90 37
+elseif P2_OFFSET_52
+land_position 90 40
+elseif P2_OFFSET_53
+land_position 90 44
+elseif P2_OFFSET_54
+land_position 90 47
+elseif P2_OFFSET_55
+land_position 90 50
+elseif P2_OFFSET_56
+land_position 90 53
+elseif P2_OFFSET_57
+land_position 90 56
+elseif P2_OFFSET_58
+land_position 90 60
+elseif P2_OFFSET_59
+land_position 90 63
+elseif P2_OFFSET_60
+land_position 90 66
+elseif P2_OFFSET_61
+land_position 90 69
+elseif P2_OFFSET_62
+land_position 90 73
+elseif P2_OFFSET_63
+land_position 90 76
+elseif P2_OFFSET_64
+land_position 90 79
+endif
+elseif P1_POINT_46
+if P2_OFFSET_36
+land_position 73 10
+elseif P2_OFFSET_37
+land_position 76 10
+elseif P2_OFFSET_38
+land_position 79 10
+elseif P2_OFFSET_39
+land_position 82 10
+elseif P2_OFFSET_40
+land_position 86 10
+elseif P2_OFFSET_41
+land_position 89 10
+elseif P2_OFFSET_42
+land_position 90 11
+elseif P2_OFFSET_43
+land_position 90 14
+elseif P2_OFFSET_44
+land_position 90 18
+elseif P2_OFFSET_45
+land_position 90 21
+elseif P2_OFFSET_46
+land_position 90 24
+elseif P2_OFFSET_47
+land_position 90 27
+elseif P2_OFFSET_48
+land_position 90 31
+elseif P2_OFFSET_49
+land_position 90 34
+elseif P2_OFFSET_50
+land_position 90 37
+elseif P2_OFFSET_51
+land_position 90 40
+elseif P2_OFFSET_52
+land_position 90 44
+elseif P2_OFFSET_53
+land_position 90 47
+elseif P2_OFFSET_54
+land_position 90 50
+elseif P2_OFFSET_55
+land_position 90 53
+elseif P2_OFFSET_56
+land_position 90 56
+elseif P2_OFFSET_57
+land_position 90 60
+elseif P2_OFFSET_58
+land_position 90 63
+elseif P2_OFFSET_59
+land_position 90 66
+elseif P2_OFFSET_60
+land_position 90 69
+elseif P2_OFFSET_61
+land_position 90 73
+elseif P2_OFFSET_62
+land_position 90 76
+elseif P2_OFFSET_63
+land_position 90 79
+elseif P2_OFFSET_64
+land_position 90 82
+endif
+elseif P1_POINT_47
+if P2_OFFSET_36
+land_position 76 10
+elseif P2_OFFSET_37
+land_position 79 10
+elseif P2_OFFSET_38
+land_position 82 10
+elseif P2_OFFSET_39
+land_position 86 10
+elseif P2_OFFSET_40
+land_position 89 10
+elseif P2_OFFSET_41
+land_position 90 11
+elseif P2_OFFSET_42
+land_position 90 14
+elseif P2_OFFSET_43
+land_position 90 18
+elseif P2_OFFSET_44
+land_position 90 21
+elseif P2_OFFSET_45
+land_position 90 24
+elseif P2_OFFSET_46
+land_position 90 27
+elseif P2_OFFSET_47
+land_position 90 31
+elseif P2_OFFSET_48
+land_position 90 34
+elseif P2_OFFSET_49
+land_position 90 37
+elseif P2_OFFSET_50
+land_position 90 40
+elseif P2_OFFSET_51
+land_position 90 44
+elseif P2_OFFSET_52
+land_position 90 47
+elseif P2_OFFSET_53
+land_position 90 50
+elseif P2_OFFSET_54
+land_position 90 53
+elseif P2_OFFSET_55
+land_position 90 56
+elseif P2_OFFSET_56
+land_position 90 60
+elseif P2_OFFSET_57
+land_position 90 63
+elseif P2_OFFSET_58
+land_position 90 66
+elseif P2_OFFSET_59
+land_position 90 69
+elseif P2_OFFSET_60
+land_position 90 73
+elseif P2_OFFSET_61
+land_position 90 76
+elseif P2_OFFSET_62
+land_position 90 79
+elseif P2_OFFSET_63
+land_position 90 82
+elseif P2_OFFSET_64
+land_position 90 86
+endif
+elseif P1_POINT_48
+if P2_OFFSET_36
+land_position 79 10
+elseif P2_OFFSET_37
+land_position 82 10
+elseif P2_OFFSET_38
+land_position 86 10
+elseif P2_OFFSET_39
+land_position 89 10
+elseif P2_OFFSET_40
+land_position 90 11
+elseif P2_OFFSET_41
+land_position 90 14
+elseif P2_OFFSET_42
+land_position 90 18
+elseif P2_OFFSET_43
+land_position 90 21
+elseif P2_OFFSET_44
+land_position 90 24
+elseif P2_OFFSET_45
+land_position 90 27
+elseif P2_OFFSET_46
+land_position 90 31
+elseif P2_OFFSET_47
+land_position 90 34
+elseif P2_OFFSET_48
+land_position 90 37
+elseif P2_OFFSET_49
+land_position 90 40
+elseif P2_OFFSET_50
+land_position 90 44
+elseif P2_OFFSET_51
+land_position 90 47
+elseif P2_OFFSET_52
+land_position 90 50
+elseif P2_OFFSET_53
+land_position 90 53
+elseif P2_OFFSET_54
+land_position 90 56
+elseif P2_OFFSET_55
+land_position 90 60
+elseif P2_OFFSET_56
+land_position 90 63
+elseif P2_OFFSET_57
+land_position 90 66
+elseif P2_OFFSET_58
+land_position 90 69
+elseif P2_OFFSET_59
+land_position 90 73
+elseif P2_OFFSET_60
+land_position 90 76
+elseif P2_OFFSET_61
+land_position 90 79
+elseif P2_OFFSET_62
+land_position 90 82
+elseif P2_OFFSET_63
+land_position 90 86
+elseif P2_OFFSET_64
+land_position 90 89
+endif
+elseif P1_POINT_49
+if P2_OFFSET_36
+land_position 82 10
+elseif P2_OFFSET_37
+land_position 86 10
+elseif P2_OFFSET_38
+land_position 89 10
+elseif P2_OFFSET_39
+land_position 90 11
+elseif P2_OFFSET_40
+land_position 90 14
+elseif P2_OFFSET_41
+land_position 90 18
+elseif P2_OFFSET_42
+land_position 90 21
+elseif P2_OFFSET_43
+land_position 90 24
+elseif P2_OFFSET_44
+land_position 90 27
+elseif P2_OFFSET_45
+land_position 90 31
+elseif P2_OFFSET_46
+land_position 90 34
+elseif P2_OFFSET_47
+land_position 90 37
+elseif P2_OFFSET_48
+land_position 90 40
+elseif P2_OFFSET_49
+land_position 90 44
+elseif P2_OFFSET_50
+land_position 90 47
+elseif P2_OFFSET_51
+land_position 90 50
+elseif P2_OFFSET_52
+land_position 90 53
+elseif P2_OFFSET_53
+land_position 90 56
+elseif P2_OFFSET_54
+land_position 90 60
+elseif P2_OFFSET_55
+land_position 90 63
+elseif P2_OFFSET_56
+land_position 90 66
+elseif P2_OFFSET_57
+land_position 90 69
+elseif P2_OFFSET_58
+land_position 90 73
+elseif P2_OFFSET_59
+land_position 90 76
+elseif P2_OFFSET_60
+land_position 90 79
+elseif P2_OFFSET_61
+land_position 90 82
+elseif P2_OFFSET_62
+land_position 90 86
+elseif P2_OFFSET_63
+land_position 90 89
+elseif P2_OFFSET_64
+land_position 89 90
+endif
+elseif P1_POINT_50
+if P2_OFFSET_36
+land_position 86 10
+elseif P2_OFFSET_37
+land_position 89 10
+elseif P2_OFFSET_38
+land_position 90 11
+elseif P2_OFFSET_39
+land_position 90 14
+elseif P2_OFFSET_40
+land_position 90 18
+elseif P2_OFFSET_41
+land_position 90 21
+elseif P2_OFFSET_42
+land_position 90 24
+elseif P2_OFFSET_43
+land_position 90 27
+elseif P2_OFFSET_44
+land_position 90 31
+elseif P2_OFFSET_45
+land_position 90 34
+elseif P2_OFFSET_46
+land_position 90 37
+elseif P2_OFFSET_47
+land_position 90 40
+elseif P2_OFFSET_48
+land_position 90 44
+elseif P2_OFFSET_49
+land_position 90 47
+elseif P2_OFFSET_50
+land_position 90 50
+elseif P2_OFFSET_51
+land_position 90 53
+elseif P2_OFFSET_52
+land_position 90 56
+elseif P2_OFFSET_53
+land_position 90 60
+elseif P2_OFFSET_54
+land_position 90 63
+elseif P2_OFFSET_55
+land_position 90 66
+elseif P2_OFFSET_56
+land_position 90 69
+elseif P2_OFFSET_57
+land_position 90 73
+elseif P2_OFFSET_58
+land_position 90 76
+elseif P2_OFFSET_59
+land_position 90 79
+elseif P2_OFFSET_60
+land_position 90 82
+elseif P2_OFFSET_61
+land_position 90 86
+elseif P2_OFFSET_62
+land_position 90 89
+elseif P2_OFFSET_63
+land_position 89 90
+elseif P2_OFFSET_64
+land_position 86 90
+endif
+elseif P1_POINT_51
+if P2_OFFSET_36
+land_position 89 10
+elseif P2_OFFSET_37
+land_position 90 11
+elseif P2_OFFSET_38
+land_position 90 14
+elseif P2_OFFSET_39
+land_position 90 18
+elseif P2_OFFSET_40
+land_position 90 21
+elseif P2_OFFSET_41
+land_position 90 24
+elseif P2_OFFSET_42
+land_position 90 27
+elseif P2_OFFSET_43
+land_position 90 31
+elseif P2_OFFSET_44
+land_position 90 34
+elseif P2_OFFSET_45
+land_position 90 37
+elseif P2_OFFSET_46
+land_position 90 40
+elseif P2_OFFSET_47
+land_position 90 44
+elseif P2_OFFSET_48
+land_position 90 47
+elseif P2_OFFSET_49
+land_position 90 50
+elseif P2_OFFSET_50
+land_position 90 53
+elseif P2_OFFSET_51
+land_position 90 56
+elseif P2_OFFSET_52
+land_position 90 60
+elseif P2_OFFSET_53
+land_position 90 63
+elseif P2_OFFSET_54
+land_position 90 66
+elseif P2_OFFSET_55
+land_position 90 69
+elseif P2_OFFSET_56
+land_position 90 73
+elseif P2_OFFSET_57
+land_position 90 76
+elseif P2_OFFSET_58
+land_position 90 79
+elseif P2_OFFSET_59
+land_position 90 82
+elseif P2_OFFSET_60
+land_position 90 86
+elseif P2_OFFSET_61
+land_position 90 89
+elseif P2_OFFSET_62
+land_position 89 90
+elseif P2_OFFSET_63
+land_position 86 90
+elseif P2_OFFSET_64
+land_position 82 90
+endif
+elseif P1_POINT_52
+if P2_OFFSET_36
+land_position 90 11
+elseif P2_OFFSET_37
+land_position 90 14
+elseif P2_OFFSET_38
+land_position 90 18
+elseif P2_OFFSET_39
+land_position 90 21
+elseif P2_OFFSET_40
+land_position 90 24
+elseif P2_OFFSET_41
+land_position 90 27
+elseif P2_OFFSET_42
+land_position 90 31
+elseif P2_OFFSET_43
+land_position 90 34
+elseif P2_OFFSET_44
+land_position 90 37
+elseif P2_OFFSET_45
+land_position 90 40
+elseif P2_OFFSET_46
+land_position 90 44
+elseif P2_OFFSET_47
+land_position 90 47
+elseif P2_OFFSET_48
+land_position 90 50
+elseif P2_OFFSET_49
+land_position 90 53
+elseif P2_OFFSET_50
+land_position 90 56
+elseif P2_OFFSET_51
+land_position 90 60
+elseif P2_OFFSET_52
+land_position 90 63
+elseif P2_OFFSET_53
+land_position 90 66
+elseif P2_OFFSET_54
+land_position 90 69
+elseif P2_OFFSET_55
+land_position 90 73
+elseif P2_OFFSET_56
+land_position 90 76
+elseif P2_OFFSET_57
+land_position 90 79
+elseif P2_OFFSET_58
+land_position 90 82
+elseif P2_OFFSET_59
+land_position 90 86
+elseif P2_OFFSET_60
+land_position 90 89
+elseif P2_OFFSET_61
+land_position 89 90
+elseif P2_OFFSET_62
+land_position 86 90
+elseif P2_OFFSET_63
+land_position 82 90
+elseif P2_OFFSET_64
+land_position 79 90
+endif
+elseif P1_POINT_53
+if P2_OFFSET_36
+land_position 90 14
+elseif P2_OFFSET_37
+land_position 90 18
+elseif P2_OFFSET_38
+land_position 90 21
+elseif P2_OFFSET_39
+land_position 90 24
+elseif P2_OFFSET_40
+land_position 90 27
+elseif P2_OFFSET_41
+land_position 90 31
+elseif P2_OFFSET_42
+land_position 90 34
+elseif P2_OFFSET_43
+land_position 90 37
+elseif P2_OFFSET_44
+land_position 90 40
+elseif P2_OFFSET_45
+land_position 90 44
+elseif P2_OFFSET_46
+land_position 90 47
+elseif P2_OFFSET_47
+land_position 90 50
+elseif P2_OFFSET_48
+land_position 90 53
+elseif P2_OFFSET_49
+land_position 90 56
+elseif P2_OFFSET_50
+land_position 90 60
+elseif P2_OFFSET_51
+land_position 90 63
+elseif P2_OFFSET_52
+land_position 90 66
+elseif P2_OFFSET_53
+land_position 90 69
+elseif P2_OFFSET_54
+land_position 90 73
+elseif P2_OFFSET_55
+land_position 90 76
+elseif P2_OFFSET_56
+land_position 90 79
+elseif P2_OFFSET_57
+land_position 90 82
+elseif P2_OFFSET_58
+land_position 90 86
+elseif P2_OFFSET_59
+land_position 90 89
+elseif P2_OFFSET_60
+land_position 89 90
+elseif P2_OFFSET_61
+land_position 86 90
+elseif P2_OFFSET_62
+land_position 82 90
+elseif P2_OFFSET_63
+land_position 79 90
+elseif P2_OFFSET_64
+land_position 76 90
+endif
+elseif P1_POINT_54
+if P2_OFFSET_36
+land_position 90 18
+elseif P2_OFFSET_37
+land_position 90 21
+elseif P2_OFFSET_38
+land_position 90 24
+elseif P2_OFFSET_39
+land_position 90 27
+elseif P2_OFFSET_40
+land_position 90 31
+elseif P2_OFFSET_41
+land_position 90 34
+elseif P2_OFFSET_42
+land_position 90 37
+elseif P2_OFFSET_43
+land_position 90 40
+elseif P2_OFFSET_44
+land_position 90 44
+elseif P2_OFFSET_45
+land_position 90 47
+elseif P2_OFFSET_46
+land_position 90 50
+elseif P2_OFFSET_47
+land_position 90 53
+elseif P2_OFFSET_48
+land_position 90 56
+elseif P2_OFFSET_49
+land_position 90 60
+elseif P2_OFFSET_50
+land_position 90 63
+elseif P2_OFFSET_51
+land_position 90 66
+elseif P2_OFFSET_52
+land_position 90 69
+elseif P2_OFFSET_53
+land_position 90 73
+elseif P2_OFFSET_54
+land_position 90 76
+elseif P2_OFFSET_55
+land_position 90 79
+elseif P2_OFFSET_56
+land_position 90 82
+elseif P2_OFFSET_57
+land_position 90 86
+elseif P2_OFFSET_58
+land_position 90 89
+elseif P2_OFFSET_59
+land_position 89 90
+elseif P2_OFFSET_60
+land_position 86 90
+elseif P2_OFFSET_61
+land_position 82 90
+elseif P2_OFFSET_62
+land_position 79 90
+elseif P2_OFFSET_63
+land_position 76 90
+elseif P2_OFFSET_64
+land_position 73 90
+endif
+elseif P1_POINT_55
+if P2_OFFSET_36
+land_position 90 21
+elseif P2_OFFSET_37
+land_position 90 24
+elseif P2_OFFSET_38
+land_position 90 27
+elseif P2_OFFSET_39
+land_position 90 31
+elseif P2_OFFSET_40
+land_position 90 34
+elseif P2_OFFSET_41
+land_position 90 37
+elseif P2_OFFSET_42
+land_position 90 40
+elseif P2_OFFSET_43
+land_position 90 44
+elseif P2_OFFSET_44
+land_position 90 47
+elseif P2_OFFSET_45
+land_position 90 50
+elseif P2_OFFSET_46
+land_position 90 53
+elseif P2_OFFSET_47
+land_position 90 56
+elseif P2_OFFSET_48
+land_position 90 60
+elseif P2_OFFSET_49
+land_position 90 63
+elseif P2_OFFSET_50
+land_position 90 66
+elseif P2_OFFSET_51
+land_position 90 69
+elseif P2_OFFSET_52
+land_position 90 73
+elseif P2_OFFSET_53
+land_position 90 76
+elseif P2_OFFSET_54
+land_position 90 79
+elseif P2_OFFSET_55
+land_position 90 82
+elseif P2_OFFSET_56
+land_position 90 86
+elseif P2_OFFSET_57
+land_position 90 89
+elseif P2_OFFSET_58
+land_position 89 90
+elseif P2_OFFSET_59
+land_position 86 90
+elseif P2_OFFSET_60
+land_position 82 90
+elseif P2_OFFSET_61
+land_position 79 90
+elseif P2_OFFSET_62
+land_position 76 90
+elseif P2_OFFSET_63
+land_position 73 90
+elseif P2_OFFSET_64
+land_position 69 90
+endif
+elseif P1_POINT_56
+if P2_OFFSET_36
+land_position 90 24
+elseif P2_OFFSET_37
+land_position 90 27
+elseif P2_OFFSET_38
+land_position 90 31
+elseif P2_OFFSET_39
+land_position 90 34
+elseif P2_OFFSET_40
+land_position 90 37
+elseif P2_OFFSET_41
+land_position 90 40
+elseif P2_OFFSET_42
+land_position 90 44
+elseif P2_OFFSET_43
+land_position 90 47
+elseif P2_OFFSET_44
+land_position 90 50
+elseif P2_OFFSET_45
+land_position 90 53
+elseif P2_OFFSET_46
+land_position 90 56
+elseif P2_OFFSET_47
+land_position 90 60
+elseif P2_OFFSET_48
+land_position 90 63
+elseif P2_OFFSET_49
+land_position 90 66
+elseif P2_OFFSET_50
+land_position 90 69
+elseif P2_OFFSET_51
+land_position 90 73
+elseif P2_OFFSET_52
+land_position 90 76
+elseif P2_OFFSET_53
+land_position 90 79
+elseif P2_OFFSET_54
+land_position 90 82
+elseif P2_OFFSET_55
+land_position 90 86
+elseif P2_OFFSET_56
+land_position 90 89
+elseif P2_OFFSET_57
+land_position 89 90
+elseif P2_OFFSET_58
+land_position 86 90
+elseif P2_OFFSET_59
+land_position 82 90
+elseif P2_OFFSET_60
+land_position 79 90
+elseif P2_OFFSET_61
+land_position 76 90
+elseif P2_OFFSET_62
+land_position 73 90
+elseif P2_OFFSET_63
+land_position 69 90
+elseif P2_OFFSET_64
+land_position 66 90
+endif
+elseif P1_POINT_57
+if P2_OFFSET_36
+land_position 90 27
+elseif P2_OFFSET_37
+land_position 90 31
+elseif P2_OFFSET_38
+land_position 90 34
+elseif P2_OFFSET_39
+land_position 90 37
+elseif P2_OFFSET_40
+land_position 90 40
+elseif P2_OFFSET_41
+land_position 90 44
+elseif P2_OFFSET_42
+land_position 90 47
+elseif P2_OFFSET_43
+land_position 90 50
+elseif P2_OFFSET_44
+land_position 90 53
+elseif P2_OFFSET_45
+land_position 90 56
+elseif P2_OFFSET_46
+land_position 90 60
+elseif P2_OFFSET_47
+land_position 90 63
+elseif P2_OFFSET_48
+land_position 90 66
+elseif P2_OFFSET_49
+land_position 90 69
+elseif P2_OFFSET_50
+land_position 90 73
+elseif P2_OFFSET_51
+land_position 90 76
+elseif P2_OFFSET_52
+land_position 90 79
+elseif P2_OFFSET_53
+land_position 90 82
+elseif P2_OFFSET_54
+land_position 90 86
+elseif P2_OFFSET_55
+land_position 90 89
+elseif P2_OFFSET_56
+land_position 89 90
+elseif P2_OFFSET_57
+land_position 86 90
+elseif P2_OFFSET_58
+land_position 82 90
+elseif P2_OFFSET_59
+land_position 79 90
+elseif P2_OFFSET_60
+land_position 76 90
+elseif P2_OFFSET_61
+land_position 73 90
+elseif P2_OFFSET_62
+land_position 69 90
+elseif P2_OFFSET_63
+land_position 66 90
+elseif P2_OFFSET_64
+land_position 63 90
+endif
+elseif P1_POINT_58
+if P2_OFFSET_36
+land_position 90 31
+elseif P2_OFFSET_37
+land_position 90 34
+elseif P2_OFFSET_38
+land_position 90 37
+elseif P2_OFFSET_39
+land_position 90 40
+elseif P2_OFFSET_40
+land_position 90 44
+elseif P2_OFFSET_41
+land_position 90 47
+elseif P2_OFFSET_42
+land_position 90 50
+elseif P2_OFFSET_43
+land_position 90 53
+elseif P2_OFFSET_44
+land_position 90 56
+elseif P2_OFFSET_45
+land_position 90 60
+elseif P2_OFFSET_46
+land_position 90 63
+elseif P2_OFFSET_47
+land_position 90 66
+elseif P2_OFFSET_48
+land_position 90 69
+elseif P2_OFFSET_49
+land_position 90 73
+elseif P2_OFFSET_50
+land_position 90 76
+elseif P2_OFFSET_51
+land_position 90 79
+elseif P2_OFFSET_52
+land_position 90 82
+elseif P2_OFFSET_53
+land_position 90 86
+elseif P2_OFFSET_54
+land_position 90 89
+elseif P2_OFFSET_55
+land_position 89 90
+elseif P2_OFFSET_56
+land_position 86 90
+elseif P2_OFFSET_57
+land_position 82 90
+elseif P2_OFFSET_58
+land_position 79 90
+elseif P2_OFFSET_59
+land_position 76 90
+elseif P2_OFFSET_60
+land_position 73 90
+elseif P2_OFFSET_61
+land_position 69 90
+elseif P2_OFFSET_62
+land_position 66 90
+elseif P2_OFFSET_63
+land_position 63 90
+elseif P2_OFFSET_64
+land_position 60 90
+endif
+elseif P1_POINT_59
+if P2_OFFSET_36
+land_position 90 34
+elseif P2_OFFSET_37
+land_position 90 37
+elseif P2_OFFSET_38
+land_position 90 40
+elseif P2_OFFSET_39
+land_position 90 44
+elseif P2_OFFSET_40
+land_position 90 47
+elseif P2_OFFSET_41
+land_position 90 50
+elseif P2_OFFSET_42
+land_position 90 53
+elseif P2_OFFSET_43
+land_position 90 56
+elseif P2_OFFSET_44
+land_position 90 60
+elseif P2_OFFSET_45
+land_position 90 63
+elseif P2_OFFSET_46
+land_position 90 66
+elseif P2_OFFSET_47
+land_position 90 69
+elseif P2_OFFSET_48
+land_position 90 73
+elseif P2_OFFSET_49
+land_position 90 76
+elseif P2_OFFSET_50
+land_position 90 79
+elseif P2_OFFSET_51
+land_position 90 82
+elseif P2_OFFSET_52
+land_position 90 86
+elseif P2_OFFSET_53
+land_position 90 89
+elseif P2_OFFSET_54
+land_position 89 90
+elseif P2_OFFSET_55
+land_position 86 90
+elseif P2_OFFSET_56
+land_position 82 90
+elseif P2_OFFSET_57
+land_position 79 90
+elseif P2_OFFSET_58
+land_position 76 90
+elseif P2_OFFSET_59
+land_position 73 90
+elseif P2_OFFSET_60
+land_position 69 90
+elseif P2_OFFSET_61
+land_position 66 90
+elseif P2_OFFSET_62
+land_position 63 90
+elseif P2_OFFSET_63
+land_position 60 90
+elseif P2_OFFSET_64
+land_position 56 90
+endif
+elseif P1_POINT_60
+if P2_OFFSET_36
+land_position 90 37
+elseif P2_OFFSET_37
+land_position 90 40
+elseif P2_OFFSET_38
+land_position 90 44
+elseif P2_OFFSET_39
+land_position 90 47
+elseif P2_OFFSET_40
+land_position 90 50
+elseif P2_OFFSET_41
+land_position 90 53
+elseif P2_OFFSET_42
+land_position 90 56
+elseif P2_OFFSET_43
+land_position 90 60
+elseif P2_OFFSET_44
+land_position 90 63
+elseif P2_OFFSET_45
+land_position 90 66
+elseif P2_OFFSET_46
+land_position 90 69
+elseif P2_OFFSET_47
+land_position 90 73
+elseif P2_OFFSET_48
+land_position 90 76
+elseif P2_OFFSET_49
+land_position 90 79
+elseif P2_OFFSET_50
+land_position 90 82
+elseif P2_OFFSET_51
+land_position 90 86
+elseif P2_OFFSET_52
+land_position 90 89
+elseif P2_OFFSET_53
+land_position 89 90
+elseif P2_OFFSET_54
+land_position 86 90
+elseif P2_OFFSET_55
+land_position 82 90
+elseif P2_OFFSET_56
+land_position 79 90
+elseif P2_OFFSET_57
+land_position 76 90
+elseif P2_OFFSET_58
+land_position 73 90
+elseif P2_OFFSET_59
+land_position 69 90
+elseif P2_OFFSET_60
+land_position 66 90
+elseif P2_OFFSET_61
+land_position 63 90
+elseif P2_OFFSET_62
+land_position 60 90
+elseif P2_OFFSET_63
+land_position 56 90
+elseif P2_OFFSET_64
+land_position 53 90
+endif
+elseif P1_POINT_61
+if P2_OFFSET_36
+land_position 90 40
+elseif P2_OFFSET_37
+land_position 90 44
+elseif P2_OFFSET_38
+land_position 90 47
+elseif P2_OFFSET_39
+land_position 90 50
+elseif P2_OFFSET_40
+land_position 90 53
+elseif P2_OFFSET_41
+land_position 90 56
+elseif P2_OFFSET_42
+land_position 90 60
+elseif P2_OFFSET_43
+land_position 90 63
+elseif P2_OFFSET_44
+land_position 90 66
+elseif P2_OFFSET_45
+land_position 90 69
+elseif P2_OFFSET_46
+land_position 90 73
+elseif P2_OFFSET_47
+land_position 90 76
+elseif P2_OFFSET_48
+land_position 90 79
+elseif P2_OFFSET_49
+land_position 90 82
+elseif P2_OFFSET_50
+land_position 90 86
+elseif P2_OFFSET_51
+land_position 90 89
+elseif P2_OFFSET_52
+land_position 89 90
+elseif P2_OFFSET_53
+land_position 86 90
+elseif P2_OFFSET_54
+land_position 82 90
+elseif P2_OFFSET_55
+land_position 79 90
+elseif P2_OFFSET_56
+land_position 76 90
+elseif P2_OFFSET_57
+land_position 73 90
+elseif P2_OFFSET_58
+land_position 69 90
+elseif P2_OFFSET_59
+land_position 66 90
+elseif P2_OFFSET_60
+land_position 63 90
+elseif P2_OFFSET_61
+land_position 60 90
+elseif P2_OFFSET_62
+land_position 56 90
+elseif P2_OFFSET_63
+land_position 53 90
+elseif P2_OFFSET_64
+land_position 50 90
+endif
+elseif P1_POINT_62
+if P2_OFFSET_36
+land_position 90 44
+elseif P2_OFFSET_37
+land_position 90 47
+elseif P2_OFFSET_38
+land_position 90 50
+elseif P2_OFFSET_39
+land_position 90 53
+elseif P2_OFFSET_40
+land_position 90 56
+elseif P2_OFFSET_41
+land_position 90 60
+elseif P2_OFFSET_42
+land_position 90 63
+elseif P2_OFFSET_43
+land_position 90 66
+elseif P2_OFFSET_44
+land_position 90 69
+elseif P2_OFFSET_45
+land_position 90 73
+elseif P2_OFFSET_46
+land_position 90 76
+elseif P2_OFFSET_47
+land_position 90 79
+elseif P2_OFFSET_48
+land_position 90 82
+elseif P2_OFFSET_49
+land_position 90 86
+elseif P2_OFFSET_50
+land_position 90 89
+elseif P2_OFFSET_51
+land_position 89 90
+elseif P2_OFFSET_52
+land_position 86 90
+elseif P2_OFFSET_53
+land_position 82 90
+elseif P2_OFFSET_54
+land_position 79 90
+elseif P2_OFFSET_55
+land_position 76 90
+elseif P2_OFFSET_56
+land_position 73 90
+elseif P2_OFFSET_57
+land_position 69 90
+elseif P2_OFFSET_58
+land_position 66 90
+elseif P2_OFFSET_59
+land_position 63 90
+elseif P2_OFFSET_60
+land_position 60 90
+elseif P2_OFFSET_61
+land_position 56 90
+elseif P2_OFFSET_62
+land_position 53 90
+elseif P2_OFFSET_63
+land_position 50 90
+elseif P2_OFFSET_64
+land_position 47 90
+endif
+elseif P1_POINT_63
+if P2_OFFSET_36
+land_position 90 47
+elseif P2_OFFSET_37
+land_position 90 50
+elseif P2_OFFSET_38
+land_position 90 53
+elseif P2_OFFSET_39
+land_position 90 56
+elseif P2_OFFSET_40
+land_position 90 60
+elseif P2_OFFSET_41
+land_position 90 63
+elseif P2_OFFSET_42
+land_position 90 66
+elseif P2_OFFSET_43
+land_position 90 69
+elseif P2_OFFSET_44
+land_position 90 73
+elseif P2_OFFSET_45
+land_position 90 76
+elseif P2_OFFSET_46
+land_position 90 79
+elseif P2_OFFSET_47
+land_position 90 82
+elseif P2_OFFSET_48
+land_position 90 86
+elseif P2_OFFSET_49
+land_position 90 89
+elseif P2_OFFSET_50
+land_position 89 90
+elseif P2_OFFSET_51
+land_position 86 90
+elseif P2_OFFSET_52
+land_position 82 90
+elseif P2_OFFSET_53
+land_position 79 90
+elseif P2_OFFSET_54
+land_position 76 90
+elseif P2_OFFSET_55
+land_position 73 90
+elseif P2_OFFSET_56
+land_position 69 90
+elseif P2_OFFSET_57
+land_position 66 90
+elseif P2_OFFSET_58
+land_position 63 90
+elseif P2_OFFSET_59
+land_position 60 90
+elseif P2_OFFSET_60
+land_position 56 90
+elseif P2_OFFSET_61
+land_position 53 90
+elseif P2_OFFSET_62
+land_position 50 90
+elseif P2_OFFSET_63
+land_position 47 90
+elseif P2_OFFSET_64
+land_position 44 90
+endif
+elseif P1_POINT_64
+if P2_OFFSET_36
+land_position 90 50
+elseif P2_OFFSET_37
+land_position 90 53
+elseif P2_OFFSET_38
+land_position 90 56
+elseif P2_OFFSET_39
+land_position 90 60
+elseif P2_OFFSET_40
+land_position 90 63
+elseif P2_OFFSET_41
+land_position 90 66
+elseif P2_OFFSET_42
+land_position 90 69
+elseif P2_OFFSET_43
+land_position 90 73
+elseif P2_OFFSET_44
+land_position 90 76
+elseif P2_OFFSET_45
+land_position 90 79
+elseif P2_OFFSET_46
+land_position 90 82
+elseif P2_OFFSET_47
+land_position 90 86
+elseif P2_OFFSET_48
+land_position 90 89
+elseif P2_OFFSET_49
+land_position 89 90
+elseif P2_OFFSET_50
+land_position 86 90
+elseif P2_OFFSET_51
+land_position 82 90
+elseif P2_OFFSET_52
+land_position 79 90
+elseif P2_OFFSET_53
+land_position 76 90
+elseif P2_OFFSET_54
+land_position 73 90
+elseif P2_OFFSET_55
+land_position 69 90
+elseif P2_OFFSET_56
+land_position 66 90
+elseif P2_OFFSET_57
+land_position 63 90
+elseif P2_OFFSET_58
+land_position 60 90
+elseif P2_OFFSET_59
+land_position 56 90
+elseif P2_OFFSET_60
+land_position 53 90
+elseif P2_OFFSET_61
+land_position 50 90
+elseif P2_OFFSET_62
+land_position 47 90
+elseif P2_OFFSET_63
+land_position 44 90
+elseif P2_OFFSET_64
+land_position 40 90
+endif
+elseif P1_POINT_65
+if P2_OFFSET_36
+land_position 90 53
+elseif P2_OFFSET_37
+land_position 90 56
+elseif P2_OFFSET_38
+land_position 90 60
+elseif P2_OFFSET_39
+land_position 90 63
+elseif P2_OFFSET_40
+land_position 90 66
+elseif P2_OFFSET_41
+land_position 90 69
+elseif P2_OFFSET_42
+land_position 90 73
+elseif P2_OFFSET_43
+land_position 90 76
+elseif P2_OFFSET_44
+land_position 90 79
+elseif P2_OFFSET_45
+land_position 90 82
+elseif P2_OFFSET_46
+land_position 90 86
+elseif P2_OFFSET_47
+land_position 90 89
+elseif P2_OFFSET_48
+land_position 89 90
+elseif P2_OFFSET_49
+land_position 86 90
+elseif P2_OFFSET_50
+land_position 82 90
+elseif P2_OFFSET_51
+land_position 79 90
+elseif P2_OFFSET_52
+land_position 76 90
+elseif P2_OFFSET_53
+land_position 73 90
+elseif P2_OFFSET_54
+land_position 69 90
+elseif P2_OFFSET_55
+land_position 66 90
+elseif P2_OFFSET_56
+land_position 63 90
+elseif P2_OFFSET_57
+land_position 60 90
+elseif P2_OFFSET_58
+land_position 56 90
+elseif P2_OFFSET_59
+land_position 53 90
+elseif P2_OFFSET_60
+land_position 50 90
+elseif P2_OFFSET_61
+land_position 47 90
+elseif P2_OFFSET_62
+land_position 44 90
+elseif P2_OFFSET_63
+land_position 40 90
+elseif P2_OFFSET_64
+land_position 37 90
+endif
+elseif P1_POINT_66
+if P2_OFFSET_36
+land_position 90 56
+elseif P2_OFFSET_37
+land_position 90 60
+elseif P2_OFFSET_38
+land_position 90 63
+elseif P2_OFFSET_39
+land_position 90 66
+elseif P2_OFFSET_40
+land_position 90 69
+elseif P2_OFFSET_41
+land_position 90 73
+elseif P2_OFFSET_42
+land_position 90 76
+elseif P2_OFFSET_43
+land_position 90 79
+elseif P2_OFFSET_44
+land_position 90 82
+elseif P2_OFFSET_45
+land_position 90 86
+elseif P2_OFFSET_46
+land_position 90 89
+elseif P2_OFFSET_47
+land_position 89 90
+elseif P2_OFFSET_48
+land_position 86 90
+elseif P2_OFFSET_49
+land_position 82 90
+elseif P2_OFFSET_50
+land_position 79 90
+elseif P2_OFFSET_51
+land_position 76 90
+elseif P2_OFFSET_52
+land_position 73 90
+elseif P2_OFFSET_53
+land_position 69 90
+elseif P2_OFFSET_54
+land_position 66 90
+elseif P2_OFFSET_55
+land_position 63 90
+elseif P2_OFFSET_56
+land_position 60 90
+elseif P2_OFFSET_57
+land_position 56 90
+elseif P2_OFFSET_58
+land_position 53 90
+elseif P2_OFFSET_59
+land_position 50 90
+elseif P2_OFFSET_60
+land_position 47 90
+elseif P2_OFFSET_61
+land_position 44 90
+elseif P2_OFFSET_62
+land_position 40 90
+elseif P2_OFFSET_63
+land_position 37 90
+elseif P2_OFFSET_64
+land_position 34 90
+endif
+elseif P1_POINT_67
+if P2_OFFSET_36
+land_position 90 60
+elseif P2_OFFSET_37
+land_position 90 63
+elseif P2_OFFSET_38
+land_position 90 66
+elseif P2_OFFSET_39
+land_position 90 69
+elseif P2_OFFSET_40
+land_position 90 73
+elseif P2_OFFSET_41
+land_position 90 76
+elseif P2_OFFSET_42
+land_position 90 79
+elseif P2_OFFSET_43
+land_position 90 82
+elseif P2_OFFSET_44
+land_position 90 86
+elseif P2_OFFSET_45
+land_position 90 89
+elseif P2_OFFSET_46
+land_position 89 90
+elseif P2_OFFSET_47
+land_position 86 90
+elseif P2_OFFSET_48
+land_position 82 90
+elseif P2_OFFSET_49
+land_position 79 90
+elseif P2_OFFSET_50
+land_position 76 90
+elseif P2_OFFSET_51
+land_position 73 90
+elseif P2_OFFSET_52
+land_position 69 90
+elseif P2_OFFSET_53
+land_position 66 90
+elseif P2_OFFSET_54
+land_position 63 90
+elseif P2_OFFSET_55
+land_position 60 90
+elseif P2_OFFSET_56
+land_position 56 90
+elseif P2_OFFSET_57
+land_position 53 90
+elseif P2_OFFSET_58
+land_position 50 90
+elseif P2_OFFSET_59
+land_position 47 90
+elseif P2_OFFSET_60
+land_position 44 90
+elseif P2_OFFSET_61
+land_position 40 90
+elseif P2_OFFSET_62
+land_position 37 90
+elseif P2_OFFSET_63
+land_position 34 90
+elseif P2_OFFSET_64
+land_position 31 90
+endif
+elseif P1_POINT_68
+if P2_OFFSET_36
+land_position 90 63
+elseif P2_OFFSET_37
+land_position 90 66
+elseif P2_OFFSET_38
+land_position 90 69
+elseif P2_OFFSET_39
+land_position 90 73
+elseif P2_OFFSET_40
+land_position 90 76
+elseif P2_OFFSET_41
+land_position 90 79
+elseif P2_OFFSET_42
+land_position 90 82
+elseif P2_OFFSET_43
+land_position 90 86
+elseif P2_OFFSET_44
+land_position 90 89
+elseif P2_OFFSET_45
+land_position 89 90
+elseif P2_OFFSET_46
+land_position 86 90
+elseif P2_OFFSET_47
+land_position 82 90
+elseif P2_OFFSET_48
+land_position 79 90
+elseif P2_OFFSET_49
+land_position 76 90
+elseif P2_OFFSET_50
+land_position 73 90
+elseif P2_OFFSET_51
+land_position 69 90
+elseif P2_OFFSET_52
+land_position 66 90
+elseif P2_OFFSET_53
+land_position 63 90
+elseif P2_OFFSET_54
+land_position 60 90
+elseif P2_OFFSET_55
+land_position 56 90
+elseif P2_OFFSET_56
+land_position 53 90
+elseif P2_OFFSET_57
+land_position 50 90
+elseif P2_OFFSET_58
+land_position 47 90
+elseif P2_OFFSET_59
+land_position 44 90
+elseif P2_OFFSET_60
+land_position 40 90
+elseif P2_OFFSET_61
+land_position 37 90
+elseif P2_OFFSET_62
+land_position 34 90
+elseif P2_OFFSET_63
+land_position 31 90
+elseif P2_OFFSET_64
+land_position 27 90
+endif
+elseif P1_POINT_69
+if P2_OFFSET_36
+land_position 90 66
+elseif P2_OFFSET_37
+land_position 90 69
+elseif P2_OFFSET_38
+land_position 90 73
+elseif P2_OFFSET_39
+land_position 90 76
+elseif P2_OFFSET_40
+land_position 90 79
+elseif P2_OFFSET_41
+land_position 90 82
+elseif P2_OFFSET_42
+land_position 90 86
+elseif P2_OFFSET_43
+land_position 90 89
+elseif P2_OFFSET_44
+land_position 89 90
+elseif P2_OFFSET_45
+land_position 86 90
+elseif P2_OFFSET_46
+land_position 82 90
+elseif P2_OFFSET_47
+land_position 79 90
+elseif P2_OFFSET_48
+land_position 76 90
+elseif P2_OFFSET_49
+land_position 73 90
+elseif P2_OFFSET_50
+land_position 69 90
+elseif P2_OFFSET_51
+land_position 66 90
+elseif P2_OFFSET_52
+land_position 63 90
+elseif P2_OFFSET_53
+land_position 60 90
+elseif P2_OFFSET_54
+land_position 56 90
+elseif P2_OFFSET_55
+land_position 53 90
+elseif P2_OFFSET_56
+land_position 50 90
+elseif P2_OFFSET_57
+land_position 47 90
+elseif P2_OFFSET_58
+land_position 44 90
+elseif P2_OFFSET_59
+land_position 40 90
+elseif P2_OFFSET_60
+land_position 37 90
+elseif P2_OFFSET_61
+land_position 34 90
+elseif P2_OFFSET_62
+land_position 31 90
+elseif P2_OFFSET_63
+land_position 27 90
+elseif P2_OFFSET_64
+land_position 24 90
+endif
+elseif P1_POINT_70
+if P2_OFFSET_36
+land_position 90 69
+elseif P2_OFFSET_37
+land_position 90 73
+elseif P2_OFFSET_38
+land_position 90 76
+elseif P2_OFFSET_39
+land_position 90 79
+elseif P2_OFFSET_40
+land_position 90 82
+elseif P2_OFFSET_41
+land_position 90 86
+elseif P2_OFFSET_42
+land_position 90 89
+elseif P2_OFFSET_43
+land_position 89 90
+elseif P2_OFFSET_44
+land_position 86 90
+elseif P2_OFFSET_45
+land_position 82 90
+elseif P2_OFFSET_46
+land_position 79 90
+elseif P2_OFFSET_47
+land_position 76 90
+elseif P2_OFFSET_48
+land_position 73 90
+elseif P2_OFFSET_49
+land_position 69 90
+elseif P2_OFFSET_50
+land_position 66 90
+elseif P2_OFFSET_51
+land_position 63 90
+elseif P2_OFFSET_52
+land_position 60 90
+elseif P2_OFFSET_53
+land_position 56 90
+elseif P2_OFFSET_54
+land_position 53 90
+elseif P2_OFFSET_55
+land_position 50 90
+elseif P2_OFFSET_56
+land_position 47 90
+elseif P2_OFFSET_57
+land_position 44 90
+elseif P2_OFFSET_58
+land_position 40 90
+elseif P2_OFFSET_59
+land_position 37 90
+elseif P2_OFFSET_60
+land_position 34 90
+elseif P2_OFFSET_61
+land_position 31 90
+elseif P2_OFFSET_62
+land_position 27 90
+elseif P2_OFFSET_63
+land_position 24 90
+elseif P2_OFFSET_64
+land_position 21 90
+endif
+elseif P1_POINT_71
+if P2_OFFSET_36
+land_position 90 73
+elseif P2_OFFSET_37
+land_position 90 76
+elseif P2_OFFSET_38
+land_position 90 79
+elseif P2_OFFSET_39
+land_position 90 82
+elseif P2_OFFSET_40
+land_position 90 86
+elseif P2_OFFSET_41
+land_position 90 89
+elseif P2_OFFSET_42
+land_position 89 90
+elseif P2_OFFSET_43
+land_position 86 90
+elseif P2_OFFSET_44
+land_position 82 90
+elseif P2_OFFSET_45
+land_position 79 90
+elseif P2_OFFSET_46
+land_position 76 90
+elseif P2_OFFSET_47
+land_position 73 90
+elseif P2_OFFSET_48
+land_position 69 90
+elseif P2_OFFSET_49
+land_position 66 90
+elseif P2_OFFSET_50
+land_position 63 90
+elseif P2_OFFSET_51
+land_position 60 90
+elseif P2_OFFSET_52
+land_position 56 90
+elseif P2_OFFSET_53
+land_position 53 90
+elseif P2_OFFSET_54
+land_position 50 90
+elseif P2_OFFSET_55
+land_position 47 90
+elseif P2_OFFSET_56
+land_position 44 90
+elseif P2_OFFSET_57
+land_position 40 90
+elseif P2_OFFSET_58
+land_position 37 90
+elseif P2_OFFSET_59
+land_position 34 90
+elseif P2_OFFSET_60
+land_position 31 90
+elseif P2_OFFSET_61
+land_position 27 90
+elseif P2_OFFSET_62
+land_position 24 90
+elseif P2_OFFSET_63
+land_position 21 90
+elseif P2_OFFSET_64
+land_position 18 90
+endif
+elseif P1_POINT_72
+if P2_OFFSET_36
+land_position 90 76
+elseif P2_OFFSET_37
+land_position 90 79
+elseif P2_OFFSET_38
+land_position 90 82
+elseif P2_OFFSET_39
+land_position 90 86
+elseif P2_OFFSET_40
+land_position 90 89
+elseif P2_OFFSET_41
+land_position 89 90
+elseif P2_OFFSET_42
+land_position 86 90
+elseif P2_OFFSET_43
+land_position 82 90
+elseif P2_OFFSET_44
+land_position 79 90
+elseif P2_OFFSET_45
+land_position 76 90
+elseif P2_OFFSET_46
+land_position 73 90
+elseif P2_OFFSET_47
+land_position 69 90
+elseif P2_OFFSET_48
+land_position 66 90
+elseif P2_OFFSET_49
+land_position 63 90
+elseif P2_OFFSET_50
+land_position 60 90
+elseif P2_OFFSET_51
+land_position 56 90
+elseif P2_OFFSET_52
+land_position 53 90
+elseif P2_OFFSET_53
+land_position 50 90
+elseif P2_OFFSET_54
+land_position 47 90
+elseif P2_OFFSET_55
+land_position 44 90
+elseif P2_OFFSET_56
+land_position 40 90
+elseif P2_OFFSET_57
+land_position 37 90
+elseif P2_OFFSET_58
+land_position 34 90
+elseif P2_OFFSET_59
+land_position 31 90
+elseif P2_OFFSET_60
+land_position 27 90
+elseif P2_OFFSET_61
+land_position 24 90
+elseif P2_OFFSET_62
+land_position 21 90
+elseif P2_OFFSET_63
+land_position 18 90
+elseif P2_OFFSET_64
+land_position 14 90
+endif
+elseif P1_POINT_73
+if P2_OFFSET_36
+land_position 90 79
+elseif P2_OFFSET_37
+land_position 90 82
+elseif P2_OFFSET_38
+land_position 90 86
+elseif P2_OFFSET_39
+land_position 90 89
+elseif P2_OFFSET_40
+land_position 89 90
+elseif P2_OFFSET_41
+land_position 86 90
+elseif P2_OFFSET_42
+land_position 82 90
+elseif P2_OFFSET_43
+land_position 79 90
+elseif P2_OFFSET_44
+land_position 76 90
+elseif P2_OFFSET_45
+land_position 73 90
+elseif P2_OFFSET_46
+land_position 69 90
+elseif P2_OFFSET_47
+land_position 66 90
+elseif P2_OFFSET_48
+land_position 63 90
+elseif P2_OFFSET_49
+land_position 60 90
+elseif P2_OFFSET_50
+land_position 56 90
+elseif P2_OFFSET_51
+land_position 53 90
+elseif P2_OFFSET_52
+land_position 50 90
+elseif P2_OFFSET_53
+land_position 47 90
+elseif P2_OFFSET_54
+land_position 44 90
+elseif P2_OFFSET_55
+land_position 40 90
+elseif P2_OFFSET_56
+land_position 37 90
+elseif P2_OFFSET_57
+land_position 34 90
+elseif P2_OFFSET_58
+land_position 31 90
+elseif P2_OFFSET_59
+land_position 27 90
+elseif P2_OFFSET_60
+land_position 24 90
+elseif P2_OFFSET_61
+land_position 21 90
+elseif P2_OFFSET_62
+land_position 18 90
+elseif P2_OFFSET_63
+land_position 14 90
+elseif P2_OFFSET_64
+land_position 11 90
+endif
+elseif P1_POINT_74
+if P2_OFFSET_36
+land_position 90 82
+elseif P2_OFFSET_37
+land_position 90 86
+elseif P2_OFFSET_38
+land_position 90 89
+elseif P2_OFFSET_39
+land_position 89 90
+elseif P2_OFFSET_40
+land_position 86 90
+elseif P2_OFFSET_41
+land_position 82 90
+elseif P2_OFFSET_42
+land_position 79 90
+elseif P2_OFFSET_43
+land_position 76 90
+elseif P2_OFFSET_44
+land_position 73 90
+elseif P2_OFFSET_45
+land_position 69 90
+elseif P2_OFFSET_46
+land_position 66 90
+elseif P2_OFFSET_47
+land_position 63 90
+elseif P2_OFFSET_48
+land_position 60 90
+elseif P2_OFFSET_49
+land_position 56 90
+elseif P2_OFFSET_50
+land_position 53 90
+elseif P2_OFFSET_51
+land_position 50 90
+elseif P2_OFFSET_52
+land_position 47 90
+elseif P2_OFFSET_53
+land_position 44 90
+elseif P2_OFFSET_54
+land_position 40 90
+elseif P2_OFFSET_55
+land_position 37 90
+elseif P2_OFFSET_56
+land_position 34 90
+elseif P2_OFFSET_57
+land_position 31 90
+elseif P2_OFFSET_58
+land_position 27 90
+elseif P2_OFFSET_59
+land_position 24 90
+elseif P2_OFFSET_60
+land_position 21 90
+elseif P2_OFFSET_61
+land_position 18 90
+elseif P2_OFFSET_62
+land_position 14 90
+elseif P2_OFFSET_63
+land_position 11 90
+elseif P2_OFFSET_64
+land_position 10 89
+endif
+elseif P1_POINT_75
+if P2_OFFSET_36
+land_position 90 86
+elseif P2_OFFSET_37
+land_position 90 89
+elseif P2_OFFSET_38
+land_position 89 90
+elseif P2_OFFSET_39
+land_position 86 90
+elseif P2_OFFSET_40
+land_position 82 90
+elseif P2_OFFSET_41
+land_position 79 90
+elseif P2_OFFSET_42
+land_position 76 90
+elseif P2_OFFSET_43
+land_position 73 90
+elseif P2_OFFSET_44
+land_position 69 90
+elseif P2_OFFSET_45
+land_position 66 90
+elseif P2_OFFSET_46
+land_position 63 90
+elseif P2_OFFSET_47
+land_position 60 90
+elseif P2_OFFSET_48
+land_position 56 90
+elseif P2_OFFSET_49
+land_position 53 90
+elseif P2_OFFSET_50
+land_position 50 90
+elseif P2_OFFSET_51
+land_position 47 90
+elseif P2_OFFSET_52
+land_position 44 90
+elseif P2_OFFSET_53
+land_position 40 90
+elseif P2_OFFSET_54
+land_position 37 90
+elseif P2_OFFSET_55
+land_position 34 90
+elseif P2_OFFSET_56
+land_position 31 90
+elseif P2_OFFSET_57
+land_position 27 90
+elseif P2_OFFSET_58
+land_position 24 90
+elseif P2_OFFSET_59
+land_position 21 90
+elseif P2_OFFSET_60
+land_position 18 90
+elseif P2_OFFSET_61
+land_position 14 90
+elseif P2_OFFSET_62
+land_position 11 90
+elseif P2_OFFSET_63
+land_position 10 89
+elseif P2_OFFSET_64
+land_position 10 86
+endif
+elseif P1_POINT_76
+if P2_OFFSET_36
+land_position 90 89
+elseif P2_OFFSET_37
+land_position 89 90
+elseif P2_OFFSET_38
+land_position 86 90
+elseif P2_OFFSET_39
+land_position 82 90
+elseif P2_OFFSET_40
+land_position 79 90
+elseif P2_OFFSET_41
+land_position 76 90
+elseif P2_OFFSET_42
+land_position 73 90
+elseif P2_OFFSET_43
+land_position 69 90
+elseif P2_OFFSET_44
+land_position 66 90
+elseif P2_OFFSET_45
+land_position 63 90
+elseif P2_OFFSET_46
+land_position 60 90
+elseif P2_OFFSET_47
+land_position 56 90
+elseif P2_OFFSET_48
+land_position 53 90
+elseif P2_OFFSET_49
+land_position 50 90
+elseif P2_OFFSET_50
+land_position 47 90
+elseif P2_OFFSET_51
+land_position 44 90
+elseif P2_OFFSET_52
+land_position 40 90
+elseif P2_OFFSET_53
+land_position 37 90
+elseif P2_OFFSET_54
+land_position 34 90
+elseif P2_OFFSET_55
+land_position 31 90
+elseif P2_OFFSET_56
+land_position 27 90
+elseif P2_OFFSET_57
+land_position 24 90
+elseif P2_OFFSET_58
+land_position 21 90
+elseif P2_OFFSET_59
+land_position 18 90
+elseif P2_OFFSET_60
+land_position 14 90
+elseif P2_OFFSET_61
+land_position 11 90
+elseif P2_OFFSET_62
+land_position 10 89
+elseif P2_OFFSET_63
+land_position 10 86
+elseif P2_OFFSET_64
+land_position 10 82
+endif
+elseif P1_POINT_77
+if P2_OFFSET_36
+land_position 89 90
+elseif P2_OFFSET_37
+land_position 86 90
+elseif P2_OFFSET_38
+land_position 82 90
+elseif P2_OFFSET_39
+land_position 79 90
+elseif P2_OFFSET_40
+land_position 76 90
+elseif P2_OFFSET_41
+land_position 73 90
+elseif P2_OFFSET_42
+land_position 69 90
+elseif P2_OFFSET_43
+land_position 66 90
+elseif P2_OFFSET_44
+land_position 63 90
+elseif P2_OFFSET_45
+land_position 60 90
+elseif P2_OFFSET_46
+land_position 56 90
+elseif P2_OFFSET_47
+land_position 53 90
+elseif P2_OFFSET_48
+land_position 50 90
+elseif P2_OFFSET_49
+land_position 47 90
+elseif P2_OFFSET_50
+land_position 44 90
+elseif P2_OFFSET_51
+land_position 40 90
+elseif P2_OFFSET_52
+land_position 37 90
+elseif P2_OFFSET_53
+land_position 34 90
+elseif P2_OFFSET_54
+land_position 31 90
+elseif P2_OFFSET_55
+land_position 27 90
+elseif P2_OFFSET_56
+land_position 24 90
+elseif P2_OFFSET_57
+land_position 21 90
+elseif P2_OFFSET_58
+land_position 18 90
+elseif P2_OFFSET_59
+land_position 14 90
+elseif P2_OFFSET_60
+land_position 11 90
+elseif P2_OFFSET_61
+land_position 10 89
+elseif P2_OFFSET_62
+land_position 10 86
+elseif P2_OFFSET_63
+land_position 10 82
+elseif P2_OFFSET_64
+land_position 10 79
+endif
+elseif P1_POINT_78
+if P2_OFFSET_36
+land_position 86 90
+elseif P2_OFFSET_37
+land_position 82 90
+elseif P2_OFFSET_38
+land_position 79 90
+elseif P2_OFFSET_39
+land_position 76 90
+elseif P2_OFFSET_40
+land_position 73 90
+elseif P2_OFFSET_41
+land_position 69 90
+elseif P2_OFFSET_42
+land_position 66 90
+elseif P2_OFFSET_43
+land_position 63 90
+elseif P2_OFFSET_44
+land_position 60 90
+elseif P2_OFFSET_45
+land_position 56 90
+elseif P2_OFFSET_46
+land_position 53 90
+elseif P2_OFFSET_47
+land_position 50 90
+elseif P2_OFFSET_48
+land_position 47 90
+elseif P2_OFFSET_49
+land_position 44 90
+elseif P2_OFFSET_50
+land_position 40 90
+elseif P2_OFFSET_51
+land_position 37 90
+elseif P2_OFFSET_52
+land_position 34 90
+elseif P2_OFFSET_53
+land_position 31 90
+elseif P2_OFFSET_54
+land_position 27 90
+elseif P2_OFFSET_55
+land_position 24 90
+elseif P2_OFFSET_56
+land_position 21 90
+elseif P2_OFFSET_57
+land_position 18 90
+elseif P2_OFFSET_58
+land_position 14 90
+elseif P2_OFFSET_59
+land_position 11 90
+elseif P2_OFFSET_60
+land_position 10 89
+elseif P2_OFFSET_61
+land_position 10 86
+elseif P2_OFFSET_62
+land_position 10 82
+elseif P2_OFFSET_63
+land_position 10 79
+elseif P2_OFFSET_64
+land_position 10 76
+endif
+elseif P1_POINT_79
+if P2_OFFSET_36
+land_position 82 90
+elseif P2_OFFSET_37
+land_position 79 90
+elseif P2_OFFSET_38
+land_position 76 90
+elseif P2_OFFSET_39
+land_position 73 90
+elseif P2_OFFSET_40
+land_position 69 90
+elseif P2_OFFSET_41
+land_position 66 90
+elseif P2_OFFSET_42
+land_position 63 90
+elseif P2_OFFSET_43
+land_position 60 90
+elseif P2_OFFSET_44
+land_position 56 90
+elseif P2_OFFSET_45
+land_position 53 90
+elseif P2_OFFSET_46
+land_position 50 90
+elseif P2_OFFSET_47
+land_position 47 90
+elseif P2_OFFSET_48
+land_position 44 90
+elseif P2_OFFSET_49
+land_position 40 90
+elseif P2_OFFSET_50
+land_position 37 90
+elseif P2_OFFSET_51
+land_position 34 90
+elseif P2_OFFSET_52
+land_position 31 90
+elseif P2_OFFSET_53
+land_position 27 90
+elseif P2_OFFSET_54
+land_position 24 90
+elseif P2_OFFSET_55
+land_position 21 90
+elseif P2_OFFSET_56
+land_position 18 90
+elseif P2_OFFSET_57
+land_position 14 90
+elseif P2_OFFSET_58
+land_position 11 90
+elseif P2_OFFSET_59
+land_position 10 89
+elseif P2_OFFSET_60
+land_position 10 86
+elseif P2_OFFSET_61
+land_position 10 82
+elseif P2_OFFSET_62
+land_position 10 79
+elseif P2_OFFSET_63
+land_position 10 76
+elseif P2_OFFSET_64
+land_position 10 73
+endif
+elseif P1_POINT_80
+if P2_OFFSET_36
+land_position 79 90
+elseif P2_OFFSET_37
+land_position 76 90
+elseif P2_OFFSET_38
+land_position 73 90
+elseif P2_OFFSET_39
+land_position 69 90
+elseif P2_OFFSET_40
+land_position 66 90
+elseif P2_OFFSET_41
+land_position 63 90
+elseif P2_OFFSET_42
+land_position 60 90
+elseif P2_OFFSET_43
+land_position 56 90
+elseif P2_OFFSET_44
+land_position 53 90
+elseif P2_OFFSET_45
+land_position 50 90
+elseif P2_OFFSET_46
+land_position 47 90
+elseif P2_OFFSET_47
+land_position 44 90
+elseif P2_OFFSET_48
+land_position 40 90
+elseif P2_OFFSET_49
+land_position 37 90
+elseif P2_OFFSET_50
+land_position 34 90
+elseif P2_OFFSET_51
+land_position 31 90
+elseif P2_OFFSET_52
+land_position 27 90
+elseif P2_OFFSET_53
+land_position 24 90
+elseif P2_OFFSET_54
+land_position 21 90
+elseif P2_OFFSET_55
+land_position 18 90
+elseif P2_OFFSET_56
+land_position 14 90
+elseif P2_OFFSET_57
+land_position 11 90
+elseif P2_OFFSET_58
+land_position 10 89
+elseif P2_OFFSET_59
+land_position 10 86
+elseif P2_OFFSET_60
+land_position 10 82
+elseif P2_OFFSET_61
+land_position 10 79
+elseif P2_OFFSET_62
+land_position 10 76
+elseif P2_OFFSET_63
+land_position 10 73
+elseif P2_OFFSET_64
+land_position 10 69
+endif
+elseif P1_POINT_81
+if P2_OFFSET_36
+land_position 76 90
+elseif P2_OFFSET_37
+land_position 73 90
+elseif P2_OFFSET_38
+land_position 69 90
+elseif P2_OFFSET_39
+land_position 66 90
+elseif P2_OFFSET_40
+land_position 63 90
+elseif P2_OFFSET_41
+land_position 60 90
+elseif P2_OFFSET_42
+land_position 56 90
+elseif P2_OFFSET_43
+land_position 53 90
+elseif P2_OFFSET_44
+land_position 50 90
+elseif P2_OFFSET_45
+land_position 47 90
+elseif P2_OFFSET_46
+land_position 44 90
+elseif P2_OFFSET_47
+land_position 40 90
+elseif P2_OFFSET_48
+land_position 37 90
+elseif P2_OFFSET_49
+land_position 34 90
+elseif P2_OFFSET_50
+land_position 31 90
+elseif P2_OFFSET_51
+land_position 27 90
+elseif P2_OFFSET_52
+land_position 24 90
+elseif P2_OFFSET_53
+land_position 21 90
+elseif P2_OFFSET_54
+land_position 18 90
+elseif P2_OFFSET_55
+land_position 14 90
+elseif P2_OFFSET_56
+land_position 11 90
+elseif P2_OFFSET_57
+land_position 10 89
+elseif P2_OFFSET_58
+land_position 10 86
+elseif P2_OFFSET_59
+land_position 10 82
+elseif P2_OFFSET_60
+land_position 10 79
+elseif P2_OFFSET_61
+land_position 10 76
+elseif P2_OFFSET_62
+land_position 10 73
+elseif P2_OFFSET_63
+land_position 10 69
+elseif P2_OFFSET_64
+land_position 10 66
+endif
+elseif P1_POINT_82
+if P2_OFFSET_36
+land_position 73 90
+elseif P2_OFFSET_37
+land_position 69 90
+elseif P2_OFFSET_38
+land_position 66 90
+elseif P2_OFFSET_39
+land_position 63 90
+elseif P2_OFFSET_40
+land_position 60 90
+elseif P2_OFFSET_41
+land_position 56 90
+elseif P2_OFFSET_42
+land_position 53 90
+elseif P2_OFFSET_43
+land_position 50 90
+elseif P2_OFFSET_44
+land_position 47 90
+elseif P2_OFFSET_45
+land_position 44 90
+elseif P2_OFFSET_46
+land_position 40 90
+elseif P2_OFFSET_47
+land_position 37 90
+elseif P2_OFFSET_48
+land_position 34 90
+elseif P2_OFFSET_49
+land_position 31 90
+elseif P2_OFFSET_50
+land_position 27 90
+elseif P2_OFFSET_51
+land_position 24 90
+elseif P2_OFFSET_52
+land_position 21 90
+elseif P2_OFFSET_53
+land_position 18 90
+elseif P2_OFFSET_54
+land_position 14 90
+elseif P2_OFFSET_55
+land_position 11 90
+elseif P2_OFFSET_56
+land_position 10 89
+elseif P2_OFFSET_57
+land_position 10 86
+elseif P2_OFFSET_58
+land_position 10 82
+elseif P2_OFFSET_59
+land_position 10 79
+elseif P2_OFFSET_60
+land_position 10 76
+elseif P2_OFFSET_61
+land_position 10 73
+elseif P2_OFFSET_62
+land_position 10 69
+elseif P2_OFFSET_63
+land_position 10 66
+elseif P2_OFFSET_64
+land_position 10 63
+endif
+elseif P1_POINT_83
+if P2_OFFSET_36
+land_position 69 90
+elseif P2_OFFSET_37
+land_position 66 90
+elseif P2_OFFSET_38
+land_position 63 90
+elseif P2_OFFSET_39
+land_position 60 90
+elseif P2_OFFSET_40
+land_position 56 90
+elseif P2_OFFSET_41
+land_position 53 90
+elseif P2_OFFSET_42
+land_position 50 90
+elseif P2_OFFSET_43
+land_position 47 90
+elseif P2_OFFSET_44
+land_position 44 90
+elseif P2_OFFSET_45
+land_position 40 90
+elseif P2_OFFSET_46
+land_position 37 90
+elseif P2_OFFSET_47
+land_position 34 90
+elseif P2_OFFSET_48
+land_position 31 90
+elseif P2_OFFSET_49
+land_position 27 90
+elseif P2_OFFSET_50
+land_position 24 90
+elseif P2_OFFSET_51
+land_position 21 90
+elseif P2_OFFSET_52
+land_position 18 90
+elseif P2_OFFSET_53
+land_position 14 90
+elseif P2_OFFSET_54
+land_position 11 90
+elseif P2_OFFSET_55
+land_position 10 89
+elseif P2_OFFSET_56
+land_position 10 86
+elseif P2_OFFSET_57
+land_position 10 82
+elseif P2_OFFSET_58
+land_position 10 79
+elseif P2_OFFSET_59
+land_position 10 76
+elseif P2_OFFSET_60
+land_position 10 73
+elseif P2_OFFSET_61
+land_position 10 69
+elseif P2_OFFSET_62
+land_position 10 66
+elseif P2_OFFSET_63
+land_position 10 63
+elseif P2_OFFSET_64
+land_position 10 60
+endif
+elseif P1_POINT_84
+if P2_OFFSET_36
+land_position 66 90
+elseif P2_OFFSET_37
+land_position 63 90
+elseif P2_OFFSET_38
+land_position 60 90
+elseif P2_OFFSET_39
+land_position 56 90
+elseif P2_OFFSET_40
+land_position 53 90
+elseif P2_OFFSET_41
+land_position 50 90
+elseif P2_OFFSET_42
+land_position 47 90
+elseif P2_OFFSET_43
+land_position 44 90
+elseif P2_OFFSET_44
+land_position 40 90
+elseif P2_OFFSET_45
+land_position 37 90
+elseif P2_OFFSET_46
+land_position 34 90
+elseif P2_OFFSET_47
+land_position 31 90
+elseif P2_OFFSET_48
+land_position 27 90
+elseif P2_OFFSET_49
+land_position 24 90
+elseif P2_OFFSET_50
+land_position 21 90
+elseif P2_OFFSET_51
+land_position 18 90
+elseif P2_OFFSET_52
+land_position 14 90
+elseif P2_OFFSET_53
+land_position 11 90
+elseif P2_OFFSET_54
+land_position 10 89
+elseif P2_OFFSET_55
+land_position 10 86
+elseif P2_OFFSET_56
+land_position 10 82
+elseif P2_OFFSET_57
+land_position 10 79
+elseif P2_OFFSET_58
+land_position 10 76
+elseif P2_OFFSET_59
+land_position 10 73
+elseif P2_OFFSET_60
+land_position 10 69
+elseif P2_OFFSET_61
+land_position 10 66
+elseif P2_OFFSET_62
+land_position 10 63
+elseif P2_OFFSET_63
+land_position 10 60
+elseif P2_OFFSET_64
+land_position 10 56
+endif
+elseif P1_POINT_85
+if P2_OFFSET_36
+land_position 63 90
+elseif P2_OFFSET_37
+land_position 60 90
+elseif P2_OFFSET_38
+land_position 56 90
+elseif P2_OFFSET_39
+land_position 53 90
+elseif P2_OFFSET_40
+land_position 50 90
+elseif P2_OFFSET_41
+land_position 47 90
+elseif P2_OFFSET_42
+land_position 44 90
+elseif P2_OFFSET_43
+land_position 40 90
+elseif P2_OFFSET_44
+land_position 37 90
+elseif P2_OFFSET_45
+land_position 34 90
+elseif P2_OFFSET_46
+land_position 31 90
+elseif P2_OFFSET_47
+land_position 27 90
+elseif P2_OFFSET_48
+land_position 24 90
+elseif P2_OFFSET_49
+land_position 21 90
+elseif P2_OFFSET_50
+land_position 18 90
+elseif P2_OFFSET_51
+land_position 14 90
+elseif P2_OFFSET_52
+land_position 11 90
+elseif P2_OFFSET_53
+land_position 10 89
+elseif P2_OFFSET_54
+land_position 10 86
+elseif P2_OFFSET_55
+land_position 10 82
+elseif P2_OFFSET_56
+land_position 10 79
+elseif P2_OFFSET_57
+land_position 10 76
+elseif P2_OFFSET_58
+land_position 10 73
+elseif P2_OFFSET_59
+land_position 10 69
+elseif P2_OFFSET_60
+land_position 10 66
+elseif P2_OFFSET_61
+land_position 10 63
+elseif P2_OFFSET_62
+land_position 10 60
+elseif P2_OFFSET_63
+land_position 10 56
+elseif P2_OFFSET_64
+land_position 10 53
+endif
+elseif P1_POINT_86
+if P2_OFFSET_36
+land_position 60 90
+elseif P2_OFFSET_37
+land_position 56 90
+elseif P2_OFFSET_38
+land_position 53 90
+elseif P2_OFFSET_39
+land_position 50 90
+elseif P2_OFFSET_40
+land_position 47 90
+elseif P2_OFFSET_41
+land_position 44 90
+elseif P2_OFFSET_42
+land_position 40 90
+elseif P2_OFFSET_43
+land_position 37 90
+elseif P2_OFFSET_44
+land_position 34 90
+elseif P2_OFFSET_45
+land_position 31 90
+elseif P2_OFFSET_46
+land_position 27 90
+elseif P2_OFFSET_47
+land_position 24 90
+elseif P2_OFFSET_48
+land_position 21 90
+elseif P2_OFFSET_49
+land_position 18 90
+elseif P2_OFFSET_50
+land_position 14 90
+elseif P2_OFFSET_51
+land_position 11 90
+elseif P2_OFFSET_52
+land_position 10 89
+elseif P2_OFFSET_53
+land_position 10 86
+elseif P2_OFFSET_54
+land_position 10 82
+elseif P2_OFFSET_55
+land_position 10 79
+elseif P2_OFFSET_56
+land_position 10 76
+elseif P2_OFFSET_57
+land_position 10 73
+elseif P2_OFFSET_58
+land_position 10 69
+elseif P2_OFFSET_59
+land_position 10 66
+elseif P2_OFFSET_60
+land_position 10 63
+elseif P2_OFFSET_61
+land_position 10 60
+elseif P2_OFFSET_62
+land_position 10 56
+elseif P2_OFFSET_63
+land_position 10 53
+elseif P2_OFFSET_64
+land_position 10 50
+endif
+elseif P1_POINT_87
+if P2_OFFSET_36
+land_position 56 90
+elseif P2_OFFSET_37
+land_position 53 90
+elseif P2_OFFSET_38
+land_position 50 90
+elseif P2_OFFSET_39
+land_position 47 90
+elseif P2_OFFSET_40
+land_position 44 90
+elseif P2_OFFSET_41
+land_position 40 90
+elseif P2_OFFSET_42
+land_position 37 90
+elseif P2_OFFSET_43
+land_position 34 90
+elseif P2_OFFSET_44
+land_position 31 90
+elseif P2_OFFSET_45
+land_position 27 90
+elseif P2_OFFSET_46
+land_position 24 90
+elseif P2_OFFSET_47
+land_position 21 90
+elseif P2_OFFSET_48
+land_position 18 90
+elseif P2_OFFSET_49
+land_position 14 90
+elseif P2_OFFSET_50
+land_position 11 90
+elseif P2_OFFSET_51
+land_position 10 89
+elseif P2_OFFSET_52
+land_position 10 86
+elseif P2_OFFSET_53
+land_position 10 82
+elseif P2_OFFSET_54
+land_position 10 79
+elseif P2_OFFSET_55
+land_position 10 76
+elseif P2_OFFSET_56
+land_position 10 73
+elseif P2_OFFSET_57
+land_position 10 69
+elseif P2_OFFSET_58
+land_position 10 66
+elseif P2_OFFSET_59
+land_position 10 63
+elseif P2_OFFSET_60
+land_position 10 60
+elseif P2_OFFSET_61
+land_position 10 56
+elseif P2_OFFSET_62
+land_position 10 53
+elseif P2_OFFSET_63
+land_position 10 50
+elseif P2_OFFSET_64
+land_position 10 47
+endif
+elseif P1_POINT_88
+if P2_OFFSET_36
+land_position 53 90
+elseif P2_OFFSET_37
+land_position 50 90
+elseif P2_OFFSET_38
+land_position 47 90
+elseif P2_OFFSET_39
+land_position 44 90
+elseif P2_OFFSET_40
+land_position 40 90
+elseif P2_OFFSET_41
+land_position 37 90
+elseif P2_OFFSET_42
+land_position 34 90
+elseif P2_OFFSET_43
+land_position 31 90
+elseif P2_OFFSET_44
+land_position 27 90
+elseif P2_OFFSET_45
+land_position 24 90
+elseif P2_OFFSET_46
+land_position 21 90
+elseif P2_OFFSET_47
+land_position 18 90
+elseif P2_OFFSET_48
+land_position 14 90
+elseif P2_OFFSET_49
+land_position 11 90
+elseif P2_OFFSET_50
+land_position 10 89
+elseif P2_OFFSET_51
+land_position 10 86
+elseif P2_OFFSET_52
+land_position 10 82
+elseif P2_OFFSET_53
+land_position 10 79
+elseif P2_OFFSET_54
+land_position 10 76
+elseif P2_OFFSET_55
+land_position 10 73
+elseif P2_OFFSET_56
+land_position 10 69
+elseif P2_OFFSET_57
+land_position 10 66
+elseif P2_OFFSET_58
+land_position 10 63
+elseif P2_OFFSET_59
+land_position 10 60
+elseif P2_OFFSET_60
+land_position 10 56
+elseif P2_OFFSET_61
+land_position 10 53
+elseif P2_OFFSET_62
+land_position 10 50
+elseif P2_OFFSET_63
+land_position 10 47
+elseif P2_OFFSET_64
+land_position 10 44
+endif
+elseif P1_POINT_89
+if P2_OFFSET_36
+land_position 50 90
+elseif P2_OFFSET_37
+land_position 47 90
+elseif P2_OFFSET_38
+land_position 44 90
+elseif P2_OFFSET_39
+land_position 40 90
+elseif P2_OFFSET_40
+land_position 37 90
+elseif P2_OFFSET_41
+land_position 34 90
+elseif P2_OFFSET_42
+land_position 31 90
+elseif P2_OFFSET_43
+land_position 27 90
+elseif P2_OFFSET_44
+land_position 24 90
+elseif P2_OFFSET_45
+land_position 21 90
+elseif P2_OFFSET_46
+land_position 18 90
+elseif P2_OFFSET_47
+land_position 14 90
+elseif P2_OFFSET_48
+land_position 11 90
+elseif P2_OFFSET_49
+land_position 10 89
+elseif P2_OFFSET_50
+land_position 10 86
+elseif P2_OFFSET_51
+land_position 10 82
+elseif P2_OFFSET_52
+land_position 10 79
+elseif P2_OFFSET_53
+land_position 10 76
+elseif P2_OFFSET_54
+land_position 10 73
+elseif P2_OFFSET_55
+land_position 10 69
+elseif P2_OFFSET_56
+land_position 10 66
+elseif P2_OFFSET_57
+land_position 10 63
+elseif P2_OFFSET_58
+land_position 10 60
+elseif P2_OFFSET_59
+land_position 10 56
+elseif P2_OFFSET_60
+land_position 10 53
+elseif P2_OFFSET_61
+land_position 10 50
+elseif P2_OFFSET_62
+land_position 10 47
+elseif P2_OFFSET_63
+land_position 10 44
+elseif P2_OFFSET_64
+land_position 10 40
+endif
+elseif P1_POINT_90
+if P2_OFFSET_36
+land_position 47 90
+elseif P2_OFFSET_37
+land_position 44 90
+elseif P2_OFFSET_38
+land_position 40 90
+elseif P2_OFFSET_39
+land_position 37 90
+elseif P2_OFFSET_40
+land_position 34 90
+elseif P2_OFFSET_41
+land_position 31 90
+elseif P2_OFFSET_42
+land_position 27 90
+elseif P2_OFFSET_43
+land_position 24 90
+elseif P2_OFFSET_44
+land_position 21 90
+elseif P2_OFFSET_45
+land_position 18 90
+elseif P2_OFFSET_46
+land_position 14 90
+elseif P2_OFFSET_47
+land_position 11 90
+elseif P2_OFFSET_48
+land_position 10 89
+elseif P2_OFFSET_49
+land_position 10 86
+elseif P2_OFFSET_50
+land_position 10 82
+elseif P2_OFFSET_51
+land_position 10 79
+elseif P2_OFFSET_52
+land_position 10 76
+elseif P2_OFFSET_53
+land_position 10 73
+elseif P2_OFFSET_54
+land_position 10 69
+elseif P2_OFFSET_55
+land_position 10 66
+elseif P2_OFFSET_56
+land_position 10 63
+elseif P2_OFFSET_57
+land_position 10 60
+elseif P2_OFFSET_58
+land_position 10 56
+elseif P2_OFFSET_59
+land_position 10 53
+elseif P2_OFFSET_60
+land_position 10 50
+elseif P2_OFFSET_61
+land_position 10 47
+elseif P2_OFFSET_62
+land_position 10 44
+elseif P2_OFFSET_63
+land_position 10 40
+elseif P2_OFFSET_64
+land_position 10 37
+endif
+elseif P1_POINT_91
+if P2_OFFSET_36
+land_position 44 90
+elseif P2_OFFSET_37
+land_position 40 90
+elseif P2_OFFSET_38
+land_position 37 90
+elseif P2_OFFSET_39
+land_position 34 90
+elseif P2_OFFSET_40
+land_position 31 90
+elseif P2_OFFSET_41
+land_position 27 90
+elseif P2_OFFSET_42
+land_position 24 90
+elseif P2_OFFSET_43
+land_position 21 90
+elseif P2_OFFSET_44
+land_position 18 90
+elseif P2_OFFSET_45
+land_position 14 90
+elseif P2_OFFSET_46
+land_position 11 90
+elseif P2_OFFSET_47
+land_position 10 89
+elseif P2_OFFSET_48
+land_position 10 86
+elseif P2_OFFSET_49
+land_position 10 82
+elseif P2_OFFSET_50
+land_position 10 79
+elseif P2_OFFSET_51
+land_position 10 76
+elseif P2_OFFSET_52
+land_position 10 73
+elseif P2_OFFSET_53
+land_position 10 69
+elseif P2_OFFSET_54
+land_position 10 66
+elseif P2_OFFSET_55
+land_position 10 63
+elseif P2_OFFSET_56
+land_position 10 60
+elseif P2_OFFSET_57
+land_position 10 56
+elseif P2_OFFSET_58
+land_position 10 53
+elseif P2_OFFSET_59
+land_position 10 50
+elseif P2_OFFSET_60
+land_position 10 47
+elseif P2_OFFSET_61
+land_position 10 44
+elseif P2_OFFSET_62
+land_position 10 40
+elseif P2_OFFSET_63
+land_position 10 37
+elseif P2_OFFSET_64
+land_position 10 34
+endif
+elseif P1_POINT_92
+if P2_OFFSET_36
+land_position 40 90
+elseif P2_OFFSET_37
+land_position 37 90
+elseif P2_OFFSET_38
+land_position 34 90
+elseif P2_OFFSET_39
+land_position 31 90
+elseif P2_OFFSET_40
+land_position 27 90
+elseif P2_OFFSET_41
+land_position 24 90
+elseif P2_OFFSET_42
+land_position 21 90
+elseif P2_OFFSET_43
+land_position 18 90
+elseif P2_OFFSET_44
+land_position 14 90
+elseif P2_OFFSET_45
+land_position 11 90
+elseif P2_OFFSET_46
+land_position 10 89
+elseif P2_OFFSET_47
+land_position 10 86
+elseif P2_OFFSET_48
+land_position 10 82
+elseif P2_OFFSET_49
+land_position 10 79
+elseif P2_OFFSET_50
+land_position 10 76
+elseif P2_OFFSET_51
+land_position 10 73
+elseif P2_OFFSET_52
+land_position 10 69
+elseif P2_OFFSET_53
+land_position 10 66
+elseif P2_OFFSET_54
+land_position 10 63
+elseif P2_OFFSET_55
+land_position 10 60
+elseif P2_OFFSET_56
+land_position 10 56
+elseif P2_OFFSET_57
+land_position 10 53
+elseif P2_OFFSET_58
+land_position 10 50
+elseif P2_OFFSET_59
+land_position 10 47
+elseif P2_OFFSET_60
+land_position 10 44
+elseif P2_OFFSET_61
+land_position 10 40
+elseif P2_OFFSET_62
+land_position 10 37
+elseif P2_OFFSET_63
+land_position 10 34
+elseif P2_OFFSET_64
+land_position 10 31
+endif
+elseif P1_POINT_93
+if P2_OFFSET_36
+land_position 37 90
+elseif P2_OFFSET_37
+land_position 34 90
+elseif P2_OFFSET_38
+land_position 31 90
+elseif P2_OFFSET_39
+land_position 27 90
+elseif P2_OFFSET_40
+land_position 24 90
+elseif P2_OFFSET_41
+land_position 21 90
+elseif P2_OFFSET_42
+land_position 18 90
+elseif P2_OFFSET_43
+land_position 14 90
+elseif P2_OFFSET_44
+land_position 11 90
+elseif P2_OFFSET_45
+land_position 10 89
+elseif P2_OFFSET_46
+land_position 10 86
+elseif P2_OFFSET_47
+land_position 10 82
+elseif P2_OFFSET_48
+land_position 10 79
+elseif P2_OFFSET_49
+land_position 10 76
+elseif P2_OFFSET_50
+land_position 10 73
+elseif P2_OFFSET_51
+land_position 10 69
+elseif P2_OFFSET_52
+land_position 10 66
+elseif P2_OFFSET_53
+land_position 10 63
+elseif P2_OFFSET_54
+land_position 10 60
+elseif P2_OFFSET_55
+land_position 10 56
+elseif P2_OFFSET_56
+land_position 10 53
+elseif P2_OFFSET_57
+land_position 10 50
+elseif P2_OFFSET_58
+land_position 10 47
+elseif P2_OFFSET_59
+land_position 10 44
+elseif P2_OFFSET_60
+land_position 10 40
+elseif P2_OFFSET_61
+land_position 10 37
+elseif P2_OFFSET_62
+land_position 10 34
+elseif P2_OFFSET_63
+land_position 10 31
+elseif P2_OFFSET_64
+land_position 10 27
+endif
+elseif P1_POINT_94
+if P2_OFFSET_36
+land_position 34 90
+elseif P2_OFFSET_37
+land_position 31 90
+elseif P2_OFFSET_38
+land_position 27 90
+elseif P2_OFFSET_39
+land_position 24 90
+elseif P2_OFFSET_40
+land_position 21 90
+elseif P2_OFFSET_41
+land_position 18 90
+elseif P2_OFFSET_42
+land_position 14 90
+elseif P2_OFFSET_43
+land_position 11 90
+elseif P2_OFFSET_44
+land_position 10 89
+elseif P2_OFFSET_45
+land_position 10 86
+elseif P2_OFFSET_46
+land_position 10 82
+elseif P2_OFFSET_47
+land_position 10 79
+elseif P2_OFFSET_48
+land_position 10 76
+elseif P2_OFFSET_49
+land_position 10 73
+elseif P2_OFFSET_50
+land_position 10 69
+elseif P2_OFFSET_51
+land_position 10 66
+elseif P2_OFFSET_52
+land_position 10 63
+elseif P2_OFFSET_53
+land_position 10 60
+elseif P2_OFFSET_54
+land_position 10 56
+elseif P2_OFFSET_55
+land_position 10 53
+elseif P2_OFFSET_56
+land_position 10 50
+elseif P2_OFFSET_57
+land_position 10 47
+elseif P2_OFFSET_58
+land_position 10 44
+elseif P2_OFFSET_59
+land_position 10 40
+elseif P2_OFFSET_60
+land_position 10 37
+elseif P2_OFFSET_61
+land_position 10 34
+elseif P2_OFFSET_62
+land_position 10 31
+elseif P2_OFFSET_63
+land_position 10 27
+elseif P2_OFFSET_64
+land_position 10 24
+endif
+elseif P1_POINT_95
+if P2_OFFSET_36
+land_position 31 90
+elseif P2_OFFSET_37
+land_position 27 90
+elseif P2_OFFSET_38
+land_position 24 90
+elseif P2_OFFSET_39
+land_position 21 90
+elseif P2_OFFSET_40
+land_position 18 90
+elseif P2_OFFSET_41
+land_position 14 90
+elseif P2_OFFSET_42
+land_position 11 90
+elseif P2_OFFSET_43
+land_position 10 89
+elseif P2_OFFSET_44
+land_position 10 86
+elseif P2_OFFSET_45
+land_position 10 82
+elseif P2_OFFSET_46
+land_position 10 79
+elseif P2_OFFSET_47
+land_position 10 76
+elseif P2_OFFSET_48
+land_position 10 73
+elseif P2_OFFSET_49
+land_position 10 69
+elseif P2_OFFSET_50
+land_position 10 66
+elseif P2_OFFSET_51
+land_position 10 63
+elseif P2_OFFSET_52
+land_position 10 60
+elseif P2_OFFSET_53
+land_position 10 56
+elseif P2_OFFSET_54
+land_position 10 53
+elseif P2_OFFSET_55
+land_position 10 50
+elseif P2_OFFSET_56
+land_position 10 47
+elseif P2_OFFSET_57
+land_position 10 44
+elseif P2_OFFSET_58
+land_position 10 40
+elseif P2_OFFSET_59
+land_position 10 37
+elseif P2_OFFSET_60
+land_position 10 34
+elseif P2_OFFSET_61
+land_position 10 31
+elseif P2_OFFSET_62
+land_position 10 27
+elseif P2_OFFSET_63
+land_position 10 24
+elseif P2_OFFSET_64
+land_position 10 21
+endif
+elseif P1_POINT_96
+if P2_OFFSET_36
+land_position 27 90
+elseif P2_OFFSET_37
+land_position 24 90
+elseif P2_OFFSET_38
+land_position 21 90
+elseif P2_OFFSET_39
+land_position 18 90
+elseif P2_OFFSET_40
+land_position 14 90
+elseif P2_OFFSET_41
+land_position 11 90
+elseif P2_OFFSET_42
+land_position 10 89
+elseif P2_OFFSET_43
+land_position 10 86
+elseif P2_OFFSET_44
+land_position 10 82
+elseif P2_OFFSET_45
+land_position 10 79
+elseif P2_OFFSET_46
+land_position 10 76
+elseif P2_OFFSET_47
+land_position 10 73
+elseif P2_OFFSET_48
+land_position 10 69
+elseif P2_OFFSET_49
+land_position 10 66
+elseif P2_OFFSET_50
+land_position 10 63
+elseif P2_OFFSET_51
+land_position 10 60
+elseif P2_OFFSET_52
+land_position 10 56
+elseif P2_OFFSET_53
+land_position 10 53
+elseif P2_OFFSET_54
+land_position 10 50
+elseif P2_OFFSET_55
+land_position 10 47
+elseif P2_OFFSET_56
+land_position 10 44
+elseif P2_OFFSET_57
+land_position 10 40
+elseif P2_OFFSET_58
+land_position 10 37
+elseif P2_OFFSET_59
+land_position 10 34
+elseif P2_OFFSET_60
+land_position 10 31
+elseif P2_OFFSET_61
+land_position 10 27
+elseif P2_OFFSET_62
+land_position 10 24
+elseif P2_OFFSET_63
+land_position 10 21
+elseif P2_OFFSET_64
+land_position 10 18
+endif
+elseif P1_POINT_97
+if P2_OFFSET_36
+land_position 24 90
+elseif P2_OFFSET_37
+land_position 21 90
+elseif P2_OFFSET_38
+land_position 18 90
+elseif P2_OFFSET_39
+land_position 14 90
+elseif P2_OFFSET_40
+land_position 11 90
+elseif P2_OFFSET_41
+land_position 10 89
+elseif P2_OFFSET_42
+land_position 10 86
+elseif P2_OFFSET_43
+land_position 10 82
+elseif P2_OFFSET_44
+land_position 10 79
+elseif P2_OFFSET_45
+land_position 10 76
+elseif P2_OFFSET_46
+land_position 10 73
+elseif P2_OFFSET_47
+land_position 10 69
+elseif P2_OFFSET_48
+land_position 10 66
+elseif P2_OFFSET_49
+land_position 10 63
+elseif P2_OFFSET_50
+land_position 10 60
+elseif P2_OFFSET_51
+land_position 10 56
+elseif P2_OFFSET_52
+land_position 10 53
+elseif P2_OFFSET_53
+land_position 10 50
+elseif P2_OFFSET_54
+land_position 10 47
+elseif P2_OFFSET_55
+land_position 10 44
+elseif P2_OFFSET_56
+land_position 10 40
+elseif P2_OFFSET_57
+land_position 10 37
+elseif P2_OFFSET_58
+land_position 10 34
+elseif P2_OFFSET_59
+land_position 10 31
+elseif P2_OFFSET_60
+land_position 10 27
+elseif P2_OFFSET_61
+land_position 10 24
+elseif P2_OFFSET_62
+land_position 10 21
+elseif P2_OFFSET_63
+land_position 10 18
+elseif P2_OFFSET_64
+land_position 10 14
+endif
+elseif P1_POINT_98
+if P2_OFFSET_36
+land_position 21 90
+elseif P2_OFFSET_37
+land_position 18 90
+elseif P2_OFFSET_38
+land_position 14 90
+elseif P2_OFFSET_39
+land_position 11 90
+elseif P2_OFFSET_40
+land_position 10 89
+elseif P2_OFFSET_41
+land_position 10 86
+elseif P2_OFFSET_42
+land_position 10 82
+elseif P2_OFFSET_43
+land_position 10 79
+elseif P2_OFFSET_44
+land_position 10 76
+elseif P2_OFFSET_45
+land_position 10 73
+elseif P2_OFFSET_46
+land_position 10 69
+elseif P2_OFFSET_47
+land_position 10 66
+elseif P2_OFFSET_48
+land_position 10 63
+elseif P2_OFFSET_49
+land_position 10 60
+elseif P2_OFFSET_50
+land_position 10 56
+elseif P2_OFFSET_51
+land_position 10 53
+elseif P2_OFFSET_52
+land_position 10 50
+elseif P2_OFFSET_53
+land_position 10 47
+elseif P2_OFFSET_54
+land_position 10 44
+elseif P2_OFFSET_55
+land_position 10 40
+elseif P2_OFFSET_56
+land_position 10 37
+elseif P2_OFFSET_57
+land_position 10 34
+elseif P2_OFFSET_58
+land_position 10 31
+elseif P2_OFFSET_59
+land_position 10 27
+elseif P2_OFFSET_60
+land_position 10 24
+elseif P2_OFFSET_61
+land_position 10 21
+elseif P2_OFFSET_62
+land_position 10 18
+elseif P2_OFFSET_63
+land_position 10 14
+elseif P2_OFFSET_64
+land_position 10 11
+endif
+elseif P1_POINT_99
+if P2_OFFSET_36
+land_position 18 90
+elseif P2_OFFSET_37
+land_position 14 90
+elseif P2_OFFSET_38
+land_position 11 90
+elseif P2_OFFSET_39
+land_position 10 89
+elseif P2_OFFSET_40
+land_position 10 86
+elseif P2_OFFSET_41
+land_position 10 82
+elseif P2_OFFSET_42
+land_position 10 79
+elseif P2_OFFSET_43
+land_position 10 76
+elseif P2_OFFSET_44
+land_position 10 73
+elseif P2_OFFSET_45
+land_position 10 69
+elseif P2_OFFSET_46
+land_position 10 66
+elseif P2_OFFSET_47
+land_position 10 63
+elseif P2_OFFSET_48
+land_position 10 60
+elseif P2_OFFSET_49
+land_position 10 56
+elseif P2_OFFSET_50
+land_position 10 53
+elseif P2_OFFSET_51
+land_position 10 50
+elseif P2_OFFSET_52
+land_position 10 47
+elseif P2_OFFSET_53
+land_position 10 44
+elseif P2_OFFSET_54
+land_position 10 40
+elseif P2_OFFSET_55
+land_position 10 37
+elseif P2_OFFSET_56
+land_position 10 34
+elseif P2_OFFSET_57
+land_position 10 31
+elseif P2_OFFSET_58
+land_position 10 27
+elseif P2_OFFSET_59
+land_position 10 24
+elseif P2_OFFSET_60
+land_position 10 21
+elseif P2_OFFSET_61
+land_position 10 18
+elseif P2_OFFSET_62
+land_position 10 14
+elseif P2_OFFSET_63
+land_position 10 11
+elseif P2_OFFSET_64
+land_position 11 10
+endif
+endif
+}
+create_land {
+terrain_type MAIN_UNDER
+land_percent 100
+border_fuzziness 10
+other_zone_avoidance_distance 10
+land_id 21
+start_random
+percent_chance 25 left_border 10
+percent_chance 25 left_border 11
+percent_chance 25 left_border 12
+percent_chance 25 left_border 13
+end_random
+start_random
+percent_chance 25 right_border 10
+percent_chance 25 right_border 11
+percent_chance 25 right_border 12
+percent_chance 25 right_border 13
+end_random
+start_random
+percent_chance 25 top_border 10
+percent_chance 25 top_border 11
+percent_chance 25 top_border 12
+percent_chance 25 top_border 13
+end_random
+start_random
+percent_chance 25 bottom_border 10
+percent_chance 25 bottom_border 11
+percent_chance 25 bottom_border 12
+percent_chance 25 bottom_border 13
+end_random
+}
+<ELEVATION_GENERATION>
+create_elevation 2 {
+base_terrain MAIN_UNDER
+number_of_clumps 10
+number_of_tiles 800
+set_scale_by_groups
+enable_balanced_elevation
+}
+<TERRAIN_GENERATION>
+create_terrain WATER {
+base_terrain PLAYER_UNDER
+land_percent 100
+set_avoid_player_start_areas 30
+number_of_clumps 1000
+}
+create_terrain WATER {
+base_terrain PLAYER_UNDER
+land_percent 100
+set_avoid_player_start_areas 30
+number_of_clumps 1000
+}
+create_terrain WATER {
+base_terrain PLAYER_UNDER
+land_percent 100
+set_avoid_player_start_areas 30
+number_of_clumps 1000
+}
+create_terrain DESERT {
+land_percent 100
+base_terrain PLAYER_UNDER
+}
+create_terrain ROAD {
+land_percent 100
+base_terrain DESERT
+set_avoid_player_start_areas 7
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 50
+spacing_to_other_terrain_types 4
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 50
+spacing_to_other_terrain_types 4
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 35
+spacing_to_other_terrain_types 3
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 35
+spacing_to_other_terrain_types 3
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DESERT {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SNOW {
+land_percent 100
+base_terrain PLAYER_UNDER
+}
+create_terrain ROAD {
+land_percent 100
+base_terrain SNOW
+set_avoid_player_start_areas 7
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 50
+spacing_to_other_terrain_types 4
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 50
+spacing_to_other_terrain_types 4
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 35
+spacing_to_other_terrain_types 3
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain DLC_ROCK {
+base_terrain ROAD
+number_of_tiles 35
+spacing_to_other_terrain_types 3
+}
+create_terrain WOODIES {
+base_terrain DLC_ROCK
+number_of_tiles 100
+}
+create_terrain SNOW {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain ROAD
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain DESERT
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain SNOW
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain PLAYER_UNDER
+land_percent 100
+}
+create_terrain WATER {
+base_terrain SURFACE
+land_percent 100
+set_avoid_player_start_areas 24
+number_of_clumps 1000
+}
+create_terrain WATER {
+base_terrain SURFACE
+land_percent 100
+set_avoid_player_start_areas 24
+number_of_clumps 1000
+}
+create_terrain WATER {
+base_terrain SURFACE
+land_percent 100
+set_avoid_player_start_areas 24
+number_of_clumps 1000
+}
+create_terrain WOODIES {
+base_terrain MAIN_UNDER
+spacing_to_other_terrain_types 2
+land_percent 4
+number_of_clumps 8
+set_avoid_player_start_areas
+set_scale_by_groups
+}
+create_terrain WOODIESB {
+base_terrain MAIN_UNDER
+spacing_to_other_terrain_types 3
+land_percent 1
+number_of_clumps 3
+set_avoid_player_start_areas
+set_scale_by_groups
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain SURFACE {
+base_terrain MAIN_UNDER
+land_percent 100
+}
+create_terrain PATCH1 {
+base_terrain SURFACE
+number_of_clumps 8
+spacing_to_other_terrain_types 0
+if DESERT_MAP
+land_percent 8
+elseif ALPINE_MAP
+land_percent 6
+else
+land_percent 9
+endif
+set_scale_by_size
+}
+create_terrain PATCH2 {
+base_terrain SURFACE
+number_of_clumps 24
+spacing_to_other_terrain_types 0
+land_percent 2
+set_scale_by_size
+}
+create_terrain PATCH3 {
+base_terrain SURFACE
+number_of_clumps 30
+spacing_to_other_terrain_types 0
+land_percent 2
+set_scale_by_size
+}
+create_terrain MED_WATER {
+base_terrain WATER
+number_of_clumps 10
+spacing_to_other_terrain_types 2
+land_percent 60
+}
+create_terrain DEEP_WATER {
+base_terrain MED_WATER
+number_of_clumps 6
+spacing_to_other_terrain_types 5
+land_percent 10
+}
+<OBJECTS_GENERATION>
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20000
+actor_area_radius 2
+place_on_specific_land_id 1
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20000
+actor_area_radius 2
+place_on_specific_land_id 2
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20001
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20001
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20002
+actor_area_radius 4
+place_on_specific_land_id 1
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20002
+actor_area_radius 4
+place_on_specific_land_id 2
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+number_of_objects 5
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20003
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+number_of_objects 5
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20003
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20004
+actor_area_radius 0
+avoid_actor_area 20003
+place_on_specific_land_id 1
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20004
+actor_area_radius 0
+avoid_actor_area 20003
+place_on_specific_land_id 2
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+number_of_objects 5
+max_distance_to_players 2
+temp_min_distance_group_placement 1
+find_closest
+actor_area 20005
+actor_area_radius 1
+avoid_actor_area 20001
+place_on_specific_land_id 1
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+number_of_objects 5
+max_distance_to_players 2
+temp_min_distance_group_placement 1
+find_closest
+actor_area 20005
+actor_area_radius 1
+avoid_actor_area 20001
+place_on_specific_land_id 2
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+max_distance_to_players 2
+find_closest
+actor_area 20006
+actor_area_radius 0
+avoid_actor_area 20005
+avoid_actor_area 20001
+place_on_specific_land_id 1
+}
+create_object PH_GENERIC_OFF {
+set_gaia_object_only
+max_distance_to_players 2
+find_closest
+actor_area 20006
+actor_area_radius 0
+avoid_actor_area 20005
+avoid_actor_area 20001
+place_on_specific_land_id 2
+}
+create_object BLANKOBJECT {
+set_gaia_object_only
+number_of_objects 5
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20007
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object BLANKOBJECT {
+set_gaia_object_only
+number_of_objects 5
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20007
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object VILLAGER {
+min_distance_to_players 6
+max_distance_to_players 6
+place_on_specific_land_id 1
+}
+create_object VILLAGER {
+min_distance_to_players 6
+max_distance_to_players 6
+place_on_specific_land_id 2
+}
+create_object STRAGGLER {
+set_gaia_object_only
+min_distance_to_players 5
+max_distance_to_players 5
+actor_area 20008
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object STRAGGLER {
+set_gaia_object_only
+min_distance_to_players 5
+max_distance_to_players 5
+actor_area 20008
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object DEER {
+number_of_objects 4
+set_gaia_object_only
+group_placement_radius 3
+set_loose_grouping
+min_distance_group_placement 4
+avoid_forest_zone 2
+min_distance_to_players 12
+set_circular_placement
+find_closest
+avoid_actor_area 20008
+place_on_specific_land_id 1
+}
+create_object DEER {
+number_of_objects 4
+set_gaia_object_only
+group_placement_radius 3
+set_loose_grouping
+min_distance_group_placement 4
+avoid_forest_zone 2
+min_distance_to_players 12
+set_circular_placement
+find_closest
+avoid_actor_area 20008
+place_on_specific_land_id 2
+}
+create_object SHEEP {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 10
+find_closest
+avoid_forest_zone 2
+min_distance_group_placement 2
+avoid_actor_area 20008
+place_on_specific_land_id 1
+}
+create_object SHEEP {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 10
+find_closest
+avoid_forest_zone 2
+min_distance_group_placement 2
+avoid_actor_area 20008
+place_on_specific_land_id 2
+}
+create_object GOLD {
+number_of_objects 4
+number_of_groups 2
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+min_distance_to_players 8
+find_closest
+min_distance_group_placement 5
+avoid_forest_zone 2
+avoid_actor_area 20008
+set_circular_placement
+max_distance_to_other_zones 2
+place_on_specific_land_id 1
+}
+create_object GOLD {
+number_of_objects 4
+number_of_groups 2
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+min_distance_to_players 8
+find_closest
+min_distance_group_placement 5
+avoid_forest_zone 2
+avoid_actor_area 20008
+set_circular_placement
+max_distance_to_other_zones 2
+place_on_specific_land_id 2
+}
+create_object FORAGE {
+number_of_objects 6
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+min_distance_to_players 10
+find_closest
+avoid_forest_zone 3
+avoid_actor_area 20008
+max_distance_to_other_zones 2
+set_circular_placement
+min_distance_group_placement 5
+place_on_specific_land_id 1
+}
+create_object FORAGE {
+number_of_objects 6
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+min_distance_to_players 10
+find_closest
+avoid_forest_zone 3
+avoid_actor_area 20008
+max_distance_to_other_zones 2
+set_circular_placement
+min_distance_group_placement 5
+place_on_specific_land_id 2
+}
+create_object STONE {
+number_of_objects 6
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+min_distance_to_players 10
+find_closest
+avoid_forest_zone 3
+avoid_actor_area 20008
+set_circular_placement
+min_distance_group_placement 5
+place_on_specific_land_id 1
+}
+create_object STONE {
+number_of_objects 6
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+min_distance_to_players 10
+find_closest
+avoid_forest_zone 3
+avoid_actor_area 20008
+set_circular_placement
+min_distance_group_placement 5
+place_on_specific_land_id 2
+}
+create_object STRAGGLER {
+number_of_objects 1
+set_gaia_object_only
+min_distance_to_players 4
+max_distance_to_players 5
+min_distance_group_placement 2
+avoid_actor_area 14
+avoid_actor_area 20008
+avoid_forest_zone 2
+place_on_specific_land_id 1
+}
+create_object STRAGGLER {
+number_of_objects 1
+set_gaia_object_only
+min_distance_to_players 4
+max_distance_to_players 5
+min_distance_group_placement 2
+avoid_actor_area 14
+avoid_actor_area 20008
+avoid_forest_zone 2
+place_on_specific_land_id 2
+}
+create_object STRAGGLER {
+number_of_objects 3
+set_gaia_object_only
+min_distance_to_players 6
+max_distance_to_players 8
+min_distance_group_placement 1
+avoid_actor_area 14
+avoid_actor_area 20008
+avoid_forest_zone 2
+place_on_specific_land_id 1
+}
+create_object STRAGGLER {
+number_of_objects 3
+set_gaia_object_only
+min_distance_to_players 6
+max_distance_to_players 8
+min_distance_group_placement 1
+avoid_actor_area 14
+avoid_actor_area 20008
+avoid_forest_zone 2
+place_on_specific_land_id 2
+}
+create_object SCOUT {
+number_of_objects 1
+min_distance_to_players 7
+max_distance_to_players 9
+place_on_specific_land_id 1
+}
+create_object SCOUT {
+number_of_objects 1
+min_distance_to_players 7
+max_distance_to_players 9
+place_on_specific_land_id 2
+}
+create_object SHEEP {
+number_of_objects 4
+set_loose_grouping
+set_gaia_object_only
+min_distance_to_players 10
+min_distance_group_placement 5
+avoid_actor_area 20008
+avoid_forest_zone 2
+max_distance_to_other_zones 2
+place_on_specific_land_id 1
+}
+create_object SHEEP {
+number_of_objects 4
+set_loose_grouping
+set_gaia_object_only
+min_distance_to_players 10
+min_distance_group_placement 5
+avoid_actor_area 20008
+avoid_forest_zone 2
+max_distance_to_other_zones 2
+place_on_specific_land_id 2
+}
+create_object GOLD {
+number_of_objects 3
+group_placement_radius 3
+number_of_groups 9999
+set_tight_grouping
+set_gaia_object_only
+temp_min_distance_group_placement 17
+min_distance_group_placement 4
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+place_on_specific_land_id 21
+}
+create_object STONE {
+number_of_objects 3
+group_placement_radius 3
+number_of_groups 9999
+set_tight_grouping
+set_gaia_object_only
+temp_min_distance_group_placement 26
+min_distance_group_placement 4
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+place_on_specific_land_id 21
+}
+create_object FORAGE {
+number_of_objects 5
+group_placement_radius 3
+number_of_groups 999
+set_tight_grouping
+set_gaia_object_only
+temp_min_distance_group_placement 42
+max_distance_to_other_zones 6
+avoid_forest_zone 2
+place_on_specific_land_id 21
+}
+create_object RELIC {
+number_of_objects 5
+temp_min_distance_group_placement 18
+set_gaia_object_only
+max_distance_to_other_zones 6
+avoid_forest_zone 2
+place_on_specific_land_id 21
+}
+create_object STRAGGLER {
+number_of_objects 30
+set_gaia_object_only
+set_scaling_to_map_size
+min_distance_to_players 8
+place_on_specific_land_id 21
+}
+create_object SHORE_FISH {
+number_of_objects 9999
+set_gaia_object_only
+temp_min_distance_group_placement 6
+min_distance_to_map_edge 4
+}
+create_object FISH_A {
+number_of_objects 6
+set_scaling_to_map_size
+set_gaia_object_only
+max_distance_to_other_zones 4
+min_distance_group_placement 4
+min_distance_to_map_edge 2
+}
+create_object FISH_B {
+number_of_objects 170
+set_scaling_to_map_size
+set_gaia_object_only
+max_distance_to_other_zones 4
+min_distance_group_placement 8
+min_distance_to_players 40
+}
+create_object FISH_B {
+number_of_objects 170
+set_scaling_to_map_size
+set_gaia_object_only
+max_distance_to_other_zones 4
+min_distance_group_placement 8
+min_distance_to_map_edge 2
+}
+create_object HAWK {
+number_of_objects 6
+set_scaling_to_map_size
+}

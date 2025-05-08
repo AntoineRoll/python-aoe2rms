@@ -1,0 +1,8177 @@
+/*
+ * Evacuation for TLL4.
+ * Edited by T-West, Novemeber 2024.
+ *
+ * Based on the map originally designed by HenkDeSuperNerd for Hidden Cup 5.
+ * Only supports 1v1s on the tiny map size and Random Map game mode.
+ */
+#const PHLAND 643
+#const PHWATER 645
+#const PHOFF 649
+#const PHON 1291
+start_random
+percent_chance 50 #define MIRRORED
+end_random
+start_random
+percent_chance 25 #define N
+percent_chance 25 #define E
+percent_chance 25 #define S
+percent_chance 25 #define W
+end_random
+#const DRY_PLANT 1361
+#const DEAD_PLANT 1365
+#const MOUNTAIN_3 744
+#const LOOT 472
+#const BUSH_A 302
+#define PH_ALPINE
+#include_drs F_seasons.inc
+<PLAYER_SETUP>
+override_map_size 144
+direct_placement
+ai_info_map_type COASTAL 0 0 0
+effect_amount GAIA_SET_ATTRIBUTE HAWK ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE DLC_BOULDER_A ATTR_OCCLUSION_MODE 2
+effect_amount SET_ATTRIBUTE DLC_BOULDER_B ATTR_OCCLUSION_MODE 2
+effect_amount SET_ATTRIBUTE DLC_BOULDER_C ATTR_OCCLUSION_MODE 2
+effect_amount SET_ATTRIBUTE DLC_BOULDER_A ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DLC_BOULDER_B ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DLC_BOULDER_C ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE CRACKS ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE CRATER ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE BOAR ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DLC_COw ATTR_TERRAIN_ID 4
+#include_drs thebr_setup.inc
+effect_amount SET_ATTRIBUTE PHLAND ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PHLAND ATTR_TERRAIN_ID 8
+effect_amount SET_ATTRIBUTE PHLAND ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PHLAND ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PHLAND ATTR_STORAGE_VALUE 0
+effect_amount SET_ATTRIBUTE PHWATER ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PHWATER ATTR_TERRAIN_ID 19
+effect_amount SET_ATTRIBUTE PHWATER ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PHWATER ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PHWATER ATTR_STORAGE_VALUE 0
+effect_amount SET_ATTRIBUTE PHOFF ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PHOFF ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE PHOFF ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PHOFF ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PHOFF ATTR_STORAGE_VALUE 0
+effect_amount SET_ATTRIBUTE PHON ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PHON ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE PHON ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PHON ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PHON ATTR_STORAGE_VALUE 0
+<LAND_GENERATION>
+base_terrain WATER
+create_land {
+terrain_type WATER
+base_size 0
+zone 3
+if N
+land_position 0 rnd(48,52)
+top_border rnd(48,49)
+right_border 91
+bottom_border rnd(48,49)
+elseif E
+land_position rnd(48,52) 99
+top_border 91
+right_border rnd(48,49)
+left_border rnd(48,49)
+elseif S
+land_position 99 rnd(48,52)
+top_border rnd(48,49)
+bottom_border rnd(48,49)
+left_border 91
+elseif W
+land_position rnd(48,52) 0
+right_border rnd(48,49)
+bottom_border 91
+left_border rnd(48,49)
+endif
+}
+create_land {
+terrain_type DLC_CRACKED
+base_size 15
+zone 1
+border_fuzziness 15
+clumping_factor 30
+other_zone_avoidance_distance 6
+if N
+top_border 10
+bottom_border 10
+left_border 13
+right_border 48
+land_position 36 27
+elseif S
+top_border 10
+bottom_border 10
+left_border 48
+right_border 13
+land_position 64 27
+elseif E
+top_border 48
+bottom_border 13
+left_border 10
+right_border 10
+land_position 73 64
+elseif W
+top_border 13
+bottom_border 48
+left_border 10
+right_border 10
+land_position 73 36
+endif
+if MIRRORED
+assign_to_player 1
+else
+assign_to_player 2
+endif
+land_id 1
+}
+create_land {
+terrain_type DIRT
+base_size 15
+zone 1
+border_fuzziness 15
+clumping_factor 30
+other_zone_avoidance_distance 6
+if N
+top_border 10
+bottom_border 10
+left_border 13
+right_border 48
+land_position 36 73
+elseif S
+top_border 10
+bottom_border 10
+left_border 48
+right_border 13
+land_position 64 73
+elseif E
+top_border 48
+bottom_border 13
+left_border 10
+right_border 10
+land_position 27 64
+elseif W
+top_border 13
+bottom_border 48
+left_border 10
+right_border 10
+land_position 27 36
+endif
+if MIRRORED
+assign_to_player 2
+else
+assign_to_player 1
+endif
+land_id 2
+}
+create_land {
+terrain_type SHALLOW
+land_percent 25
+base_size 5
+zone 2
+border_fuzziness 50
+clumping_factor 5
+other_zone_avoidance_distance 8
+if N
+top_border -2
+bottom_border 35
+left_border 52
+right_border -4
+land_position 99 1
+elseif S
+top_border -2
+bottom_border 35
+left_border -4
+right_border 52
+land_position 1 1
+elseif E
+top_border -4
+bottom_border 52
+left_border 35
+right_border -2
+land_position 99 1
+elseif W
+top_border 52
+bottom_border -4
+left_border 35
+right_border -2
+land_position 99 99
+endif
+if MIRRORED
+assign_to_player 1
+else
+assign_to_player 2
+endif
+land_id 3
+}
+create_land {
+terrain_type SHALLOW
+land_percent 25
+base_size 5
+zone 2
+border_fuzziness 50
+clumping_factor 5
+other_zone_avoidance_distance 8
+if N
+top_border 35
+bottom_border -2
+left_border 52
+right_border -4
+land_position 99 99
+elseif S
+top_border 35
+bottom_border -2
+left_border -4
+right_border 52
+land_position 1 99
+elseif E
+top_border -4
+bottom_border 52
+left_border -2
+right_border 35
+land_position 1 1
+elseif W
+top_border 52
+bottom_border -4
+left_border -2
+right_border -35
+land_position 1 99
+endif
+if MIRRORED
+assign_to_player 2
+else
+assign_to_player 1
+endif
+land_id 4
+}
+create_land {
+terrain_type DLC_NEWSHALLOW
+number_of_tiles 0
+zone 2
+land_id 10
+if N
+land_position 69 16
+elseif E
+land_position 16 31
+elseif S
+land_position 31 16
+elseif W
+land_position 16 69
+endif
+}
+create_land {
+terrain_type DLC_NEWSHALLOW
+number_of_tiles 0
+zone 2
+if N
+land_position 66 16
+elseif E
+land_position 16 34
+elseif S
+land_position 34 16
+elseif W
+land_position 16 66
+endif
+}
+create_land {
+terrain_type DLC_NEWSHALLOW
+number_of_tiles 0
+zone 2
+if N
+land_position 63 16
+elseif E
+land_position 16 37
+elseif S
+land_position 37 16
+elseif W
+land_position 16 64
+endif
+}
+create_land {
+terrain_type DLC_NEWSHALLOW
+number_of_tiles 0
+zone 2
+land_id 11
+if N
+land_position 69 84
+elseif E
+land_position 84 34
+elseif S
+land_position 34 84
+elseif W
+land_position 84 69
+endif
+}
+create_land {
+terrain_type DLC_NEWSHALLOW
+number_of_tiles 0
+zone 2
+if N
+land_position 66 84
+elseif E
+land_position 84 37
+elseif S
+land_position 37 84
+elseif W
+land_position 84 66
+endif
+}
+create_land {
+terrain_type DLC_NEWSHALLOW
+number_of_tiles 0
+zone 2
+if N
+land_position 63 84
+elseif E
+land_position 84 31
+elseif S
+land_position 31 84
+elseif W
+land_position 84 64
+endif
+}
+<CLIFF_GENERATION>
+min_number_of_cliffs 8
+max_number_of_cliffs 10
+min_length_of_cliff 4
+max_length_of_cliff 10
+min_distance_cliffs 1
+min_terrain_distance 1
+cliff_curliness 80
+<ELEVATION_GENERATION>
+enable_balanced_elevation
+create_elevation 3 {
+base_terrain DLC_CRACKED
+number_of_clumps 30
+number_of_tiles 400
+}
+create_elevation 3 {
+base_terrain DIRT
+number_of_clumps 30
+number_of_tiles 400
+}
+<TERRAIN_GENERATION>
+color_correction CC_DESERT
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SHALLOW {
+base_terrain DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+terrain_mask 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SNOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 2
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain SHALLOW {
+base_terrain WATER
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 4
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain WATER {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain DLC_ACACIAFOREST {
+base_terrain DIRT
+number_of_tiles 150
+number_of_clumps 10
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+create_terrain DLC_ACACIAFOREST {
+base_terrain DLC_CRACKED
+number_of_tiles 150
+number_of_clumps 10
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DLC_CRACKED {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 999
+}
+create_terrain DIRT {
+base_terrain DLC_CRACKED
+land_percent 2
+number_of_clumps 25
+spacing_to_other_terrain_types 2
+terrain_mask 1
+}
+create_terrain DESERT {
+base_terrain DLC_CRACKED
+land_percent 2
+number_of_clumps 25
+spacing_to_other_terrain_types 2
+terrain_mask 1
+}
+create_terrain DLC_DIRT4 {
+base_terrain DLC_CRACKED
+land_percent 1
+number_of_clumps 25
+terrain_mask 1
+set_avoid_player_start_areas
+}
+create_terrain LEAVES {
+base_terrain DLC_CRACKED
+land_percent 5
+number_of_clumps 30
+terrain_mask 1
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 100
+spacing_to_other_terrain_types 20
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS2 {
+base_layer DLC_NEWSHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 5
+}
+create_terrain FOREST {
+base_terrain DLC_DRYGRASS
+number_of_tiles 350
+number_of_clumps 5
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain SHALLOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain GRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 100
+set_avoid_player_start_areas 13
+}
+create_terrain PINE_FOREST {
+base_terrain GRASS
+number_of_tiles 1100
+number_of_clumps 12
+spacing_to_other_terrain_types 6
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain GRASS {
+base_terrain PINE_FOREST
+land_percent 100
+number_of_clumps 4096
+spacing_to_other_terrain_types 1
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 4096
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+number_of_tiles 150
+number_of_clumps 100
+}
+create_terrain FOREST {
+base_terrain PINE_FOREST
+number_of_tiles 200
+number_of_clumps 130
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 20
+number_of_clumps 30
+terrain_mask 1
+}
+create_terrain LEAVES {
+base_terrain GRASS
+land_percent 6
+number_of_clumps 30
+terrain_mask 1
+}
+create_terrain DLC_JUNGLEGRASS {
+base_terrain GRASS
+land_percent 7
+number_of_clumps 40
+terrain_mask 1
+}
+create_terrain DLC_JUNGLEGRASS {
+base_terrain GRASS
+land_percent 2
+number_of_clumps 60
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain GRASS2
+land_percent 100
+number_of_clumps 4096
+terrain_mask 1
+}
+create_terrain MED_WATER {
+height_limits 0 0
+base_terrain WATER
+land_percent 100
+number_of_clumps 100
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+create_terrain WATER {
+height_limits 0 0
+base_terrain MED_WATER
+land_percent 2
+number_of_clumps 100
+set_avoid_player_start_areas
+terrain_mask 2
+}
+create_terrain WATER {
+height_limits 0 0
+base_terrain MED_WATER
+land_percent 2
+number_of_clumps 100
+set_avoid_player_start_areas
+terrain_mask 1
+}
+create_terrain WATER {
+height_limits 0 0
+base_terrain MED_WATER
+land_percent 2
+number_of_clumps 100
+set_avoid_player_start_areas
+}
+<CONNECTION_GENERATION>
+accumulate_connections
+create_connect_teams_lands {
+replace_terrain WATER SHALLOW
+terrain_cost WATER 5
+terrain_size WATER 5 0
+replace_terrain MED_WATER SHALLOW
+terrain_cost MED_WATER 8
+terrain_size MED_WATER 5 0
+terrain_cost DEEP_WATER 11
+terrain_size DEEP_WATER 5 0
+replace_terrain DEEP_WATER SHALLOW
+replace_terrain BEACH SHALLOW
+terrain_cost BEACH 4
+terrain_size BEACH 6 0
+replace_terrain GRASS GRASS3
+terrain_cost GRASS 3
+terrain_size GRASS 3 1
+replace_terrain FOREST FOREST
+terrain_cost FOREST 8
+replace_terrain PINE_FOREST PINE_FOREST
+terrain_cost PINE_FOREST 8
+replace_terrain GRASS2 GRASS3
+terrain_cost GRASS2 1
+terrain_size GRASS2 3 0
+}
+create_connect_teams_lands {
+replace_terrain GRASS3 DIRT3
+replace_terrain GRASS2 DIRT3
+terrain_cost GRASS2 1
+terrain_size GRASS2 2 0
+terrain_cost GRASS3 2
+terrain_size GRASS3 2 1
+terrain_cost GRASS 7
+terrain_cost FOREST 14
+replace_terrain FOREST DIRT3
+terrain_size FOREST 2 1
+terrain_cost PINE_FOREST 14
+replace_terrain PINE_FOREST DIRT3
+terrain_size PINE_FOREST 2 1
+}
+<OBJECTS_GENERATION>
+if N
+create_actor_area 27 71 20000 10
+create_actor_area 27 72 20000 10
+create_actor_area 47 71 20000 10
+create_actor_area 47 72 20000 10
+create_actor_area 67 71 20000 10
+create_actor_area 67 72 20000 10
+elseif E
+create_actor_area 71 76 20000 10
+create_actor_area 72 76 20000 10
+create_actor_area 71 96 20000 10
+create_actor_area 72 96 20000 10
+create_actor_area 71 116 20000 10
+create_actor_area 72 116 20000 10
+elseif S
+create_actor_area 76 71 20000 10
+create_actor_area 76 72 20000 10
+create_actor_area 96 71 20000 10
+create_actor_area 96 72 20000 10
+create_actor_area 116 71 20000 10
+create_actor_area 116 72 20000 10
+elseif W
+create_actor_area 71 27 20000 10
+create_actor_area 72 27 20000 10
+create_actor_area 71 47 20000 10
+create_actor_area 72 47 20000 10
+create_actor_area 71 67 20000 10
+create_actor_area 72 67 20000 10
+endif
+if N
+create_actor_area 21 71 20001 7
+create_actor_area 21 72 20001 7
+create_actor_area 35 71 20001 7
+create_actor_area 35 72 20001 7
+create_actor_area 49 71 20001 7
+create_actor_area 49 72 20001 7
+create_actor_area 63 71 20001 7
+create_actor_area 63 72 20001 7
+create_actor_area 77 71 20001 7
+create_actor_area 77 72 20001 7
+elseif E
+create_actor_area 71 77 20001 7
+create_actor_area 72 77 20001 7
+create_actor_area 71 91 20001 7
+create_actor_area 72 91 20001 7
+create_actor_area 71 105 20001 7
+create_actor_area 72 105 20001 7
+create_actor_area 71 119 20001 7
+create_actor_area 72 119 20001 7
+elseif S
+create_actor_area 77 71 20001 7
+create_actor_area 77 72 20001 7
+create_actor_area 91 71 20001 7
+create_actor_area 91 72 20001 7
+create_actor_area 105 71 20001 7
+create_actor_area 105 72 20001 7
+create_actor_area 119 71 20001 7
+create_actor_area 119 72 20001 7
+elseif W
+create_actor_area 71 21 20001 7
+create_actor_area 72 21 20001 7
+create_actor_area 71 35 20001 7
+create_actor_area 72 35 20001 7
+create_actor_area 71 49 20001 7
+create_actor_area 72 49 20001 7
+create_actor_area 71 63 20001 7
+create_actor_area 72 63 20001 7
+create_actor_area 71 77 20001 7
+create_actor_area 72 77 20001 7
+endif
+if N
+create_actor_area 142 1 20002 0
+create_actor_area 138 1 20003 0
+create_actor_area 142 5 20004 0
+create_actor_area 141 139 20005 0
+create_actor_area 136 140 20006 0
+create_actor_area 141 135 20007 0
+elseif E
+create_actor_area 4 1 20002 0
+create_actor_area 9 1 20003 0
+create_actor_area 3 6 20004 0
+create_actor_area 141 1 20005 0
+create_actor_area 137 1 20006 0
+create_actor_area 141 5 20007 0
+elseif S
+create_actor_area 4 1 20002 0
+create_actor_area 9 1 20003 0
+create_actor_area 3 6 20004 0
+create_actor_area 3 139 20005 0
+create_actor_area 3 134 20006 0
+create_actor_area 8 139 20007 0
+elseif W
+create_actor_area 141 139 20002 0
+create_actor_area 136 140 20003 0
+create_actor_area 141 135 20004 0
+create_actor_area 3 139 20005 0
+create_actor_area 3 134 20006 0
+create_actor_area 8 139 20007 0
+endif
+if N
+create_actor_area 138 5 20008 0
+create_actor_area 136 136 20009 0
+elseif E
+create_actor_area 138 5 20008 0
+create_actor_area 7 7 20009 0
+elseif S
+create_actor_area 7 135 20008 0
+create_actor_area 7 7 20009 0
+elseif W
+create_actor_area 7 135 20008 0
+create_actor_area 136 136 20009 0
+endif
+if N
+create_actor_area 115 51 20010 30
+create_actor_area 115 61 20010 30
+create_actor_area 115 82 20010 30
+create_actor_area 115 92 20010 30
+create_actor_area 143 0 20010 30
+create_actor_area 143 143 20010 30
+elseif E
+create_actor_area 51 28 20010 30
+create_actor_area 61 28 20010 30
+create_actor_area 82 28 20010 30
+create_actor_area 92 28 20010 30
+create_actor_area 0 0 20010 30
+create_actor_area 143 0 20010 30
+elseif S
+create_actor_area 28 51 20010 30
+create_actor_area 28 61 20010 30
+create_actor_area 28 82 20010 30
+create_actor_area 28 92 20010 30
+create_actor_area 0 0 20010 30
+create_actor_area 0 143 20010 30
+elseif W
+create_actor_area 51 115 20010 30
+create_actor_area 61 115 20010 30
+create_actor_area 82 115 20010 30
+create_actor_area 92 115 20010 30
+create_actor_area 0 143 20010 30
+create_actor_area 143 143 20010 30
+endif
+if N
+create_actor_area 100 5 20011 20
+create_actor_area 85 25 20011 20
+create_actor_area 100 138 20011 20
+create_actor_area 85 118 20011 20
+elseif E
+create_actor_area 5 43 20011 20
+create_actor_area 25 58 20011 20
+create_actor_area 138 43 20011 20
+create_actor_area 118 58 20011 20
+elseif S
+create_actor_area 43 5 20011 20
+create_actor_area 58 25 20011 20
+create_actor_area 43 138 20011 20
+create_actor_area 58 118 20011 20
+elseif W
+create_actor_area 5 100 20011 20
+create_actor_area 25 85 20011 20
+create_actor_area 138 100 20011 20
+create_actor_area 118 85 20011 20
+endif
+if N
+create_actor_area 123 45 20012 12
+create_actor_area 123 98 20013 12
+elseif E
+create_actor_area 45 20 20012 12
+create_actor_area 98 20 20013 12
+elseif S
+create_actor_area 20 45 20012 12
+create_actor_area 20 98 20013 12
+elseif W
+create_actor_area 45 123 20012 12
+create_actor_area 98 123 20013 12
+endif
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+temp_min_distance_group_placement 10
+min_distance_group_placement 2
+actor_area_to_place_in 20000
+max_distance_to_other_zones 2
+avoid_forest_zone 2
+avoid_cliff_zone 2
+terrain_to_place_on DLC_CRACKED
+}
+create_object RELIC {
+number_of_objects 3
+temp_min_distance_group_placement 10
+min_distance_group_placement 2
+actor_area_to_place_in 20001
+max_distance_to_other_zones 8
+avoid_forest_zone 2
+avoid_cliff_zone 2
+terrain_to_place_on DLC_CRACKED
+}
+create_object PHON {
+actor_area_to_place_in 20002
+if N
+second_object DLC_MOUNTAIN_5
+elseif E
+second_object MOUNTAIN1
+elseif S
+second_object DLC_MOUNTAIN_5
+elseif W
+second_object DLC_MOUNTAIN_5
+endif
+}
+create_object PHON {
+actor_area_to_place_in 20003
+if N
+second_object MOUNTAIN1
+elseif E
+second_object MOUNTAIN2
+elseif S
+second_object MOUNTAIN1
+elseif W
+second_object MOUNTAIN1
+endif
+}
+create_object PHON {
+actor_area_to_place_in 20004
+if N
+second_object MOUNTAIN2
+elseif E
+second_object DLC_MOUNTAIN_5
+elseif S
+second_object MOUNTAIN2
+elseif W
+second_object MOUNTAIN2
+endif
+}
+create_object PHON {
+actor_area_to_place_in 20005
+if N
+second_object MOUNTAIN2
+elseif E
+second_object DLC_MOUNTAIN_5
+elseif S
+second_object DLC_MOUNTAIN_5
+elseif W
+second_object DLC_MOUNTAIN_5
+endif
+}
+create_object PHON {
+actor_area_to_place_in 20006
+if N
+second_object DLC_MOUNTAIN_5
+elseif E
+second_object MOUNTAIN1
+elseif S
+second_object MOUNTAIN1
+elseif W
+second_object MOUNTAIN1
+endif
+}
+create_object PHON {
+actor_area_to_place_in 20007
+if N
+second_object MOUNTAIN1
+elseif E
+second_object MOUNTAIN2
+elseif S
+second_object MOUNTAIN2
+elseif W
+second_object MOUNTAIN2
+endif
+}
+create_object PHON {
+second_object LOOT
+actor_area_to_place_in 20008
+}
+create_object PHON {
+second_object LOOT
+actor_area_to_place_in 20009
+}
+create_object RELIC {
+avoid_forest_zone 1
+min_distance_group_placement 3
+actor_area_to_place_in 20012
+}
+create_object RELIC {
+avoid_forest_zone 1
+min_distance_group_placement 3
+actor_area_to_place_in 20013
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 1
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 2
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 3
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 4
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 5
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 6
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 7
+}
+create_object TOWN_CENTER {
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on DLC_CRACKED
+place_on_specific_land_id 8
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 0
+actor_area 20014
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+place_on_specific_land_id 1
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+actor_area 20015
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+avoid_actor_area 20015
+actor_area 20016
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+avoid_actor_area 20015
+avoid_actor_area 20016
+actor_area 20017
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+place_on_specific_land_id 1
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+actor_area 20018
+actor_area_radius 1
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 1
+avoid_actor_area 20018
+actor_area 20019
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 0
+actor_area 20014
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+place_on_specific_land_id 2
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+actor_area 20015
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+avoid_actor_area 20015
+actor_area 20016
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+avoid_actor_area 20015
+avoid_actor_area 20016
+actor_area 20017
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+place_on_specific_land_id 2
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+actor_area 20018
+actor_area_radius 1
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 1
+avoid_actor_area 20018
+actor_area 20019
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20019
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20017
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20016
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20014
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20021
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20022
+actor_area_radius 2
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20023
+actor_area_radius 3
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20024
+actor_area_radius 4
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20025
+actor_area_radius 5
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20026
+actor_area_radius 6
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20027
+actor_area_radius 7
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20028
+actor_area_radius 8
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20029
+actor_area_radius 9
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20030
+actor_area_radius 10
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20031
+actor_area_radius 11
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20032
+actor_area_radius 12
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20033
+actor_area_radius 13
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20034
+actor_area_radius 14
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20035
+actor_area_radius 15
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20036
+actor_area_radius 16
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20037
+actor_area_radius 17
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20038
+actor_area_radius 18
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20039
+actor_area_radius 19
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20040
+actor_area_radius 20
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20041
+actor_area_radius 21
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20042
+actor_area_radius 22
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20043
+actor_area_radius 23
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20044
+actor_area_radius 24
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20045
+actor_area_radius 25
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20046
+actor_area_radius 26
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20047
+actor_area_radius 27
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20048
+actor_area_radius 28
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20049
+actor_area_radius 29
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20050
+actor_area_radius 30
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20051
+actor_area_radius 31
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20052
+actor_area_radius 32
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20053
+actor_area_radius 33
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20054
+actor_area_radius 34
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20055
+actor_area_radius 35
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20056
+actor_area_radius 36
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20057
+actor_area_radius 37
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20058
+actor_area_radius 38
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20059
+actor_area_radius 39
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20060
+actor_area_radius 40
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20061
+actor_area_radius 41
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20062
+actor_area_radius 42
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20063
+actor_area_radius 43
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20064
+actor_area_radius 44
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20065
+actor_area_radius 45
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20066
+actor_area_radius 46
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20067
+actor_area_radius 47
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20068
+actor_area_radius 48
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20069
+actor_area_radius 49
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20070
+actor_area_radius 50
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20071
+actor_area_radius 51
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20072
+actor_area_radius 52
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20073
+actor_area_radius 53
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20074
+actor_area_radius 54
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20075
+actor_area_radius 55
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20076
+actor_area_radius 56
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20077
+actor_area_radius 57
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20078
+actor_area_radius 58
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20079
+actor_area_radius 59
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20080
+actor_area_radius 60
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20081
+actor_area_radius 61
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20082
+actor_area_radius 62
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20083
+actor_area_radius 63
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20019
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20017
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20016
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20014
+actor_area 20020
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20021
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20022
+actor_area_radius 2
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20023
+actor_area_radius 3
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20024
+actor_area_radius 4
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20025
+actor_area_radius 5
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20026
+actor_area_radius 6
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20027
+actor_area_radius 7
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20028
+actor_area_radius 8
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20029
+actor_area_radius 9
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20030
+actor_area_radius 10
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20031
+actor_area_radius 11
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20032
+actor_area_radius 12
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20033
+actor_area_radius 13
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20034
+actor_area_radius 14
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20035
+actor_area_radius 15
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20036
+actor_area_radius 16
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20037
+actor_area_radius 17
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20038
+actor_area_radius 18
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20039
+actor_area_radius 19
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20040
+actor_area_radius 20
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20041
+actor_area_radius 21
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20042
+actor_area_radius 22
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20043
+actor_area_radius 23
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20044
+actor_area_radius 24
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20045
+actor_area_radius 25
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20046
+actor_area_radius 26
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20047
+actor_area_radius 27
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20048
+actor_area_radius 28
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20049
+actor_area_radius 29
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20050
+actor_area_radius 30
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20051
+actor_area_radius 31
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20052
+actor_area_radius 32
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20053
+actor_area_radius 33
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20054
+actor_area_radius 34
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20055
+actor_area_radius 35
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20056
+actor_area_radius 36
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20057
+actor_area_radius 37
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20058
+actor_area_radius 38
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20059
+actor_area_radius 39
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20060
+actor_area_radius 40
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20061
+actor_area_radius 41
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20062
+actor_area_radius 42
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20063
+actor_area_radius 43
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20064
+actor_area_radius 44
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20065
+actor_area_radius 45
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20066
+actor_area_radius 46
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20067
+actor_area_radius 47
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20068
+actor_area_radius 48
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20069
+actor_area_radius 49
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20070
+actor_area_radius 50
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20071
+actor_area_radius 51
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20072
+actor_area_radius 52
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20073
+actor_area_radius 53
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20074
+actor_area_radius 54
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20075
+actor_area_radius 55
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20076
+actor_area_radius 56
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20077
+actor_area_radius 57
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20078
+actor_area_radius 58
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20079
+actor_area_radius 59
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20080
+actor_area_radius 60
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20081
+actor_area_radius 61
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20082
+actor_area_radius 62
+}
+create_object PHON {
+number_of_objects 4
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20020
+actor_area 20083
+actor_area_radius 63
+}
+create_object PHOFF {
+number_of_objects 4
+set_gaia_object_only
+min_distance_to_players 4
+max_distance_to_players 4
+find_closest
+actor_area 20084
+actor_area_radius 3
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 4
+set_gaia_object_only
+min_distance_to_players 4
+max_distance_to_players 4
+find_closest
+actor_area 20084
+actor_area_radius 3
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+min_distance_to_players 4
+max_distance_to_players 4
+find_closest
+avoid_actor_area 20084
+actor_area 20085
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+min_distance_to_players 4
+max_distance_to_players 4
+find_closest
+avoid_actor_area 20084
+actor_area 20085
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 32
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+set_gaia_object_only
+find_closest
+actor_area 20086
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 32
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+set_gaia_object_only
+find_closest
+actor_area 20086
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+find_closest
+avoid_actor_area 20086
+actor_area 20085
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+find_closest
+avoid_actor_area 20086
+actor_area 20085
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 28
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+set_gaia_object_only
+find_closest
+actor_area 20087
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 28
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+set_gaia_object_only
+find_closest
+actor_area 20087
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 2
+set_gaia_object_only
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+find_closest
+avoid_actor_area 20087
+actor_area 20085
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 2
+set_gaia_object_only
+avoid_actor_area 20085
+actor_area_to_place_in 20024
+avoid_actor_area 20023
+find_closest
+avoid_actor_area 20087
+actor_area 20085
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 4
+set_gaia_object_only
+min_distance_to_players 6
+max_distance_to_players 6
+find_closest
+actor_area 20088
+actor_area_radius 5
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 4
+set_gaia_object_only
+min_distance_to_players 6
+max_distance_to_players 6
+find_closest
+actor_area 20088
+actor_area_radius 5
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+min_distance_to_players 6
+max_distance_to_players 6
+find_closest
+avoid_actor_area 20088
+actor_area 20089
+actor_area_radius 2
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+min_distance_to_players 6
+max_distance_to_players 6
+find_closest
+avoid_actor_area 20088
+actor_area 20089
+actor_area_radius 2
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 46
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+set_gaia_object_only
+find_closest
+actor_area 20090
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 46
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+set_gaia_object_only
+find_closest
+actor_area 20090
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+find_closest
+avoid_actor_area 20090
+actor_area 20089
+actor_area_radius 2
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+find_closest
+avoid_actor_area 20090
+actor_area 20089
+actor_area_radius 2
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 40
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+set_gaia_object_only
+find_closest
+actor_area 20091
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 40
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+set_gaia_object_only
+find_closest
+actor_area 20091
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 2
+set_gaia_object_only
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+find_closest
+avoid_actor_area 20091
+actor_area 20089
+actor_area_radius 2
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 2
+set_gaia_object_only
+avoid_actor_area 20089
+actor_area_to_place_in 20026
+avoid_actor_area 20025
+find_closest
+avoid_actor_area 20091
+actor_area 20089
+actor_area_radius 2
+place_on_specific_land_id 2
+}
+create_object PHON {
+second_object VILLAGER
+actor_area_to_place_in 20025
+avoid_actor_area 20024
+actor_area 20092
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHON {
+second_object VILLAGER
+actor_area_to_place_in 20025
+avoid_actor_area 20024
+actor_area 20092
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+actor_area_to_place_in 20092
+actor_area 20093
+actor_area_radius 1
+set_gaia_object_only
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+actor_area_to_place_in 20092
+actor_area 20093
+actor_area_radius 1
+set_gaia_object_only
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+actor_area_to_place_in 20092
+actor_area 20094
+actor_area_radius 4
+set_gaia_object_only
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+actor_area_to_place_in 20092
+actor_area 20094
+actor_area_radius 4
+set_gaia_object_only
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 60
+set_gaia_object_only
+avoid_actor_area 20026
+actor_area_to_place_in 20027
+actor_area 20095
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 60
+set_gaia_object_only
+avoid_actor_area 20026
+actor_area_to_place_in 20027
+actor_area 20095
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object PHON {
+second_object VILLAGER
+actor_area_to_place_in 20094
+avoid_actor_area 20093
+avoid_actor_area 20024
+avoid_actor_area 20095
+max_distance_to_players 7
+actor_area 20096
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHON {
+second_object VILLAGER
+actor_area_to_place_in 20094
+avoid_actor_area 20093
+avoid_actor_area 20024
+avoid_actor_area 20095
+max_distance_to_players 7
+actor_area 20096
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+actor_area_to_place_in 20092
+actor_area 20097
+actor_area_radius 3
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+actor_area_to_place_in 20092
+actor_area 20097
+actor_area_radius 3
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+actor_area_to_place_in 20096
+actor_area 20097
+actor_area_radius 3
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+actor_area_to_place_in 20096
+actor_area 20097
+actor_area_radius 3
+place_on_specific_land_id 2
+}
+create_object PHON {
+second_object VILLAGER
+actor_area_to_place_in 20025
+avoid_actor_area 20024
+avoid_actor_area 20097
+actor_area 20098
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHON {
+second_object VILLAGER
+actor_area_to_place_in 20025
+avoid_actor_area 20024
+avoid_actor_area 20097
+actor_area 20098
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+actor_area_to_place_in 20092
+actor_area 20099
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+actor_area_to_place_in 20092
+actor_area 20099
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+actor_area_to_place_in 20096
+actor_area 20099
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+actor_area_to_place_in 20096
+actor_area 20099
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+set_gaia_object_only
+actor_area_to_place_in 20098
+actor_area 20099
+actor_area_radius 0
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+set_gaia_object_only
+actor_area_to_place_in 20098
+actor_area 20099
+actor_area_radius 0
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 3
+set_gaia_object_only
+actor_area_to_place_in 20099
+actor_area 20100
+actor_area_radius 1
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 3
+set_gaia_object_only
+actor_area_to_place_in 20099
+actor_area 20100
+actor_area_radius 1
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 3
+set_gaia_object_only
+actor_area_to_place_in 20099
+actor_area 20101
+actor_area_radius 2
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 3
+set_gaia_object_only
+actor_area_to_place_in 20099
+actor_area 20101
+actor_area_radius 2
+place_on_specific_land_id 2
+}
+create_object PHOFF {
+number_of_objects 3
+set_gaia_object_only
+actor_area_to_place_in 20099
+actor_area 20102
+actor_area_radius 4
+place_on_specific_land_id 1
+}
+create_object PHOFF {
+number_of_objects 3
+set_gaia_object_only
+actor_area_to_place_in 20099
+actor_area 20102
+actor_area_radius 4
+place_on_specific_land_id 2
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 1
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 2
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 3
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 4
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 5
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 6
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 7
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20103
+actor_area_radius 20
+find_closest_to_map_center
+place_on_specific_land_id 8
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 1
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 2
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 3
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 4
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 5
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 6
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 7
+}
+create_object HAWK {
+number_of_objects 2
+temp_min_distance_group_placement 7
+min_distance_to_players 0
+max_distance_to_players 40
+terrain_to_place_on SHALLOW
+set_gaia_object_only
+actor_area 20104
+actor_area_radius 20
+find_closest_to_map_edge
+place_on_specific_land_id 8
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 1
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 2
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 3
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 4
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 5
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 6
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 7
+}
+create_object GOLD {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+actor_area 20105
+avoid_actor_area 543
+avoid_actor_area 544
+actor_area_radius 7
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 8
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 1
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 2
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 3
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 4
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 5
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 6
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 7
+}
+create_object STONE {
+number_of_objects 2
+number_of_groups 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 12
+set_circular_placement
+min_distance_group_placement 2
+temp_min_distance_group_placement 7
+set_gaia_object_only
+avoid_actor_area 20105
+actor_area 20106
+actor_area_radius 4
+avoid_actor_area 543
+avoid_actor_area 544
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20102
+place_on_specific_land_id 8
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20107
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20107
+actor_area 20108
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20108
+actor_area 20109
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20109
+actor_area 20110
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20109
+avoid_actor_area 20110
+actor_area 20111
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20111
+actor_area 20112
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20112
+actor_area_to_place_in 20107
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20112
+actor_area_to_place_in 20109
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20114
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20114
+actor_area 20115
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20115
+actor_area 20116
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20116
+actor_area 20117
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20116
+avoid_actor_area 20117
+actor_area 20111
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20111
+actor_area 20118
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20118
+actor_area_to_place_in 20114
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20118
+actor_area_to_place_in 20116
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20119
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20119
+actor_area 20120
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20120
+actor_area 20121
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20121
+actor_area 20122
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20121
+avoid_actor_area 20122
+actor_area 20111
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20111
+actor_area 20123
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20123
+actor_area_to_place_in 20119
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20123
+actor_area_to_place_in 20121
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20124
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20124
+actor_area 20125
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20125
+actor_area 20126
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20126
+actor_area 20127
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20126
+avoid_actor_area 20127
+actor_area 20111
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20111
+actor_area 20128
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20128
+actor_area_to_place_in 20124
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20128
+actor_area_to_place_in 20126
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20129
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20129
+actor_area 20130
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20130
+actor_area 20131
+actor_area_radius 0
+avoid_actor_area 20111
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20131
+actor_area 20132
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+actor_area_to_place_in 20131
+avoid_actor_area 20132
+actor_area 20111
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20111
+actor_area 20133
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20133
+actor_area_to_place_in 20129
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20133
+actor_area_to_place_in 20131
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+avoid_actor_area 20111
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20134
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20134
+actor_area 20113
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20134
+actor_area 20135
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20135
+avoid_actor_area 20111
+actor_area 20113
+actor_area_radius 0
+}
+create_object DLC_DRAGONTREE {
+place_on_specific_land_id 1
+set_gaia_object_only
+number_of_objects 5
+actor_area_to_place_in 20113
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20136
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20136
+actor_area 20137
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20137
+actor_area 20138
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20138
+actor_area 20139
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20138
+avoid_actor_area 20139
+actor_area 20140
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20140
+actor_area 20141
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20141
+actor_area_to_place_in 20136
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20141
+actor_area_to_place_in 20138
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20143
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20143
+actor_area 20144
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20144
+actor_area 20145
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20145
+actor_area 20146
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20145
+avoid_actor_area 20146
+actor_area 20140
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20140
+actor_area 20147
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20147
+actor_area_to_place_in 20143
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20147
+actor_area_to_place_in 20145
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20148
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20148
+actor_area 20149
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20149
+actor_area 20150
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20150
+actor_area 20151
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20150
+avoid_actor_area 20151
+actor_area 20140
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20140
+actor_area 20152
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20152
+actor_area_to_place_in 20148
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20152
+actor_area_to_place_in 20150
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20153
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20153
+actor_area 20154
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20154
+actor_area 20155
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20155
+actor_area 20156
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20155
+avoid_actor_area 20156
+actor_area 20140
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20140
+actor_area 20157
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20157
+actor_area_to_place_in 20153
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20157
+actor_area_to_place_in 20155
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20158
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20158
+actor_area 20159
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20101
+avoid_actor_area 20159
+actor_area 20160
+actor_area_radius 0
+avoid_actor_area 20140
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20160
+actor_area 20161
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+actor_area_to_place_in 20160
+avoid_actor_area 20161
+actor_area 20140
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+max_distance_to_players 0
+avoid_actor_area 20140
+actor_area 20162
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20162
+actor_area_to_place_in 20158
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20162
+actor_area_to_place_in 20160
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+avoid_actor_area 20023
+actor_area_to_place_in 20024
+avoid_actor_area 20140
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20085
+actor_area 20163
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20163
+actor_area 20142
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 2
+actor_area_to_place_in 20163
+actor_area 20164
+actor_area_radius 3
+}
+create_object PHOFF {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 3
+avoid_actor_area 20025
+actor_area_to_place_in 20026
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+avoid_actor_area 20089
+avoid_actor_area 20164
+avoid_actor_area 20140
+actor_area 20142
+actor_area_radius 0
+}
+create_object DLC_DRAGONTREE {
+place_on_specific_land_id 2
+set_gaia_object_only
+number_of_objects 5
+actor_area_to_place_in 20142
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 1
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 2
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 3
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 4
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 5
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 6
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 7
+}
+create_object DLC_GOAT {
+number_of_objects 4
+set_loose_grouping
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+terrain_to_place_on DLC_CRACKED
+avoid_actor_area 20102
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+place_on_specific_land_id 8
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 1
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 2
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 3
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 4
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 5
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 6
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 7
+}
+create_object DRY_PLANT {
+number_of_objects 4
+min_distance_to_players 18
+max_distance_to_players 20
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 3
+find_closest_to_map_center
+actor_area 20165
+actor_area_radius 22
+place_on_specific_land_id 8
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 1
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 2
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 3
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 4
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 5
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 6
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 7
+}
+create_object DLC_GOAT {
+number_of_objects 2
+set_loose_grouping
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+min_distance_group_placement 2
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+actor_area 20166
+actor_area_radius 3
+avoid_actor_area 20165
+place_on_specific_land_id 8
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 1
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 2
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 3
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 4
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 5
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 6
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 7
+}
+create_object DLC_RHINO {
+number_of_objects 2
+min_distance_to_players 14
+max_distance_to_players 18
+set_circular_placement
+temp_min_distance_group_placement 7
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+max_distance_to_other_zones 3
+min_distance_group_placement 2
+avoid_actor_area 20165
+actor_area 20166
+actor_area_radius 3
+place_on_specific_land_id 8
+}
+create_object SCOUT {
+min_distance_to_players 7
+max_distance_to_players 9
+avoid_actor_area 20101
+place_on_specific_land_id 1
+}
+create_object SCOUT {
+min_distance_to_players 7
+max_distance_to_players 9
+avoid_actor_area 20101
+place_on_specific_land_id 2
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 1
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 2
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 3
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 4
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 5
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 6
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 7
+}
+create_object DLC_DEADTREE {
+number_of_objects 3
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 2
+place_on_specific_land_id 8
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 1
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 2
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 3
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 4
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 5
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 6
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 7
+}
+create_object DLC_DEADTREE {
+number_of_objects 2
+number_of_groups 4
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 8
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 1
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 2
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 3
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 4
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 5
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 6
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 7
+}
+create_object DLC_DEADTREE {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 14
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 1
+place_on_specific_land_id 8
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 1
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 2
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 3
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 4
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 5
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 6
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 7
+}
+create_object DLC_BOULDER_C {
+number_of_objects 2
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 14
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20167
+actor_area_radius 2
+max_distance_to_other_zones 4
+avoid_actor_area 20166
+place_on_specific_land_id 8
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 1
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 2
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 3
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 4
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 5
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 6
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 7
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 17
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 2
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 8
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 1
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 2
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 3
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 4
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 5
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 6
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 7
+}
+create_object DLC_BOULDER_B {
+number_of_objects 1
+number_of_groups 5
+set_tight_grouping
+min_distance_to_players 12
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area_to_place_in 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 8
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 1
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 2
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 3
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 4
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 5
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 6
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 7
+}
+create_object DLC_BOULDER_A {
+number_of_objects 5
+set_tight_grouping
+min_distance_to_players 15
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+avoid_cliff_zone 1
+avoid_actor_area 20167
+max_distance_to_other_zones 2
+avoid_actor_area 20166
+place_on_specific_land_id 8
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 1
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 2
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 3
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 4
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 5
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 6
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 7
+}
+create_object CRACKS {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 30
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 8
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 1
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 2
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 3
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 4
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 5
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 6
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 7
+}
+create_object CRATER {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 3
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 8
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 1
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 2
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 3
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 4
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 5
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 6
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 7
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 5
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 8
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 1
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 2
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 3
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 4
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 5
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 6
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 7
+}
+create_object DEAD_PLANT {
+height_limits 0 0
+set_flat_terrain_only
+number_of_objects 2
+number_of_groups 4
+min_distance_to_players 10
+max_distance_to_players 20
+temp_min_distance_group_placement 2
+set_gaia_object_only
+terrain_to_place_on DLC_CRACKED
+avoid_forest_zone 1
+max_distance_to_other_zones 5
+place_on_specific_land_id 8
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 1
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 2
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 3
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 4
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 5
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 6
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 7
+}
+create_object FLOWER_BED {
+ignore_terrain_restrictions
+number_of_objects 8
+min_distance_to_players 3
+max_distance_to_players 12
+min_distance_to_map_edge 1
+set_gaia_object_only
+terrain_to_place_on LEAVES
+place_on_specific_land_id 8
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 1
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 2
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 3
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 4
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 5
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 6
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 7
+}
+create_object FLOWERS_2 {
+ignore_terrain_restrictions
+number_of_objects 5
+temp_min_distance_group_placement 2
+min_distance_to_players 0
+max_distance_to_players 5
+set_gaia_object_only
+terrain_to_place_on LEAVES
+min_distance_to_map_edge 2
+place_on_specific_land_id 8
+}
+create_object RELIC {
+place_on_specific_land_id 3
+ignore_terrain_restrictions
+number_of_objects 1
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 6
+max_distance_to_players 8
+min_distance_to_map_edge 6
+set_gaia_object_only
+find_closest_to_map_center
+min_distance_group_placement 2
+}
+create_object BUSH_A {
+place_on_specific_land_id 3
+ignore_terrain_restrictions
+number_of_objects 5
+max_distance_to_players 10
+set_gaia_object_only
+temp_min_distance_group_placement 1
+set_circular_placement
+}
+create_object RELIC {
+place_on_specific_land_id 4
+ignore_terrain_restrictions
+number_of_objects 1
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 6
+max_distance_to_players 8
+min_distance_to_map_edge 6
+set_gaia_object_only
+find_closest_to_map_center
+min_distance_group_placement 2
+}
+create_object BUSH_A {
+place_on_specific_land_id 4
+ignore_terrain_restrictions
+number_of_objects 5
+max_distance_to_players 10
+set_gaia_object_only
+temp_min_distance_group_placement 1
+set_circular_placement
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+max_distance_to_players 0
+actor_area 20168
+actor_area_radius 25
+}
+create_object BOAR {
+place_on_specific_land_id 10
+max_distance_to_players 0
+min_distance_group_placement 1
+}
+create_object FORAGE {
+place_on_specific_land_id 10
+number_of_objects 6
+set_tight_grouping
+group_placement_radius 1
+max_distance_to_players 10
+set_circular_placement
+find_closest_to_map_center
+avoid_forest_zone 3
+max_distance_to_other_zones 5
+actor_area 20169
+actor_area_radius 1
+}
+create_object PHOFF {
+number_of_objects 32
+place_on_specific_land_id 10
+actor_area_to_place_in 20169
+actor_area 20170
+actor_area_radius 2
+}
+create_object PHOFF {
+number_of_objects 32
+place_on_specific_land_id 10
+actor_area_to_place_in 20169
+actor_area 20171
+actor_area_radius 7
+}
+create_object DEER {
+place_on_specific_land_id 10
+number_of_objects 4
+set_tight_grouping
+actor_area_to_place_in 20170
+avoid_forest_zone 1
+max_distance_to_other_zones 4
+}
+create_object DLC_COW {
+place_on_specific_land_id 10
+actor_area_to_place_in 20170
+avoid_actor_area 20169
+avoid_forest_zone 1
+max_distance_to_other_zones 4
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20175
+actor_area 20172
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20172
+actor_area 20173
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20173
+actor_area 20174
+actor_area_radius 0
+avoid_actor_area 20175
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20174
+actor_area 20175
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+max_distance_to_players 10
+avoid_actor_area 20175
+actor_area 20176
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20172
+avoid_actor_area 20176
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20174
+avoid_actor_area 20176
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20175
+actor_area 20179
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20179
+actor_area 20180
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20180
+actor_area 20181
+actor_area_radius 0
+avoid_actor_area 20175
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20181
+actor_area 20175
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+max_distance_to_players 10
+avoid_actor_area 20175
+actor_area 20182
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20179
+avoid_actor_area 20182
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20181
+avoid_actor_area 20182
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20175
+actor_area 20183
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20183
+actor_area 20184
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20184
+actor_area 20185
+actor_area_radius 0
+avoid_actor_area 20175
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20185
+actor_area 20175
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+max_distance_to_players 10
+avoid_actor_area 20175
+actor_area 20186
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20183
+avoid_actor_area 20186
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20185
+avoid_actor_area 20186
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20175
+actor_area 20187
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20187
+actor_area 20188
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20188
+actor_area 20189
+actor_area_radius 0
+avoid_actor_area 20175
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20189
+actor_area 20175
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+max_distance_to_players 10
+avoid_actor_area 20175
+actor_area 20190
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20187
+avoid_actor_area 20190
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20189
+avoid_actor_area 20190
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20175
+actor_area 20191
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20191
+actor_area 20192
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 10
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20192
+actor_area 20193
+actor_area_radius 0
+avoid_actor_area 20175
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+actor_area_to_place_in 20193
+actor_area 20175
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 10
+max_distance_to_players 10
+avoid_actor_area 20175
+actor_area 20194
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20191
+avoid_actor_area 20194
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20193
+avoid_actor_area 20194
+actor_area 20178
+actor_area_radius 8
+}
+create_object GOLD {
+place_on_specific_land_id 10
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+actor_area 20177
+actor_area_radius 6
+avoid_actor_area 20175
+}
+create_object STONE {
+place_on_specific_land_id 10
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20171
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20177
+actor_area 20178
+actor_area_radius 6
+avoid_actor_area 20175
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+max_distance_to_players 0
+actor_area 20168
+actor_area_radius 25
+}
+create_object BOAR {
+place_on_specific_land_id 11
+max_distance_to_players 0
+min_distance_group_placement 1
+}
+create_object FORAGE {
+place_on_specific_land_id 11
+number_of_objects 6
+set_tight_grouping
+group_placement_radius 1
+max_distance_to_players 10
+set_circular_placement
+find_closest_to_map_center
+avoid_forest_zone 3
+max_distance_to_other_zones 5
+actor_area 20195
+actor_area_radius 1
+}
+create_object PHOFF {
+number_of_objects 32
+place_on_specific_land_id 11
+actor_area_to_place_in 20195
+actor_area 20196
+actor_area_radius 2
+}
+create_object PHOFF {
+number_of_objects 32
+place_on_specific_land_id 11
+actor_area_to_place_in 20195
+actor_area 20197
+actor_area_radius 7
+}
+create_object DEER {
+place_on_specific_land_id 11
+number_of_objects 4
+set_tight_grouping
+actor_area_to_place_in 20196
+avoid_forest_zone 1
+max_distance_to_other_zones 4
+}
+create_object DLC_COW {
+place_on_specific_land_id 11
+actor_area_to_place_in 20196
+avoid_actor_area 20195
+avoid_forest_zone 1
+max_distance_to_other_zones 4
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20201
+actor_area 20198
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20198
+actor_area 20199
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20199
+actor_area 20200
+actor_area_radius 0
+avoid_actor_area 20201
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20200
+actor_area 20201
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+max_distance_to_players 10
+avoid_actor_area 20201
+actor_area 20202
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20198
+avoid_actor_area 20202
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20200
+avoid_actor_area 20202
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20201
+actor_area 20203
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20203
+actor_area 20204
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20204
+actor_area 20205
+actor_area_radius 0
+avoid_actor_area 20201
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20205
+actor_area 20201
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+max_distance_to_players 10
+avoid_actor_area 20201
+actor_area 20206
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20203
+avoid_actor_area 20206
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20205
+avoid_actor_area 20206
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20201
+actor_area 20207
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20207
+actor_area 20208
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20208
+actor_area 20209
+actor_area_radius 0
+avoid_actor_area 20201
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20209
+actor_area 20201
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+max_distance_to_players 10
+avoid_actor_area 20201
+actor_area 20210
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20207
+avoid_actor_area 20210
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20209
+avoid_actor_area 20210
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20201
+actor_area 20211
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20211
+actor_area 20212
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20212
+actor_area 20213
+actor_area_radius 0
+avoid_actor_area 20201
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20213
+actor_area 20201
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+max_distance_to_players 10
+avoid_actor_area 20201
+actor_area 20214
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20211
+avoid_actor_area 20214
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20213
+avoid_actor_area 20214
+actor_area 20178
+actor_area_radius 8
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 6
+max_distance_to_players 40
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20201
+actor_area 20215
+actor_area_radius 0
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20215
+actor_area 20216
+actor_area_radius 12
+}
+create_object PHLAND {
+place_on_specific_land_id 11
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20216
+actor_area 20217
+actor_area_radius 0
+avoid_actor_area 20201
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+actor_area_to_place_in 20217
+actor_area 20201
+actor_area_radius 144
+}
+create_object PHOFF {
+place_on_specific_land_id 11
+max_distance_to_players 10
+avoid_actor_area 20201
+actor_area 20218
+actor_area_radius 144
+}
+create_object GOLD {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20215
+avoid_actor_area 20218
+actor_area 20177
+actor_area_radius 8
+}
+create_object STONE {
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_group_placement 3
+actor_area_to_place_in 20217
+avoid_actor_area 20218
+actor_area 20178
+actor_area_radius 8
+}
+create_object GOLD {
+place_on_specific_land_id 11
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+actor_area 20177
+actor_area_radius 6
+avoid_actor_area 20201
+}
+create_object STONE {
+place_on_specific_land_id 11
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+min_distance_to_map_edge 2
+min_distance_to_players 6
+max_distance_to_players 40
+set_circular_placement
+max_distance_to_other_zones 5
+avoid_actor_area 20197
+avoid_actor_area 20010
+terrain_to_place_on GRASS
+avoid_actor_area 20177
+actor_area 20178
+actor_area_radius 6
+avoid_actor_area 20201
+}
+create_object GOLD {
+place_on_specific_land_id 3
+number_of_objects 4
+number_of_groups 3
+set_gaia_object_only
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+max_distance_to_other_zones 4
+min_distance_to_map_edge 2
+min_distance_to_players 16
+max_distance_to_players 60
+set_circular_placement
+terrain_to_place_on GRASS
+temp_min_distance_group_placement 18
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+actor_area 20219
+actor_area_radius 7
+}
+create_object GOLD {
+place_on_specific_land_id 4
+number_of_objects 4
+number_of_groups 3
+set_gaia_object_only
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+max_distance_to_other_zones 4
+min_distance_to_map_edge 2
+min_distance_to_players 16
+max_distance_to_players 60
+set_circular_placement
+terrain_to_place_on GRASS
+temp_min_distance_group_placement 18
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+actor_area 20219
+actor_area_radius 7
+}
+create_object STONE {
+place_on_specific_land_id 3
+number_of_objects 4
+number_of_groups 2
+set_gaia_object_only
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+max_distance_to_other_zones 4
+min_distance_to_map_edge 4
+min_distance_to_players 16
+max_distance_to_players 60
+set_circular_placement
+terrain_to_place_on GRASS
+temp_min_distance_group_placement 18
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+avoid_actor_area 20219
+actor_area 20220
+actor_area_radius 7
+}
+create_object STONE {
+place_on_specific_land_id 4
+number_of_objects 4
+number_of_groups 2
+set_gaia_object_only
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+max_distance_to_other_zones 4
+min_distance_to_map_edge 4
+min_distance_to_players 16
+max_distance_to_players 60
+set_circular_placement
+terrain_to_place_on GRASS
+temp_min_distance_group_placement 18
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+avoid_actor_area 20219
+actor_area 20220
+actor_area_radius 7
+}
+create_object FORAGE {
+number_of_objects 6
+number_of_groups 4
+set_tight_grouping
+group_placement_radius 1
+avoid_forest_zone 2
+min_distance_group_placement 3
+max_distance_to_other_zones 4
+min_distance_to_map_edge 3
+min_distance_to_players 16
+terrain_to_place_on GRASS
+temp_min_distance_group_placement 22
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+avoid_actor_area 20219
+avoid_actor_area 20220
+}
+create_object DEER {
+number_of_objects 3
+number_of_groups 6
+set_loose_grouping
+avoid_forest_zone 2
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+min_distance_to_map_edge 2
+min_distance_to_players 14
+temp_min_distance_group_placement 22
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+terrain_to_place_on GRASS
+}
+create_object BOAR {
+number_of_objects 8
+avoid_forest_zone 2
+min_distance_group_placement 1
+max_distance_to_other_zones 8
+min_distance_to_map_edge 2
+set_circular_placement
+min_distance_to_players 20
+temp_min_distance_group_placement 18
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+avoid_actor_area 20168
+terrain_to_place_on GRASS
+}
+create_object DLC_COW {
+number_of_objects 12
+avoid_forest_zone 2
+min_distance_group_placement 1
+max_distance_to_other_zones 6
+min_distance_to_map_edge 2
+min_distance_to_players 12
+temp_min_distance_group_placement 12
+avoid_actor_area 20177
+avoid_actor_area 20178
+avoid_actor_area 20011
+terrain_to_place_on GRASS
+}
+create_object FOREST_TREE {
+number_of_objects 20
+temp_min_distance_group_placement 8
+min_distance_group_placement 1
+set_gaia_object_only
+terrain_to_place_on GRASS
+avoid_forest_zone 2
+max_distance_to_other_zones 3
+avoid_actor_area 20170
+avoid_actor_area 20196
+}
+create_object PHOFF {
+number_of_objects 4096
+set_gaia_object_only
+terrain_to_place_on BEACH
+actor_area 20221
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 2048
+actor_area_to_place_in 20221
+terrain_to_place_on GRASS
+actor_area 20222
+actor_area_radius 12
+}
+create_object PHON {
+number_of_objects 2048
+actor_area_to_place_in 20221
+terrain_to_place_on GRASS3
+actor_area 20222
+actor_area_radius 12
+}
+create_object PHON {
+number_of_objects 2048
+actor_area_to_place_in 20221
+terrain_to_place_on DIRT3
+actor_area 20222
+actor_area_radius 12
+}
+create_object SNAPPER {
+number_of_objects 35
+min_distance_to_players 7
+set_gaia_object_only
+temp_min_distance_group_placement 7
+max_distance_to_other_zones 5
+min_distance_group_placement 3
+avoid_actor_area 20222
+}
+create_object SHORE_FISH {
+number_of_objects 45
+set_gaia_object_only
+temp_min_distance_group_placement 7
+}
+create_object PHWATER {
+number_of_objects 16
+max_distance_to_other_zones 8
+temp_min_distance_group_placement 32
+second_object SEA_ROCKS_2
+}

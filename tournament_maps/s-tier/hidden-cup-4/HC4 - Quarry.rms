@@ -1,0 +1,1065 @@
+/*
+
+	Qaurry by HenkDeSuperNerd
+	Created for Hidden Cup 4
+
+	5th of March 2021
+	
+	Version: 1.0
+	
+	Compatibility: Definitive Edition
+
+	Discord: HenkDeSuperNerd#3321
+	AoEZone: https://www.aoezone.net/members/henkdesupernerd.70563/
+
+	Changelog 05-03-2021 | Version 1.0
+	• Initial release.
+
+*/
+
+
+		#const MELCINA 4
+		#const VODA 1
+		#const CESTA 43
+
+		#const HERDABLE_A 1060
+		#const HERDABLE_B 1060
+		#const HUNTABLE 1026
+
+		#const LURABLE_A 936
+		#const LURABLE_B 936
+
+		#const PREDATOR_A 1029
+		#const PREDATOR_B 1029
+
+		#const BIRDS_A 1305
+		#const BIRDS_B 1305
+		#const FISH_A 455
+		#const FISH_B 458
+		#const MELKARYBA 69
+
+
+		#const KEROUTSIDE_TERRAINK 1059
+		#const STRAGGLER 1051
+
+#const OUTSIDE_TERRAIN 5		
+#define COLLAPSE
+#const CRACKED_EARTH 45
+
+
+start_random
+percent_chance 50
+#define NORTHSOUTH
+percent_chance 50
+#define EASTWEST
+end_random
+
+start_random
+percent_chance 50
+#define P1P2
+percent_chance 50
+#define P2P1
+end_random
+		
+<PLAYER_SETUP>
+direct_placement
+
+<LAND_GENERATION>
+base_terrain GRASS3
+create_land
+{
+terrain_type CRACKED_EARTH
+land_percent 1
+base_size 4
+top_border 34
+bottom_border 34
+right_border 34
+left_border 34
+land_position 50 50
+border_fuzziness 99
+zone 9
+land_id 9
+}
+create_land
+{
+terrain_type DIRT
+land_percent 100
+base_size 1
+top_border 34
+bottom_border 34
+right_border 34
+left_border 34
+border_fuzziness 99
+zone 9
+}
+	if COLLAPSE
+		create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 504 land_position 98 50 } /* funky land */ create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 98 52 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 98 55 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 97 57 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 97 59 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 97 62 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 96 64 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 95 66 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 94 68 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 93 71 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 92 73 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 91 75 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 90 77 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 89 79 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 87 80 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 86 82 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 84 84 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 82 86 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 80 87 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 79 89 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 77 90 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 75 91 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 73 92 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 71 93 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 68 94 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 66 95 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 64 96 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 62 97 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 59 97 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 57 97 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 55 98 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 52 98 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 501 land_position 50 98 } /* funky land */ create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 48 98 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 45 98 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 43 97 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 41 97 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 38 97 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 36 96 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 34 95 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 32 94 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 29 93 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 27 92 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 25 91 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 23 90 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 21 89 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 20 87 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 18 86 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 16 84 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 14 82 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 13 80 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 11 79 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 10 77 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 9 75 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 8 73 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 7 71 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 6 68 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 5 66 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 4 64 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 3 62 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 3 59 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 3 57 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 2 55 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 2 52 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 2 50 } /* funky land */			
+		create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 502 land_position 2 50 } /* funky land */ create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 2 48 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 2 45 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 3 43 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 3 41 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 3 38 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 4 36 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 5 34 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 6 32 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 7 29 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 8 27 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 9 25 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 10 23 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 11 21 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 13 20 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 14 18 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 16 16 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 18 14 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 20 13 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 21 11 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 23 10 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 25 9 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 27 8 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 29 7 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 32 6 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 34 5 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 36 4 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 38 3 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 41 3 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 43 3 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 45 2 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 48 2 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 503 land_position 50 2 } /* funky land */ create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 100 border_fuzziness 100 zone 0 land_id 500 land_position 52 2 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 55 2 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 57 3 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 59 3 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 62 3 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 64 4 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 66 5 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 68 6 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 71 7 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 73 8 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 75 9 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 77 10 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 79 11 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 80 13 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 82 14 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 84 16 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 86 18 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 87 20 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 89 21 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 90 23 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 91 25 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 92 27 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 93 29 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 94 32 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 95 34 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 96 36 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 97 38 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 97 41 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 97 43 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 98 45 } create_land { terrain_type OUTSIDE_TERRAIN if TINY_MAP number_of_tiles 22 base_size 1 base_elevation 4 elseif SMALL_MAP number_of_tiles 34 base_size 2 base_elevation 4 elseif MEDIUM_MAP number_of_tiles 45 base_size 3 base_elevation 4 elseif LARGE_MAP number_of_tiles 64 base_size 4 base_elevation 4 elseif HUGE_MAP number_of_tiles 77 base_size 5 base_elevation 4 elseif GIGANTIC_MAP number_of_tiles 93 base_size 6 base_elevation 4 elseif LUDIKRIS_MAP number_of_tiles 368 base_size 23 base_elevation 4 endif clumping_factor 15 zone 0 land_id 500 land_position 98 48 } 			
+	endif
+	
+/* divider */	
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 700
+base_size 5
+base_elevation 4
+if NORTHSOUTH
+land_position 50 27
+left_border 50
+right_border 49
+bottom_border 68
+elseif EASTWEST
+land_position 27 50
+right_border 68
+top_border 49
+bottom_border 50
+endif
+border_fuzziness 100
+base_elevation 4
+}	
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 700
+base_size 5
+base_elevation 4
+if NORTHSOUTH
+land_position 50 73
+left_border 49
+right_border 50
+top_border 68
+elseif EASTWEST
+land_position 73 50
+left_border 68
+top_border 50
+bottom_border 49
+endif
+border_fuzziness 100
+base_elevation 4
+}
+
+
+
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 55 30
+elseif EASTWEST
+land_position 30 55
+endif
+
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 60 33
+elseif EASTWEST
+land_position 33 60
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 62 35
+elseif EASTWEST
+land_position 35 62
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 45 30
+elseif EASTWEST
+land_position 30 45
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 40 33
+elseif EASTWEST
+land_position 33 40
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 38 35
+elseif EASTWEST
+land_position 35 38
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}	
+
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 55 70
+elseif EASTWEST
+land_position 70 55
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 60 67
+elseif EASTWEST
+land_position 67 60
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 62 65
+elseif EASTWEST
+land_position 65 62
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 45 70
+elseif EASTWEST
+land_position 70 45
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 20
+base_size 2
+base_elevation 4
+if NORTHSOUTH
+land_position 40 67
+elseif EASTWEST
+land_position 67 40
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 38 65
+elseif EASTWEST
+land_position 65 38
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}		
+
+
+
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 35 35
+elseif EASTWEST
+land_position 35 35
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 65 35
+elseif EASTWEST
+land_position 35 65
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}	
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 35 65
+elseif EASTWEST
+land_position 65 35
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}
+create_land
+{
+terrain_type OUTSIDE_TERRAIN
+number_of_tiles 10
+base_size 1
+base_elevation 4
+if NORTHSOUTH
+land_position 65 65
+elseif EASTWEST
+land_position 65 65
+endif
+border_fuzziness 100
+clumping_factor 15
+base_elevation 4
+}	
+
+
+
+/* corner fill */
+#const CORNER_TERRAIN 5
+	create_land
+	{
+		terrain_type CORNER_TERRAIN
+		land_percent 100
+		land_position 1 1
+		base_elevation 4
+	}
+
+	create_land
+	{
+		terrain_type CORNER_TERRAIN
+		land_percent 100
+		land_position 1 99
+		base_elevation 4
+	}
+
+	create_land
+	{
+		terrain_type CORNER_TERRAIN
+		land_percent 100
+		land_position 99 1
+		base_elevation 4
+	}
+
+	create_land
+	{
+		terrain_type CORNER_TERRAIN
+		land_percent 100
+		land_position 99 99
+		base_elevation 4
+	}	
+
+
+
+/* players */
+	
+create_land
+{
+terrain_type GRASS3
+number_of_tiles 280
+base_size 5
+border_fuzziness 99
+clumping_factor 30
+
+if NORTHSOUTH
+right_border 67
+land_position 25 50
+elseif EASTWEST
+bottom_border 67
+land_position 50 25
+endif
+
+if P1P2
+assign_to_player 1
+elseif P2P1
+assign_to_player 2
+endif
+
+zone 1
+base_elevation 3
+}
+
+create_land
+{
+terrain_type GRASS3
+number_of_tiles 280
+base_size 5
+border_fuzziness 99
+clumping_factor 30
+
+
+if NORTHSOUTH
+left_border 67
+land_position 75 50
+elseif EASTWEST
+top_border 67
+land_position 50 75
+endif
+
+if P1P2
+assign_to_player 2
+elseif P2P1
+assign_to_player 1
+endif
+
+zone 2
+base_elevation 3
+}
+
+/* resource lands */
+create_land
+{
+terrain_type GRASS3
+number_of_tiles 1
+base_size 1
+if NORTHSOUTH
+land_position 27 20
+elseif EASTWEST
+land_position 20 27
+endif
+zone 1
+base_elevation 4
+land_id 1
+}
+create_land
+{
+terrain_type GRASS3
+number_of_tiles 1
+base_size 1
+if NORTHSOUTH
+land_position 73 20
+elseif EASTWEST
+land_position 20 73
+endif
+zone 2
+base_elevation 4
+land_id 2
+}
+create_land
+{
+terrain_type GRASS3
+number_of_tiles 1
+base_size 1
+if NORTHSOUTH
+land_position 27 80
+elseif EASTWEST
+land_position 80 27
+endif
+zone 1
+base_elevation 4
+land_id 3
+}
+create_land
+{
+terrain_type GRASS3
+number_of_tiles 1
+base_size 1
+if NORTHSOUTH
+land_position 73 80
+elseif EASTWEST
+land_position 80 73
+endif
+zone 2
+base_elevation 4
+land_id 4
+}
+
+
+
+
+<ELEVATION_GENERATION>
+create_elevation 4
+{
+  base_terrain GRASS3
+  number_of_clumps 9999
+  number_of_tiles 99999
+}
+
+create_elevation 1
+{
+  base_terrain DIRT
+  number_of_clumps 9999
+  number_of_tiles 99999
+  
+}
+
+<TERRAIN_GENERATION>
+
+create_terrain GRASS
+{
+base_terrain GRASS3
+land_percent 100
+number_of_clumps 999
+spacing_to_other_terrain_types 1
+}
+
+create_terrain FOREST
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 999
+spacing_to_other_terrain_types 1
+}
+create_terrain FOREST
+{
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 999
+spacing_to_other_terrain_types 1
+}
+/* extra forests */
+
+create_terrain FOREST
+{
+base_terrain GRASS
+number_of_tiles 300
+number_of_clumps 10
+spacing_to_other_terrain_types 2
+set_avoid_player_start_areas
+}
+create_terrain PINE_FOREST
+{
+base_terrain GRASS
+number_of_tiles 100
+number_of_clumps 8
+spacing_to_other_terrain_types 3
+set_avoid_player_start_areas
+}
+
+create_terrain DESERT
+{
+base_terrain CRACKED_EARTH
+number_of_tiles 38
+number_of_clumps 5
+spacing_to_other_terrain_types 2
+set_avoid_player_start_areas
+terrain_mask 2
+}
+create_terrain DESERT
+{
+base_terrain CRACKED_EARTH
+number_of_tiles 30
+number_of_clumps 5
+set_avoid_player_start_areas
+terrain_mask 1
+}
+create_terrain DESERT
+{
+base_terrain DIRT
+number_of_tiles 90
+number_of_clumps 15
+set_avoid_player_start_areas
+terrain_mask 1
+}
+
+
+/* terrain blends */
+create_terrain GRASS3
+{
+base_terrain GRASS
+number_of_tiles 400
+number_of_clumps 15
+terrain_mask 2
+}
+create_terrain GRASS3
+{
+base_terrain GRASS
+number_of_tiles 200
+number_of_clumps 22
+terrain_mask 2
+}
+create_terrain LEAVES
+{
+base_terrain GRASS3
+number_of_tiles 100
+number_of_clumps 22
+terrain_mask 2
+}
+create_terrain LEAVES
+{
+base_terrain GRASS
+number_of_tiles 100
+number_of_clumps 22
+terrain_mask 2
+}
+
+
+<OBJECTS_GENERATION>
+create_object TOWN_CENTER
+{
+set_place_for_every_player
+max_distance_to_players 0
+}
+
+create_object RUGS
+{
+set_place_for_every_player
+set_gaia_object_only
+max_distance_to_players 0
+actor_area 1
+actor_area_radius 15
+}
+
+create_object VILLAGER
+{
+set_place_for_every_player
+min_distance_to_players 6
+max_distance_to_players 6
+}
+create_object SCOUT
+{
+set_place_for_every_player
+min_distance_to_players 6
+max_distance_to_players 6
+find_closest
+}
+
+create_object FOREST_TREE /* straggler trees */
+{
+  	number_of_objects             2
+  	set_gaia_object_only
+  	set_place_for_every_player
+  	min_distance_to_players       4
+  	max_distance_to_players       5
+  	min_distance_group_placement  2
+}
+create_object FOREST_TREE 
+{
+  	number_of_objects             3
+  	set_gaia_object_only
+  	set_place_for_every_player
+  	min_distance_to_players       6
+ 	max_distance_to_players       8
+  	min_distance_group_placement  2
+}
+
+
+/* stragglers to fix hole */
+create_object FOREST_TREE 
+{
+  	number_of_objects             99
+  	set_gaia_object_only
+	terrain_to_place_on			LEAVES
+	place_on_specific_land_id 501
+ 	max_distance_to_players       12
+}
+create_object FOREST_TREE 
+{
+  	number_of_objects             99
+  	set_gaia_object_only
+	terrain_to_place_on			LEAVES
+	place_on_specific_land_id 502
+ 	max_distance_to_players       12
+}
+create_object FOREST_TREE 
+{
+  	number_of_objects             99
+  	set_gaia_object_only
+	terrain_to_place_on			LEAVES
+	place_on_specific_land_id 503
+ 	max_distance_to_players       12
+}
+create_object FOREST_TREE 
+{
+  	number_of_objects             99
+  	set_gaia_object_only
+	terrain_to_place_on			LEAVES
+	place_on_specific_land_id 504
+ 	max_distance_to_players       12
+}
+
+
+
+
+
+#const QUARRY 914
+create_object QUARRY
+{
+set_gaia_object_only
+place_on_specific_land_id 9
+min_distance_to_players 0
+max_distance_to_players 0
+number_of_objects 1
+min_distance_group_placement 2
+}
+
+
+/* middle gold */
+create_object GOLD
+{
+set_gaia_object_only
+place_on_specific_land_id 9
+min_distance_to_players 0
+max_distance_to_players 5
+number_of_objects 3
+number_of_groups 2
+set_tight_grouping
+group_placement_radius 2
+}
+
+create_object GOLD
+{
+set_gaia_object_only
+terrain_to_place_on DESERT
+number_of_objects 3
+number_of_groups 2
+group_placement_radius 2
+}
+
+/* 3 middle relic */
+create_object RELIC
+{
+set_gaia_object_only
+place_on_specific_land_id 9
+number_of_objects 1
+max_distance_to_players 5
+temp_min_distance_group_placement 3
+min_distance_group_placement 1
+}
+create_object RELIC
+{
+set_place_for_every_player
+set_gaia_object_only
+terrain_to_place_on DIRT
+number_of_objects 1
+max_distance_to_players 18
+avoid_actor_area 1
+temp_min_distance_group_placement 1
+min_distance_group_placement 1
+avoid_forest_zone 3
+}
+
+
+
+/* FORAGE */
+#const FRUIT_BUSH 1059
+create_object FRUIT_BUSH
+{
+set_gaia_object_only
+set_place_for_every_player
+terrain_to_place_on DIRT
+min_distance_to_players 9
+max_distance_to_players 11
+number_of_objects 4
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 1
+actor_area 101
+actor_area_radius 4
+}
+create_object DEER
+{
+set_gaia_object_only
+terrain_to_place_on DIRT
+number_of_objects 2
+number_of_groups 4
+group_variance 1
+temp_min_distance_group_placement 6
+min_distance_group_placement 3
+group_placement_radius 1
+avoid_actor_area 101
+min_distance_to_players 16
+}
+create_object DEER
+{
+set_gaia_object_only
+terrain_to_place_on DIRT
+number_of_objects 1
+number_of_groups 10
+temp_min_distance_group_placement 5
+avoid_actor_area 101
+min_distance_to_players 10
+}
+
+create_object SHEEP
+{
+number_of_objects 1
+set_place_for_every_player
+min_distance_to_players 9
+max_distance_to_players 9
+actor_area 33
+min_distance_group_placement 1
+actor_area_radius 2
+find_closest
+}
+
+create_object SHEEP
+{
+number_of_objects 3
+set_loose_grouping
+set_gaia_object_only
+set_place_for_every_player
+actor_area_to_place_in 33
+}
+
+create_object BOAR
+{
+set_gaia_object_only
+set_place_for_every_player
+terrain_to_place_on GRASS
+number_of_objects 2
+min_distance_group_placement 1
+avoid_actor_area 1 /* min distance to players 15 */
+max_distance_to_players 17
+avoid_forest_zone 1
+}
+create_object SHEEP
+{
+set_gaia_object_only
+set_place_for_every_player
+terrain_to_place_on GRASS
+number_of_objects 2
+number_of_groups 2
+group_placement_radius 2
+temp_min_distance_group_placement 5
+avoid_actor_area 101
+avoid_actor_area 1 /* min distance to players 15 */
+max_distance_to_players 20
+avoid_forest_zone 1
+}
+
+/* close player minerals */
+create_object GOLD
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 5
+number_of_groups 2
+set_tight_grouping
+group_placement_radius 2
+min_distance_to_players 12
+max_distance_to_players 14
+avoid_forest_zone 2
+terrain_to_place_on GRASS
+temp_min_distance_group_placement 7
+actor_area 12
+actor_area_radius 5
+}
+create_object STONE
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 5
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+min_distance_to_players 12
+max_distance_to_players 17
+avoid_forest_zone 2
+terrain_to_place_on GRASS
+avoid_actor_area 12
+}
+
+
+/* corner minerals */
+
+create_object GOLD
+{
+set_gaia_object_only
+place_on_specific_land_id 1
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 10
+avoid_forest_zone 3
+actor_area 501
+actor_area_radius 5
+}
+create_object GOLD
+{
+set_gaia_object_only
+place_on_specific_land_id 2
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 10
+avoid_forest_zone 3
+actor_area 502
+actor_area_radius 5
+}
+create_object GOLD
+{
+set_gaia_object_only
+place_on_specific_land_id 3
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 10
+avoid_forest_zone 3
+actor_area 503
+actor_area_radius 5
+}
+create_object GOLD
+{
+set_gaia_object_only
+place_on_specific_land_id 4
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 10
+avoid_forest_zone 3
+actor_area 504
+actor_area_radius 5
+}
+create_object STONE
+{
+set_gaia_object_only
+place_on_specific_land_id 1
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 12
+avoid_forest_zone 2
+avoid_actor_area 501
+}
+create_object STONE
+{
+set_gaia_object_only
+place_on_specific_land_id 2
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 12
+avoid_forest_zone 2
+avoid_actor_area 502
+}
+create_object STONE
+{
+set_gaia_object_only
+place_on_specific_land_id 3
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 12
+avoid_forest_zone 2
+avoid_actor_area 503
+}
+create_object STONE
+{
+set_gaia_object_only
+place_on_specific_land_id 4
+number_of_objects 3
+number_of_groups 1
+set_tight_grouping
+group_placement_radius 2
+max_distance_to_players 12
+avoid_forest_zone 2
+avoid_actor_area 504
+}
+
+/* map straggler */
+
+create_object FOREST_TREE 
+{
+  	number_of_objects             25
+  	set_gaia_object_only
+	avoid_actor_area 1
+  	min_distance_group_placement  2
+	avoid_forest_zone 1
+}
+/* relic per player relic */
+create_object RELIC
+{
+set_gaia_object_only
+number_of_objects 1
+start_random
+percent_chance 50
+place_on_specific_land_id 1
+percent_chance 50
+place_on_specific_land_id 3
+end_random
+max_distance_to_players 11
+}
+create_object RELIC
+{
+set_gaia_object_only
+number_of_objects 1
+start_random
+percent_chance 50
+place_on_specific_land_id 2
+percent_chance 50
+place_on_specific_land_id 4
+end_random
+max_distance_to_players 11
+}

@@ -1,0 +1,588 @@
+/* Tidepool (9-9-20) by TheMadCADer */
+/* Updated by Doc Maggie for Noble Apartment Cup 2024 */
+/* Changes from 1.0: more terrain variety, better resource positioning */
+
+/* use two different different herdables so that you aren't giving all sheep 70 food */
+#const HERDABLE_A 1245 /* Pig */
+#const HERDABLE_B 1060 /* Goat */
+
+/* placeholders used for positioning */
+#const PH_NEUTRAL_OFF 346 /* Off-Grid Object - only used for gaia objects */
+#const PH_PLAYER_OFF 647 /* Off-Grid Object - only used for player objects */
+
+/* used to spawn 6 villagers in exact positions under the TC */
+#const LAZY_VILLAGER 1285 /* FE Flag */
+
+/* used to explore tiles around the TC */
+#const EW_REVEALER 851 /* ES Flag */
+	
+#const ROCKS 40
+	
+if TINY_MAP
+	#define B32
+elseif SMALL_MAP
+	#define B32
+elseif MEDIUM_MAP
+	#define B31
+elseif LARGE_MAP
+	#define B31
+elseif HUGE_MAP
+	#define B30
+elseif GIGANTIC_MAP
+	#define B30
+endif
+	
+<PLAYER_SETUP>
+random_placement
+
+/* creates the villagers from the flags under the TC */
+effect_amount SET_ATTRIBUTE LAZY_VILLAGER ATTR_DEAD_ID 83
+effect_amount SET_ATTRIBUTE LAZY_VILLAGER ATTR_HITPOINTS 0
+
+/* adjust starting resources */
+effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -100
+
+/* make the herdable under the TC die and only have 70 food */
+/* note that you should NOT place this herdable type for gaia anywhere else */
+effect_amount GAIA_ADD_ATTRIBUTE HERDABLE_A ATTR_STORAGE_VALUE -30	
+effect_amount GAIA_SET_ATTRIBUTE HERDABLE_A ATTR_HITPOINTS 0
+
+/* revealer line of sight */
+effect_amount SET_ATTRIBUTE EW_REVEALER ATTR_LINE_OF_SIGHT 18
+effect_amount SET_ATTRIBUTE EW_REVEALER ATTR_HITPOINTS 0
+	
+<LAND_GENERATION>
+base_terrain ROCKS
+create_land
+{
+	terrain_type ROCKS
+	land_percent 100
+	if B32
+		top_border 32
+		bottom_border 32
+		right_border 32
+		left_border 32
+	elseif B31
+		top_border 31
+		bottom_border 31
+		right_border 31
+		left_border 31
+	elseif B30
+		top_border 30
+		bottom_border 30
+		right_border 30
+		left_border 30
+	endif
+}
+create_land
+{
+	terrain_type ROCKS
+	land_percent 100
+	if B32
+		top_border 32
+		bottom_border 32
+		right_border 32
+		left_border 32
+	elseif B31
+		top_border 31
+		bottom_border 31
+		right_border 31
+		left_border 31
+	elseif B30
+		top_border 30
+		bottom_border 30
+		right_border 30
+		left_border 30
+	endif
+}
+create_player_lands
+{
+	terrain_type GRASS
+	land_percent 40
+	circle_radius 31
+	if MEDIUM_MAP
+		top_border 12
+		bottom_border 12
+		right_border 12
+		left_border 12
+	else
+		top_border 11
+		bottom_border 11
+		right_border 11
+		left_border 11
+	endif
+	base_elevation 3
+	base_size 11
+	other_zone_avoidance_distance 10
+	clumping_factor 15
+	if TINY_MAP
+		border_fuzziness 30
+	endif
+}
+	
+<ELEVATION_GENERATION>
+	
+<TERRAIN_GENERATION>
+create_terrain DESERT
+{
+	base_terrain ROCKS
+	land_percent 100
+	number_of_clumps 1000
+	height_limits 0 0
+}
+create_terrain PALM_DESERT
+{
+	base_terrain GRASS
+	land_percent 7
+	number_of_clumps 35
+	set_scale_by_groups
+	set_avoid_player_start_areas
+}
+create_terrain MEDITERRANEAN_FOREST
+{
+	base_terrain PALM_DESERT
+	land_percent 5
+	number_of_clumps 55
+	set_scale_by_groups
+}
+create_terrain LEAVES
+{
+	base_terrain PALM_DESERT
+	land_percent 100
+	number_of_clumps 10000
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain LEAVES
+{
+	base_terrain PALM_DESERT
+	land_percent 100
+	number_of_clumps 10000
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain DESERT
+{
+	base_terrain MEDITERRANEAN_FOREST
+	land_percent 100
+	number_of_clumps 10000
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain DESERT
+{
+	base_terrain MEDITERRANEAN_FOREST
+	land_percent 100
+	number_of_clumps 10000
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain WATER
+{
+	base_terrain DESERT
+	land_percent 100
+	number_of_clumps 1000
+	set_scale_by_groups
+	spacing_to_other_terrain_types 3
+}
+create_terrain PALM_DESERT
+{
+	base_terrain DESERT
+	land_percent 3
+	number_of_clumps 48
+	set_scale_by_groups
+  resource_delta 50
+}
+create_terrain GRASS3
+{
+	base_terrain GRASS
+	land_percent 30
+	number_of_clumps 24
+	set_scale_by_groups
+}
+create_terrain MED_WATER
+{
+	base_terrain WATER
+	land_percent 100
+	number_of_clumps 1000
+	set_scale_by_groups
+	spacing_to_other_terrain_types 5
+}
+	
+<OBJECTS_GENERATION>
+
+/* explore the area around the TC */
+create_object EW_REVEALER
+{
+	set_place_for_every_player
+	max_distance_to_players 0
+}
+
+create_object SCOUT
+{
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 7
+	set_circular_placement
+	min_distance_group_placement 1
+}
+
+/* these actor areas are used to help position the villagers under the TC */
+create_object PH_NEUTRAL_OFF /* Near Positioner */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 5
+	min_distance_to_players 1
+	max_distance_to_players 1
+	find_closest
+	actor_area 5100
+	actor_area_radius 0
+}
+
+create_object PH_NEUTRAL_OFF /* Villager Avoider */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 1
+	max_distance_to_players 1
+	find_closest
+	actor_area 5101
+	actor_area_radius 0
+	avoid_actor_area 5100 /* Near Positioner */
+}
+
+create_object PH_NEUTRAL_OFF /* Far Positioner */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 5
+	min_distance_to_players 2
+	max_distance_to_players 2
+	temp_min_distance_group_placement 1
+	find_closest
+	actor_area 5103
+	actor_area_radius 1
+}
+
+create_object PH_NEUTRAL_OFF /* Blocking Seventh Villager */
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 2
+	max_distance_to_players 2
+	find_closest
+	actor_area 5104
+	actor_area_radius 0
+	avoid_actor_area 5103 /* Far Positioner */
+}
+
+
+/* this is the sheep under the TC */
+create_object PH_NEUTRAL_OFF
+{
+	set_place_for_every_player
+	second_object HERDABLE_A
+	set_gaia_object_only
+	min_distance_to_players 1
+	max_distance_to_players 1
+	actor_area_radius 1
+	avoid_actor_area 5100 /* Herdable Positioner */
+	find_closest
+	actor_area 20
+}
+
+/* the other 3 starting sheep */
+create_object HERDABLE_A
+{
+	set_place_for_every_player
+	number_of_objects 3
+	set_loose_grouping
+	group_placement_radius 2
+	min_distance_to_players 5
+	max_distance_to_players 6
+	set_circular_placement
+	actor_area 1113
+	actor_area_radius 3
+}
+
+/* these are the sheep that are outside of the explored area - note that we only have 2 total */
+/* this should NOT be the same herdable as is used for the decaying 70 food herdable under the TC */
+create_object HERDABLE_B
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	number_of_objects 2
+	number_of_groups 1
+	set_loose_grouping
+	group_placement_radius 1
+	min_distance_group_placement 2
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
+	avoid_cliff_zone 2
+	min_distance_to_players 18
+	max_distance_to_players 20
+	set_circular_placement
+}
+
+/* this code is used to place 6 villagers under the TC in exactly optimal positions around the sheep */
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+create_object PH_PLAYER_OFF { second_object LAZY_VILLAGER set_place_for_every_player min_distance_to_players 1 find_closest
+	actor_area_to_place_in 20 actor_area 2 actor_area_radius 0 avoid_actor_area 2 avoid_actor_area 5101 avoid_actor_area 5104 }
+
+/* this straggler will have 3 villagers near it */
+create_object PALM_FOREST_TREE
+{
+	set_place_for_every_player
+	set_gaia_object_only
+	find_closest
+	actor_area 11
+	actor_area_radius 1
+	min_distance_to_players 5
+	avoid_actor_area 1113
+}
+
+/* 3 villagers */
+create_object VILLAGER {
+	number_of_objects 3
+	set_place_for_every_player
+	actor_area_to_place_in 11 /* Straggler */
+	place_on_forest_zone
+}
+
+create_object YURT {
+	set_place_for_every_player
+	number_of_objects 2
+	find_closest
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
+	min_distance_to_players 8
+	avoid_actor_area 1113
+	min_distance_group_placement 3
+	actor_area 2001
+	actor_area_radius 2
+}
+create_object TOWN_CENTER
+{
+	set_place_for_every_player
+	min_distance_to_players 0
+	max_distance_to_players 0
+}
+create_object GOLD /* primary */
+{
+	number_of_objects 7
+	group_placement_radius 3
+	set_tight_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 8
+	max_distance_to_players 15
+	min_distance_group_placement 8
+	max_distance_to_other_zones 3
+	avoid_forest_zone 3
+	min_distance_to_map_edge 10
+}
+create_object STONE /* primary */
+{
+	number_of_objects 5
+	set_tight_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 10
+	max_distance_to_players 18
+	min_distance_group_placement 4
+	avoid_forest_zone 2
+	min_distance_to_map_edge 10
+  terrain_to_place_on GRASS3
+}
+create_object GOLD /* secondary */
+{
+	number_of_objects 5
+	set_tight_grouping
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 20
+	max_distance_to_players 26
+	temp_min_distance_group_placement 14
+	min_distance_group_placement 6
+	max_distance_to_other_zones 3
+	avoid_forest_zone 2
+	min_distance_to_map_edge 10
+}
+create_object STONE /* secondary */
+{
+	number_of_objects 4
+  number_of_groups 2
+  set_place_for_every_player
+	set_tight_grouping
+	set_gaia_object_only
+	temp_min_distance_group_placement 15
+	min_distance_group_placement 8
+	min_distance_to_players 25
+	max_distance_to_players 50
+	avoid_forest_zone 2
+  terrain_to_place_on GRASS3
+  min_distance_to_map_edge 10
+}
+create_object GOLD /* tertiary */
+{
+	number_of_objects 4
+  number_of_groups 2
+	set_tight_grouping
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 28
+	max_distance_to_players 70
+	temp_min_distance_group_placement 8
+	min_distance_group_placement 8
+	avoid_forest_zone 3
+	min_distance_to_map_edge 10
+}
+if DEATH_MATCH
+else
+create_object FORAGE
+{
+	number_of_objects 6
+	set_tight_grouping
+	group_placement_radius 4
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 9
+	max_distance_to_players 13
+	max_distance_to_other_zones 3
+	min_distance_group_placement 5
+	avoid_forest_zone 3
+}
+create_object BOAR
+{
+	number_of_objects 1
+	number_of_groups 2
+	set_place_for_every_player
+	set_gaia_object_only
+	avoid_forest_zone 2
+	min_distance_to_players 8
+	max_distance_to_players 10
+}
+create_object DEER
+{
+	number_of_objects 4
+	set_place_for_every_player
+	set_gaia_object_only
+	set_loose_grouping
+	min_distance_to_players 18
+	max_distance_to_players 24
+	avoid_forest_zone 2
+	terrain_to_place_on ROCKS
+}
+create_object PALM_FOREST_TREE /* straggler trees */
+{
+	number_of_objects 2
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 4
+	max_distance_to_players 5
+	min_distance_group_placement 2
+}
+create_object PALM_FOREST_TREE
+{
+	number_of_objects 3
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 8
+	min_distance_group_placement 2
+}
+endif
+create_object SNAPPER
+{
+	number_of_objects 1000
+	set_gaia_object_only
+	temp_min_distance_group_placement 6
+	set_scaling_to_map_size
+	max_distance_to_other_zones 4
+}
+create_object SHORE_FISH
+{
+	number_of_objects 1000
+	set_gaia_object_only
+	temp_min_distance_group_placement 7
+	set_scaling_to_map_size
+}
+create_object RELIC
+{
+	number_of_objects 5
+	min_distance_to_players 25
+	set_gaia_object_only
+	temp_min_distance_group_placement 35
+}
+if REGICIDE /* regicide objects */
+create_object VILLAGER
+{
+	number_of_objects 7
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 6
+}
+create_object KING
+{
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 6
+}
+create_object CASTLE
+{
+	set_place_for_every_player
+	min_distance_to_players 10
+	max_distance_to_players 10
+}
+endif

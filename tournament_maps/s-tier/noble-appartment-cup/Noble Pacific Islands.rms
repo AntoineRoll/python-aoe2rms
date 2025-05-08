@@ -1,0 +1,3511 @@
+
+/* Pacific Islands - 2023 */
+
+	#define ESCALATION_MODE
+	#define SIGHT_INCREASE
+	#define DECREASE_HERDABLE
+	
+start_random
+	percent_chance 50 #define TWO_A
+	percent_chance 50 #define TWO_B
+end_random
+
+start_random
+	percent_chance 33 #define THREE_A
+	percent_chance 34 #define THREE_B
+	percent_chance 33 #define THREE_C
+end_random
+
+start_random
+	percent_chance 25 #define FOUR_A
+	percent_chance 25 #define FOUR_B
+	percent_chance 25 #define FOUR_C
+	percent_chance 25 #define FOUR_D
+end_random
+
+start_random
+	percent_chance 20 #define FIVE_A
+	percent_chance 20 #define FIVE_B
+	percent_chance 20 #define FIVE_C
+	percent_chance 20 #define FIVE_D
+	percent_chance 20 #define FIVE_E
+end_random
+
+start_random
+	percent_chance 17 #define SIX_A
+	percent_chance 16 #define SIX_B
+	percent_chance 17 #define SIX_C
+	percent_chance 17 #define SIX_D
+	percent_chance 16 #define SIX_E
+	percent_chance 17 #define SIX_F
+end_random
+
+start_random
+	percent_chance 14 #define SEVEN_A
+	percent_chance 15 #define SEVEN_B
+	percent_chance 14 #define SEVEN_C
+	percent_chance 14 #define SEVEN_D
+	percent_chance 14 #define SEVEN_E
+	percent_chance 15 #define SEVEN_F
+	percent_chance 14 #define SEVEN_G
+end_random
+
+start_random
+	percent_chance 12 #define EIGHT_A
+	percent_chance 13 #define EIGHT_B
+	percent_chance 12 #define EIGHT_C
+	percent_chance 13 #define EIGHT_D
+	percent_chance 13 #define EIGHT_E
+	percent_chance 12 #define EIGHT_F
+	percent_chance 13 #define EIGHT_G
+	percent_chance 12 #define EIGHT_H
+end_random
+#define THEME_CONSTANTS
+if THEME_CONSTANTS
+	if THEME_CUSTOM
+	elseif THEME_EUROPEAN
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 75 /* Fungus Road */
+
+		#const S_STRAGGLER 1053 /* Bush B */
+		#const O_STRAGGLER 411 /* Oak Tree */
+		#const SHRUB 59 /* Berry Bush */
+
+		if TWO_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif TWO_B
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		endif
+
+		#const UNGULATE_A 65 /* Deer */
+		#const UNGULATE_B 65 /* Deer */
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_GRASS
+
+		if TWO_A
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 486 /* Bear */
+		elseif TWO_B
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 126 /* Wolf */
+		endif
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		elseif TWO_B
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	elseif THEME_ALPINE
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 75 /* Fungus Road */
+
+		#const S_STRAGGLER 350 /* Pine Tree */
+		#const O_STRAGGLER 1053 /* Bush B */
+		#const SHRUB 59 /* Berry Bush */
+
+		if SIX_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1243 /* Goose */
+		elseif SIX_B
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_C
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_D
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_E
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_F
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 1243 /* Goose */
+		endif
+
+		if THREE_A
+			#const UNGULATE_A 1239 /* Ibex */
+			#const UNGULATE_B 65 /* Deer */
+		elseif THREE_B
+			#const UNGULATE_A 65 /* Deer */
+			#const UNGULATE_B 1239 /* Ibex */
+		elseif THREE_C
+			#const UNGULATE_A 1239 /* Ibex */
+			#const UNGULATE_B 1239 /* Ibex */
+		endif
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_GRASS
+
+		if TWO_A
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 486 /* Bear */
+		elseif TWO_B
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 126 /* Wolf */
+		endif
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		elseif TWO_B
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	elseif THEME_AMERICAN
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 75 /* Fungus Road */
+
+		#const S_STRAGGLER 414 /* Jungle Tree */
+		#const O_STRAGGLER 1146 /* Rainforest Tree */
+		#const SHRUB 59 /* Berry Bush */
+
+		if TWO_A
+			#const HERDABLE_A 833 /* Turkey */
+			#const HERDABLE_B 305 /* Llama */
+		elseif TWO_B
+			#const HERDABLE_A 305 /* Llama */
+			#const HERDABLE_B 833 /* Turkey */
+		endif
+
+		#const UNGULATE_A 65 /* Deer */
+		#const UNGULATE_B 65 /* Deer */
+
+		#const LUREABLE_A 822 /* Javelina */
+		#const LUREABLE_B 822 /* Javelina */
+
+		#const PREDATOR_A 812 /* Jaguar */
+		#const PREDATOR_B 812 /* Jaguar */
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 458 /* Snapper */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 458 /* Snapper */
+		endif
+
+		if TWO_A
+			#const BIRD_A 816 /* Macaw */
+			#const BIRD_B 96 /* Hawk */
+		elseif TWO_B
+			#const BIRD_A 816 /* Macaw */
+			#const BIRD_B 816 /* Macaw */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835
+	elseif THEME_COLD
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 26 /* Passable Ice */
+		#const TERRAIN_RESTRICT 35 /* Impassable Ice */
+		#const TERRAIN_ROAD 38 /* Snow Road */
+
+		#const S_STRAGGLER 1054 /* Snow Bush */
+		#const O_STRAGGLER 413 /* Snow Pine */
+		#const SHRUB 59 /* Berry Bush */
+
+		if SIX_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_B
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 705 /* Cow */
+		elseif SIX_C
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_D
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 705 /* Cow */
+		elseif SIX_E
+			#const HERDABLE_A 705 /* Cow */
+			#const HERDABLE_B 594 /* Sheep */
+			#define FAT_HERDABLE
+		elseif SIX_F
+			#const HERDABLE_A 705 /* Cow */
+			#const HERDABLE_B 1245 /* Pig */
+			#define FAT_HERDABLE
+		endif
+
+		#const UNGULATE_A 1239 /* Ibex */
+		#const UNGULATE_B 1239 /* Ibex */
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_SKELETON
+
+		if SIX_A
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 486 /* Bear */
+		elseif SIX_B
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 1241 /* Snow Leopard */
+		elseif SIX_C
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 126 /* Wolf */
+		elseif SIX_D
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 1241 /* Snow Leopard */
+		elseif SIX_E
+			#const PREDATOR_A 1241 /* Snow Leopard */
+			#const PREDATOR_B 126 /* Wolf */
+		elseif SIX_F
+			#const PREDATOR_A 1241 /* Snow Leopard */
+			#const PREDATOR_B 486 /* Bear */
+		endif
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		elseif TWO_B
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		endif
+
+		#const NOMAD_SCOUT 1356 /* Player Horse B */
+		#const WILDLIFE 1356 /* Wild Horse */
+	elseif THEME_AUTUMN_COLD
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 26 /* Passable Ice */
+		#const TERRAIN_RESTRICT 35 /* Impassable Ice */
+		#const TERRAIN_ROAD 38 /* Snow Road */
+
+		#const S_STRAGGLER 1054 /* Snow Bush */
+		#const O_STRAGGLER 1249 /* Snow Autumn Tree */
+		#const SHRUB 59 /* Berry Bush */
+
+		if SIX_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_B
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 705 /* Cow */
+		elseif SIX_C
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_D
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 705 /* Cow */
+		elseif SIX_E
+			#const HERDABLE_A 705 /* Cow */
+			#const HERDABLE_B 594 /* Sheep */
+			#define FAT_HERDABLE
+		elseif SIX_F
+			#const HERDABLE_A 705 /* Cow */
+			#const HERDABLE_B 1245 /* Pig */
+			#define FAT_HERDABLE
+		endif
+
+		if THREE_A
+			#const UNGULATE_A 1239 /* Ibex */
+			#const UNGULATE_B 65 /* Deer */
+		elseif THREE_B
+			#const UNGULATE_A 65 /* Deer */
+			#const UNGULATE_B 1239 /* Ibex */
+		elseif THREE_C
+			#const UNGULATE_A 1239 /* Ibex */
+			#const UNGULATE_B 1239 /* Ibex */
+		endif
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_SKELETON
+
+		if SIX_A
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 486 /* Bear */
+		elseif SIX_B
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 1241 /* Snow Leopard */
+		elseif SIX_C
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 126 /* Wolf */
+		elseif SIX_D
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 1241 /* Snow Leopard */
+		elseif SIX_E
+			#const PREDATOR_A 1241 /* Snow Leopard */
+			#const PREDATOR_B 126 /* Wolf */
+		elseif SIX_F
+			#const PREDATOR_A 1241 /* Snow Leopard */
+			#const PREDATOR_B 486 /* Bear */
+		endif
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		elseif TWO_B
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		endif
+
+		#const NOMAD_SCOUT 1356 /* Player Horse B */
+		#const WILDLIFE 1356 /* Wild Horse */
+	elseif THEME_ASIAN
+		#define COMBINE_UNGULATE
+
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 25 /* Broken Road */
+
+		#const S_STRAGGLER 348 /* Bamboo Tree */
+		#const O_STRAGGLER 348 /* Bamboo Tree */
+
+		if TWO_A
+			#const SHRUB 59 /* Berry Bush */
+		elseif TWO_B
+			#const SHRUB 1059 /* Fruit Bush */
+		endif
+
+		if SIX_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1243 /* Goose */
+		elseif SIX_B
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_C
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_D
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_E
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_F
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 1243 /* Goose */
+		endif
+
+		if TWO_A
+			#const UNGULATE_A 1239 /* Ibex */
+			#const UNGULATE_B 65 /* Deer */
+		elseif TWO_B
+			#const UNGULATE_A 65 /* Deer */
+			#const UNGULATE_B 1239 /* Ibex */
+		endif
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_GRASS
+
+		#const PREDATOR_A 1137 /* Tiger */
+		#const PREDATOR_B 1137 /* Tiger */
+
+		if TWO_A
+			#const NERITIC_A 69 /* Shore Fish */
+		elseif TWO_B
+			#const NERITIC_A 1141 /* Box Turtles */
+		endif
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 455 /* Dorado */
+		elseif TWO_B
+			#const AQUATIC_A 455 /* Dorado */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if SIX_A
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 816 /* Macaw */
+		elseif SIX_B
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		elseif SIX_C
+			#const BIRD_A 816 /* Macaw */
+			#const BIRD_B 96 /* Hawk */
+		elseif SIX_D
+			#const BIRD_A 816 /* Macaw */
+			#const BIRD_B 1056 /* Falcon */
+		elseif SIX_E
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		elseif SIX_F
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 816 /* Macaw */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	elseif THEME_AFRICAN
+		#define COMBINE_UNGULATE
+
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 46 /* Quicksand */
+		#const TERRAIN_ROAD 78 /* Desert Road */
+
+		#const S_STRAGGLER 1051 /* Dragon Tree */
+		#const O_STRAGGLER 1051 /* Dragon Tree */
+		#const SHRUB 1059 /* Fruit Bush */
+
+		#const HERDABLE_A 1060 /* Goat */
+		#const HERDABLE_B 1060 /* Goat */
+
+		if THREE_A
+			#const UNGULATE_A 1019 /* Zebra */
+			#const UNGULATE_B 1026 /* Ostrich */
+		elseif THREE_B
+			#const UNGULATE_A 1026 /* Ostrich */
+			#const UNGULATE_B 1019 /* Zebra */
+		elseif THREE_C
+			#const UNGULATE_A 1796 /* Gazelle */
+			#const UNGULATE_B 1796 /* Gazelle */
+		endif
+
+		if TWO_A
+			#const LUREABLE_A 1301 /* Elephant */
+			#const LUREABLE_B 1139 /* Rhino */
+		elseif TWO_B
+			#const LUREABLE_A 1139 /* Rhino */
+			#const LUREABLE_B 1301 /* Elephant */
+		endif
+
+		#define INDICATOR_SKELETON
+
+		#const PREDATOR_A 1029 /* Lion */
+		#const PREDATOR_B 1029 /* Lion */
+
+		if TWO_A
+			#const NERITIC_A 69 /* Shore Fish */
+		elseif TWO_B
+			#const NERITIC_A 1141 /* Box Turtles */
+		endif
+
+		if TWO_A
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 455 /* Dorado */
+		elseif TWO_B
+			#const AQUATIC_A 455 /* Dorado */
+			#const AQUATIC_B 457 /* Tuna */
+		endif
+
+		if TWO_A
+			#const BIRD_A 1028 /* Stork */
+			#const BIRD_B 917 /* Vulture */
+		elseif TWO_B
+			#const BIRD_A 917 /* Vulture */
+			#const BIRD_B 1028 /* Stork */
+		endif
+
+		#const NOMAD_SCOUT 1237 /* Player Dromedary */
+		#const WILDLIFE 884 /* Wild Camel */
+	elseif THEME_EASTERN
+		#define COMBINE_UNGULATE
+
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 46 /* Quicksand */
+		#const TERRAIN_ROAD 78 /* Desert Road */
+
+		#const S_STRAGGLER 351 /* Palm Tree */
+		#const O_STRAGGLER 351 /* Palm Tree */
+		#const SHRUB 1059 /* Fruit Bush */
+
+		#const HERDABLE_A 1060 /* Goat */
+		#const HERDABLE_B 1060 /* Goat */
+
+		if THREE_A
+			#const UNGULATE_A 1019 /* Zebra */
+			#const UNGULATE_B 1026 /* Ostrich */
+		elseif THREE_B
+			#const UNGULATE_A 1026 /* Ostrich */
+			#const UNGULATE_B 1019 /* Zebra */
+		elseif THREE_C
+			#const UNGULATE_A 1796 /* Gazelle */
+			#const UNGULATE_B 1796 /* Gazelle */
+		endif
+
+		if TWO_A
+			#const LUREABLE_A 1301 /* Elephant */
+			#const LUREABLE_B 1139 /* Rhino */
+		elseif TWO_B
+			#const LUREABLE_A 1139 /* Rhino */
+			#const LUREABLE_B 1301 /* Elephant */
+		endif
+
+		#define INDICATOR_SKELETON
+
+		#const PREDATOR_A 1029 /* Lion */
+		#const PREDATOR_B 1029 /* Lion */
+
+		if TWO_A
+			#const NERITIC_A 69 /* Shore Fish */
+		elseif TWO_B
+			#const NERITIC_A 1141 /* Box Turtles */
+		endif
+
+		if TWO_A
+			#const AQUATIC_A 455 /* Dorado */
+			#const AQUATIC_B 53 /* Perch */
+		elseif TWO_B
+			#const AQUATIC_A 53 /* Perch */
+			#const AQUATIC_B 455 /* Dorado */
+		endif
+
+		#const BIRD_A 917 /* Vulture */
+		#const BIRD_B 1028 /* Stork */
+
+		#const NOMAD_SCOUT 1237 /* Player Dromedary */
+		#const WILDLIFE 884 /* Wild Camel */
+	elseif THEME_TROPICAL
+		#const WATER_A 58 /* Azure Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 57 /* Azure Deep Water */
+
+		#const TERRAIN_SHALLOWS 59 /* Azure Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 61 /* Jungle Road */
+
+		#const S_STRAGGLER 1146 /* Rainforest Tree */
+		#const O_STRAGGLER 414 /* Jungle Tree */
+
+		if TWO_A
+			#const SHRUB 59 /* Berry Bush */
+		elseif TWO_B
+			#const SHRUB 1059 /* Fruit Bush */
+		endif
+
+		#const HERDABLE_A 1142 /* Water Buffalo */
+		#const HERDABLE_B 1142 /* Water Buffalo */
+
+		#const UNGULATE_A 65 /* Deer */
+		#const UNGULATE_B 65 /* Deer */
+
+		if TWO_A
+			#const LUREABLE_A 1301 /* Elephant */
+			#const LUREABLE_B 1139 /* Rhino */
+		elseif TWO_B
+			#const LUREABLE_A 1139 /* Rhino */
+			#const LUREABLE_B 1301 /* Elephant */
+		endif
+
+		#define INDICATOR_GRASS
+
+		if TWO_A
+			#const PREDATOR_A 1137 /* Tiger */
+			#const PREDATOR_B 1135 /* Komodo Dragon */
+		elseif TWO_B
+			#const PREDATOR_A 1135 /* Komodo Dragon */
+			#const PREDATOR_B 1137 /* Tiger */
+		endif
+
+		if TWO_A
+			#const NERITIC_A 69 /* Shore Fish */
+		elseif TWO_B
+			#const NERITIC_A 1141 /* Box Turtles */
+		endif
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 455 /* Dorado */
+		elseif TWO_B
+			#const AQUATIC_A 455 /* Dorado */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 816 /* Macaw */
+			#const BIRD_B 1028 /* Stork */
+		elseif TWO_B
+			#const BIRD_A 1028 /* Stork */
+			#const BIRD_B 816 /* Macaw */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	elseif THEME_MANGROVE
+		#const WATER_A 58 /* Azure Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 57 /* Azure Deep Water */
+
+		#const TERRAIN_SHALLOWS 59 /* Azure Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 61 /* Jungle Road */
+
+		#const S_STRAGGLER 1146 /* Rainforest Tree */
+		#const O_STRAGGLER 1144 /* Mangrove Tree */
+
+		if TWO_A
+			#const SHRUB 59 /* Berry Bush */
+		elseif TWO_B
+			#const SHRUB 1059 /* Fruit Bush */
+		endif
+
+		#const HERDABLE_A 1142 /* Water Buffalo */
+		#const HERDABLE_B 1142 /* Water Buffalo */
+
+		#const UNGULATE_A 65 /* Deer */
+		#const UNGULATE_B 65 /* Deer */
+
+		if TWO_A
+			#const LUREABLE_A 1301 /* Elephant */
+			#const LUREABLE_B 1139 /* Rhino */
+		elseif TWO_B
+			#const LUREABLE_A 1139 /* Rhino */
+			#const LUREABLE_B 1301 /* Elephant */
+		endif
+
+		#define INDICATOR_PLANT
+
+		if SIX_A
+			#const PREDATOR_A 1031 /* Crocodile */
+			#const PREDATOR_A 1135 /* Komodo Dragon */
+		elseif SIX_B
+			#const PREDATOR_A 1031 /* Crocodile */
+			#const PREDATOR_A 1137 /* Tiger */
+		elseif SIX_C
+			#const PREDATOR_A 1135 /* Komodo Dragon */
+			#const PREDATOR_A 1031 /* Crocodile */
+		elseif SIX_D
+			#const PREDATOR_A 1135 /* Komodo Dragon */
+			#const PREDATOR_A 1137 /* Tiger */
+		elseif SIX_E
+			#const PREDATOR_A 1137 /* Tiger */
+			#const PREDATOR_A 1031 /* Crocodile */
+		elseif SIX_F
+			#const PREDATOR_A 1137 /* Tiger */
+			#const PREDATOR_A 1135 /* Komodo Dragon */
+		endif
+
+		if TWO_A
+			#const NERITIC_A 69 /* Shore Fish */
+		elseif TWO_B
+			#const NERITIC_A 1141 /* Box Turtles */
+		endif
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 455 /* Dorado */
+		elseif TWO_B
+			#const AQUATIC_A 455 /* Dorado */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 816 /* Macaw */
+			#const BIRD_B 1028 /* Stork */
+		elseif TWO_B
+			#const BIRD_A 1028 /* Stork */
+			#const BIRD_B 816 /* Macaw */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	elseif THEME_DEAD
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 25 /* Broken Road */
+
+		#const S_STRAGGLER 1250 /* Dead Tree */
+		#const O_STRAGGLER 1250 /* Dead Tree */
+		#const SHRUB 59 /* Berry Bush */
+
+		if SIX_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1243 /* Goose */
+		elseif SIX_B
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_C
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_D
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_E
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_F
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 1243 /* Goose */
+		endif
+
+		#const UNGULATE_A 65 /* Deer */
+		#const UNGULATE_B 65 /* Deer */
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_SKELETON
+
+		if TWO_A
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 486 /* Bear */
+		elseif TWO_B
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 126 /* Wolf */
+		endif
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		elseif TWO_B
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	elseif THEME_AUTUMN
+		#const WATER_A 1 /* Normal Shallow Water */
+		#const WATER_B 23 /* Normal Medium Water */
+		#const WATER_C 22 /* Normal Deep Water */
+
+		#const TERRAIN_SHALLOWS 4 /* Normal Shallows */
+		#const TERRAIN_RESTRICT 40 /* Rock Terrain */
+		#const TERRAIN_ROAD 103 /* Gravel Road */
+
+		#const S_STRAGGLER 1248 /* Autumn Tree */
+		#const O_STRAGGLER 1248 /* Autumn Tree */
+		#const SHRUB 59 /* Berry Bush */
+
+		if SIX_A
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1243 /* Goose */
+		elseif SIX_B
+			#const HERDABLE_A 594 /* Sheep */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_C
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_D
+			#const HERDABLE_A 1243 /* Goose */
+			#const HERDABLE_B 1245 /* Pig */
+		elseif SIX_E
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 594 /* Sheep */
+		elseif SIX_F
+			#const HERDABLE_A 1245 /* Pig */
+			#const HERDABLE_B 1243 /* Goose */
+		endif
+
+		if TWO_A
+			#const UNGULATE_A 1239 /* Ibex */
+			#const UNGULATE_B 65 /* Deer */
+		elseif TWO_B
+			#const UNGULATE_A 65 /* Deer */
+			#const UNGULATE_B 1239 /* Ibex */
+		endif
+
+		#const LUREABLE_A 48 /* Boar */
+		#const LUREABLE_B 48 /* Boar */
+		#define INDICATOR_GRASS
+
+		if TWO_A
+			#const PREDATOR_A 126 /* Wolf */
+			#const PREDATOR_B 486 /* Bear */
+		elseif TWO_B
+			#const PREDATOR_A 486 /* Bear */
+			#const PREDATOR_B 126 /* Wolf */
+		endif
+
+		#const NERITIC_A 69 /* Shore Fish */
+
+		if TWO_A
+			#const AQUATIC_A 456 /* Salmon */
+			#const AQUATIC_B 457 /* Tuna */
+		elseif TWO_B
+			#const AQUATIC_A 457 /* Tuna */
+			#const AQUATIC_B 456 /* Salmon */
+		endif
+
+		if TWO_A
+			#const BIRD_A 1056 /* Falcon */
+			#const BIRD_B 96 /* Hawk */
+		elseif TWO_B
+			#const BIRD_A 96 /* Hawk */
+			#const BIRD_B 1056 /* Falcon */
+		endif
+
+		if THREE_A
+			#const NOMAD_SCOUT 814 /* Player Horse A */
+		elseif THREE_B
+			#const NOMAD_SCOUT 1602 /* Player Horse C */
+		elseif THREE_C
+			#const NOMAD_SCOUT 1606 /* Player Horse E */
+		endif
+
+		#const WILDLIFE 835 /* Wild Horse */
+	endif
+endif
+#define CUSTOM_CONSTANTS
+if CUSTOM_CONSTANTS
+	#define SECURE_FOREST
+	if SECURE_FOREST
+		#const ORIGIN_PLACEHOLDER 68
+		#const PLACEHOLDER_TERRAIN 64
+		#const PLACEHOLDER_FOREST 65
+		#const REPLACE_A 84
+		#const REPLACE_B 85
+		#const REPLACE_C 86
+		#const REPLACE_D 87
+		#const REPLACE_E 33
+		#const REPLACE_F 34
+		#const REPLACE_G 44
+		#const REPLACE_H 62
+	endif
+
+	#define TERRAIN_CONSTANTS /* ---- Defining Terrains ---- */
+	if TERRAIN_CONSTANTS
+		#const GRASS_A 0
+		#const WATER_SHALLOW 1
+		#const BEACH 2
+		#const DIRT_C 3
+		#const SHALLOW 4
+		#const UNDERBRUSH 5
+		#const DIRT_A 6
+		#const FARMLAND 7
+		#const FARMLAND_DEAD 8
+		#const GRASS_C 9
+		#const FOREST_OAK 10
+		#const DIRT_B 11
+		#const GRASS_B 12
+		#const FOREST_PALM 13
+		#const DESERT 14
+		#const WATER_NOBEACH 15
+		#const GRASS_ALT 16
+		#const FOREST_JUNGLE 17
+		#const FOREST_BAMBOO 18
+		#const FOREST_PINE 19
+		#const FOREST_OAK_BUSH 20
+		#const FOREST_SNOW 21
+		#const WATER_DEEP 22
+		#const WATER_MEDIUM 23
+		#const ROAD 24
+		#const ROAD_BROKEN 25
+		#const ICE_SAILABLE 26
+		#const FOUNDATION 27
+		#const WATER_WALKABLE 28
+		#const FARMLAND_EMPTY 29
+		#const FARMLAND_SEEDS 30
+		#const FARMLAND_SPROUTS 31
+		#const SNOW 32
+		#const DIRT_SNOW 33 /* Obsolete */
+		#const GRASS_SNOW 34 /* Obsolete */
+		#const ICE 35
+		#const FOUNDATION_SNOW 36
+		#const ICE_BEACH 37
+		#const ROAD_SNOW 38 /* Obsolete */
+		#const ROAD_FUNGUS 39 /* Obsolete & Doesn't Blend */
+		#const ROCK_TERRAIN 40
+		#const SAVANNAH 41
+		#const SAVANNAH_GRASS 42
+		#const ROAD_DESERT_ALT 43 /* Obsolete */
+		#const MOORLAND_ALT 44 /* Obsolete */
+		#const CRACKED_SAND 45
+		#const QUICKSAND 46
+		#const BLACK_TERRAIN 47
+		#const FOREST_DRAGON 48
+		#const FOREST_BAOBAB 49
+		#const FOREST_ACACIA 50
+		#const BEACH_GRASS 51
+		#const BEACH_DARK 52
+		#const BEACH_BRIGHT 53
+		#const MANGROVE_SHALLOW 54
+		#const FOREST_MANGROVE 55
+		#const FOREST_RAIN 56
+		#const WATER_OCEAN 57
+		#const WATER_AZURE 58
+		#const SHALLOW_AZURE 59
+		#const GRASS_JUNGLE 60
+		#const ROAD_JUNGLE 61 /* Obsolete */
+		#const LEAVES_JUNGLE 62 /* Obsolete */
+		#const RICE_FARMLAND 63
+		#const RICE_FARMLAND_DEAD 64
+		#const RICE_FARMLAND_EMPTY 65
+		#const RICE_FARMLAND_SEEDS 66
+		#const RICE_FARMLAND_SPROUTS 67
+		#const GRAVEL 70
+		#const UNDERBRUSH_LEAVES 71
+		#const UNDERBRUSH_SNOW 72
+		#const SNOW_LIGHT 73
+		#const SNOW_STRONG 74
+		#const ROAD_FUNGUS 75
+		#const DIRT_MUD 76
+		#const UNDERBRUSH_JUNGLE 77
+		#const ROAD_DESERT 78 /* Doesn't Blend */
+		#const BEACH_UNSAILABLE 79
+		#const BEACH_WET_UNSAILABLE 80
+		#const BEACH_GRAVEL_UNSAILABLE 81
+		#const BEACH_ROCK_UNSAILABLE 82
+		#const GRASS_RAINFOREST 83
+		#const FOREST_MEDITERRANEAN 88
+		#const FOREST_BUSH 89
+		#const FOREST_REEDS_SHALLOWS 90
+		#const FOREST_REEDS_BEACH 91
+		#const FOREST_REEDS 92
+		#const WATER_GREEN 95
+		#const WATER_BROWN 96
+		#const GRASS_DRY 100
+		#const BOGLAND 101
+		#const GRAVEL_DESERT 102
+		#const ROAD_GRAVEL_ALT 103 /* Doesn't Blend */
+		#const FOREST_AUTUMN 104
+		#const FOREST_AUTUMN_SNOW 105
+		#const FOREST_DEAD 106
+		#const BEACH_WET 107
+		#const BEACH_GRAVEL 108
+		#const BEACH_ROCK 109
+		#const FOREST_BIRCH 110
+		#const SHALLOW_SWAMP 111
+	endif
+
+	#define WILD_ANIMALS /* ---- All Animal Types ---- */
+	if WILD_ANIMALS
+		#const SHEEP 594 /* Contains 100 food */
+		#const TURKEY 833 /* Contains 100 food */
+		#const LLAMA 305 /* Contains 100 food */
+		#const COW 705 /* Contains 150 food - bigger LOS */
+		#const COW_BLACK 1596
+		#const COW_SPOT 1598
+		#const COW_BROWN 1600
+		#const GOAT 1060 /* Contains 100 food */
+		#const BUFFALO 1142 /* Contains 150 food - bigger LOS */
+		#const GOOSE 1243 /* Contains 100 food */
+		#const PIG 1245 /* Contains 100 food */
+
+		#const DEER 65 /* Contains 140 food */
+		#const OSTRICH 1026 /* Contains 140 food */
+		#const ZEBRA 1019 /* Contains 140 food */
+		#const IBEX 1239 /* Contains 140 food */
+
+		#const BOAR 48 /* Contains 340 food */
+		#const JAVELINA 822 /* Contains 340 food */
+		#const BOAR_IRON 810 /* Contains 700 food and is gathered insanely fast */
+		#const ELEPHANT 1301 /* Contains 400 food */
+		#const RHINO 1139 /* Contains 400 food */
+
+		#const WOLF 126
+		#const WOLF_DIRE 89	/* Has 100 HP, but low attack */
+		#const WOLF_RABID 202 /* Slighty stronger wolves that pursue villagers from far away */
+		#const JAGUAR 812
+		#const BEAR 486
+		#const TIGER 1137
+		#const LION 1029
+		#const CROCODILE 1031
+		#const KOMODO_DRAGON 1135
+		#const SNOW_LEOPARD 1241
+
+		#const HAWK 96
+		#const MACAW 816 /* Habitat is rainforests and even savanna */
+		#const DOG 862
+		#const VULTURE 1305 /* Found in grasslands and deserts - avoids heavily forested areas */
+		#const STORK 1028 /* Found in Africa and in marshes, swamps and grasslands - avoids heavily forested areas */
+		#const FALCON 1056 /* Found in deserts, mangroves, tundra, dry forests and mountains */
+		#const SEAGULLS 303 /* Will not fly around like other birds. Will stay in a patch of 3x3 tiles */
+
+		#const SHORE_FISH 69 /* Contains 200 food */
+		#const BOX_TURTLES 1141 /* Contains 200 food */
+
+		#const FISH_SNAPPER 458 /* Contains 225 food */
+		#const FISH_TUNA 457 /* Contains 225 food */
+		#const FISH_SALMON 456 /* Contains 225 food */
+		#const FISH_PERCH 53 /* Contains 200 food */
+		#const FISH_DORADO 455 /* Contains 225 food */
+		#const FISH_MARLIN_A 450 /* Contains 350 food */
+		#const FISH_MARLIN_B 451 /* Contains 350 food */
+		#const FISH_DOLPHIN 61 /* Contains 350 food */
+		#const FISH_EXTRA 459 /* Contains 225 food - named FISH5 with salmon appearance */
+	endif
+
+	#define RESOURCE_OBJECTS /* ---- Miscellaneous Resources ---- */
+	if RESOURCE_OBJECTS
+		#const TREE_OAK 411
+		#const TREE_PALM 351
+		#const TREE_JUNGLE 414
+		#const TREE_BAMBOO 348
+		#const TREE_PINE 350
+		#const TREE_SNOWY 413
+		#const TREE_DRAGON 1051
+		#const TREE_BAOBAB 1052
+		#const TREE_ACACIA 1063
+		#const TREE_MANGROVE 1144
+		#const TREE_RAIN 1146
+		#const TREE_AUTUMN 1248
+		#const TREE_AUTUMN_SNOW 1249
+		#const TREE_DEAD 1250
+		#const TREE_CYPRESS 1347
+		#const TREE_ITALIAN 1348
+		#const TREE_OLIVE 1349
+		#const TREE_REEDS 1350 /* Contains 50 wood */
+		#const TREE_BIRCH 1717
+
+		#const BUSH_A 302 /* Contains 100 wood */
+		#const BUSH_B 1053 /* Contains 100 wood */
+		#const BUSH_SNOW 1054 /* Contains 100 wood */
+
+		#const OAK_A 399
+		#const OAK_B 400
+		#const OAK_C 401
+		#const OAK_D 402 /* Short oak tree. Multiple branches and sort of look like a bushes */
+		#const OAK_E 403
+		#const OAK_F 404 /* A dead oak trees */
+		#const OAK_G 405 /* A tree with orange leavess */
+		#const OAK_H 406 /* Identical to OAK_G, but with green leaves */
+		#const OAK_I 407 /* Wide dead tree */
+		#const OAK_J 408
+		#const OAK_K 409
+		#const OAK_L 410
+
+		#const BERRY_BUSH 59 /* Standard forage bush that contains 125 food */
+		#const FRUIT_BUSH 1059 /* Fruit variation of the forage bush and contains 125 food */
+
+		#const GOLD_MINE 66 /* Standard gold mine that contains 800 gold. */
+		#const GOLD_ROCK 841 /* Rock that turns into a gold mine once it reaches zero hit points. The rock has 200 hitpoints, and villagers do 12 damage per swing. Once it turns into a stone mine, it behaves likes normal. */
+		#const GOLD_PILE 252 /* Gold mine with only one gold, it can be altered with resource_delta, however. It is offset by half a tile both vertically and horizontally and it is completely unsolid. */
+
+		#const STONE_MINE 102 /* Standard stone mine that contains 800 gold. */
+		#const STONE_ROCK 839 /* Rock that turns into a stone mine once it reaches zero hit points. The rock has 200 hitpoints, and villagers do 12 damage per swing. Once it turns into a stone mine, it behaves likes normal. */
+		#const STONE_PILE 248 /* Stone mine with only one stone, it can be altered with resource_delta, however. It is offset by half a tile both vertically and horizontally and it is completely unsolid. */
+
+		#const FOOD_PILE 262 /* Forage bush with only one food, it can be altered with resource_delta, however. It is offset by half a tile both vertically and horizontally and it is completely unsolid. */
+		#const WOOD_PILE 253 /* Stump that can be chopped for one wood, it can be altered with resource_delta, however. It is completely unsolid. */
+	endif
+
+	#define UNIT_CONSTANTS /* ---- Miscellaneous Units ---- */
+	if UNIT_CONSTANTS
+		#const HORSE_A 814 /* Original Horse */
+		#const HORSE_B 1356
+		#const HORSE_C 1602
+		#const HORSE_D 1604
+		#const HORSE_E 1606
+
+		#const CAMEL_A 897 /* Original Camel */
+		#const CAMEL_B 1237 /* Bactrian Camel */
+
+		/* Villagers */
+		#const VILLAGER 83
+		#const VILLAGER_FEMALE 293
+
+		#const BUILDER_FEMALE 212
+		#const BUILDER_MALE 118
+		#const REPAIRER_FEMALE 222
+		#const REPAIRER_MALE 156
+		#const FARMER_FEMALE 214
+		#const FARMER_MALE 259
+		#const FISHER_FEMALE 57
+		#const FISHER_MALE 56
+		#const FORAGER_FEMALE 354
+		#const FORAGER_MALE 120
+		#const GOLD_MINER_FEMALE 581
+		#const GOLD_MINER_MALE 579
+		#const STONE_MINER_FEMALE 220
+		#const STONE_MINER_MALE 124
+		#const HUNTER_FEMALE 216
+		#const HUNTER_MALE 122
+		#const LUMBERJACK_FEMALE 218
+		#const LUMBERJACK_MALE 123
+		#const SHEPERD_FEMALE 590
+		#const SHEPERD_MALE 592
+
+		/* Infantry Units */
+		#const MILITIA 74
+		#const MAN_AT_ARMS 75
+		#const LONG_SWORDSMAN 77
+		#const TWO_HANDED_SWORDSMAN 473
+		#const CHAMPION 567
+
+		#const SPEARMAN 93
+		#const PIKEMAN 358
+		#const HALBERDIER 359
+
+		#const EAGLE_SCOUT 751
+		#const EAGLE_WARRIOR 753
+		#const ELITE_EAGLE_WARRIOR 752
+
+		#const CONDOTTIERO 184
+
+		/* Ranged Units */
+		#const ARCHER 4
+		#const CROSSBOWMAN 24
+		#const ARBALESTER 492
+
+		#const SKIRMISHER 7
+		#const ELITE_SKIRMISHER 6
+		#const IMPERIAL_SKIRMISHER 1155
+
+		#const CAVALRY_ARCHER 39
+		#const HEAVY_CAVALRY_ARCHER 474
+
+		#const SLINGER 185
+		#const HAND_CANNONEER 5
+
+		#const GENITOUR 583
+		#const ELITE_GENITOUR 596
+
+		/* Mounted Units */
+		#const SCOUT_CAVALRY 448
+		#const LIGHT_CAVALRY 546
+		#const HUSSAR 441
+
+		#const KNIGHT 38
+		#const CAVALIER 283
+		#const PALADIN 569
+
+		#const CAMEL_RIDER 329
+		#const HEAVY_CAMEL_RIDER 330
+		#const IMPERIAL_CAMEL_RIDER 207
+
+		#const BATTLE_ELEPHANT 1132
+		#const ELITE_BATTLE_ELEPHANT 1134
+
+		#const STEPPE_LANCER 1370
+		#const ELITE_STEPPE_LANCER 1372
+
+		#const XOLOTL_WARRIOR 1570
+
+		/* Water Units */
+		#const FISHING_SHIP 13
+		#const TRANSPORT_SHIP 545
+		#const TRADE_COG 17
+
+		#const GALLEY 539
+		#const WAR_GALLEY 21
+		#const GALLEON 442
+
+		#const FIRE_GALLEY 1103
+		#const FIRE_SHIP 529
+		#const FAST_FIRE_SHIP 532
+
+		#const DEMOLITION_DRAFT 1104
+		#const DEMOLITION_SHIP 527
+		#const HEAVY_DEMOLITION_SHIP 528
+
+		#const CANNON_GALLEON 420
+		#const ELITE_CANNON_GALLEON 691
+
+		#const LONGBOAT 250
+		#const ELITE_LONGBOAT 533
+
+		#const TURTLE_SHIP 831
+		#const ELITE_TURTLE_SHIP 832
+
+		#const CARAVEL 1004
+		#const ELITE_CARAVEL 1006
+
+		/* Siege Units */
+		#const BATTERING_RAM 35
+		#const CAPPED_RAM 422
+		#const SIEGE_RAM 548
+
+		#const MANGONEL 280
+		#const ONAGER 550
+		#const SIEGE_ONAGER 588
+
+		#const SCORPION 279
+		#const HEAVY_SCORPION 542
+
+		#const BOMBARD_CANNON 36
+		#const SIEGE_TOWER 1105
+		#const SIEGE_TOWER_OLD 885
+
+		#const PETARD 440
+		#const TREBUCHET 42
+		#const TREBUCHET_PACKED 331
+		#const FLAMING_CAMEL 1263
+
+		/* Unique Units */
+		#const LONGBOWMAN 8
+		#const CATAPHRACT 40
+		#const WOAD_RAIDER 232
+		#const CHU_KO_NU 73
+		#const THROWING_AXEMAN 281
+		#const HUSKARL 41
+		#const SAMURAI 291
+		#const MANGUDAI 11
+		#const WAR_ELEPHANT 239
+		#const MAMELUKE 282
+		#const TEUTONIC_KNIGHT 25
+		#const JANISSARY 46
+		#const BERSERK 692
+		#const JAGUAR_WARRIOR 725
+		#const TARKAN 755
+		#const WAR_WAGON 827
+		#const PLUMED_ARCHER 763
+		#const CONQUISTADOR 771
+		#const KAMAYUK 879
+		#const ELEPHANT_ARCHER 873
+		#const GENOESE_CROSSBOWMAN 866
+		#const MAGYAR_HUSZAR 869
+		#const BOYAR 876
+		#const CAMEL_ARCHER 1007
+		#const SHOTEL_WARRIOR 1016
+		#const GBETO 1013
+		#const ORGAN_GUN 1001
+		#const ARAMBAI 1126
+		#const BALLISTA_ELEPHANT 1120
+		#const KARAMBIT_WARRIOR 1123
+		#const RATTAN_ARCHER 1129
+		#const KONNIK 1225
+		#const DISMOUNTED_KONNIK 1252
+		#const KIPCHAK 1231
+		#const LEITIS 1234
+		#const KESHIK 1228
+
+		#const ELITE_LONGBOWMAN 530
+		#const ELITE_CATAPHRACT 553
+		#const ELITE_WOAD_RAIDER 534
+		#const ELITE_CHU_KO_NU 559
+		#const ELITE_THROWING_AXEMAN 531
+		#const ELITE_HUSKARL 759
+		#const ELITE_SAMURAI 560
+		#const ELITE_MANGUDAI 561
+		#const ELITE_WAR_ELEPHANT 558
+		#const ELITE_MAMELUKE 556
+		#const ELITE_TEUTONIC_KNIGHT 554
+		#const ELITE_JANISSARY 557
+		#const ELITE_BERSERK 694
+		#const ELITE_JAGUAR_WARRIOR 726
+		#const ELITE_TARKAN 757
+		#const ELITE_WAR_WAGON 829
+		#const ELITE_PLUMED_ARCHER 765
+		#const ELITE_CONQUISTADOR 773
+		#const ELITE_KAMAYUK 881
+		#const ELITE_GENOESE_CROSSBOWMAN 868
+		#const ELITE_MAGYAR_HUSZAR 871
+		#const ELITE_BOYAR 878
+		#const ELITE_CAMEL_ARCHER 1009
+		#const ELITE_SHOTEL_WARRIOR 1018
+		#const ELITE_GBETO 1015
+		#const ELITE_ORGAN_GUN 1003
+		#const ELITE_ARAMBAI 1028
+		#const ELITE_BALLISTA_ELEPHANT 1122
+		#const ELITE_KARAMBIT_WARRIOR 1125
+		#const ELITE_RATTAN_ARCHER 1131
+		#const ELITE_KONNIK 1227
+		#const ELITE_DISMOUNTED_KONNIK 1253
+		#const ELITE_KIPCHAK 1233
+		#const ELITE_LEITIS 1236
+		#const ELITE_KESHIK 1230
+
+		/* Other Units */
+		#const AMAZON_WARRIOR 825
+		#const AMAZON_ARCHER 850
+		#const BANDIT 299
+		#const CANOE 778
+		#const CART 1338
+		#const CENTURION 275
+		#const DONKEY 846
+		#const DRAGON_SHIP 1302
+		#const FLAMETHROWER 188
+		#const HEAVY_CROSSBOWMAN 493
+		#const HEAVY_PIKEMAN 892
+		#const HEAVY_SWORDSMAN 76
+		#const IROQUOIS_WARRIOR 1374
+		#const JUNK 15
+		#const KHAN 1275
+		#const KING 434
+		#const LEGIONARY 1
+		#const MERCHANT 1572
+		#const NORSE_WARRIOR 361
+		#const OX_CART 1271
+		#const OX_WAGON 1273
+		#const PENGUIN 639
+		#const PRIEST 1023
+		#const QUEEN 1292
+		#const SABOTEUR 706
+		#const TRADE_CART 128
+		#const TRADE_CART_FULL 204
+		#const RELIC_CART 1304
+		#const ROYAL_JANISSARY 52
+
+		/* Heros */
+		#const EL_CID 198
+		#const EL_CID_CAMPEADOR 824
+		#const KING_ALFONSO 840
+	endif
+
+	#define BUILDING_CONSTANTS /* ---- General Buildings ---- */
+	if BUILDING_CONSTANTS
+		#const BARRACKS 12
+		#const ARCHERY_RANGE 87
+		#const STABLE 101
+		#const SIEGE_WORKSHOP 49
+		#const DOCK 45
+		#const HARBOR 1189
+		#const CASTLE 82
+		#const KREPOST 1251
+
+		#const TOWN_CENTER 109
+		#const HOUSE 70
+		#const MILL 68
+		#const FARM 50
+		#const RICE_FARM 1187
+		#const LUMBER_CAMP 562
+		#const MINING_CAMP 584
+		#const BLACKSMITH 103
+		#const MARKET 84
+		#const MONASTERY 104
+		#const UNIVERSITY 209
+		#const FISH_TRAP 199
+		#const WONDER 276
+		#const FEITORIA 1021
+
+		#const BATTLE_WORKSHOP 1647
+		#const SPECIAL_MARKET 1646
+	endif
+
+	#define DEFENSIVE_STRUCTURES /* ---- Defensive Structures ---- */
+	if DEFENSIVE_STRUCTURES
+		#const OUTPOST 598
+		#const OUTPOST_INDESTRUCTIBLE 308
+		#const WATCH_TOWER 79
+		#const GUARD_TOWER 234
+		#const KEEP 235
+		#const BOMBARD_TOWER 236
+		#const SEA_TOWER 785 /* Can only be placed on water. */
+		#const FORTIFIED_TOWER 1102 /* Can't be placed on water. */
+		#const FIRE_TOWER 190
+
+		#const ACCURSED_TOWER 684 /* Powerful guard tower with great range. */
+		#const TOWER_OF_FLIES 685 /*  Powerful guard tower. */
+
+		#const FENCE 1062
+		#const PALISADE_WALL 72 /* Has 250 hit points - generates palisade gates. */
+		#const FORTIFIED_PALISADE 119 /* Has 500 hit points - generates palisade gates. */
+		#const STONE_WALL 117 /* Has 1800 hit points - generates stone gates. */
+		#const FORTIFIED_WALL 155 /* Has 3000 hit points - generates fortified stone gates. */
+		#const CITY_WALL 370 /* Has 3200 hit points - generates city gates. */
+		#const SEA_WALL 788
+	endif
+
+	#define HOUSE_OBJECTS /* ---- House Variaties ---- */
+	if HOUSE_OBJECTS
+		#const PAVILION_A 626
+		#const PAVILION_B 625
+		#const PAVILION_BIG 624
+		#const YURT_WOOD_A 713
+		#const YURT_WOOD_B 714
+		#const YURT_WOOD_C 715
+		#const YURT_WOOD_BIG 712
+		#const YURT_LEATHER_A 716
+		#const YURT_LEATHER_B 717
+		#const YURT_LEATHER_C 718
+		#const YURT_LEATHER_BIG 719
+		#const AFRICANHUT_A 1082
+		#const AFRICANHUT_B 1083
+		#const AFRICANHUT_C 1084
+		#const AFRICANHUT_D 1085
+		#const AFRICANHUT_E 1086
+		#const AFRICANHUT_F 1087
+		#const AFRICANHUT_G 1088
+		#const TENT_A 1097
+		#const TENT_B 1098
+		#const TENT_C 1099
+		#const TENT_D 1100
+		#const TENT_E 1101
+		#const ARMY_TENT_A 1196
+		#const ARMY_TENT_B 1197
+		#const ARMY_TENT_C 1198
+		#const ARMY_TENT_D 1199
+		#const ARMY_TENT_E 1200
+	endif
+
+	#define DECAYING_OBJECT /* ---- Decaying Aesthetics ---- */
+	if DECAYING_OBJECT
+		#const ANIMAL_BLOOD_SMALL 1611
+		#const ANIMAL_BLOOD_BIG 1612
+	endif
+
+	#define SOLID_AESTHETICS /* ---- Solid Aesthetics ---- */
+	if SOLID_AESTHETICS
+		#const MOUNTAIN_GRASS_A 310 /* Grassy bottom, sandy top */
+		#const MOUNTAIN_GRASS_B 311 /* Grassy bottom, sandy top */
+		#const MOUNTAIN_GRASS_C 1041 /* Grassy bottom, sandy top */
+
+		#const MOUNTAIN_SAND_A 744 /* A sandy mountain */
+		#const MOUNTAIN_SAND_B 745 /* A sandy mountain */
+
+		#const MOUNTAIN_ROCK_A 1042 /* Grassy bottom, brown rock in the middle and a snowy top */
+		#const MOUNTAIN_ROCK_B 1043 /* Grassy bottom, brown rock in the middle and a snowy top */
+		#const MOUNTAIN_ROCK_C 1044 /* Grassy bottom, brown rock in the middle and a snowy top */
+
+		#const MOUNTAIN_SNOW_A 1045 /* A rocky mountain covered in snow */
+		#const MOUNTAIN_SNOW_B 1046 /* A rocky mountain covered in snow */
+		#const MOUNTAIN_SNOW_C 1047 /* A rocky mountain covered in snow */
+
+		#const LOOT_WOOD 472 /* A pile of logs */
+		#const LOOT_FOOD 472 /* A pile of food */
+		#const LOOT_GOLD 472 /* A pile of golden treasures */
+		#const LOOT_STONE 472 /* A pile of mined rocks */
+
+		#const WELL 1567
+		#const ROMAN_RUINS 856
+		#const HAY_STACK 857
+
+		#const STATUE 817
+		#const STATUE_LEFT 1343
+		#const STATUE_RIGHT 1345
+		#const STATUE_COLUMN 1322
+		#const AZTEC_RUIN 855
+
+		#const QUARRY 1319
+		#const LUMBER 1320
+		#const GOODS 1321
+
+		#const SEA_ROCK_A 389
+		#const SEA_ROCK_B 396
+
+		#const ROCK_A 623
+		#const ROCK_B 1323
+		#const ROCK_BROWN 918
+		#const ROCK_BEACH 1148
+		#const ROCK_JUNGLE 1149
+
+		#const BOULDER_A 1048 /* Small 1x1 rock formation */
+		#const BOULDER_B 1049 /* Tall 1x1 rock formation */
+		#const BOULDER_C 1050 /* Big 3x3 rock formation */
+
+		#const STELAE_A 1092 /* 2x2 pillar */
+		#const STELAE_B 1093 /* 1x1 pillar */
+		#const STELAE_C 1094 /* 1x1 piller */
+		#const PAGODA_A 1201
+		#const PAGODA_B 1202
+		#const PAGODA_C 1203
+
+		#const BUDDHA_STATUE_A 1171
+		#const BUDDHA_STATUE_B 1172
+		#const BUDDHA_STATUE_C 1173
+		#const BUDDHA_STATUE_D 1174
+
+		#const PYRAMID 689 /* Can be captured by players. */
+		#const GREAT_PYRAMID 696 /* Can be captured by players. */
+		#const NUBIAN_PYRAMID 1563
+
+		#const BURNED_BUILDING 758 /* Will generate a burned house, barracks, archery range, stable, blacksmith, market, monastery or siege workshop */
+		#const BROKEN_BARRACKS 345
+	endif
+
+	#define UNSOLID_AESTHETICS /* ---- Unsolid Aesthetics ---- */
+	if UNSOLID_AESTHETICS
+		#const SHIPWRECK_A 721
+		#const SHIPWRECK_B 722
+
+		#const BUTTERFLIES_A 1608
+		#const BUTTERFLIES_B 1609
+		#const BUTTERFLIES_C 1610
+
+		#const TARGET_A 1564
+		#const TARGET_B 1565
+
+		#const FLAME_A 1333
+		#const FLAME_B 1334
+		#const FLAME_C 1335
+		#const FLAME_D 1336
+		#const SMOKE 1308
+
+		#const PATH_A 338
+		#const PATH_B 339
+		#const PATH_C 340
+		#const PATH_D 341
+
+		#const GRASS_PATCH 301
+		#const GRASS_SINGLE 1358
+		#const DRY_PATCH 1033
+		#const DRY_SINGLE 1359
+
+		#const FLOWERS_A 334
+		#const FLOWERS_B 335
+		#const FLOWERS_C 336
+		#const FLOWERS_D 337
+		#const FLOWER_BED 859
+		#const FERN_PATCH 1175
+
+		#const PLANT 818
+		#const PLANT_BUSH_GREEN 1360
+		#const PLANT_BUSH_DRY 1361
+		#const PLANT_DEAD 1365
+		#const PLANT_FLOWERS 1366
+		#const PLANT_JUNGLE 1351
+		#const PLANT_RAINFOREST 1354
+		#const PLANT_RAINFOREST_FLOWER 1355
+		#const PLANT_SHRUB_GREEN 1362
+		#const PLANT_SHRUB_DRY 1363
+		#const PLANT_UNDERBRUSH 1353
+		#const PLANT_UNDERBRUSH_FLOWER 1352
+		#const PLANT_WEEDS 1364
+
+		#const FLAG_A 600 /* Tall with almost no wind */
+		#const FLAG_B 601 /* Right hanging flag, very windy */
+		#const FLAG_C 602 /* Center hanging flag, somewhat windy */
+		#const FLAG_D 603 /* Center hanging flag, quite windy */
+		#const FLAG_E 604 /* Center hanging flag, quite windy */
+
+		#const CRACK 241
+		#const BONFIRE 304 /* Also works as a player object to provide line of sight. */
+		#const TORCH 499
+		#const CACTUS 709
+		#const RUG 711
+		#const NINE_BANDS 720
+		#const CRATER 723
+		#const ICE_PATCH 728
+		#const STUMP 809
+		#const SIGN 819
+		#const GRAVE 820
+		#const BROKEN_CART 858
+		#const GALLOW 1095
+		#const BARRELS 1330
+		#const VASES 1177
+
+		#const SKELETON 710
+		#const ANIMAL_SKELETON 1091
+
+		#const RUBBLE_1 143
+		#const RUBBLE_2 144
+		#const RUBBLE_3 145
+		#const RUBBLE_4 146
+		#const RUBBLE_6 147
+		#const RUBBLE_8 148
+		#const RUBBLE_FENCE 1065
+		#const RUBBLE_BARRACKS_DARK 1402
+		#const RUBBLE_HOUSE_DARK 1403
+		#const RUBBLE_MILL_DARK 1404
+		#const RUBBLE_OUTPOST 1405
+		#const RUBBLE_PALISADE 1407
+		#const RUBBLE_TOWN_CENTER_DARK 1408
+		#const RUBBLE_LUMBER_CAMP_DARK 1409
+		#const RUBBLE_MINING_CAMP_DARK 1410
+		#const RUBBLE_MILL_FEUDAL 1411
+		#const RUBBLE_MILL_CASTLE 1412
+		#const RUBBLE_BARRACKS_FEUDAL 1413
+		#const RUBBLE_BARRACKS_CASTLE 1414
+		#const RUBBLE_ARCHERY_RANGE_FEUDAL 1415
+		#const RUBBLE_ARCHERY_RANGE_CASTLE 1416
+		#const RUBBLE_STABLE_FEUDAL 1417
+		#const RUBBLE_STABLE_CASTLE 1418
+		#const RUBBLE_BLACKSMITH_FEUDAL 1419
+		#const RUBBLE_BLACKSMITH_CASTLE 1420
+		#const RUBBLE_MONASTERY 1421
+		#const RUBBLE_MARKET_FEUDAL 1422
+		#const RUBBLE_MARKET_CASTLE 1423
+		#const RUBBLE_MARKET_IMPERIAL 1424
+		#const RUBBLE_SIEGE_WORKSHOP_CASTLE 1425
+		#const RUBBLE_SIEGE_WORKSHOP_IMPERIAL 1426
+		#const RUBBLE_UNIVERSITY_CASTLE 1427
+		#const RUBBLE_UNIVERSITY_IMPERIAL 1428
+		#const RUBBLE_TRADE_WORKSHOP 1429
+		#const RUBBLE_CASTLE 1430
+		#const RUBBLE_TOWN_CENTER_FEUDAL 1431
+		#const RUBBLE_TOWN_CENTER_CASTLE 1432
+		#const RUBBLE_TOWN_CENTER_IMPERIAL 1433
+		#const RUBBLE_HOUSE_FEUDAL 1434
+		#const RUBBLE_HOUSE_CASTLE 1435
+		#const RUBBLE_TOWER_FEUDAL 1436
+		#const RUBBLE_TOWER_CASTLE 1437
+		#const RUBBLE_TOWER_IMPERIAL 1438
+		#const RUBBLE_BOMBARD_TOWER 1439
+		#const RUBBLE_WONDER 1445
+		#const RUBBLE_FEITORIA 1446
+		#const RUBBLE_YURT_A 1447
+		#const RUBBLE_YURT_B 1448
+		#const RUBBLE_YURT_C 1449
+		#const RUBBLE_YURT_D 1450
+		#const RUBBLE_YURT_E 1451
+		#const RUBBLE_YURT_F 1452
+		#const RUBBLE_YURT_G 1453
+		#const RUBBLE_YURT_H 1454
+		#const RUBBLE_HUT_A 1455
+		#const RUBBLE_HUT_B 1456
+		#const RUBBLE_HUT_C 1457
+		#const RUBBLE_HUT_D 1458
+		#const RUBBLE_HUT_E 1459
+		#const RUBBLE_HUT_F 1460
+		#const RUBBLE_HUT_G 1461
+		#const RUBBLE_TENT_A 1462
+		#const RUBBLE_TENT_B 1463
+		#const RUBBLE_TENT_C 1464
+		#const RUBBLE_TENT_D 1465
+		#const RUBBLE_TENT_E 1466
+		#const RUBBLE_ARMY_TENT_A 1467
+		#const RUBBLE_ARMY_TENT_B 1468
+		#const RUBBLE_ARMY_TENT_C 1469
+		#const RUBBLE_ARMY_TENT_D 1470
+		#const RUBBLE_ARMY_TENT_E 1471
+		#const RUBBLE_BARRCADE_A 1472
+		#const RUBBLE_BARRCADE_B 1473
+		#const RUBBLE_BARRCADE_C 1474
+		#const RUBBLE_BARRCADE_D 1475
+		#const RUBBLE_PAVILION_A 1476
+		#const RUBBLE_PAVILION_B 1477
+		#const RUBBLE_PAVILION_C 1478
+		#const RUBBLE_KREPOST 1479
+		#const RUBBLE_CATHEDRAL 1480
+		#const RUBBLE_TEMPLE_OF_HEAVEN 1481
+		#const RUBBLE_DOME_OF_ROCK 1482
+		#const RUBBLE_SHRINE 1483
+		#const RUBBLE_STORAGE 1484
+		#const RUBBLE_ARCH_OF_CONSTANTINE 1485
+		#const RUBBLE_FORTRESS 1486
+		#const RUBBLE_GOL_GUMBAZ 1487
+		#const RUBBLE_POENARI_CASTLE 1488
+		#const RUBBLE_QUIMPER_CATHEDRAL 1489
+		#const RUBBLE_SANCHI_STUPA 1490
+		#const RUBBLE_SANKORE_MADRASAH 1491
+		#const RUBBLE_TOWER_OF_LONDON 1492
+		#const RUBBLE_DORMITION_CATHEDRAL 1493
+		#const RUBBLE_ACCURSED_TOWER 1494
+		#const RUBBLE_TOWER_OF_FLIES 1495
+		#const RUBBLE_MOSQUE 1496
+		#const RUBBLE_GRANARY 1499
+		#const RUBBLE_AMPHITHEATRE 1514
+		#const RUBBLE_PYRAMID 1515
+		#const RUBBLE_GREAT_PYRAMID 1516
+		#const RUBBLE_AACHEN_CATHEDRAL 1517
+		#const RUBBLE_COLOSSEUM 1520
+		#const RUBBLE_DONJON 1524
+
+		#const IMPALED_HEAD 821
+		#const IMPALED_CORPSE 1315
+	endif
+
+	#const AMOUNT_WORKSHOP_TRICKLE_FOOD 242
+	#const AMOUNT_WORKSHOP_TRICKLE_WOOD 243
+	#const AMOUNT_WORKSHOP_TRICKLE_STONE 244
+	#const AMOUNT_WORKSHOP_TRICKLE_GOLD 245
+
+	#define SPECIAL_OBJECTS /* ---- Special Objects ---- */
+	if SPECIAL_OBJECTS
+		#const BARRIER_OBJECT 768 /* On-Grid Object - cannot be a player object, invisible tree that is impasseble until it is cut by a ground attack */
+		#const TERRAIN_BLOCKER 1613 /* On-Grid Object - doesn't allow objects to generate on the same tile, must not be used as player object */
+	endif
+endif
+#include_drs random_map.def 
+
+#include_drs EnlargeMap.inc
+
+<PLAYER_SETUP>
+
+effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -100
+
+if  2_PLAYER_GAME
+
+	if TINY_MAP
+	
+	#define PACIFIC_SET_ISLANDS
+	behavior_version 1
+	
+	else
+	endif
+	
+else
+endif
+
+if LUDIKRIS_MAP
+#define PACIFICEXTRASPACE
+endif
+
+if PACIFIC_SET_ISLANDS
+direct_placement
+else
+random_placement
+endif
+
+ai_info_map_type MIGRATION 0 0 0
+#include_drs thebr_setup.inc
+
+<LAND_GENERATION>
+
+base_terrain DLC_WATER5
+
+#const SPECIALJUNGLELEAVES 77
+
+
+
+
+
+
+if PACIFIC_SET_ISLANDS
+
+
+start_random
+percent_chance 10 #define PACIFIC_VARIATION1
+percent_chance 10 #define PACIFIC_VARIATION2
+percent_chance 10 #define PACIFIC_VARIATION3
+percent_chance 10 #define PACIFIC_VARIATION4
+percent_chance 10 #define PACIFIC_VARIATION5
+percent_chance 10 #define PACIFIC_VARIATION6
+percent_chance 10 #define PACIFIC_VARIATION7
+percent_chance 10 #define PACIFIC_VARIATION8
+percent_chance 10 #define PACIFIC_VARIATION9
+percent_chance 10 #define PACIFIC_VARIATION10
+end_random
+
+
+	if PACIFIC_VARIATION1
+	
+	#define PACIFIC_WFORESTREDUCTION1
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(12,14) rnd(86,88)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(86,88) rnd(12,14)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+	elseif PACIFIC_VARIATION2
+	
+	#define PACIFIC_FLIPCENTRALISLANDS
+	#define PACIFIC_WFORESTREDUCTION1
+	
+	
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(86,88) rnd(86,88)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(12,14) rnd(12,14)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+	elseif PACIFIC_VARIATION3
+	
+	#define PACIFIC_FLIPCENTRALISLANDS
+	
+	#define PACIFIC_WFORESTREDUCTION2
+		
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(71,73) rnd(86,88)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(27,29) rnd(12,14)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+
+	elseif PACIFIC_VARIATION4
+	
+	#define PACIFIC_FLIPCENTRALISLANDS
+			
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(56,58) rnd(86,88)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(42,44) rnd(12,14)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+
+	elseif PACIFIC_VARIATION5
+	
+				
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(42,44) rnd(86,88)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(56,58) rnd(12,14)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+
+
+	elseif PACIFIC_VARIATION6
+	
+	
+	#define PACIFIC_WFORESTREDUCTION2
+	
+				
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(27,29) rnd(86,88)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(71,73) rnd(12,14)
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+	elseif PACIFIC_VARIATION7
+	
+	
+	#define PACIFIC_WFORESTREDUCTION2
+	
+		
+				
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(86,88) rnd(27,29) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(12,14) rnd(71,73) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+	elseif PACIFIC_VARIATION8
+	
+		
+				
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(86,88) rnd(42,44) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(12,14) rnd(56,58) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+
+	elseif PACIFIC_VARIATION9
+	
+	#define PACIFIC_FLIPCENTRALISLANDS
+		
+			
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(86,88) rnd(56,58) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(12,14) rnd(42,44) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+
+
+	elseif PACIFIC_VARIATION10
+	
+	#define PACIFIC_FLIPCENTRALISLANDS
+	
+	#define PACIFIC_WFORESTREDUCTION2
+		
+	create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(86,88) rnd(71,73) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+create_land 
+{ 
+  terrain_type                     DESERT
+  land_percent                     8
+  land_position 				   rnd(12,14) rnd(27,29) 
+  base_size                        12
+  border_fuzziness                 15
+  clumping_factor                 15
+  other_zone_avoidance_distance    3
+  assign_to AT_TEAM -10 0 0
+}
+
+
+	endif
+
+else
+
+create_player_lands
+{
+  terrain_type DESERT
+  land_percent 8
+  base_size 12
+  border_fuzziness                   15
+  clumping_factor 15
+  other_zone_avoidance_distance 3
+  circle_radius 60 1
+}
+
+endif
+
+if PACIFIC_FLIPCENTRALISLANDS
+
+
+create_land
+{
+  terrain_type DLC_JUNGLEGRASS 
+  land_percent 40
+  border_fuzziness 5
+  clumping_factor 20
+  
+	if PACIFIC_WFORESTREDUCTION1
+  bottom_border 20
+  left_border 20
+	elseif PACIFIC_WFORESTREDUCTION2
+  bottom_border 19
+  left_border 19
+	else
+  bottom_border 16
+  left_border 16
+	endif
+  
+  
+  top_border 38
+  right_border 38
+  zone 60
+  other_zone_avoidance_distance 6
+}
+
+create_land
+{
+  terrain_type DLC_JUNGLEGRASS 
+  land_percent 40
+  border_fuzziness 5
+  clumping_factor 20
+  
+	if PACIFIC_WFORESTREDUCTION1
+  top_border 20
+  right_border 20
+	elseif PACIFIC_WFORESTREDUCTION2
+  top_border 19
+  right_border 19
+	else
+  top_border 16
+  right_border 16
+	endif
+
+  bottom_border 38
+  left_border 38
+  zone 70
+  other_zone_avoidance_distance 6
+}
+
+	
+else
+
+
+create_land
+{
+  terrain_type DLC_JUNGLEGRASS 
+  land_percent 40
+  border_fuzziness 5
+  clumping_factor 20
+  bottom_border 38
+  
+	if PACIFIC_WFORESTREDUCTION1
+  top_border 20
+  left_border 20
+	elseif PACIFIC_WFORESTREDUCTION2
+  top_border 19
+  left_border 19
+	else
+  top_border 16
+  left_border 16
+	endif
+  
+  
+  right_border 38
+  zone 60
+  other_zone_avoidance_distance 6
+}
+
+create_land
+{
+  terrain_type DLC_JUNGLEGRASS 
+  land_percent 40
+  border_fuzziness 5
+  clumping_factor 20
+  
+	if PACIFIC_WFORESTREDUCTION1
+  bottom_border 20
+  right_border 20
+	elseif PACIFIC_WFORESTREDUCTION2
+  bottom_border 19
+  right_border 19
+	else
+  bottom_border 16
+  right_border 16
+	endif
+
+  top_border 38
+  left_border 38
+  zone 70
+  other_zone_avoidance_distance 6
+}
+
+endif
+
+
+/* *********************************** */
+<TERRAIN_GENERATION>
+
+create_terrain DLC_MANGROVESHALLOW
+{
+base_terrain DLC_WATER5
+if HUGE_MAP
+land_percent 15
+elseif GIGANTIC_MAP
+land_percent 15
+elseif LUDIKRIS_MAP
+land_percent 15
+else
+
+	if PACIFIC_WFORESTREDUCTION1
+	
+land_percent 14
+
+	elseif PACIFIC_WFORESTREDUCTION2
+	
+land_percent 15
+
+	else
+
+land_percent 16
+
+	endif
+
+
+
+endif
+
+if HUGE_MAP
+number_of_clumps 68
+elseif GIGANTIC_MAP
+number_of_clumps 68
+elseif LUDIKRIS_MAP
+number_of_clumps 68
+else
+
+	if PACIFIC_WFORESTREDUCTION1
+	
+number_of_clumps 45
+
+	elseif PACIFIC_WFORESTREDUCTION2
+	
+number_of_clumps 45
+
+	else
+
+number_of_clumps 45
+
+	endif
+
+
+endif
+
+	if PACIFIC_WFORESTREDUCTION1
+	
+spacing_to_other_terrain_types 5
+
+	elseif PACIFIC_WFORESTREDUCTION2
+	
+spacing_to_other_terrain_types 6
+
+	else
+
+spacing_to_other_terrain_types 6
+
+	endif
+	
+set_avoid_player_start_areas
+}
+
+create_terrain DLC_MANGROVEFOREST
+{
+base_terrain DLC_MANGROVESHALLOW
+land_percent 100
+spacing_to_other_terrain_types 3
+number_of_clumps 1000
+set_avoid_player_start_areas
+}
+
+create_terrain DLC_MANGROVEFOREST
+{
+base_terrain DLC_MANGROVESHALLOW
+land_percent 100
+spacing_to_other_terrain_types 3
+number_of_clumps 1000
+set_avoid_player_start_areas
+}
+
+create_terrain DLC_MANGROVEFOREST
+{
+base_terrain DLC_MANGROVESHALLOW
+if TINY_MAP
+number_of_tiles 200
+else
+number_of_tiles 400
+endif
+spacing_to_other_terrain_types 2
+number_of_clumps 1000
+set_avoid_player_start_areas
+}
+
+
+/*
+create_terrain ROAD
+{
+base_terrain DLC_MANGROVESHALLOW
+land_percent 100
+number_of_clumps 45
+spacing_to_other_terrain_types 14
+set_avoid_player_start_areas
+}
+*/
+
+/*
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+
+create_terrain DLC_WATER5
+{
+base_terrain ROAD
+land_percent 100
+number_of_clumps 1000
+}
+
+*/
+
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DLC_JUNGLEGRASS 
+land_percent 4 /* 2 - 30 */
+number_of_clumps 20
+spacing_to_other_terrain_types 1
+set_avoid_player_start_areas
+}
+
+create_terrain GRASS2
+{
+base_terrain DLC_JUNGLEGRASS 
+land_percent 2
+number_of_clumps 24
+terrain_mask 1
+}
+
+
+/* 1 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+/* 2 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+/* 3 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+
+/* 4 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+/* 5 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+/* 6 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+/* 7 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+
+/* 8 */ 
+
+create_terrain DIRT 
+{
+base_terrain DESERT 
+land_percent 100
+number_of_clumps 1
+}
+
+create_terrain DLC_RAINFOREST 
+{
+base_terrain DIRT 
+
+if PACIFICEXTRASPACE
+number_of_tiles 200
+number_of_clumps 18
+else
+number_of_tiles 80
+number_of_clumps 9
+endif
+
+spacing_to_other_terrain_types 4
+set_avoid_player_start_areas
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+create_terrain SPECIALJUNGLELEAVES 
+{
+base_terrain DIRT 
+land_percent 100
+number_of_clumps 1000
+}
+
+/* masking */
+
+
+#const DARKERMUD 76
+
+create_terrain SPECIALJUNGLELEAVES
+{
+base_terrain DLC_JUNGLEGRASS 
+land_percent 7
+number_of_clumps 24
+terrain_mask 2
+}
+
+create_terrain DLC_JUNGLEGRASS
+{
+base_terrain SPECIALJUNGLELEAVES 
+land_percent 7
+number_of_clumps 30
+terrain_mask 1
+}
+
+create_terrain DARKERMUD
+{
+base_terrain SPECIALJUNGLELEAVES 
+land_percent 1
+number_of_clumps 24
+terrain_mask 1
+}
+
+create_terrain DARKERMUD
+{
+base_terrain DLC_JUNGLEGRASS 
+land_percent 2
+number_of_clumps 5
+terrain_mask 1
+}
+
+create_terrain DARKERMUD
+{
+base_terrain DLC_JUNGLEGRASS 
+land_percent 2
+number_of_clumps 24
+terrain_mask 1
+}
+
+color_correction CC_JUNGLE
+
+#define AZUREMASKING
+#include_drs F_WaterMasking.inc
+
+<OBJECTS_GENERATION>
+
+if INFINITE_RESOURCES
+else
+
+create_object DLC_BOXTURTLE 
+{
+  number_of_objects 9999
+     set_scaling_to_map_size
+     temp_min_distance_group_placement 8
+     set_gaia_object_only
+}
+
+endif
+
+#define GNR_NORMALTC
+#define GNR_CLASSICSCOUT
+#define GNR_REGICIDE_SPECIALTOWER
+#define GNR_GIVERELICS
+#define GNR_RELICMODERN_MEDIUM
+
+#define GNR_RESSUPERCLOSE
+#define GNR_EMP_NOBARRACKS
+#define GNR_EMP_LIMITTO5FARMS
+#define GNR_EMP_CLUMPLUMBER
+
+/* required constants */
+#const HERDABLE_A 1142
+#const HERDABLE_B 1142
+#const HUNTABLE 65
+#const LURABLE_A 1139
+#const LURABLE_B 1139
+#const STRAGGLER 1146
+#const PREDATOR_A 1137
+#const PREDATOR_B 1137
+#const FISH_A 455
+
+#define GNR_GIVEHERD_A
+#define GNR_HERD6_A
+#define GNR_GIVEHERD_B
+#define GNR_HERD2_B
+
+#define GNR_GIVELURES
+#define GNR_CLASSICLURES_ONE
+#define GNR_LUREDIST_SCL
+
+#define GNR_STARTINGGOLD
+#define GNR_STARTINGSTONE
+#define GNR_STARTGOLD4M
+#define GNR_STARTSTONE4M
+#define GNR_STARTGS_0WBLOCK
+/* #define GNR_STARTGS_INTCRANGE */
+
+#const LAYER_D 60
+
+#include_drs GeneratingObjects.inc
+
+/*
+if EMPIRE_WARS
+elseif DEATH_MATCH
+elseif INFINITE_RESOURCES
+else
+
+create_object DLC_RAINTREE 
+{
+  number_of_objects          16
+number_of_groups 3
+  group_placement_radius     3
+  set_tight_grouping
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players    12
+  max_distance_to_players    20
+}
+endif
+*/
+
+
+if BATTLE_ROYALE
+elseif INFINITE_RESOURCES
+elseif DEATH_MATCH
+else
+
+create_object DEER
+{
+  number_of_groups 250
+  number_of_objects 4
+  group_placement_radius 2
+  set_loose_grouping
+  set_gaia_object_only
+  temp_min_distance_group_placement 14
+  max_distance_to_other_zones 5
+  terrain_to_place_on DLC_JUNGLEGRASS 
+  avoid_forest_zone 1
+}
+
+endif
+
+/* DISTANT GOLD AND STONE */
+
+if BATTLE_ROYALE
+elseif INFINITE_RESOURCES
+else
+
+create_object GOLD
+{
+  number_of_groups 250
+  number_of_objects 4
+  group_placement_radius 2
+  set_tight_grouping
+  set_gaia_object_only
+  temp_min_distance_group_placement 18
+  max_distance_to_other_zones 4
+ terrain_to_place_on DLC_JUNGLEGRASS 
+  avoid_forest_zone 2
+  min_distance_group_placement 4
+}
+
+create_object STONE
+{
+  number_of_groups 250
+  number_of_objects 3
+  group_placement_radius 2
+  set_tight_grouping
+  set_gaia_object_only
+  temp_min_distance_group_placement 34
+  max_distance_to_other_zones 4
+ terrain_to_place_on DLC_JUNGLEGRASS 
+  avoid_forest_zone 2
+  min_distance_group_placement 4
+}
+
+endif
+
+
+if BATTLE_ROYALE
+elseif INFINITE_RESOURCES
+elseif DEATH_MATCH
+else
+
+create_object FORAGE
+{
+  number_of_groups 250
+  number_of_objects 4
+  group_placement_radius 2
+  set_tight_grouping
+  set_gaia_object_only
+  temp_min_distance_group_placement 28
+  max_distance_to_other_zones 5
+ terrain_to_place_on DLC_JUNGLEGRASS 
+  avoid_forest_zone 2
+  min_distance_group_placement 3
+}
+
+create_object DLC_RHINO
+{
+  number_of_groups 100
+  number_of_objects 1
+  group_placement_radius 2
+  set_gaia_object_only
+  temp_min_distance_group_placement 26
+  max_distance_to_other_zones 5
+ terrain_to_place_on DLC_JUNGLEGRASS 
+  avoid_forest_zone 2
+  min_distance_group_placement 3
+}
+
+endif
+
+
+
+create_object DLC_RAINTREE
+{
+  number_of_objects             1
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players       6
+  max_distance_to_players       7
+	actor_area 7537
+	actor_area_radius 1
+}
+
+create_object VILLAGER
+{
+	set_place_for_every_player
+	number_of_objects 3
+	actor_area_to_place_in 7537
+}
+
+
+create_object DLC_RAINTREE
+{
+  number_of_objects             4
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players       6
+  max_distance_to_players       8
+  min_distance_group_placement  2
+}
+
+create_object MACAW
+{
+   number_of_objects         4
+   set_scaling_to_map_size
+}
+
+create_object DLC_MANGROVE_TREE 
+{
+  number_of_objects          26
+  set_gaia_object_only
+  set_scaling_to_map_size
+  min_distance_to_players    12
+ terrain_to_place_on DLC_WATER5
+  avoid_forest_zone 2
+}
+
+
+create_object TRANSPORT_SHIP
+{
+  set_place_for_every_player
+  number_of_objects    1
+  
+if PACIFICEXTRASPACE
+  max_distance_to_players    50
+else
+  max_distance_to_players    40
+endif
+
+  min_distance_to_map_edge   15
+  avoid_forest_zone 		 3
+}
+
+if EMPIRE_WARS
+else
+
+start_random
+percent_chance 17
+#const PACIFICHUT 1082
+percent_chance 16
+#const PACIFICHUT 1083
+percent_chance 17 
+#const PACIFICHUT 1085
+percent_chance 17 
+#const PACIFICHUT 1086
+percent_chance 16 
+#const PACIFICHUT 1087
+percent_chance 17 
+#const PACIFICHUT 1088
+end_random
+
+create_object PACIFICHUT
+{
+	number_of_objects 2
+    set_place_for_every_player
+    min_distance_to_players 10
+    max_distance_to_players 30
+	find_closest
+	avoid_actor_area 12
+	avoid_actor_area 14
+	avoid_forest_zone 1
+	TEMPORARY_FOREST 4
+}
+
+endif
+
+
+if EMPIRE_WARS
+
+create_object FISHING_SHIP
+{
+  number_of_objects 	4
+  set_place_for_every_player
+  min_distance_to_players       20
+  find_closest 
+  terrain_to_place_on DLC_MANGROVESHALLOW
+  avoid_forest_zone 3
+ }
+
+endif
+
+if BATTLE_ROYALE
+elseif DEATH_MATCH
+elseif INFINITE_RESOURCES
+else
+
+create_object DLC_TIGER
+{
+     number_of_groups 30
+     set_loose_grouping
+        number_of_objects 1
+     set_gaia_object_only
+     temp_min_distance_group_placement 40
+     min_distance_to_players 32
+     terrain_to_place_on DLC_JUNGLEGRASS 
+}
+
+endif
+
+/* WATER SETUP */
+
+if INFINITE_RESOURCES
+else
+
+create_object FISH_A
+{
+  number_of_objects                   9999
+  set_gaia_object_only
+  max_distance_to_other_zones         3
+  temp_min_distance_group_placement  16
+}
+
+endif
+
+create_object DLC_ROCKBEACH 
+{
+  number_of_objects 999
+  set_scaling_to_map_size
+  temp_min_distance_group_placement 50
+  set_gaia_object_only
+  min_distance_to_players 25
+  terrain_to_place_on DLC_WATER5
+}
+
+
+	create_object BUFFALO
+	{
+		set_place_for_every_player
+		number_of_objects 1
+		max_distance_to_players 1
+		temp_min_distance_group_placement 1
+
+	}
+
+
+	create_object VILLAGER
+	{
+		set_place_for_every_player
+		number_of_objects 6
+		max_distance_to_players 2
+	}
+
+/* ****************************************************** */
+
+<ELEVATION_GENERATION>
+
+/*
+if TINY_MAP
+elseif SMALL_MAP
+else
+*/
+
+#const LAYER_L 60
+
+
+create_elevation 1
+{
+enable_balanced_elevation
+base_terrain LAYER_L
+
+	if TINY_MAP
+  number_of_clumps 5
+  number_of_tiles 500
+	elseif SMALL_MAP
+  number_of_clumps 7
+  number_of_tiles 720
+	elseif MEDIUM_MAP
+  number_of_clumps 10
+  number_of_tiles 1000
+	elseif LARGE_MAP
+  number_of_clumps 14
+  number_of_tiles 1400
+	elseif HUGE_MAP
+  number_of_clumps 16
+  number_of_tiles 1600
+	elseif GIGANTIC_MAP
+  number_of_clumps 20
+  number_of_tiles 2000
+	else
+  number_of_clumps 80
+  number_of_tiles 8000
+	endif
+
+}
+
+
+/*
+endif
+*/
+
+
+/*
+<CONNECTION_GENERATION>
+create_connect_to_nonplayer_land
+{
+  replace_terrain DLC_WATER5    DLC_MANGROVESHALLOW
+  replace_terrain WATER		DLC_MANGROVESHALLOW
+  replace_terrain MED_WATER     DLC_MANGROVESHALLOW
+  replace_terrain DEEP_WATER    DLC_MANGROVESHALLOW
+  replace_terrain DLC_WATER4    DLC_MANGROVESHALLOW
+  terrain_cost    DLC_WATER5    7
+  terrain_cost    WATER         7
+  terrain_cost    MED_WATER     9
+  terrain_cost    DEEP_WATER    15
+  terrain_cost    DLC_WATER4    15
+  terrain_size    DLC_MANGROVESHALLOW   3       1
+}
+*/

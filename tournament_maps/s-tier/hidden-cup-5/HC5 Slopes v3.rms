@@ -1,0 +1,4066 @@
+/*
+ * Slopes for Hidden Cup V.
+ * Edited by T-West, January 2024.
+ * The original script for Slopes was authored by AlgernonR for Hidden Cup 3 and
+ * later edited by Chrazini for Hidden Cup 4.
+ */
+
+/*
+
+  Slopes by AlgernonR for Hidden Cup 3
+  Modified by Chrazini
+
+  Created: 25-01-2021
+  Version: 3.0
+  BSV: 7.1.0
+  Compatibility: Definitive Edition
+
+*/
+#const TERRAIN_BLOCKER 1613
+#const PH_GENERIC_ON 1291
+#const PH_GENERIC_OFF 647
+#define THEME_ALPINE
+#define SECURE_FOREST
+#define COLLAPSE
+#define BALANCED_RELICS
+start_random
+percent_chance 50 #define FLIP_MIDDLE_RESOURCES
+end_random
+#define OVERWRITES
+if OVERWRITES
+endif
+#define MAP_CONSTANTS
+if MAP_CONSTANTS
+#const SPAWN_TERRAIN 0
+#const SPAWN_FOREST 20
+#const BASE_FOREST 10
+#const BASE_TERRAIN 0
+#const BASE_BLEND_A 5
+#const BASE_BLEND_B 100
+#const BASE_BLEND_C 9
+#const STRAGGLER_FOREST 19
+#const POND_TERRAIN 9
+#const POND_CENTER 101
+#const OUTSIDE_TERRAIN 100
+#const SLOPE_TERRAIN 40
+#const OUTSIDE_FOREST 19
+#const OUTSIDE_PLACEHOLDER 20
+#const OUTSIDE_EDGE 5
+#const OUTSIDE_BLEND_A 5
+#const OUTSIDE_BLEND_B 9
+endif
+#define THEME_CONSTANTS
+if THEME_CONSTANTS
+start_random
+percent_chance 50 #define TWO_A
+percent_chance 50 #define TWO_B
+end_random
+start_random
+percent_chance 33 #define THREE_A
+percent_chance 34 #define THREE_B
+percent_chance 33 #define THREE_C
+end_random
+start_random
+percent_chance 25 #define FOUR_A
+percent_chance 25 #define FOUR_B
+percent_chance 25 #define FOUR_C
+percent_chance 25 #define FOUR_D
+end_random
+start_random
+percent_chance 20 #define FIVE_A
+percent_chance 20 #define FIVE_B
+percent_chance 20 #define FIVE_C
+percent_chance 20 #define FIVE_D
+percent_chance 20 #define FIVE_E
+end_random
+start_random
+percent_chance 17 #define SIX_A
+percent_chance 16 #define SIX_B
+percent_chance 17 #define SIX_C
+percent_chance 17 #define SIX_D
+percent_chance 16 #define SIX_E
+percent_chance 17 #define SIX_F
+end_random
+if THEME_CUSTOM
+elseif THEME_EUROPEAN
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 75
+#const S_STRAGGLER 1053
+#const O_STRAGGLER 411
+#const SHRUB 59
+if TWO_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif TWO_B
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+endif
+#const UNGULATE_A 65
+#const UNGULATE_B 65
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+if TWO_A
+#const PREDATOR_A 126
+#const PREDATOR_B 486
+elseif TWO_B
+#const PREDATOR_A 486
+#const PREDATOR_B 126
+endif
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 96
+#const BIRD_B 1056
+elseif TWO_B
+#const BIRD_A 1056
+#const BIRD_B 96
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+elseif THEME_ALPINE
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 75
+#const S_STRAGGLER 350
+#const O_STRAGGLER 1053
+#const SHRUB 59
+if SIX_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1243
+elseif SIX_B
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif SIX_C
+#const HERDABLE_A 1243
+#const HERDABLE_B 594
+elseif SIX_D
+#const HERDABLE_A 1243
+#const HERDABLE_B 1245
+elseif SIX_E
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+elseif SIX_F
+#const HERDABLE_A 1245
+#const HERDABLE_B 1243
+endif
+if THREE_A
+#const UNGULATE_A 1239
+#const UNGULATE_B 65
+elseif THREE_B
+#const UNGULATE_A 65
+#const UNGULATE_B 1239
+elseif THREE_C
+#const UNGULATE_A 1239
+#const UNGULATE_B 1239
+endif
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+if TWO_A
+#const PREDATOR_A 126
+#const PREDATOR_B 486
+elseif TWO_B
+#const PREDATOR_A 486
+#const PREDATOR_B 126
+endif
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 1056
+#const BIRD_B 96
+elseif TWO_B
+#const BIRD_A 96
+#const BIRD_B 1056
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+elseif THEME_AMERICAN
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 75
+#const S_STRAGGLER 414
+#const O_STRAGGLER 1146
+#const SHRUB 59
+if TWO_A
+#const HERDABLE_A 833
+#const HERDABLE_B 305
+elseif TWO_B
+#const HERDABLE_A 305
+#const HERDABLE_B 833
+endif
+#const UNGULATE_A 65
+#const UNGULATE_B 65
+#const LUREABLE_A 822
+#const LUREABLE_B 822
+#const PREDATOR_A 812
+#const PREDATOR_B 812
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 458
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 458
+endif
+if TWO_A
+#const BIRD_A 816
+#const BIRD_B 96
+elseif TWO_B
+#const BIRD_A 816
+#const BIRD_B 816
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+elseif THEME_COLD
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 26
+#const TERRAIN_RESTRICT 35
+#const TERRAIN_ROAD 38
+#const S_STRAGGLER 1054
+#const O_STRAGGLER 413
+#const SHRUB 59
+if SIX_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif SIX_B
+#const HERDABLE_A 594
+#const HERDABLE_B 705
+elseif SIX_C
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+elseif SIX_D
+#const HERDABLE_A 1245
+#const HERDABLE_B 705
+elseif SIX_E
+#const HERDABLE_A 705
+#const HERDABLE_B 594
+elseif SIX_F
+#const HERDABLE_A 705
+#const HERDABLE_B 1245
+endif
+#const UNGULATE_A 1239
+#const UNGULATE_B 1239
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+if SIX_A
+#const PREDATOR_A 126
+#const PREDATOR_B 486
+elseif SIX_B
+#const PREDATOR_A 126
+#const PREDATOR_B 1241
+elseif SIX_C
+#const PREDATOR_A 486
+#const PREDATOR_B 126
+elseif SIX_D
+#const PREDATOR_A 486
+#const PREDATOR_B 1241
+elseif SIX_E
+#const PREDATOR_A 1241
+#const PREDATOR_B 126
+elseif SIX_F
+#const PREDATOR_A 1241
+#const PREDATOR_B 486
+endif
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 1056
+#const BIRD_B 96
+elseif TWO_B
+#const BIRD_A 96
+#const BIRD_B 1056
+endif
+#const NOMAD_SCOUT 1356
+#const WILDLIFE 1356
+elseif THEME_AUTUMN_COLD
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 26
+#const TERRAIN_RESTRICT 35
+#const TERRAIN_ROAD 38
+#const S_STRAGGLER 1054
+#const O_STRAGGLER 1249
+#const SHRUB 59
+if SIX_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif SIX_B
+#const HERDABLE_A 594
+#const HERDABLE_B 705
+elseif SIX_C
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+elseif SIX_D
+#const HERDABLE_A 1245
+#const HERDABLE_B 705
+elseif SIX_E
+#const HERDABLE_A 705
+#const HERDABLE_B 594
+elseif SIX_F
+#const HERDABLE_A 705
+#const HERDABLE_B 1245
+endif
+if THREE_A
+#const UNGULATE_A 1239
+#const UNGULATE_B 65
+elseif THREE_B
+#const UNGULATE_A 65
+#const UNGULATE_B 1239
+elseif THREE_C
+#const UNGULATE_A 1239
+#const UNGULATE_B 1239
+endif
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+if SIX_A
+#const PREDATOR_A 126
+#const PREDATOR_B 486
+elseif SIX_B
+#const PREDATOR_A 126
+#const PREDATOR_B 1241
+elseif SIX_C
+#const PREDATOR_A 486
+#const PREDATOR_B 126
+elseif SIX_D
+#const PREDATOR_A 486
+#const PREDATOR_B 1241
+elseif SIX_E
+#const PREDATOR_A 1241
+#const PREDATOR_B 126
+elseif SIX_F
+#const PREDATOR_A 1241
+#const PREDATOR_B 486
+endif
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 1056
+#const BIRD_B 96
+elseif TWO_B
+#const BIRD_A 96
+#const BIRD_B 1056
+endif
+#const NOMAD_SCOUT 1356
+#const WILDLIFE 1356
+elseif THEME_ASIAN
+#define COMBINE_UNGULATE
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 25
+#const S_STRAGGLER 348
+#const O_STRAGGLER 348
+if TWO_A
+#const SHRUB 59
+elseif TWO_B
+#const SHRUB 1059
+endif
+if SIX_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1243
+elseif SIX_B
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif SIX_C
+#const HERDABLE_A 1243
+#const HERDABLE_B 594
+elseif SIX_D
+#const HERDABLE_A 1243
+#const HERDABLE_B 1245
+elseif SIX_E
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+elseif SIX_F
+#const HERDABLE_A 1245
+#const HERDABLE_B 1243
+endif
+if TWO_A
+#const UNGULATE_A 1239
+#const UNGULATE_B 65
+elseif TWO_B
+#const UNGULATE_A 65
+#const UNGULATE_B 1239
+endif
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+#const PREDATOR_A 1137
+#const PREDATOR_B 1137
+if TWO_A
+#const NERITIC_A 69
+elseif TWO_B
+#const NERITIC_A 1141
+endif
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 455
+elseif TWO_B
+#const AQUATIC_A 455
+#const AQUATIC_B 456
+endif
+if SIX_A
+#const BIRD_A 96
+#const BIRD_B 816
+elseif SIX_B
+#const BIRD_A 96
+#const BIRD_B 1056
+elseif SIX_C
+#const BIRD_A 816
+#const BIRD_B 96
+elseif SIX_D
+#const BIRD_A 816
+#const BIRD_B 1056
+elseif SIX_E
+#const BIRD_A 1056
+#const BIRD_B 96
+elseif SIX_F
+#const BIRD_A 1056
+#const BIRD_B 816
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+if TWO_A
+#const WILDLIFE 835
+elseif TWO_B
+#const WILDLIFE 884
+endif
+elseif THEME_AFRICAN
+#define COMBINE_UNGULATE
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 46
+#const TERRAIN_ROAD 78
+#const S_STRAGGLER 1051
+#const O_STRAGGLER 1051
+#const SHRUB 1059
+#const HERDABLE_A 1060
+if TWO_A
+#const UNGULATE_A 1019
+#const UNGULATE_B 1026
+elseif TWO_B
+#const UNGULATE_A 1026
+#const UNGULATE_B 1019
+endif
+if TWO_A
+#const LUREABLE_A 1301
+#const LUREABLE_B 1139
+elseif TWO_B
+#const LUREABLE_A 1139
+#const LUREABLE_B 1301
+endif
+#const PREDATOR_A 1029
+#const PREDATOR_B 1029
+if TWO_A
+#const NERITIC_A 69
+elseif TWO_B
+#const NERITIC_A 1141
+endif
+if TWO_A
+#const AQUATIC_A 457
+#const AQUATIC_B 455
+elseif TWO_B
+#const AQUATIC_A 455
+#const AQUATIC_B 457
+endif
+if TWO_A
+#const BIRD_A 1028
+#const BIRD_B 917
+elseif TWO_B
+#const BIRD_A 917
+#const BIRD_B 1028
+endif
+#const NOMAD_SCOUT 1237
+#const WILDLIFE 884
+elseif THEME_EASTERN
+#define COMBINE_UNGULATE
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 46
+#const TERRAIN_ROAD 78
+#const S_STRAGGLER 351
+#const O_STRAGGLER 351
+#const SHRUB 1059
+#const HERDABLE_A 1060
+if TWO_A
+#const UNGULATE_A 1019
+#const UNGULATE_B 1026
+elseif TWO_B
+#const UNGULATE_A 1026
+#const UNGULATE_B 1019
+endif
+if TWO_A
+#const LUREABLE_A 1301
+#const LUREABLE_B 1139
+elseif TWO_B
+#const LUREABLE_A 1139
+#const LUREABLE_B 1301
+endif
+#const PREDATOR_A 1029
+#const PREDATOR_B 1029
+if TWO_A
+#const NERITIC_A 69
+elseif TWO_B
+#const NERITIC_A 1141
+endif
+if TWO_A
+#const AQUATIC_A 455
+#const AQUATIC_B 53
+elseif TWO_B
+#const AQUATIC_A 53
+#const AQUATIC_B 455
+endif
+#const BIRD_A 917
+#const BIRD_B 1028
+#const NOMAD_SCOUT 1237
+#const WILDLIFE 884
+elseif THEME_TROPICAL
+#const WATER_A 58
+#const WATER_B 23
+#const WATER_C 57
+#const TERRAIN_SHALLOWS 59
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 61
+#const S_STRAGGLER 1146
+#const O_STRAGGLER 414
+if TWO_A
+#const SHRUB 59
+elseif TWO_B
+#const SHRUB 1059
+endif
+#const HERDABLE_A 1142
+#const HERDABLE_B 1142
+#const UNGULATE_A 65
+#const UNGULATE_B 65
+if TWO_A
+#const LUREABLE_A 1301
+#const LUREABLE_B 1139
+elseif TWO_B
+#const LUREABLE_A 1139
+#const LUREABLE_B 1301
+endif
+if TWO_A
+#const PREDATOR_A 1137
+#const PREDATOR_B 1135
+elseif TWO_B
+#const PREDATOR_A 1135
+#const PREDATOR_B 1137
+endif
+if TWO_A
+#const NERITIC_A 69
+elseif TWO_B
+#const NERITIC_A 1141
+endif
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 455
+elseif TWO_B
+#const AQUATIC_A 455
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 816
+#const BIRD_B 1028
+elseif TWO_B
+#const BIRD_A 1028
+#const BIRD_B 816
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+elseif THEME_MANGROVE
+#const WATER_A 58
+#const WATER_B 23
+#const WATER_C 57
+#const TERRAIN_SHALLOWS 59
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 61
+#const S_STRAGGLER 1146
+#const O_STRAGGLER 1144
+if TWO_A
+#const SHRUB 59
+elseif TWO_B
+#const SHRUB 1059
+endif
+#const HERDABLE_A 1142
+#const HERDABLE_B 1142
+#const UNGULATE_A 65
+#const UNGULATE_B 65
+if TWO_A
+#const LUREABLE_A 1301
+#const LUREABLE_B 1139
+elseif TWO_B
+#const LUREABLE_A 1139
+#const LUREABLE_B 1301
+endif
+if SIX_A
+#const PREDATOR_A 1031
+#const PREDATOR_A 1135
+elseif SIX_B
+#const PREDATOR_A 1031
+#const PREDATOR_A 1137
+elseif SIX_C
+#const PREDATOR_A 1135
+#const PREDATOR_A 1031
+elseif SIX_D
+#const PREDATOR_A 1135
+#const PREDATOR_A 1137
+elseif SIX_E
+#const PREDATOR_A 1137
+#const PREDATOR_A 1031
+elseif SIX_F
+#const PREDATOR_A 1137
+#const PREDATOR_A 1135
+endif
+if TWO_A
+#const NERITIC_A 69
+elseif TWO_B
+#const NERITIC_A 1141
+endif
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 455
+elseif TWO_B
+#const AQUATIC_A 455
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 816
+#const BIRD_B 1028
+elseif TWO_B
+#const BIRD_A 1028
+#const BIRD_B 816
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+elseif THEME_DEAD
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 25
+#const S_STRAGGLER 1250
+#const O_STRAGGLER 1250
+#const SHRUB 59
+if SIX_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1243
+elseif SIX_B
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif SIX_C
+#const HERDABLE_A 1243
+#const HERDABLE_B 594
+elseif SIX_D
+#const HERDABLE_A 1243
+#const HERDABLE_B 1245
+elseif SIX_E
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+elseif SIX_F
+#const HERDABLE_A 1245
+#const HERDABLE_B 1243
+endif
+#const UNGULATE_A 65
+#const UNGULATE_B 65
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+if TWO_A
+#const PREDATOR_A 126
+#const PREDATOR_B 486
+elseif TWO_B
+#const PREDATOR_A 486
+#const PREDATOR_B 126
+endif
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 96
+#const BIRD_B 1056
+elseif TWO_B
+#const BIRD_A 1056
+#const BIRD_B 96
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+elseif THEME_AUTUMN
+#const WATER_A 1
+#const WATER_B 23
+#const WATER_C 22
+#const TERRAIN_SHALLOWS 4
+#const TERRAIN_RESTRICT 40
+#const TERRAIN_ROAD 103
+#const S_STRAGGLER 1248
+#const O_STRAGGLER 1248
+#const SHRUB 59
+if SIX_A
+#const HERDABLE_A 594
+#const HERDABLE_B 1243
+elseif SIX_B
+#const HERDABLE_A 594
+#const HERDABLE_B 1245
+elseif SIX_C
+#const HERDABLE_A 1243
+#const HERDABLE_B 594
+elseif SIX_D
+#const HERDABLE_A 1243
+#const HERDABLE_B 1245
+elseif SIX_E
+#const HERDABLE_A 1245
+#const HERDABLE_B 594
+elseif SIX_F
+#const HERDABLE_A 1245
+#const HERDABLE_B 1243
+endif
+if TWO_A
+#const UNGULATE_A 1239
+#const UNGULATE_B 65
+elseif TWO_B
+#const UNGULATE_A 65
+#const UNGULATE_B 1239
+endif
+#const LUREABLE_A 48
+#const LUREABLE_B 48
+if TWO_A
+#const PREDATOR_A 126
+#const PREDATOR_B 486
+elseif TWO_B
+#const PREDATOR_A 486
+#const PREDATOR_B 126
+endif
+#const NERITIC_A 69
+if TWO_A
+#const AQUATIC_A 456
+#const AQUATIC_B 457
+elseif TWO_B
+#const AQUATIC_A 457
+#const AQUATIC_B 456
+endif
+if TWO_A
+#const BIRD_A 1056
+#const BIRD_B 96
+elseif TWO_B
+#const BIRD_A 96
+#const BIRD_B 1056
+endif
+if THREE_A
+#const NOMAD_SCOUT 814
+elseif THREE_B
+#const NOMAD_SCOUT 1602
+elseif THREE_C
+#const NOMAD_SCOUT 1606
+endif
+#const WILDLIFE 835
+endif
+endif
+#define CUSTOM_CONSTANTS
+if CUSTOM_CONSTANTS
+#define SECURE_FOREST
+if SECURE_FOREST
+#const ORIGIN_PLACEHOLDER 68
+#const PLACEHOLDER_TERRAIN 97
+#const PLACEHOLDER_FOREST 98
+#const REPLACE_A 84
+#const REPLACE_B 85
+#const REPLACE_C 86
+#const REPLACE_D 87
+#const REPLACE_E 33
+#const REPLACE_F 34
+#const REPLACE_G 44
+#const REPLACE_H 62
+endif
+#define TERRAIN_CONSTANTS
+if TERRAIN_CONSTANTS
+#const GRASS_A 0
+#const WATER_SHALLOW 1
+#const BEACH 2
+#const DIRT_C 3
+#const SHALLOW 4
+#const UNDERBRUSH 5
+#const DIRT_A 6
+#const FARMLAND 7
+#const FARMLAND_DEAD 8
+#const GRASS_C 9
+#const FOREST_OAK 10
+#const DIRT_B 11
+#const GRASS_B 12
+#const FOREST_PALM 13
+#const DESERT 14
+#const WATER_NOBEACH 15
+#const GRASS_ALT 16
+#const FOREST_JUNGLE 17
+#const FOREST_BAMBOO 18
+#const FOREST_PINE 19
+#const FOREST_OAK_BUSH 20
+#const FOREST_SNOW 21
+#const WATER_DEEP 22
+#const WATER_MEDIUM 23
+#const ROAD 24
+#const ROAD_BROKEN 25
+#const ICE_SAILABLE 26
+#const FOUNDATION 27
+#const WATER_WALKABLE 28
+#const FARMLAND_EMPTY 29
+#const FARMLAND_SEEDS 30
+#const FARMLAND_SPROUTS 31
+#const SNOW 32
+#const DIRT_SNOW 33
+#const GRASS_SNOW 34
+#const ICE 35
+#const FOUNDATION_SNOW 36
+#const ICE_BEACH 37
+#const ROAD_SNOW 38
+#const ROAD_FUNGUS 39
+#const ROCK_TERRAIN 40
+#const SAVANNAH 41
+#const SAVANNAH_GRASS 42
+#const ROAD_DESERT_ALT 43
+#const MOORLAND_ALT 44
+#const CRACKED_SAND 45
+#const QUICKSAND 46
+#const BLACK_TERRAIN 47
+#const FOREST_DRAGON 48
+#const FOREST_BAOBAB 49
+#const FOREST_ACACIA 50
+#const BEACH_GRASS 51
+#const BEACH_DARK 52
+#const BEACH_BRIGHT 53
+#const MANGROVE_SHALLOW 54
+#const FOREST_MANGROVE 55
+#const FOREST_RAIN 56
+#const WATER_OCEAN 57
+#const WATER_AZURE 58
+#const SHALLOW_AZURE 59
+#const GRASS_JUNGLE 60
+#const ROAD_JUNGLE 61
+#const LEAVES_JUNGLE 62
+#const RICE_FARMLAND 63
+#const RICE_FARMLAND_DEAD 64
+#const RICE_FARMLAND_EMPTY 65
+#const RICE_FARMLAND_SEEDS 66
+#const RICE_FARMLAND_SPROUTS 67
+#const GRAVEL 70
+#const UNDERBRUSH_LEAVES 71
+#const UNDERBRUSH_SNOW 72
+#const SNOW_LIGHT 73
+#const SNOW_STRONG 74
+#const ROAD_FUNGUS 75
+#const DIRT_MUD 76
+#const UNDERBRUSH_JUNGLE 77
+#const ROAD_DESERT 78
+#const BEACH_UNSAILABLE 79
+#const BEACH_WET_UNSAILABLE 80
+#const BEACH_GRAVEL_UNSAILABLE 81
+#const BEACH_ROCK_UNSAILABLE 82
+#const GRASS_RAINFOREST 83
+#const FOREST_MEDITERRANEAN 88
+#const FOREST_BUSH 89
+#const FOREST_REEDS_SHALLOWS 90
+#const FOREST_REEDS_BEACH 91
+#const FOREST_REEDS 92
+#const WATER_GREEN 95
+#const WATER_BROWN 96
+#const GRASS_DRY 100
+#const BOGLAND 101
+#const GRAVEL_DESERT 102
+#const ROAD_GRAVEL_ALT 103
+#const FOREST_AUTUMN 104
+#const FOREST_AUTUMN_SNOW 105
+#const FOREST_DEAD 106
+#const BEACH_WET 107
+#const BEACH_GRAVEL 108
+#const BEACH_ROCK 109
+endif
+#define WILD_ANIMALS
+if WILD_ANIMALS
+#const SHEEP 594
+#const TURKEY 833
+#const LLAMA 305
+#const COW 705
+#const COW_BLACK 1596
+#const COW_SPOT 1598
+#const COW_BROWN 1600
+#const GOAT 1060
+#const BUFFALO 1142
+#const GOOSE 1243
+#const PIG 1245
+#const DEER 65
+#const OSTRICH 1026
+#const ZEBRA 1019
+#const IBEX 1239
+#const BOAR 48
+#const JAVELINA 822
+#const BOAR_IRON 810
+#const ELEPHANT 1301
+#const RHINO 1139
+#const WOLF 126
+#const WOLF_DIRE 89
+#const WOLF_RABID 202
+#const JAGUAR 812
+#const BEAR 486
+#const TIGER 1137
+#const LION 1029
+#const CROCODILE 1031
+#const KOMODO_DRAGON 1135
+#const SNOW_LEOPARD 1241
+#const HAWK 96
+#const MACAW 816
+#const DOG 862
+#const VULTURE 1305
+#const STORK 1028
+#const FALCON 1056
+#const SEAGULLS 303
+#const SHORE_FISH 69
+#const BOX_TURTLES 1141
+#const FISH_SNAPPER 458
+#const FISH_TUNA 457
+#const FISH_SALMON 456
+#const FISH_PERCH 53
+#const FISH_DORADO 455
+#const FISH_MARLIN_A 450
+#const FISH_MARLIN_B 451
+#const FISH_DOLPHIN 61
+#const FISH_EXTRA 459
+endif
+#define RESOURCE_OBJECTS
+if RESOURCE_OBJECTS
+#const TREE_OAK 411
+#const TREE_PALM 351
+#const TREE_JUNGLE 414
+#const TREE_BAMBOO 348
+#const TREE_PINE 350
+#const TREE_SNOWY 413
+#const TREE_DRAGON 1051
+#const TREE_BAOBAB 1052
+#const TREE_ACACIA 1063
+#const TREE_MANGROVE 1144
+#const TREE_RAIN 1146
+#const TREE_AUTUMN 1248
+#const TREE_AUTUMN_SNOW 1249
+#const TREE_DEAD 1250
+#const TREE_CYPRESS 1347
+#const TREE_ITALIAN 1348
+#const TREE_OLIVE 1349
+#const TREE_REEDS 1350
+#const BUSH_A 302
+#const BUSH_B 1053
+#const BUSH_SNOW 1054
+#const OAK_A 399
+#const OAK_B 400
+#const OAK_C 401
+#const OAK_D 402
+#const OAK_E 403
+#const OAK_F 404
+#const OAK_G 405
+#const OAK_H 406
+#const OAK_I 407
+#const OAK_J 408
+#const OAK_K 409
+#const OAK_L 410
+#const BERRY_BUSH 59
+#const FRUIT_BUSH 1059
+#const GOLD_MINE 66
+#const GOLD_ROCK 841
+#const GOLD_PILE 252
+#const STONE_MINE 102
+#const STONE_ROCK 839
+#const STONE_PILE 248
+#const FOOD_PILE 262
+#const WOOD_PILE 253
+endif
+#define UNIT_CONSTANTS
+if UNIT_CONSTANTS
+#const HORSE_A 814
+#const HORSE_B 1356
+#const HORSE_C 1602
+#const HORSE_D 1604
+#const HORSE_E 1606
+#const CAMEL_A 897
+#const CAMEL_B 1237
+#const VILLAGER 83
+#const VILLAGER_FEMALE 293
+#const BUILDER_FEMALE 212
+#const BUILDER_MALE 118
+#const REPAIRER_FEMALE 222
+#const REPAIRER_MALE 156
+#const FARMER_FEMALE 214
+#const FARMER_MALE 259
+#const FISHER_FEMALE 57
+#const FISHER_MALE 56
+#const FORAGER_FEMALE 354
+#const FORAGER_MALE 120
+#const GOLD_MINER_FEMALE 581
+#const GOLD_MINER_MALE 579
+#const STONE_MINER_FEMALE 220
+#const STONE_MINER_MALE 124
+#const HUNTER_FEMALE 216
+#const HUNTER_MALE 122
+#const LUMBERJACK_FEMALE 218
+#const LUMBERJACK_MALE 123
+#const SHEPERD_FEMALE 590
+#const SHEPERD_MALE 592
+#const MILITIA 74
+#const MAN_AT_ARMS 75
+#const LONG_SWORDSMAN 77
+#const TWO_HANDED_SWORDSMAN 473
+#const CHAMPION 567
+#const SPEARMAN 93
+#const PIKEMAN 358
+#const HALBERDIER 359
+#const EAGLE_SCOUT 751
+#const EAGLE_WARRIOR 753
+#const ELITE_EAGLE_WARRIOR 752
+#const CONDOTTIERO 184
+#const ARCHER 4
+#const CROSSBOWMAN 24
+#const ARBALESTER 492
+#const SKIRMISHER 7
+#const ELITE_SKIRMISHER 6
+#const IMPERIAL_SKIRMISHER 1155
+#const CAVALRY_ARCHER 39
+#const HEAVY_CAVALRY_ARCHER 474
+#const SLINGER 185
+#const HAND_CANNONEER 5
+#const GENITOUR 583
+#const ELITE_GENITOUR 596
+#const SCOUT_CAVALRY 448
+#const LIGHT_CAVALRY 546
+#const HUSSAR 441
+#const KNIGHT 38
+#const CAVALIER 283
+#const PALADIN 569
+#const CAMEL_RIDER 329
+#const HEAVY_CAMEL_RIDER 330
+#const IMPERIAL_CAMEL_RIDER 207
+#const BATTLE_ELEPHANT 1132
+#const ELITE_BATTLE_ELEPHANT 1134
+#const STEPPE_LANCER 1370
+#const ELITE_STEPPE_LANCER 1372
+#const XOLOTL_WARRIOR 1570
+#const FISHING_SHIP 13
+#const TRANSPORT_SHIP 545
+#const TRADE_COG 17
+#const GALLEY 539
+#const WAR_GALLEY 21
+#const GALLEON 442
+#const FIRE_GALLEY 1103
+#const FIRE_SHIP 529
+#const FAST_FIRE_SHIP 532
+#const DEMOLITION_DRAFT 1104
+#const DEMOLITION_SHIP 527
+#const HEAVY_DEMOLITION_SHIP 528
+#const CANNON_GALLEON 420
+#const ELITE_CANNON_GALLEON 691
+#const LONGBOAT 250
+#const ELITE_LONGBOAT 533
+#const TURTLE_SHIP 831
+#const ELITE_TURTLE_SHIP 832
+#const CARAVEL 1004
+#const ELITE_CARAVEL 1006
+#const BATTERING_RAM 35
+#const CAPPED_RAM 422
+#const SIEGE_RAM 548
+#const MANGONEL 280
+#const ONAGER 550
+#const SIEGE_ONAGER 588
+#const SCORPION 279
+#const HEAVY_SCORPION 542
+#const BOMBARD_CANNON 36
+#const SIEGE_TOWER 1105
+#const SIEGE_TOWER_OLD 885
+#const PETARD 440
+#const TREBUCHET 42
+#const TREBUCHET_PACKED 331
+#const FLAMING_CAMEL 1263
+#const LONGBOWMAN 8
+#const CATAPHRACT 40
+#const WOAD_RAIDER 232
+#const CHU_KO_NU 73
+#const THROWING_AXEMAN 281
+#const HUSKARL 41
+#const SAMURAI 291
+#const MANGUDAI 11
+#const WAR_ELEPHANT 239
+#const MAMELUKE 282
+#const TEUTONIC_KNIGHT 25
+#const JANISSARY 46
+#const BERSERK 692
+#const JAGUAR_WARRIOR 725
+#const TARKAN 755
+#const WAR_WAGON 827
+#const PLUMED_ARCHER 763
+#const CONQUISTADOR 771
+#const KAMAYUK 879
+#const ELEPHANT_ARCHER 873
+#const GENOESE_CROSSBOWMAN 866
+#const MAGYAR_HUSZAR 869
+#const BOYAR 876
+#const CAMEL_ARCHER 1007
+#const SHOTEL_WARRIOR 1016
+#const GBETO 1013
+#const ORGAN_GUN 1001
+#const ARAMBAI 1126
+#const BALLISTA_ELEPHANT 1120
+#const KARAMBIT_WARRIOR 1123
+#const RATTAN_ARCHER 1129
+#const KONNIK 1225
+#const DISMOUNTED_KONNIK 1252
+#const KIPCHAK 1231
+#const LEITIS 1234
+#const KESHIK 1228
+#const ELITE_LONGBOWMAN 530
+#const ELITE_CATAPHRACT 553
+#const ELITE_WOAD_RAIDER 534
+#const ELITE_CHU_KO_NU 559
+#const ELITE_THROWING_AXEMAN 531
+#const ELITE_HUSKARL 759
+#const ELITE_SAMURAI 560
+#const ELITE_MANGUDAI 561
+#const ELITE_WAR_ELEPHANT 558
+#const ELITE_MAMELUKE 556
+#const ELITE_TEUTONIC_KNIGHT 554
+#const ELITE_JANISSARY 557
+#const ELITE_BERSERK 694
+#const ELITE_JAGUAR_WARRIOR 726
+#const ELITE_TARKAN 757
+#const ELITE_WAR_WAGON 829
+#const ELITE_PLUMED_ARCHER 765
+#const ELITE_CONQUISTADOR 773
+#const ELITE_KAMAYUK 881
+#const ELITE_GENOESE_CROSSBOWMAN 868
+#const ELITE_MAGYAR_HUSZAR 871
+#const ELITE_BOYAR 878
+#const ELITE_CAMEL_ARCHER 1009
+#const ELITE_SHOTEL_WARRIOR 1018
+#const ELITE_GBETO 1015
+#const ELITE_ORGAN_GUN 1003
+#const ELITE_ARAMBAI 1028
+#const ELITE_BALLISTA_ELEPHANT 1122
+#const ELITE_KARAMBIT_WARRIOR 1125
+#const ELITE_RATTAN_ARCHER 1131
+#const ELITE_KONNIK 1227
+#const ELITE_DISMOUNTED_KONNIK 1253
+#const ELITE_KIPCHAK 1233
+#const ELITE_LEITIS 1236
+#const ELITE_KESHIK 1230
+#const AMAZON_WARRIOR 825
+#const AMAZON_ARCHER 850
+#const BANDIT 299
+#const CANOE 778
+#const CART 1338
+#const CENTURION 275
+#const DONKEY 846
+#const DRAGON_SHIP 1302
+#const FLAMETHROWER 188
+#const HEAVY_CROSSBOWMAN 493
+#const HEAVY_PIKEMAN 892
+#const HEAVY_SWORDSMAN 76
+#const IROQUOIS_WARRIOR 1374
+#const JUNK 15
+#const KHAN 1275
+#const KING 434
+#const LEGIONARY 1
+#const MERCHANT 1572
+#const NORSE_WARRIOR 361
+#const OX_CART 1271
+#const OX_WAGON 1273
+#const PRIEST 1023
+#const QUEEN 1292
+#const TRADE_CART 128
+#const TRADE_CART_FULL 204
+#const RELIC_CART 1304
+#const ROYAL_JANISSARY 52
+#const EL_CID 198
+#const EL_CID_CAMPEADOR 824
+#const KING_ALFONSO 840
+endif
+#define BUILDING_CONSTANTS
+if BUILDING_CONSTANTS
+#const BARRACKS 12
+#const ARCHERY_RANGE 87
+#const STABLE 101
+#const SIEGE_WORKSHOP 49
+#const DOCK 45
+#const HARBOR 1189
+#const CASTLE 82
+#const KREPOST 1251
+#const TOWN_CENTER 109
+#const HOUSE 70
+#const MILL 68
+#const FARM 50
+#const LUMBER_CAMP 562
+#const MINING_CAMP 584
+#const BLACKSMITH 103
+#const MARKET 84
+#const MONASTERY 104
+#const UNIVERSITY 209
+#const FISH_TRAP 199
+#const WONDER 276
+#const FEITORIA 1021
+#const BATTLE_WORKSHOP 1647
+endif
+#define DEFENSIVE_STRUCTURES
+if DEFENSIVE_STRUCTURES
+#const OUTPOST 598
+#const WATCH_TOWER 79
+#const GUARD_TOWER 234
+#const KEEP 235
+#const BOMBARD_TOWER 236
+#const SEA_TOWER 785
+#const SEA_FORTIFICATION 1102
+#const FIRE_TOWER 190
+#const ACCURSED_TOWER 684
+#const TOWER_OF_FLIES 685
+#const FENCE 1062
+#const PALISADE_WALL 72
+#const FORTIFIED_PALISADE 119
+#const STONE_WALL 117
+#const FORTIFIED_WALL 155
+#const CITY_WALL 370
+endif
+#define HOUSE_OBJECTS
+if HOUSE_OBJECTS
+#const PAVILION_A 626
+#const PAVILION_B 625
+#const PAVILION_BIG 624
+#const YURT_WOOD_A 713
+#const YURT_WOOD_B 714
+#const YURT_WOOD_C 715
+#const YURT_WOOD_BIG 712
+#const YURT_LEATHER_A 716
+#const YURT_LEATHER_B 717
+#const YURT_LEATHER_C 718
+#const YURT_LEATHER_BIG 719
+#const AFRICANHUT_A 1082
+#const AFRICANHUT_B 1083
+#const AFRICANHUT_C 1084
+#const AFRICANHUT_D 1085
+#const AFRICANHUT_E 1086
+#const AFRICANHUT_F 1087
+#const AFRICANHUT_G 1088
+#const TENT_A 1097
+#const TENT_B 1098
+#const TENT_C 1099
+#const TENT_D 1100
+#const TENT_E 1101
+#const ARMY_TENT_A 1196
+#const ARMY_TENT_B 1197
+#const ARMY_TENT_C 1198
+#const ARMY_TENT_D 1199
+#const ARMY_TENT_E 1200
+endif
+#define DECAYING_OBJECT
+if DECAYING_OBJECT
+#const ANIMAL_BLOOD_SMALL 1611
+#const ANIMAL_BLOOD_BIG 1612
+endif
+#define SOLID_AESTHETICS
+if SOLID_AESTHETICS
+#const MOUNTAIN_GRASS_A 310
+#const MOUNTAIN_GRASS_B 311
+#const MOUNTAIN_GRASS_C 1041
+#const MOUNTAIN_SAND_A 744
+#const MOUNTAIN_SAND_B 745
+#const MOUNTAIN_ROCK_A 1042
+#const MOUNTAIN_ROCK_B 1043
+#const MOUNTAIN_ROCK_C 1044
+#const MOUNTAIN_SNOW_A 1045
+#const MOUNTAIN_SNOW_B 1046
+#const MOUNTAIN_SNOW_C 1047
+#const LOOT_WOOD 472
+#const LOOT_FOOD 472
+#const LOOT_GOLD 472
+#const LOOT_STONE 472
+#const WELL 1567
+#const ROMAN_RUINS 856
+#const HAY_STACK 857
+#const STATUE 817
+#const STATUE_LEFT 1343
+#const STATUE_RIGHT 1345
+#const STATUE_COLUMN 1322
+#const QUARRY 1319
+#const LUMBER 1320
+#const GOODS 1321
+#const SEA_ROCK_A 389
+#const SEA_ROCK_B 396
+#const ROCK_A 623
+#const ROCK_B 1323
+#const ROCK_BROWN 918
+#const ROCK_BEACH 1148
+#const ROCK_JUNGLE 1149
+#const BOULDER_A 1048
+#const BOULDER_B 1049
+#const BOULDER_C 1050
+#const STELAE_A 1092
+#const STELAE_B 1093
+#const STELAE_C 1094
+#const PAGODA_A 1201
+#const PAGODA_B 1202
+#const PAGODA_C 1203
+#const BUDDHA_STATUE_A 1171
+#const BUDDHA_STATUE_B 1172
+#const BUDDHA_STATUE_C 1173
+#const BUDDHA_STATUE_D 1174
+#const PYRAMID 689
+#const GREAT_PYRAMID 696
+#const NUBIAN_PYRAMID 1563
+#const BURNED_BUILDING 758
+#const BROKEN_BARRACKS 345
+endif
+#define UNSOLID_AESTHETICS
+if UNSOLID_AESTHETICS
+#const SHIPWRECK_A 721
+#const SHIPWRECK_B 722
+#const BUTTERFLIES_A 1608
+#const BUTTERFLIES_B 1609
+#const BUTTERFLIES_C 1610
+#const TARGET_A 1564
+#const TARGET_B 1565
+#const FLAME_A 1333
+#const FLAME_B 1334
+#const FLAME_C 1335
+#const FLAME_D 1336
+#const SMOKE 1308
+#const PATH_A 338
+#const PATH_B 339
+#const PATH_C 340
+#const PATH_D 341
+#const GRASS_PATCH 301
+#const GRASS_SINGLE 1358
+#const DRY_PATCH 1033
+#const DRY_SINGLE 1359
+#const FLOWERS_A 334
+#const FLOWERS_B 335
+#const FLOWERS_C 336
+#const FLOWERS_D 337
+#const FLOWER_BED 859
+#const FERN_PATCH 1175
+#const PLANT 818
+#const PLANT_BUSH_GREEN 1360
+#const PLANT_BUSH_DRY 1361
+#const PLANT_DEAD 1365
+#const PLANT_FLOWERS 1366
+#const PLANT_JUNGLE 1351
+#const PLANT_RAINFOREST 1354
+#const PLANT_RAINFOREST_FLOWER 1355
+#const PLANT_SHRUB_GREEN 1362
+#const PLANT_SHRUB_DRY 1363
+#const PLANT_UNDERBRUSH 1353
+#const PLANT_UNDERBRUSH_FLOWER 1352
+#const PLANT_WEEDS 1364
+#const FLAG_A 600
+#const FLAG_B 601
+#const FLAG_C 602
+#const FLAG_D 603
+#const FLAG_E 604
+#const CRACK 241
+#const BONFIRE 304
+#const TORCH 499
+#const CACTUS 709
+#const RUG 711
+#const CRATER 723
+#const ICE_PATCH 728
+#const STUMP 809
+#const SIGN 819
+#const GRAVE 820
+#const BROKEN_CART 858
+#const GALLOW 1095
+#const BARRELS 1330
+#const SKELETON 710
+#const ANIMAL_SKELETON 1091
+#const RUBBLE_1 863
+#const RUBBLE_2 864
+#const RUBBLE_3 865
+#const RUBBLE_4 1497
+#const RUBBLE_8 1498
+#const IMPALED_HEAD 821
+#const IMPALED_CORPSE 1315
+endif
+#define SPECIAL_OBJECTS
+if SPECIAL_OBJECTS
+#const REVEALER_TEMPORARY_A 112
+#const REVEALER_TEMPORARY_B 332
+#const REVEALER_REMOVABLE 201
+#const REVEALER_OBJECT_A 0
+#const REVEALER_OBJECT_B 837
+#const REVEALER_OBJECT_C 127
+#const PH_NEUTRAL_ON 278
+#const PH_NEUTRAL_OFF 346
+#const PH_PLAYER_ON 278
+#const PH_PLAYER_OFF 647
+#const BARRIER_OBJECT 768
+#const TERRAIN_BLOCKER 1613
+#const LIFE_SUPPORT 1291
+#const MONUMENT_RESOURCES 1639
+endif
+#const MOD_RESOURCE 1
+#const ATTR_ADD 1
+#const FOOD_GENERATION 230
+#const WOOD_GENERATION 231
+#const GOLD_GENERATION 233
+endif
+#const BESERK_EXTRA 94
+start_random
+percent_chance 50 #define SETUP_A
+percent_chance 50 #define SETUP_B
+end_random
+<PLAYER_SETUP>
+direct_placement
+if LOW_RESOURCES
+if NOMAD_MAP
+#define STANDARD_START
+else
+if EMPIRE_WARS
+#define STANDARD_START
+else
+#define NOMAD_START
+endif
+endif
+else
+if NOMAD_MAP
+if EMPIRE_WARS
+#define STANDARD_START
+else
+#define NOMAD_START
+endif
+else
+#define STANDARD_START
+endif
+endif
+if NOMAD_START
+if EMPIRE_WARS
+else
+nomad_resources
+endif
+else
+endif
+behavior_version 1
+set_gaia_civilization 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_STORAGE_VALUE 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_STORAGE_VALUE 0
+<LAND_GENERATION>
+base_terrain BASE_TERRAIN
+enable_waves 0
+create_land {
+terrain_type BASE_TERRAIN
+number_of_tiles 0
+base_size 0
+land_position 50 50
+land_id 420
+}
+create_land {
+terrain_type POND_TERRAIN
+number_of_tiles 82
+base_size 4
+base_elevation 5
+land_position 20 20
+land_id 500
+}
+create_land {
+terrain_type POND_TERRAIN
+number_of_tiles 82
+base_size 4
+base_elevation 5
+land_position 20 80
+land_id 501
+}
+create_land {
+terrain_type POND_TERRAIN
+number_of_tiles 82
+base_size 4
+base_elevation 5
+land_position 80 20
+land_id 502
+}
+create_land {
+terrain_type POND_TERRAIN
+number_of_tiles 82
+base_size 4
+base_elevation 5
+land_position 80 80
+land_id 503
+}
+create_land {
+terrain_type SPAWN_TERRAIN
+land_percent 100
+base_size 2
+clumping_factor 15
+if SETUP_A
+top_border 30
+left_border -15
+right_border -15
+bottom_border 30
+land_position 20 50
+elseif SETUP_B
+top_border -15
+left_border 30
+right_border 30
+bottom_border -15
+land_position 50 20
+endif
+assign_to AT_TEAM -10 0 0
+}
+create_land {
+terrain_type SPAWN_TERRAIN
+land_percent 100
+base_size 2
+clumping_factor 15
+if SETUP_A
+top_border -15
+left_border 30
+right_border 30
+bottom_border -15
+land_position 80 50
+elseif SETUP_B
+top_border 30
+left_border -15
+right_border -15
+bottom_border 30
+land_position 50 80
+endif
+assign_to AT_TEAM -10 0 0
+}
+create_land {
+terrain_type OUTSIDE_TERRAIN
+land_percent 100
+if SETUP_A
+top_border 0
+left_border -15
+right_border -15
+bottom_border 76
+land_position 50 5
+elseif SETUP_B
+top_border -15
+left_border 76
+right_border 0
+bottom_border -15
+land_position 95 50
+endif
+base_elevation 5
+}
+create_land {
+terrain_type OUTSIDE_TERRAIN
+land_percent 100
+if SETUP_A
+top_border 76
+left_border -15
+right_border -15
+bottom_border 0
+land_position 50 95
+elseif SETUP_B
+top_border -15
+left_border 0
+right_border 76
+bottom_border -15
+land_position 5 50
+endif
+base_elevation 5
+}
+<ELEVATION_GENERATION>
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 5 {
+base_terrain OUTSIDE_TERRAIN
+number_of_tiles 100000
+number_of_clumps 100000
+}
+create_elevation 1 {
+base_terrain BASE_TERRAIN
+number_of_tiles 200
+number_of_clumps 25
+}
+<TERRAIN_GENERATION>
+if THEME_AMERICAN
+color_correction CC_JUNGLE
+elseif THEME_COLD
+color_correction CC_WINTER
+elseif THEME_AFRICAN
+color_correction CC_DESERT
+elseif THEME_EASTERN
+color_correction CC_DESERT
+elseif THEME_TROPICAL
+color_correction CC_JUNGLE
+elseif THEME_MANGROVE
+color_correction CC_JUNGLE
+elseif THEME_AUTUMN
+color_correction CC_AUTUMN
+elseif THEME_AUTUMN_COLD
+color_correction CC_WINTER
+endif
+create_terrain SLOPE_TERRAIN {
+base_terrain BASE_TERRAIN
+land_percent 100
+number_of_clumps 512
+height_limits 2 4
+}
+create_terrain BASE_TERRAIN {
+base_terrain SLOPE_TERRAIN
+land_percent 100
+number_of_clumps 512
+height_limits 1 2
+terrain_mask 1
+}
+create_terrain OUTSIDE_TERRAIN {
+base_terrain SLOPE_TERRAIN
+land_percent 100
+number_of_clumps 512
+height_limits 4 5
+terrain_mask 1
+}
+create_terrain OUTSIDE_EDGE {
+base_terrain OUTSIDE_TERRAIN
+land_percent 100
+number_of_clumps 512
+spacing_to_other_terrain_types 6
+}
+create_terrain OUTSIDE_FOREST {
+base_terrain OUTSIDE_EDGE
+land_percent 100
+number_of_clumps 512
+spacing_to_other_terrain_types 4
+}
+create_terrain OUTSIDE_PLACEHOLDER {
+base_terrain OUTSIDE_FOREST
+land_percent 100
+number_of_clumps 512
+spacing_to_other_terrain_types 2
+}
+create_terrain OUTSIDE_EDGE {
+base_terrain OUTSIDE_FOREST
+land_percent 2
+number_of_clumps 64
+}
+create_terrain OUTSIDE_FOREST {
+base_terrain OUTSIDE_PLACEHOLDER
+land_percent 100
+number_of_clumps 512
+}
+create_terrain OUTSIDE_TERRAIN {
+base_terrain OUTSIDE_EDGE
+land_percent 100
+number_of_clumps 512
+spacing_to_other_terrain_types 1
+terrain_mask 1
+}
+create_terrain POND_CENTER {
+base_terrain POND_TERRAIN
+land_percent 100
+number_of_clumps 512
+spacing_to_other_terrain_types 1
+}
+create_terrain WATER_NOBEACH {
+base_terrain POND_CENTER
+land_percent 100
+number_of_clumps 512
+spacing_to_other_terrain_types 2
+}
+create_terrain POND_TERRAIN {
+base_terrain POND_CENTER
+land_percent 100
+number_of_clumps 512
+terrain_mask 2
+}
+create_terrain POND_CENTER {
+base_terrain WATER_NOBEACH
+land_percent 100
+number_of_clumps 512
+terrain_mask 2
+}
+create_terrain BASE_FOREST {
+base_terrain BASE_TERRAIN
+land_percent 4
+number_of_clumps 16
+set_scale_by_groups
+set_avoid_player_start_areas
+spacing_to_other_terrain_types 4
+}
+create_terrain BASE_BLEND_A {
+base_terrain BASE_TERRAIN
+land_percent 8
+number_of_clumps 16
+set_scale_by_groups
+terrain_mask 1
+}
+create_terrain BASE_BLEND_B {
+base_terrain BASE_TERRAIN
+land_percent 4
+number_of_clumps 16
+set_scale_by_groups
+terrain_mask 1
+}
+create_terrain BASE_BLEND_C {
+base_terrain BASE_TERRAIN
+land_percent 12
+number_of_clumps 16
+set_scale_by_groups
+terrain_mask 1
+}
+create_terrain OUTSIDE_BLEND_A {
+base_terrain OUTSIDE_TERRAIN
+land_percent 6
+number_of_clumps 12
+set_scale_by_groups
+terrain_mask 1
+}
+create_terrain OUTSIDE_BLEND_B {
+base_terrain OUTSIDE_TERRAIN
+land_percent 2
+number_of_clumps 12
+set_scale_by_groups
+terrain_mask 1
+}
+<OBJECTS_GENERATION>
+create_actor_area 59 59 20000 0
+create_actor_area 59 60 20000 0
+create_actor_area 60 59 20000 0
+create_actor_area 60 60 20000 0
+if SETUP_A
+create_actor_area 59 56 20001 3
+create_actor_area 60 56 20001 3
+create_actor_area 59 59 20001 3
+create_actor_area 60 59 20001 3
+create_actor_area 59 60 20001 3
+create_actor_area 60 60 20001 3
+create_actor_area 59 63 20001 3
+create_actor_area 60 63 20001 3
+create_actor_area 53 43 20002 3
+create_actor_area 53 48 20002 3
+create_actor_area 66 72 20003 3
+create_actor_area 66 77 20003 3
+create_actor_area 66 43 20004 3
+create_actor_area 66 48 20004 3
+create_actor_area 53 72 20005 3
+create_actor_area 53 77 20005 3
+elseif SETUP_B
+create_actor_area 56 59 20001 3
+create_actor_area 56 60 20001 3
+create_actor_area 59 59 20001 3
+create_actor_area 59 60 20001 3
+create_actor_area 60 59 20001 3
+create_actor_area 60 60 20001 3
+create_actor_area 63 59 20001 3
+create_actor_area 63 60 20001 3
+create_actor_area 43 53 20002 3
+create_actor_area 48 53 20002 3
+create_actor_area 72 66 20003 3
+create_actor_area 77 66 20003 3
+create_actor_area 43 66 20004 3
+create_actor_area 48 66 20004 3
+create_actor_area 72 53 20005 3
+create_actor_area 77 53 20005 3
+endif
+create_object PH_NEUTRAL_OFF {
+number_of_objects 4
+actor_area_to_place_in 20000
+actor_area 20006
+actor_area_radius 58
+}
+create_object PH_NEUTRAL_OFF {
+number_of_objects 14400
+temp_min_distance_group_placement 2
+actor_area 20007
+actor_area_radius 2
+avoid_actor_area 20006
+}
+create_object PH_NEUTRAL_OFF {
+number_of_objects 4
+actor_area_to_place_in 20000
+actor_area 20008
+actor_area_radius 42
+}
+create_object PH_NEUTRAL_OFF {
+number_of_objects 4
+actor_area_to_place_in 20000
+actor_area 20009
+actor_area_radius 32
+}
+create_object RELIC {
+actor_area_to_place_in 20001
+avoid_forest_zone 1
+min_distance_group_placement 1
+actor_area 20010
+actor_area_radius 120
+}
+create_object GOLD {
+actor_area_to_place_in 20001
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_forest_zone 2
+actor_area 20011
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+actor_area_to_place_in 20011
+actor_area 20012
+actor_area_radius 120
+}
+create_object GOLD {
+actor_area_to_place_in 20001
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+actor_area 20011
+actor_area_radius 1
+avoid_actor_area 20012
+}
+create_object PH_GENERIC_OFF {
+actor_area_to_place_in 20011
+actor_area 20012
+actor_area_radius 120
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 32
+actor_area_to_place_in 20011
+actor_area 20013
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 32
+actor_area_to_place_in 20011
+actor_area 20014
+actor_area_radius 5
+}
+create_object PH_GENERIC_OFF {
+number_of_objects 32
+actor_area_to_place_in 20011
+actor_area 20015
+actor_area_radius 7
+}
+create_object GOLD {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_forest_zone 2
+avoid_actor_area 20015
+min_distance_group_placement 2
+actor_area 20016
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20004
+else
+actor_area_to_place_in 20002
+endif
+}
+create_object GOLD {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_actor_area 20016
+avoid_actor_area 20015
+min_distance_group_placement 2
+actor_area 20016
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20004
+else
+actor_area_to_place_in 20002
+endif
+}
+create_object GOLD {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_forest_zone 2
+avoid_actor_area 20015
+min_distance_group_placement 2
+actor_area 20017
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20005
+else
+actor_area_to_place_in 20003
+endif
+}
+create_object GOLD {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_actor_area 20017
+avoid_actor_area 20015
+min_distance_group_placement 2
+actor_area 20017
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20005
+else
+actor_area_to_place_in 20003
+endif
+}
+create_object STONE {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_forest_zone 2
+avoid_actor_area 20014
+min_distance_group_placement 2
+actor_area 20018
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20002
+else
+actor_area_to_place_in 20004
+endif
+}
+create_object STONE {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_actor_area 20018
+avoid_actor_area 20014
+min_distance_group_placement 2
+actor_area 20018
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20002
+else
+actor_area_to_place_in 20004
+endif
+}
+create_object STONE {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_forest_zone 2
+avoid_actor_area 20014
+min_distance_group_placement 2
+actor_area 20019
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20003
+else
+actor_area_to_place_in 20005
+endif
+}
+create_object STONE {
+number_of_objects 2
+group_placement_radius 1
+set_tight_grouping
+avoid_actor_area 20019
+avoid_actor_area 20014
+min_distance_group_placement 2
+actor_area 20019
+actor_area_radius 120
+if FLIP_MIDDLE_RESOURCES
+actor_area_to_place_in 20003
+else
+actor_area_to_place_in 20005
+endif
+}
+create_object PH_NEUTRAL_OFF {
+number_of_objects 65536
+temp_min_distance_group_placement 2
+terrain_to_place_on SLOPE_TERRAIN
+actor_area 20020
+actor_area_radius 6
+}
+if COLLAPSE
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20021
+actor_area_radius 0
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20022
+actor_area_radius 1
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20023
+actor_area_radius 2
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20024
+actor_area_radius 3
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20025
+actor_area_radius 4
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20026
+actor_area_radius 5
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20027
+actor_area_radius 6
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20028
+actor_area_radius 7
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20029
+actor_area_radius 8
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20030
+actor_area_radius 9
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20031
+actor_area_radius 10
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20032
+actor_area_radius 11
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20033
+actor_area_radius 12
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20034
+actor_area_radius 13
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20035
+actor_area_radius 14
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20036
+actor_area_radius 15
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20037
+actor_area_radius 16
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20038
+actor_area_radius 17
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20039
+actor_area_radius 18
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20040
+actor_area_radius 19
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20041
+actor_area_radius 20
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20042
+actor_area_radius 21
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20043
+actor_area_radius 22
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20044
+actor_area_radius 23
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20045
+actor_area_radius 24
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20046
+actor_area_radius 25
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20047
+actor_area_radius 26
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20048
+actor_area_radius 27
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20049
+actor_area_radius 28
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20050
+actor_area_radius 29
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20051
+actor_area_radius 30
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20052
+actor_area_radius 31
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20053
+actor_area_radius 32
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20054
+actor_area_radius 33
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20055
+actor_area_radius 34
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20056
+actor_area_radius 35
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20057
+actor_area_radius 36
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20058
+actor_area_radius 37
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20059
+actor_area_radius 38
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20060
+actor_area_radius 39
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20061
+actor_area_radius 40
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20062
+actor_area_radius 41
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20063
+actor_area_radius 42
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20064
+actor_area_radius 43
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20065
+actor_area_radius 44
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20066
+actor_area_radius 45
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20067
+actor_area_radius 46
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20068
+actor_area_radius 47
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20069
+actor_area_radius 48
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20070
+actor_area_radius 49
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20071
+actor_area_radius 50
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20072
+actor_area_radius 51
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20073
+actor_area_radius 52
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20074
+actor_area_radius 53
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20075
+actor_area_radius 54
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20076
+actor_area_radius 55
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20077
+actor_area_radius 56
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20078
+actor_area_radius 57
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20079
+actor_area_radius 58
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20080
+actor_area_radius 59
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20081
+actor_area_radius 60
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20082
+actor_area_radius 61
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20083
+actor_area_radius 62
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20084
+actor_area_radius 63
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20085
+actor_area_radius 64
+}
+endif
+if EW_DARK
+create_object TEMPORARY_REVEALER
+{
+set_place_for_every_player
+min_distance_to_players 0
+max_distance_to_players 0
+}
+endif
+if OFFSET_START
+create_object PH_GENERIC_ON
+else
+create_object TOWN_CENTER
+endif
+{
+set_place_for_every_player
+if NOMAD_START
+number_of_objects 0
+else
+number_of_objects 1
+endif
+min_distance_to_players 0
+max_distance_to_players 0
+actor_area 20086
+actor_area_radius 24
+if OFFSET_START
+second_object TOWN_CENTER
+endif
+}
+if EMPIRE_WARS
+elseif REGICIDE
+else
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 3
+find_closest
+actor_area 20087
+actor_area_radius 4
+avoid_actor_area 20026
+if DEBUG_MODE
+second_object FLAG_D
+endif
+}
+create_object PH_GENERIC_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+find_closest
+actor_area 20088
+actor_area_radius 0
+avoid_actor_area 20087
+avoid_actor_area 20026
+if DEBUG_MODE
+second_object FLAG_E
+endif
+}
+if OFFSET_START
+create_object PH_GENERIC_ON
+else
+create_object PH_GENERIC_OFF
+endif
+{
+second_object VILLAGER
+set_place_for_every_player
+number_of_objects 2
+find_closest
+min_distance_group_placement 1
+actor_area 20089
+actor_area_radius 1
+avoid_actor_area 20087
+avoid_actor_area 20088
+avoid_actor_area 20026
+}
+endif
+if OFFSET_START
+create_object PH_GENERIC_ON
+else
+create_object PH_GENERIC_OFF
+endif
+{
+second_object VILLAGER
+set_place_for_every_player
+if EMPIRE_WARS
+number_of_objects 0
+elseif REGICIDE
+number_of_objects 10
+else
+number_of_objects 1
+endif
+find_closest
+min_distance_group_placement 1
+actor_area 20089
+actor_area_radius 1
+avoid_actor_area 20089
+avoid_actor_area 20026
+}
+if REGICIDE
+create_object QUEEN
+else
+if NOMAD_START
+create_object NOMAD_SCOUT
+else
+create_object SCOUT
+endif
+endif
+{
+set_place_for_every_player
+min_distance_to_players 6
+find_closest
+max_distance_to_other_zones 2
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20090
+actor_area_radius 1
+avoid_actor_area 20089
+}
+if REGICIDE
+if NOMAD_START
+create_object WATCH_TOWER
+else
+create_object CASTLE
+endif
+{
+set_place_for_every_player
+if NOMAD_START
+min_distance_to_players 0
+else
+min_distance_to_players 10
+endif
+find_closest
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20091
+actor_area_radius 4
+avoid_actor_area 20089
+avoid_actor_area 20090
+avoid_actor_area 20007
+}
+create_object KING
+{
+set_place_for_every_player
+min_distance_to_players 6
+find_closest
+max_distance_to_other_zones 2
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20092
+actor_area_radius 1
+avoid_actor_area 20089
+avoid_actor_area 20090
+}
+endif
+if CAPTURE_THE_RELIC
+create_object MONASTERY
+{
+set_place_for_every_player
+min_distance_to_players 10
+find_closest
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20093
+actor_area_radius 4
+avoid_actor_area 20089
+avoid_actor_area 20090
+avoid_actor_area 20091
+avoid_actor_area 20007
+}
+endif
+if DEATH_MATCH
+elseif INFINITE_RESOURCES
+else
+create_object S_STRAGGLER
+{
+set_place_for_every_player
+set_gaia_object_only
+if EMPIRE_WARS
+number_of_objects 0
+else
+number_of_objects 5
+endif
+min_distance_to_players 5
+find_closest
+temp_min_distance_group_placement 4
+avoid_forest_zone 2
+actor_area 20094
+actor_area_radius 1
+avoid_actor_area 20089
+avoid_actor_area 20090
+}
+endif
+if INFINITE_RESOURCES
+else
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 4
+min_distance_to_players 10
+find_closest
+temp_min_distance_group_placement 6
+actor_area 20095
+if CLOSE_PROXIMITY
+actor_area_radius 2
+else
+actor_area_radius 4
+endif
+if DEBUG_MODE
+second_object FLAG_A
+endif
+}
+create_object SHRUB
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 6
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+max_distance_to_other_zones 4
+avoid_forest_zone 3
+avoid_cliff_zone 3
+actor_area 20096
+if EMPIRE_WARS
+actor_area_radius 1
+else
+min_distance_group_placement 1
+actor_area_radius 8
+endif
+avoid_actor_area 20096
+avoid_actor_area 20091
+avoid_actor_area 20093
+avoid_actor_area 20095
+avoid_actor_area 20007
+}
+if EMPIRE_WARS
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20097
+actor_area_radius 1
+actor_area_to_place_in 20096
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20098
+actor_area_radius 8
+actor_area_to_place_in 20096
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20099
+actor_area_radius 18
+actor_area_to_place_in 20096
+}
+else
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20099
+actor_area_radius 10
+actor_area_to_place_in 20096
+}
+endif
+create_object GOLD
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 7
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+max_distance_to_other_zones 8
+avoid_forest_zone 3
+avoid_cliff_zone 3
+actor_area 20100
+if EMPIRE_WARS
+actor_area_radius 1
+else
+min_distance_group_placement 1
+actor_area_radius 8
+endif
+avoid_actor_area 20096
+avoid_actor_area 20100
+avoid_actor_area 20091
+avoid_actor_area 20093
+avoid_actor_area 20098
+avoid_actor_area 20095
+avoid_actor_area 20007
+}
+if EMPIRE_WARS
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20101
+actor_area_radius 1
+actor_area_to_place_in 20100
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20102
+actor_area_radius 8
+actor_area_to_place_in 20100
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20103
+actor_area_radius 18
+actor_area_to_place_in 20100
+}
+else
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20103
+actor_area_radius 10
+actor_area_to_place_in 20100
+}
+endif
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 4
+min_distance_to_players 14
+find_closest
+temp_min_distance_group_placement 6
+actor_area 20095
+if CLOSE_PROXIMITY
+actor_area_radius 2
+else
+min_distance_group_placement 1
+actor_area_radius 4
+endif
+if DEBUG_MODE
+second_object FLAG_A
+endif
+}
+create_object STONE
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 5
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 14
+find_closest
+max_distance_to_other_zones 8
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20104
+if EMPIRE_WARS
+actor_area_radius 1
+else
+actor_area_radius 8
+endif
+avoid_actor_area 20096
+avoid_actor_area 20100
+avoid_actor_area 20104
+avoid_actor_area 20091
+avoid_actor_area 20093
+avoid_actor_area 20098
+avoid_actor_area 20102
+avoid_actor_area 20095
+avoid_actor_area 20007
+}
+if EMPIRE_WARS
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20105
+actor_area_radius 1
+actor_area_to_place_in 20104
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20106
+actor_area_radius 8
+actor_area_to_place_in 20104
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20107
+actor_area_radius 18
+actor_area_to_place_in 20104
+}
+else
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20107
+actor_area_radius 10
+actor_area_to_place_in 20104
+}
+endif
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 4
+min_distance_to_players 16
+find_closest
+temp_min_distance_group_placement 6
+actor_area 20095
+if CLOSE_PROXIMITY
+actor_area_radius 2
+else
+actor_area_radius 4
+endif
+if DEBUG_MODE
+second_object FLAG_A
+endif
+}
+create_object GOLD
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 16
+find_closest
+max_distance_to_other_zones 8
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20108
+if EMPIRE_WARS
+actor_area_radius 1
+else
+min_distance_group_placement 1
+actor_area_radius 8
+endif
+avoid_actor_area 20096
+avoid_actor_area 20100
+avoid_actor_area 20108
+avoid_actor_area 20104
+avoid_actor_area 20091
+avoid_actor_area 20093
+avoid_actor_area 20098
+avoid_actor_area 20103
+avoid_actor_area 20106
+avoid_actor_area 20095
+avoid_actor_area 20007
+}
+if EMPIRE_WARS
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20109
+actor_area_radius 1
+actor_area_to_place_in 20108
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20110
+actor_area_radius 8
+actor_area_to_place_in 20108
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20111
+actor_area_radius 18
+actor_area_to_place_in 20108
+}
+else
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20111
+actor_area_radius 10
+actor_area_to_place_in 20108
+}
+endif
+create_object STONE
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 16
+find_closest
+max_distance_to_other_zones 8
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20112
+if EMPIRE_WARS
+actor_area_radius 1
+else
+min_distance_group_placement 1
+actor_area_radius 8
+endif
+avoid_actor_area 20096
+avoid_actor_area 20100
+avoid_actor_area 20108
+avoid_actor_area 20104
+avoid_actor_area 20112
+avoid_actor_area 20091
+avoid_actor_area 20093
+avoid_actor_area 20098
+avoid_actor_area 20102
+avoid_actor_area 20110
+avoid_actor_area 20107
+avoid_actor_area 20095
+avoid_actor_area 20007
+}
+if EMPIRE_WARS
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20113
+actor_area_radius 1
+actor_area_to_place_in 20112
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20114
+actor_area_radius 8
+actor_area_to_place_in 20112
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20115
+actor_area_radius 18
+actor_area_to_place_in 20112
+}
+else
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20115
+actor_area_radius 10
+actor_area_to_place_in 20112
+}
+endif
+endif
+if DEATH_MATCH
+elseif INFINITE_RESOURCES
+else
+create_object HERDABLE_A
+{
+set_place_for_every_player
+if EMPIRE_WARS
+find_closest
+else
+min_distance_to_players 8
+max_distance_to_players 10
+endif
+min_distance_group_placement 1
+avoid_forest_zone 1
+actor_area 20116
+actor_area_radius 2
+}
+if EMPIRE_WARS
+else
+create_object HERDABLE_A
+{
+set_place_for_every_player
+number_of_objects 3
+actor_area_to_place_in 20116
+}
+endif
+create_object HERDABLE_A {
+set_place_for_every_player
+set_loose_grouping
+if EMPIRE_WARS
+number_of_objects 4
+number_of_groups 1
+group_placement_radius 2
+min_distance_to_players 10
+find_closest
+else
+set_gaia_object_only
+number_of_objects 2
+number_of_groups 2
+min_distance_to_players 16
+max_distance_to_players 20
+endif
+temp_min_distance_group_placement 8
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20117
+actor_area_radius 16
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20007
+avoid_actor_area 20009
+}
+create_object LUREABLE_A
+{
+set_place_for_every_player
+set_gaia_object_only
+if EMPIRE_WARS
+number_of_objects 0
+else
+number_of_objects 2
+endif
+min_distance_to_players 14
+find_closest
+temp_min_distance_group_placement 12
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20118
+actor_area_radius 12
+avoid_actor_area 20118
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20008
+}
+endif
+if DEATH_MATCH
+else
+create_object O_STRAGGLER
+{
+number_of_objects 10
+min_distance_to_players 16
+set_scaling_to_map_size
+temp_min_distance_group_placement 2
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20119
+actor_area_radius 2
+avoid_actor_area 20007
+}
+create_object TREE_PINE
+{
+number_of_objects 10
+min_distance_to_players 16
+set_scaling_to_map_size
+temp_min_distance_group_placement 2
+terrain_to_place_on OUTSIDE_EDGE
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20120
+actor_area_radius 2
+avoid_actor_area 20007
+}
+create_object TREE_OAK {
+number_of_objects 8
+min_distance_to_players 16
+set_scaling_to_map_size
+temp_min_distance_group_placement 2
+terrain_to_place_on BASE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20121
+actor_area_radius 2
+avoid_actor_area 20007
+avoid_actor_area 20013
+}
+endif
+if LEGACY_RELICS
+create_object RELIC
+{
+if TINY_MAP
+number_of_objects 5
+temp_min_distance_group_placement 28
+elseif SMALL_MAP
+number_of_objects 5
+temp_min_distance_group_placement 30
+elseif MEDIUM_MAP
+number_of_objects 5
+temp_min_distance_group_placement 32
+elseif LARGE_MAP
+number_of_objects 7
+temp_min_distance_group_placement 36
+elseif HUGE_MAP
+number_of_objects 8
+temp_min_distance_group_placement 40
+elseif GIGANTIC_MAP
+number_of_objects 9
+temp_min_distance_group_placement 42
+elseif LUDIKRIS_MAP
+number_of_objects 20
+temp_min_distance_group_placement 84
+endif
+min_distance_to_players 24
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20122
+actor_area_radius 4
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20007
+}
+endif
+if INFINITE_RESOURCES
+else
+create_object GOLD
+{
+place_on_specific_land_id 500
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 16
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20123
+actor_area_radius 6
+}
+create_object GOLD
+{
+place_on_specific_land_id 503
+number_of_objects 4
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 16
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20124
+actor_area_radius 6
+}
+create_object STONE
+{
+place_on_specific_land_id 501
+number_of_objects 3
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 16
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20125
+actor_area_radius 6
+}
+create_object STONE
+{
+place_on_specific_land_id 502
+number_of_objects 3
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 16
+avoid_forest_zone 1
+avoid_cliff_zone 1
+actor_area 20126
+actor_area_radius 6
+}
+endif
+create_object PH_NEUTRAL_ON
+{
+second_object NERITIC_A
+place_on_specific_land_id 500
+number_of_objects 2
+min_distance_to_players 1
+find_closest
+temp_min_distance_group_placement 1
+terrain_to_place_on POND_CENTER
+actor_area 20127
+actor_area_radius 2
+}
+create_object PH_NEUTRAL_ON
+{
+second_object NERITIC_A
+place_on_specific_land_id 501
+number_of_objects 2
+min_distance_to_players 1
+find_closest
+temp_min_distance_group_placement 1
+terrain_to_place_on POND_CENTER
+actor_area 20127
+actor_area_radius 2
+}
+create_object PH_NEUTRAL_ON
+{
+second_object NERITIC_A
+place_on_specific_land_id 502
+number_of_objects 2
+min_distance_to_players 1
+find_closest
+temp_min_distance_group_placement 1
+terrain_to_place_on POND_CENTER
+actor_area 20127
+actor_area_radius 2
+}
+create_object PH_NEUTRAL_ON
+{
+second_object NERITIC_A
+place_on_specific_land_id 503
+number_of_objects 2
+min_distance_to_players 1
+find_closest
+temp_min_distance_group_placement 1
+terrain_to_place_on POND_CENTER
+actor_area 20127
+actor_area_radius 2
+}
+create_object PH_NEUTRAL_ON
+{
+second_object UNGULATE_A
+place_on_specific_land_id 500
+number_of_objects 4
+find_closest
+temp_min_distance_group_placement 1
+actor_area 20128
+actor_area_radius 4
+}
+create_object PH_NEUTRAL_ON
+{
+second_object UNGULATE_A
+place_on_specific_land_id 501
+number_of_objects 4
+find_closest
+temp_min_distance_group_placement 1
+actor_area 20128
+actor_area_radius 4
+}
+create_object PH_NEUTRAL_ON
+{
+second_object UNGULATE_A
+place_on_specific_land_id 502
+number_of_objects 4
+find_closest
+temp_min_distance_group_placement 1
+actor_area 20128
+actor_area_radius 4
+}
+create_object PH_NEUTRAL_ON
+{
+second_object UNGULATE_A
+place_on_specific_land_id 503
+number_of_objects 4
+find_closest
+temp_min_distance_group_placement 1
+actor_area 20128
+actor_area_radius 4
+}
+#define EXTRA_STUFF
+if EXTRA_STUFF
+if COMBINE_UNGULATE
+create_object UNGULATE_B
+{
+set_place_for_every_player
+set_gaia_object_only
+if UNGULATE_SIZE_A
+number_of_objects 3
+elseif UNGULATE_SIZE_B
+number_of_objects 2
+elseif UNGULATE_SIZE_C
+number_of_objects 1
+endif
+group_placement_radius 2
+set_loose_grouping
+temp_min_distance_group_placement 1
+actor_area_to_place_in 40
+}
+create_object UNGULATE_A
+{
+set_place_for_every_player
+set_gaia_object_only
+if UNGULATE_SIZE_A
+number_of_objects 3
+elseif UNGULATE_SIZE_B
+number_of_objects 2
+elseif UNGULATE_SIZE_C
+number_of_objects 1
+endif
+group_placement_radius 2
+set_loose_grouping
+temp_min_distance_group_placement 1
+actor_area_to_place_in 41
+}
+endif
+if EMPIRE_WARS
+create_object SHEPERD_MALE
+{
+set_place_for_every_player
+number_of_objects 5
+min_distance_to_players 3
+max_distance_to_players 3
+}
+create_object FARM
+{
+second_object VILLAGER
+set_place_for_every_player
+number_of_objects 2
+find_closest
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20129
+actor_area_radius 3
+actor_area_to_place_in 20096
+}
+create_object MILL
+{
+set_place_for_every_player
+find_closest
+max_distance_to_other_zones 2
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20130
+actor_area_radius 3
+actor_area_to_place_in 20096
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20131
+actor_area_radius 3
+actor_area_to_place_in 20100
+}
+create_object MINING_CAMP
+{
+set_place_for_every_player
+find_closest
+max_distance_to_other_zones 2
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20132
+actor_area_radius 3
+actor_area_to_place_in 20100
+avoid_actor_area 20097
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+}
+create_object LUMBER_CAMP
+{
+set_place_for_every_player
+min_distance_to_players 8
+place_on_forest_zone
+find_closest
+actor_area 20133
+actor_area_radius 2
+avoid_actor_area 20094
+avoid_actor_area 20119
+avoid_actor_area 420
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+avoid_actor_area 20131
+avoid_actor_area 20132
+avoid_actor_area 20007
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 4
+terrain_to_place_on BASE_TERRAIN
+actor_area 20134
+actor_area_radius 6
+actor_area_to_place_in 20133
+}
+create_object LUMBER_CAMP
+{
+set_place_for_every_player
+min_distance_to_players 8
+place_on_forest_zone
+find_closest
+actor_area 20135
+actor_area_radius 2
+avoid_actor_area 20094
+avoid_actor_area 20119
+avoid_actor_area 420
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+avoid_actor_area 20131
+avoid_actor_area 20132
+avoid_actor_area 20134
+avoid_actor_area 20007
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 4
+terrain_to_place_on BASE_TERRAIN
+actor_area 20136
+actor_area_radius 6
+actor_area_to_place_in 20135
+}
+create_object LUMBER_CAMP
+{
+set_place_for_every_player
+min_distance_to_players 8
+place_on_forest_zone
+find_closest
+actor_area 20137
+actor_area_radius 2
+avoid_actor_area 20094
+avoid_actor_area 20119
+avoid_actor_area 420
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+avoid_actor_area 20131
+avoid_actor_area 20132
+avoid_actor_area 20134
+avoid_actor_area 20136
+avoid_actor_area 20007
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 4
+terrain_to_place_on BASE_TERRAIN
+actor_area 20138
+actor_area_radius 6
+actor_area_to_place_in 20137
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 2
+find_closest
+actor_area_to_place_in 20096
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 2
+find_closest
+actor_area_to_place_in 20096
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 2
+find_closest
+actor_area_to_place_in 20100
+}
+create_object VILLAGER
+{
+set_place_for_every_player
+number_of_objects 2
+find_closest
+actor_area_to_place_in 20100
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20139
+actor_area_radius 2
+actor_area_to_place_in 20133
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20139
+actor_area_radius 2
+actor_area_to_place_in 20135
+}
+create_object PH_NEUTRAL_OFF
+{
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 64
+actor_area 20139
+actor_area_radius 2
+actor_area_to_place_in 20137
+}
+create_object HOUSE
+{
+set_place_for_every_player
+number_of_objects 6
+min_distance_to_players 8
+find_closest
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20140
+actor_area_radius 4
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+avoid_actor_area 20131
+avoid_actor_area 20132
+avoid_actor_area 20139
+}
+create_object BARRACKS
+{
+set_place_for_every_player
+min_distance_to_players 8
+find_closest
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20141
+actor_area_radius 4
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+avoid_actor_area 20131
+avoid_actor_area 20132
+avoid_actor_area 20139
+}
+create_object BLACKSMITH
+{
+set_place_for_every_player
+min_distance_to_players 8
+find_closest
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20142
+actor_area_radius 4
+avoid_actor_area 20097
+avoid_actor_area 20101
+avoid_actor_area 20109
+avoid_actor_area 822
+avoid_actor_area 20105
+avoid_actor_area 20113
+avoid_actor_area 20129
+avoid_actor_area 20130
+avoid_actor_area 20131
+avoid_actor_area 20132
+avoid_actor_area 20139
+}
+endif
+if KING_OT_HILL
+create_object MONUMENT_RESOURCES
+{
+set_place_for_every_player
+min_distance_to_players 0
+max_distance_to_players 0
+}
+endif
+#define AESTHETICS
+if AESTHETICS
+create_object BIRD_A
+{
+number_of_objects rnd(4,6)
+set_scaling_to_map_size
+}
+create_object BIRD_B
+{
+number_of_objects rnd(2,4)
+set_scaling_to_map_size
+}
+create_object PLANT_SHRUB_GREEN
+{
+number_of_objects 12
+set_scaling_to_map_size
+temp_min_distance_group_placement 1
+terrain_to_place_on POND_TERRAIN
+max_distance_to_other_zones 2
+avoid_forest_zone 1
+avoid_cliff_zone 1
+}
+endif
+endif
+if BALANCED_RELICS
+create_object RELIC {
+place_on_specific_land_id 500
+number_of_objects 1
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20143
+actor_area_radius 6
+avoid_actor_area 20123
+avoid_actor_area 20124
+avoid_actor_area 20125
+avoid_actor_area 20126
+avoid_actor_area 20020
+}
+create_object RELIC {
+place_on_specific_land_id 501
+number_of_objects 1
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20143
+actor_area_radius 6
+avoid_actor_area 20123
+avoid_actor_area 20124
+avoid_actor_area 20125
+avoid_actor_area 20126
+avoid_actor_area 20020
+}
+create_object RELIC {
+place_on_specific_land_id 502
+number_of_objects 1
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20143
+actor_area_radius 6
+avoid_actor_area 20123
+avoid_actor_area 20124
+avoid_actor_area 20125
+avoid_actor_area 20126
+avoid_actor_area 20020
+}
+create_object RELIC {
+place_on_specific_land_id 503
+number_of_objects 1
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 10
+find_closest
+terrain_to_place_on OUTSIDE_TERRAIN
+min_distance_group_placement 1
+max_distance_to_other_zones 4
+avoid_forest_zone 2
+avoid_cliff_zone 2
+actor_area 20143
+actor_area_radius 6
+avoid_actor_area 20123
+avoid_actor_area 20124
+avoid_actor_area 20125
+avoid_actor_area 20126
+avoid_actor_area 20020
+}
+endif

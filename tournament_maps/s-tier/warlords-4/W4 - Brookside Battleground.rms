@@ -1,0 +1,3012 @@
+/*
+	Brookside Battleground
+	
+	Supported modes: 1v1
+	
+	The scenario editor shows accurate object locations, but not accurate minimaps.
+	
+	Most of the terrains are accurate in the editor, but a small amount of blending occurs at runtime
+		and is not visible in the editor.
+	
+	Author: Biz
+	
+	v1: initial release
+	
+	v2: added 50% chance to swap p1 & p2 positions
+*/
+
+/* FOOD DESCRIPTION
+	
+	player herdables:
+		6 goats (2 next to TC, 2 @ 20 tiles, 2 @ 30 tiles)
+		extra 4 goats (@ 40, 45, or 50 tiles). difficult to find
+	extra map herdables:
+		8 sheep > 55 tiles from players
+	these are small incentives to explore instead of push gazelles
+	
+	player huntables:
+		1 rhino @ 20 tiles. extra hunt available along the river if desired
+	additionally, the far extra hunt is mixed with shore fish to avoid overpowering the mongols
+	
+	forage bushes:
+		6 nearby
+	extra forage bushes:
+		6 + 6 at a medium distance near side mountain ranges
+		6 + 6 at a far distance near forward mountain ranges
+	
+	the extra bushes & huntables are mostly cosmetic, but also provide
+		a small incentive to sprawl beyond the starting TC area
+	
+	lakes:
+		the neutral lake is farther from the players' personal lakes, and also has better fishing.
+		the size of the lakes is designed to let ranged land units be able to harass fish traps.
+*/
+
+/* MINE DESCRIPTION
+	the map is split in half with the player TCs being the dividing line.
+		one side gets gold, the other side gets stone (decided randomly)
+	
+	the generation procedure spawns the same quantity of mines in each half,
+		but there is more gold than stone because the gold mines hold 800, whereas the stone mines hold 350.
+	
+	near players: 1 pile of 4x
+	medium-far distance from players: 3 piles of 2x
+	very far from players: 4 piles of 3x
+	
+	total: 22 gold mines per player + 22 stone mines per player
+	
+	since gold is usually more contested than stone,
+		the relics have been configured to always spawn on the stone side of the map.
+	the map size is larger than normal, so it's acceptable if some of the battles get focused at a smaller area.
+*/
+
+/* WOOD DESCRIPTION
+	3 near forests per player: 2 adjacent to the river (on the player base side) and one more inland (smaller)
+	farther away: 4 additional forests per player adjacent to the river (these may require crossing the river)
+	1 forest per player across their closest fishing lake
+	
+	center of map gets a few extra forests (smaller)
+	each corner gets a single forest (smaller)
+	
+	about two-thirds of the wood on the map could be in range of navies,
+		providing a moderate incentive to invest in naval supremacy.
+*/
+
+
+/* random selectors so that seed-based reproduction is easier */
+
+/* for random hills (land generation) */
+	start_random
+		percent_chance 33 #define RDM_VAR1_OPTION1
+		percent_chance 34 #define RDM_VAR1_OPTION2
+		percent_chance 33 #define RDM_VAR1_OPTION3
+	end_random
+	start_random
+		percent_chance 33 #define RDM_VAR2_OPTION1
+		percent_chance 34 #define RDM_VAR2_OPTION2
+		percent_chance 33 #define RDM_VAR2_OPTION3
+	end_random
+	start_random
+		percent_chance 33 #define RDM_VAR3_OPTION1
+		percent_chance 34 #define RDM_VAR3_OPTION2
+		percent_chance 33 #define RDM_VAR3_OPTION3
+	end_random
+	start_random
+		percent_chance 33 #define RDM_VAR4_OPTION1
+		percent_chance 34 #define RDM_VAR4_OPTION2
+		percent_chance 33 #define RDM_VAR4_OPTION3
+	end_random
+
+/* for gaps in mountain/rock walls (connection generation) */
+	start_random
+		percent_chance 65 #define RDM_VAR5_OPTION1 /* 1 player gap, 2 middle gaps */
+		percent_chance 35 #define RDM_VAR5_OPTION2 /* 2 player gaps, 1 middle gap */
+	end_random
+
+/* whether it's gold left stone right or vice versa */
+	start_random
+		percent_chance 50 #const MINE1 66 #const MINE2 102 #const RELIC1 285 #const RELIC2 816
+		percent_chance 50 #const MINE1 102 #const MINE2 66 #const RELIC1 816 #const RELIC2 285
+	end_random
+
+/* random distance of extra sheep */
+	start_random
+		percent_chance 33 #define SHEEPA_40
+		percent_chance 34 #define SHEEPA_45
+		percent_chance 33 #define SHEEPA_50
+	end_random
+	start_random
+		percent_chance 33 #define SHEEPB_40
+		percent_chance 34 #define SHEEPB_45
+		percent_chance 33 #define SHEEPB_50
+	end_random
+
+/* random clockwise/counterclockwise direction of lakes */
+	start_random
+		percent_chance 50 #define SWAP
+	end_random
+
+if DEATH_MATCH #define NOT_EDITOR endif
+if REGICIDE #define NOT_EDITOR endif
+if CAPTURE_THE_RELIC #define NOT_EDITOR endif
+if RANDOM_MAP #define NOT_EDITOR endif
+if TURBO_RANDOM_MAP #define NOT_EDITOR endif
+if WONDER_RACE #define NOT_EDITOR endif
+if DEFEND_WONDER #define NOT_EDITOR endif
+if EMPIRE_WARS #define NOT_EDITOR endif
+if BATTLE_ROYALE #define NOT_EDITOR endif
+if SUDDEN_DEATH #define NOT_EDITOR endif
+
+/* will become middle landmass */
+	#const T_P1_BASE 45
+	#const T_P2_BASE 46
+
+#const T_P1_LAKE 1
+#const T_P2_LAKE 23 /* will become p1 lake terrain */
+#const T_N_LAKE 54
+
+/* these placeholders will become the middle landmass */
+	#const T_N_PH 10
+
+	#const T_P1_PH1 17
+	#const T_P1_PH2 18
+	#const T_P1_PH3 19
+
+	#const T_P2_PH1 48
+	#const T_P2_PH2 49
+	#const T_P2_PH3 50
+
+#const T_CENTER 100
+#const T_CENTER_RDM_CLUMPS 16
+#const T_LANDMASS_MIDDLE 0
+#const T_MIDDLE_RDM_CLUMPS 44
+
+#const T_HILL 9
+#const T_LANDMASS1 60
+#const T_LANDMASS2 83
+#const T_LANDMASS_RDM_CLUMPS 77
+#const T_LANDMASS_CORNER 12
+/* 62 is available if more are needed, but it cannot be a layer */
+
+#const T_N_CONNECT 3
+#const T_P1_CONNECT 6 /* will become T_N_CONNECT in the end */
+#const T_P2_CONNECT 11 /* will become T_N_CONNECT in the end */
+#const T_BRIDGE 68
+
+#const T_HILL_DEC 70
+
+<PLAYER_SETUP>
+					effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+					effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -90
+override_map_size 150
+random_placement
+behavior_version 1
+
+#const FOREST_TERRAIN_SPAWNER 1649
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_SPAWNER ATTR_FOUNDATION_TERRAIN 112 /* grass2 instead of leaves below the trees */
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_SPAWNER ATTR_HITPOINTS 0
+
+#const FOREST_TERRAIN_BLOCKER 2097
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_BLOCKER ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_BLOCKER ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_BLOCKER ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_BLOCKER ATTR_STANDING_GRAPHIC 13777
+effect_amount SET_ATTRIBUTE FOREST_TERRAIN_BLOCKER ATTR_DYING_GRAPHIC 13777
+
+#const WATER_MARKER_1 431
+effect_amount SET_ATTRIBUTE WATER_MARKER_1 ATTR_TERRAIN_ID 17
+effect_amount SET_ATTRIBUTE WATER_MARKER_1 ATTR_STANDING_GRAPHIC 13777 /* nonexistent */
+
+#const WATER_MARKER_2 433
+effect_amount SET_ATTRIBUTE WATER_MARKER_2 ATTR_TERRAIN_ID 21
+effect_amount SET_ATTRIBUTE WATER_MARKER_2 ATTR_STANDING_GRAPHIC 13777 /* nonexistent */
+
+/* these will become stragglers, but don't count as forests for forest_zone commands */
+	/* standing graphic isn't necessary, but makes the editor more accurate */
+	#const RANGE_TREE_PH1 1198
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH1 ATTR_DEAD_ID 1053 /* african bush */
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH1 ATTR_HITPOINTS 0
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH1 ATTR_DYING_GRAPHIC 13777 /* nonexistent */
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH1 ATTR_STANDING_GRAPHIC 8489 /* african bush */
+
+	#const RANGE_TREE_PH2 1199
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH2 ATTR_DEAD_ID 1250 /* dead tree */
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH2 ATTR_HITPOINTS 0
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH2 ATTR_DYING_GRAPHIC 13777 /* nonexistent */
+	effect_amount SET_ATTRIBUTE RANGE_TREE_PH2 ATTR_STANDING_GRAPHIC 10447 /* dead tree */
+
+#const BUILDING_TERRAIN_DEC1 1196
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC1 ATTR_FOUNDATION_TERRAIN 44
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC1 ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC1 ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC1 ATTR_DYING_GRAPHIC 13777 /* nonexistent */
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC1 ATTR_STANDING_GRAPHIC 13777 /* nonexistent */
+
+#const BUILDING_TERRAIN_DEC2 1197
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC2 ATTR_FOUNDATION_TERRAIN 100
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC2 ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC2 ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC2 ATTR_DYING_GRAPHIC 13777 /* nonexistent */
+effect_amount SET_ATTRIBUTE BUILDING_TERRAIN_DEC2 ATTR_STANDING_GRAPHIC 13777 /* nonexistent */
+
+<LAND_GENERATION>
+base_terrain T_LANDMASS1
+
+create_land { terrain_type T_P1_BASE left_border 16 right_border 16 bottom_border 16 top_border 16 number_of_tiles 400 base_size 8 clumping_factor 25 if SWAP assign_to AT_PLAYER 1 0 1 else assign_to AT_PLAYER 2 0 1 endif circle_radius 33 0 }
+create_land { terrain_type T_P1_PH3 number_of_tiles 99 if SWAP assign_to AT_PLAYER 1 0 1 else assign_to AT_PLAYER 2 0 1 endif land_id 2 }
+create_land { terrain_type T_P1_LAKE number_of_tiles 100 base_size 3 if SWAP assign_to AT_PLAYER 1 0 1 else assign_to AT_PLAYER 2 0 1 endif land_id 5 }
+create_land { terrain_type T_N_PH number_of_tiles 99 if SWAP assign_to AT_PLAYER 1 0 1 else assign_to AT_PLAYER 2 0 1 endif land_id 6 }
+create_land { terrain_type T_P2_LAKE number_of_tiles 100 base_size 3 if SWAP assign_to AT_PLAYER 1 0 1 else assign_to AT_PLAYER 2 0 1 endif land_id 5 }
+create_land { terrain_type T_P2_PH3 number_of_tiles 99 if SWAP assign_to AT_PLAYER 1 0 1 else assign_to AT_PLAYER 2 0 1 endif land_id 3 }
+
+
+create_land { terrain_type T_P2_BASE left_border 16 right_border 16 bottom_border 16 top_border 16 number_of_tiles 400 base_size 8 clumping_factor 25 if SWAP assign_to AT_PLAYER 2 0 1 else assign_to AT_PLAYER 1 0 1 endif }
+create_land { terrain_type T_P2_PH1 number_of_tiles 99 if SWAP assign_to AT_PLAYER 2 0 1 else assign_to AT_PLAYER 1 0 1 endif land_id 10 }
+create_land { terrain_type T_P2_PH2 number_of_tiles 99 if SWAP assign_to AT_PLAYER 2 0 1 else assign_to AT_PLAYER 1 0 1 endif land_id 1 }
+create_land { terrain_type T_N_LAKE number_of_tiles 150 base_size 4 if SWAP assign_to AT_PLAYER 2 0 1 else assign_to AT_PLAYER 1 0 1 endif land_id 4 }
+create_land { terrain_type T_P1_PH2 number_of_tiles 99 assign_to if SWAP assign_to AT_PLAYER 2 0 1 else assign_to AT_PLAYER 1 0 1 endif land_id 1 }
+create_land { terrain_type T_P1_PH1 number_of_tiles 99 assign_to if SWAP assign_to AT_PLAYER 2 0 1 else assign_to AT_PLAYER 1 0 1 endif land_id 11 }
+
+create_land { terrain_type T_CENTER land_position 50 50 number_of_tiles 800 clumping_factor 20 base_size 12 land_id 7 }
+create_land { terrain_type T_LANDMASS_MIDDLE land_position 37 37 left_border 18 right_border 18 bottom_border 18 top_border 18 }
+
+create_land { terrain_type T_LANDMASS1 land_percent 0 base_size 0 land_position 1 1 land_id 9 }
+create_land { terrain_type T_LANDMASS1 land_percent 0 base_size 0 land_position 99 1 land_id 9 }
+create_land { terrain_type T_LANDMASS1 land_percent 0 base_size 0 land_position 99 99 land_id 9 }
+create_land { terrain_type T_LANDMASS1 land_percent 0 base_size 0 land_position 1 99 land_id 9 }
+
+create_land { terrain_type T_LANDMASS1 land_percent 0 base_size 0 land_position 95 1 land_id 8 }
+
+/* for each quadrant, choose a set at random to mark hill locations */
+if RDM_VAR1_OPTION1
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 16 23 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 5 32 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 2 30 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 11 43 }
+elseif RDM_VAR1_OPTION2
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 26 13 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 14 14 }
+	create_land { terrain_type T_HILL number_of_tiles 100 base_size 4 land_position 10 10 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 14 26 }
+elseif RDM_VAR1_OPTION3
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 23 16 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 32 5 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 30 2 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 43 11 }
+endif
+
+if RDM_VAR2_OPTION1
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 84 23 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 95 32 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 98 30 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 89 43 }
+elseif RDM_VAR2_OPTION2
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 74 13 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 86 14 }
+	create_land { terrain_type T_HILL number_of_tiles 100 base_size 4 land_position 90 10 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 86 26 }
+elseif RDM_VAR2_OPTION3
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 77 16 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 68 5 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 70 2 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 57 11 }
+endif
+
+if RDM_VAR3_OPTION1
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 84 77 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 95 68 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 98 70 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 89 57 }
+elseif RDM_VAR3_OPTION2
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 74 87 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 86 86 }
+	create_land { terrain_type T_HILL number_of_tiles 100 base_size 4 land_position 90 90 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 86 74 }
+elseif RDM_VAR3_OPTION3
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 77 84 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 68 95 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 70 98 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 57 89 }
+endif
+
+if RDM_VAR4_OPTION1
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 16 77 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 5 68 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 2 70 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 11 57 }
+elseif RDM_VAR4_OPTION2
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 26 87 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 14 86 }
+	create_land { terrain_type T_HILL number_of_tiles 100 base_size 4 land_position 10 90 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 14 74 }
+elseif RDM_VAR4_OPTION3
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 23 84 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 32 95 }
+	create_land { terrain_type T_HILL number_of_tiles 50 base_size 2 land_position 30 98 }
+	create_land { terrain_type T_HILL number_of_tiles 125 base_size 4 land_position 43 89 }
+endif
+
+<ELEVATION_GENERATION>
+create_elevation 3 { base_terrain T_HILL number_of_tiles 9999 number_of_clumps 999 }
+	create_elevation 3 { base_terrain T_HILL number_of_tiles 9999 number_of_clumps 999 }
+	create_elevation 3 { base_terrain T_HILL number_of_tiles 9999 number_of_clumps 999 }
+
+<TERRAIN_GENERATION>
+/* functional */
+create_terrain T_LANDMASS1 { base_terrain T_HILL land_percent 99 number_of_clumps 999 height_limits 0 0 }
+	create_terrain T_LANDMASS1 { base_terrain T_HILL land_percent 99 number_of_clumps 999 height_limits 0 0 }
+	create_terrain T_LANDMASS1 { base_terrain T_HILL land_percent 99 number_of_clumps 999 height_limits 0 0 }
+
+create_terrain T_LANDMASS_CORNER { base_terrain T_LANDMASS1 land_percent 99 number_of_clumps 999 set_avoid_player_start_areas 40 }
+	create_terrain T_LANDMASS_CORNER { base_terrain T_LANDMASS1 land_percent 99 number_of_clumps 999 set_avoid_player_start_areas 40 }
+	create_terrain T_LANDMASS_CORNER { base_terrain T_LANDMASS1 land_percent 99 number_of_clumps 999 set_avoid_player_start_areas 40 }
+
+create_terrain T_LANDMASS2 { terrain_mask 2 base_terrain T_LANDMASS_CORNER land_percent 99 number_of_clumps 999 }
+	create_terrain T_LANDMASS2 { terrain_mask 2 base_terrain T_LANDMASS_CORNER land_percent 99 number_of_clumps 999 }
+	create_terrain T_LANDMASS2 { terrain_mask 2 base_terrain T_LANDMASS_CORNER land_percent 99 number_of_clumps 999 }
+
+create_terrain T_LANDMASS2 { base_terrain T_LANDMASS1 land_percent 99 number_of_clumps 999 spacing_to_other_terrain_types 3 }
+	create_terrain T_LANDMASS2 { base_terrain T_LANDMASS1 land_percent 99 number_of_clumps 999 spacing_to_other_terrain_types 3 }
+	create_terrain T_LANDMASS2 { base_terrain T_LANDMASS1 land_percent 99 number_of_clumps 999 spacing_to_other_terrain_types 3 }
+
+create_terrain T_LANDMASS_CORNER { base_layer T_LANDMASS_CORNER land_percent 99 number_of_clumps 999 }
+	create_terrain T_LANDMASS_CORNER { base_layer T_LANDMASS_CORNER land_percent 99 number_of_clumps 999 }
+	create_terrain T_LANDMASS_CORNER { base_layer T_LANDMASS_CORNER land_percent 99 number_of_clumps 999 }
+
+create_terrain T_LANDMASS_RDM_CLUMPS { base_terrain T_LANDMASS2 land_percent 8 number_of_clumps 200 set_avoid_player_start_areas 17 }
+
+create_terrain T_MIDDLE_RDM_CLUMPS { base_terrain T_LANDMASS_MIDDLE land_percent 7 number_of_clumps 200 spacing_to_other_terrain_types 2 }
+create_terrain T_CENTER_RDM_CLUMPS { base_terrain T_CENTER land_percent 1 number_of_clumps 90 spacing_to_other_terrain_types 3 }
+
+/* decorative */
+create_terrain T_HILL { terrain_mask 1 base_terrain T_LANDMASS_CORNER land_percent 4 number_of_clumps 50 }
+create_terrain T_LANDMASS_RDM_CLUMPS { terrain_mask 1 base_terrain T_LANDMASS_CORNER land_percent 2 number_of_clumps 25 }
+create_terrain T_HILL_DEC { terrain_mask 1 base_terrain T_HILL land_percent 2 number_of_clumps 20 }
+
+<CONNECTION_GENERATION>
+accumulate_connections
+
+/* costs could be 1 9 35 35, but observed 1 bugged generation in about 1000 cases
+	99% chance that 1 8 35 35 is fine, but haven't tested it */
+
+/* connect p1 lake to neutral lake */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_RDM_CLUMPS SHALLOW
+	replace_terrain T_LANDMASS2 DLC_NEWSHALLOW
+	replace_terrain T_LANDMASS1 SHALLOW
+	terrain_cost T_LANDMASS_RDM_CLUMPS 1
+	terrain_cost T_LANDMASS2 7
+	terrain_cost T_LANDMASS1 25
+	terrain_cost BEACH 35
+		
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	
+	terrain_cost T_CENTER 0
+	terrain_cost T_LANDMASS_MIDDLE 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	terrain_cost T_N_PH 0
+}
+
+/* connect p2 lake to neutral lake */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_RDM_CLUMPS SHALLOW
+	replace_terrain T_LANDMASS2 DLC_NEWSHALLOW
+	replace_terrain T_LANDMASS1 SHALLOW
+	terrain_cost T_LANDMASS_RDM_CLUMPS 1
+	terrain_cost T_LANDMASS2 7
+	terrain_cost T_LANDMASS1 25
+	terrain_cost BEACH 35
+	
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	
+	terrain_cost T_CENTER 0
+	terrain_cost T_LANDMASS_MIDDLE 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	terrain_cost T_N_PH 0
+	
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+}
+
+/* connect neutral lake to neutral placeholder */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_MIDDLE T_N_CONNECT
+	replace_terrain T_MIDDLE_RDM_CLUMPS T_N_CONNECT
+	replace_terrain T_CENTER T_N_CONNECT
+	replace_terrain T_CENTER_RDM_CLUMPS T_N_CONNECT
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 1
+	terrain_cost T_CENTER 2
+	terrain_cost T_MIDDLE_RDM_CLUMPS 3
+	terrain_cost T_LANDMASS_MIDDLE 7
+	terrain_cost T_N_PH 9
+	terrain_cost T_N_LAKE 9
+	terrain_cost BEACH 9
+	
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+}
+
+/* placeholder connect p1 lake to p1 */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_MIDDLE LEAVES
+	replace_terrain T_MIDDLE_RDM_CLUMPS LEAVES
+	
+	terrain_cost T_MIDDLE_RDM_CLUMPS 1
+	terrain_cost T_LANDMASS_MIDDLE 5
+	
+	terrain_cost T_P1_LAKE 9
+	terrain_cost T_P1_BASE 9
+	terrain_cost BEACH 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_CENTER 0
+	terrain_cost T_CENTER_RDM_CLUMPS 0
+	terrain_cost T_N_CONNECT 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+}
+
+/* real connect p1 lake to p1 placeholder1 */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_MIDDLE T_P1_CONNECT
+	replace_terrain T_MIDDLE_RDM_CLUMPS T_P1_CONNECT
+	replace_terrain LEAVES T_P1_CONNECT
+	
+	terrain_cost LEAVES 1
+	
+	terrain_cost T_MIDDLE_RDM_CLUMPS 2
+	terrain_cost T_LANDMASS_MIDDLE 5
+	
+	terrain_cost T_P1_LAKE 9
+	terrain_cost T_P1_PH2 9
+	terrain_cost BEACH 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_CENTER 0
+	terrain_cost T_CENTER_RDM_CLUMPS 0
+	terrain_cost T_N_CONNECT 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+}
+
+/* placeholder connect p2 lake to p2 */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_MIDDLE LEAVES
+	replace_terrain T_MIDDLE_RDM_CLUMPS LEAVES
+	
+	terrain_cost T_MIDDLE_RDM_CLUMPS 1
+	terrain_cost T_LANDMASS_MIDDLE 5
+	
+	terrain_cost T_P2_LAKE 9
+	terrain_cost T_P2_BASE 9
+	terrain_cost BEACH 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_CENTER 0
+	terrain_cost T_CENTER_RDM_CLUMPS 0
+	terrain_cost T_N_CONNECT 0
+	terrain_cost T_P1_CONNECT 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+}
+
+/* real connect p2 lake to p2 placeholder1 */
+create_connect_all_players_land {
+	replace_terrain T_LANDMASS_MIDDLE T_P2_CONNECT
+	replace_terrain T_MIDDLE_RDM_CLUMPS T_P2_CONNECT
+	replace_terrain LEAVES T_P2_CONNECT
+	
+	terrain_cost LEAVES 1
+	
+	terrain_cost T_MIDDLE_RDM_CLUMPS 2
+	terrain_cost T_LANDMASS_MIDDLE 5
+	
+	terrain_cost T_P2_LAKE 9
+	terrain_cost T_P2_PH2 9
+	terrain_cost BEACH 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_CENTER 0
+	terrain_cost T_CENTER_RDM_CLUMPS 0
+	terrain_cost T_N_CONNECT 0
+	terrain_cost T_P1_CONNECT 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+}
+
+/* choose between two possible bridge patterns */
+if RDM_VAR5_OPTION1
+create_connect_all_players_land { /* p1 base to p2 placeholder2, bridging p1 connect */
+	replace_terrain T_P1_CONNECT T_BRIDGE
+	terrain_size T_P1_CONNECT 9 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 1
+	terrain_cost T_CENTER 3
+	terrain_cost T_LANDMASS_MIDDLE 9
+	terrain_cost T_MIDDLE_RDM_CLUMPS 9
+	terrain_cost T_P1_CONNECT 9
+	terrain_cost T_N_CONNECT 3
+	terrain_cost T_P2_CONNECT 3
+	terrain_cost LEAVES 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+create_connect_all_players_land { /* p2 base to p1 placeholder2, bridging p2 connect */
+	replace_terrain T_P2_CONNECT T_BRIDGE
+	terrain_size T_P2_CONNECT 9 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 1
+	terrain_cost T_CENTER 3
+	terrain_cost T_LANDMASS_MIDDLE 9
+	terrain_cost T_MIDDLE_RDM_CLUMPS 9
+	terrain_cost T_P2_CONNECT 9
+	terrain_cost T_N_CONNECT 3
+	terrain_cost T_P1_CONNECT 3
+	terrain_cost T_BRIDGE 3
+	terrain_cost LEAVES 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+create_connect_all_players_land { /* p1 placeholder1 to p2 placeholder1, bridging neutral connect, through existing bridges */
+	replace_terrain T_N_CONNECT T_BRIDGE
+	terrain_size T_N_CONNECT 5 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 9
+	terrain_cost T_CENTER 5
+	terrain_cost T_LANDMASS_MIDDLE 3
+	terrain_cost T_MIDDLE_RDM_CLUMPS 3
+	terrain_cost T_P1_CONNECT 55 /* sometimes the only path is through the player base */
+	terrain_cost T_P2_CONNECT 55 /* sometimes the only path is through the player base */
+	terrain_cost T_BRIDGE 3
+	terrain_cost T_N_CONNECT 3
+	terrain_cost LEAVES 3
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+create_connect_all_players_land { /* p1 placeholder3 to p2 placeholder3, bridging neutral connect, through existing bridges */
+	replace_terrain T_N_CONNECT T_BRIDGE
+	terrain_size T_N_CONNECT 5 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 9
+	terrain_cost T_CENTER 5
+	terrain_cost T_LANDMASS_MIDDLE 3
+	terrain_cost T_MIDDLE_RDM_CLUMPS 3
+	terrain_cost T_P1_CONNECT 55 /* sometimes the only path is through the player base */
+	terrain_cost T_P2_CONNECT 55 /* sometimes the only path is through the player base */
+	terrain_cost T_BRIDGE 3
+	terrain_cost T_N_CONNECT 3
+	terrain_cost LEAVES 3
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+elseif RDM_VAR5_OPTION2
+create_connect_all_players_land { /* p1 to p2, bridging neutral connect through middle */
+	replace_terrain T_N_CONNECT T_BRIDGE
+	terrain_size T_N_CONNECT 11 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 1
+	terrain_cost T_CENTER 3
+	terrain_cost T_LANDMASS_MIDDLE 9
+	terrain_cost T_MIDDLE_RDM_CLUMPS 9
+	terrain_cost T_P1_CONNECT 9
+	terrain_cost T_N_CONNECT 9
+	terrain_cost T_P2_CONNECT 9
+	terrain_cost LEAVES 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+create_connect_all_players_land { /* p1 placeholder1 to p2 placeholder3, bridging p1 connect and p2 connect through middle bridge */
+	replace_terrain T_P1_CONNECT T_BRIDGE
+	replace_terrain T_P2_CONNECT T_BRIDGE
+	terrain_size T_P1_CONNECT 4 1
+	terrain_size T_P2_CONNECT 4 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 1
+	terrain_cost T_CENTER 1
+	terrain_cost T_BRIDGE 1
+	terrain_cost T_LANDMASS_MIDDLE 9
+	terrain_cost T_MIDDLE_RDM_CLUMPS 9
+	terrain_cost T_P1_CONNECT 9
+	terrain_cost T_N_CONNECT 0
+	terrain_cost T_P2_CONNECT 9
+	terrain_cost LEAVES 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P1_PH3 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P2_PH1 0
+	terrain_cost T_P2_PH2 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+create_connect_all_players_land { /* p2 placeholder1 to p1 placeholder3, bridging p1 connect and p2 connect through middle bridge */
+	replace_terrain T_P1_CONNECT T_BRIDGE
+	replace_terrain T_P2_CONNECT T_BRIDGE
+	terrain_size T_P1_CONNECT 4 1
+	terrain_size T_P2_CONNECT 4 1
+	
+	terrain_cost T_CENTER_RDM_CLUMPS 1
+	terrain_cost T_CENTER 1
+	terrain_cost T_BRIDGE 1
+	terrain_cost T_LANDMASS_MIDDLE 9
+	terrain_cost T_MIDDLE_RDM_CLUMPS 9
+	terrain_cost T_P1_CONNECT 9
+	terrain_cost T_N_CONNECT 0
+	terrain_cost T_P2_CONNECT 9
+	terrain_cost LEAVES 9
+	
+	terrain_cost T_N_LAKE 0
+	terrain_cost T_P1_LAKE 0
+	terrain_cost T_P2_LAKE 0
+	terrain_cost T_N_PH 0
+	terrain_cost T_P1_BASE 0
+	terrain_cost T_P1_PH1 0
+	terrain_cost T_P1_PH2 0
+	terrain_cost T_P2_BASE 0
+	terrain_cost T_P2_PH2 0
+	terrain_cost T_P2_PH3 0
+	
+	terrain_cost T_LANDMASS1 0
+	terrain_cost T_LANDMASS2 0
+	terrain_cost T_LANDMASS_RDM_CLUMPS 0
+	terrain_cost T_LANDMASS_CORNER 0
+	terrain_cost T_HILL 0
+	terrain_cost SHALLOW 0
+	terrain_cost DLC_NEWSHALLOW 0
+	terrain_cost BEACH 0
+}
+endif
+
+/* add rocky beaches near mountain ranges, copying the connection code used to make the original connection */
+	create_connect_all_players_land {
+		replace_terrain BEACH DLC_GRAVELBEACH
+		terrain_size BEACH 5 0
+		terrain_cost T_N_CONNECT 1
+		terrain_cost T_BRIDGE 1
+		terrain_cost LEAVES 0
+		terrain_cost T_P1_CONNECT 0
+		terrain_cost T_P2_CONNECT 0
+		
+		terrain_cost T_CENTER_RDM_CLUMPS 1
+		terrain_cost T_CENTER 2
+		terrain_cost T_MIDDLE_RDM_CLUMPS 3
+		terrain_cost T_LANDMASS_MIDDLE 7
+		terrain_cost T_N_PH 9
+		terrain_cost T_N_LAKE 9
+		terrain_cost BEACH 9
+		
+		terrain_cost T_P1_LAKE 0
+		terrain_cost T_P2_LAKE 0
+		terrain_cost T_P1_BASE 0
+		terrain_cost T_P2_BASE 0
+		terrain_cost T_P1_PH1 0
+		terrain_cost T_P1_PH2 0
+		terrain_cost T_P1_PH3 0
+		terrain_cost T_P2_PH1 0
+		terrain_cost T_P2_PH2 0
+		terrain_cost T_P2_PH3 0
+		
+		terrain_cost T_LANDMASS1 0
+		terrain_cost T_LANDMASS2 0
+		terrain_cost T_LANDMASS_RDM_CLUMPS 0
+		terrain_cost T_LANDMASS_CORNER 0
+		terrain_cost T_HILL 0
+		terrain_cost SHALLOW 0
+		terrain_cost DLC_NEWSHALLOW 0
+	}
+	create_connect_all_players_land {
+		replace_terrain BEACH DLC_GRAVELBEACH
+		terrain_size BEACH 5 0
+		terrain_cost T_N_CONNECT 0
+		terrain_cost T_BRIDGE 1
+		terrain_cost T_P1_CONNECT 1
+		terrain_cost T_P2_CONNECT 0
+		
+		terrain_cost LEAVES 1
+		
+		terrain_cost T_MIDDLE_RDM_CLUMPS 2
+		terrain_cost T_LANDMASS_MIDDLE 5
+		
+		terrain_cost T_P1_LAKE 9
+		terrain_cost T_P1_PH2 9
+		terrain_cost BEACH 9
+		
+		terrain_cost T_N_LAKE 0
+		terrain_cost T_N_PH 0
+		terrain_cost T_P2_LAKE 0
+		terrain_cost T_P1_BASE 0
+		terrain_cost T_P2_BASE 0
+		terrain_cost T_P1_PH1 0
+		terrain_cost T_P1_PH3 0
+		terrain_cost T_P2_PH1 0
+		terrain_cost T_P2_PH2 0
+		terrain_cost T_P2_PH3 0
+		
+		terrain_cost T_CENTER 0
+		terrain_cost T_CENTER_RDM_CLUMPS 0
+		terrain_cost T_N_CONNECT 0
+		
+		terrain_cost T_LANDMASS1 0
+		terrain_cost T_LANDMASS2 0
+		terrain_cost T_LANDMASS_RDM_CLUMPS 0
+		terrain_cost T_LANDMASS_CORNER 0
+		terrain_cost T_HILL 0
+		terrain_cost SHALLOW 0
+		terrain_cost DLC_NEWSHALLOW 0
+	}
+	create_connect_all_players_land {
+		replace_terrain BEACH DLC_GRAVELBEACH
+		terrain_size BEACH 5 0
+		terrain_cost T_N_CONNECT 0
+		terrain_cost T_BRIDGE 1
+		terrain_cost T_P1_CONNECT 0
+		terrain_cost T_P2_CONNECT 1
+		
+		terrain_cost LEAVES 1
+		
+		terrain_cost T_MIDDLE_RDM_CLUMPS 2
+		terrain_cost T_LANDMASS_MIDDLE 5
+		
+		terrain_cost T_P2_LAKE 9
+		terrain_cost T_P2_PH2 9
+		terrain_cost BEACH 9
+		
+		terrain_cost T_N_LAKE 0
+		terrain_cost T_N_PH 0
+		terrain_cost T_P1_LAKE 0
+		terrain_cost T_P1_BASE 0
+		terrain_cost T_P2_BASE 0
+		terrain_cost T_P1_PH1 0
+		terrain_cost T_P1_PH3 0
+		terrain_cost T_P2_PH1 0
+		terrain_cost T_P1_PH2 0
+		terrain_cost T_P2_PH3 0
+		
+		terrain_cost T_CENTER 0
+		terrain_cost T_CENTER_RDM_CLUMPS 0
+		terrain_cost T_N_CONNECT 0
+		terrain_cost T_P1_CONNECT 0
+		
+		terrain_cost T_LANDMASS1 0
+		terrain_cost T_LANDMASS2 0
+		terrain_cost T_LANDMASS_RDM_CLUMPS 0
+		terrain_cost T_LANDMASS_CORNER 0
+		terrain_cost T_HILL 0
+		terrain_cost SHALLOW 0
+		terrain_cost DLC_NEWSHALLOW 0
+	}
+
+/* mass terrain replacement */
+create_connect_all_players_land {
+	replace_terrain T_P2_LAKE T_P1_LAKE
+	terrain_size T_P2_LAKE 333 0
+	
+	replace_terrain T_P1_BASE T_LANDMASS_MIDDLE
+	replace_terrain T_P2_BASE T_LANDMASS_MIDDLE
+	terrain_size T_P1_BASE 333 0
+	terrain_size T_P2_BASE 333 0
+	
+	replace_terrain T_N_PH T_LANDMASS_MIDDLE
+	replace_terrain T_P1_PH1 T_LANDMASS_MIDDLE
+	replace_terrain T_P1_PH2 T_LANDMASS_MIDDLE
+	replace_terrain T_P1_PH3 T_LANDMASS_MIDDLE
+	replace_terrain T_P2_PH1 T_LANDMASS_MIDDLE
+	replace_terrain T_P2_PH2 T_LANDMASS_MIDDLE
+	replace_terrain T_P2_PH3 T_LANDMASS_MIDDLE
+	terrain_size T_N_PH 333 0
+	terrain_size T_P1_PH1 333 0
+	terrain_size T_P1_PH2 333 0
+	terrain_size T_P1_PH3 333 0
+	terrain_size T_P2_PH1 333 0
+	terrain_size T_P2_PH2 333 0
+	terrain_size T_P2_PH3 333 0
+	
+	replace_terrain T_P1_CONNECT T_N_CONNECT
+	replace_terrain T_P2_CONNECT T_N_CONNECT
+	terrain_size T_P1_CONNECT 333 0
+	terrain_size T_P2_CONNECT 333 0
+}
+
+<OBJECTS_GENERATION>
+
+create_object RELIC
+{
+	place_on_specific_land_id 5
+	number_of_objects 2
+	find_closest
+	temp_min_distance_group_placement 10
+	set_gaia_object_only
+	max_distance_to_other_zones 4
+}
+create_object RELIC
+{
+	place_on_specific_land_id 4
+	number_of_objects 2
+	find_closest
+	temp_min_distance_group_placement 10
+	set_gaia_object_only
+	max_distance_to_other_zones 4
+}
+
+		#const ESCALATION_REVEALER 1775
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_TERRAIN_ID 0
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_LINE_OF_SIGHT 20
+		effect_amount SET_ATTRIBUTE ESCALATION_REVEALER ATTR_HITPOINTS 0
+
+				create_object ESCALATION_REVEALER
+				{
+					set_place_for_every_player
+					min_distance_to_players 0
+					max_distance_to_players 0
+				}
+
+#const O_INVIS_BLOCKER 1613
+#const O_INVIS_CORNER 647
+
+create_object TOWN_CENTER { set_place_for_every_player max_distance_to_players 0 }
+
+#const O_ROCK2 1323
+create_object O_INVIS_CORNER { terrain_to_place_on DLC_GRAVELBEACH number_of_objects 999 actor_area 1 }
+create_object ROCK { terrain_to_place_on T_N_CONNECT number_of_objects 999 actor_area_to_place_in 1 actor_area 2 }
+create_object O_ROCK2 { terrain_to_place_on T_N_CONNECT number_of_objects 999 actor_area_to_place_in 2 actor_area 3 actor_area_radius 2 }
+
+create_object RANGE_TREE_PH2 { set_gaia_object_only set_gaia_unconvertible terrain_to_place_on T_N_CONNECT number_of_objects 99 temp_min_distance_group_placement 9 avoid_actor_area 3 actor_area 9 actor_area_radius 2 }
+/* mountains are more centered this way */
+
+create_object RANGE_TREE_PH1 { set_gaia_object_only set_gaia_unconvertible terrain_to_place_on T_N_CONNECT number_of_objects 999 temp_min_distance_group_placement 2 actor_area 27 }
+create_object RANGE_TREE_PH2 { set_gaia_object_only set_gaia_unconvertible terrain_to_place_on T_N_CONNECT number_of_objects 50 actor_area 9 }
+
+create_object ROCK { terrain_to_place_on T_N_CONNECT number_of_objects 30 actor_area 9 }
+create_object O_ROCK2 { terrain_to_place_on T_N_CONNECT number_of_objects 30 actor_area 9 }
+create_object ROCK { terrain_to_place_on T_N_CONNECT number_of_objects 30 actor_area 9 }
+create_object O_ROCK2 { terrain_to_place_on T_N_CONNECT number_of_objects 30 actor_area 9 }
+create_object ROCK { terrain_to_place_on T_N_CONNECT number_of_objects 999 actor_area 9 }
+
+/* wall the lake completely, while still letting both players have good dock locations at their closest lake */
+	create_object O_INVIS_CORNER {
+		set_gaia_object_only set_gaia_unconvertible
+		number_of_objects 99
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 4
+		max_distance_to_players 25
+		avoid_actor_area 2
+		actor_area 4 actor_area_radius 0
+	}
+	create_object DLC_ROCKJUNGLE {
+		set_gaia_object_only set_gaia_unconvertible
+		number_of_objects 99
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 4
+		max_distance_to_players 25
+		avoid_actor_area 4
+	}
+
+	create_object O_INVIS_CORNER {
+		set_gaia_object_only set_gaia_unconvertible
+		number_of_objects 99
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 2
+		avoid_actor_area 2 avoid_actor_area 4
+		actor_area 5 actor_area_radius 0
+	}
+	create_object O_INVIS_CORNER {
+		set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 2 find_closest
+		avoid_actor_area 4 avoid_actor_area 5
+		actor_area 6 actor_area_radius 20
+	}
+	create_object DLC_ROCKJUNGLE {
+		set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 2 find_closest
+		avoid_actor_area 4 avoid_actor_area 5 avoid_actor_area 6
+	}
+
+	create_object O_INVIS_CORNER {
+		set_gaia_object_only set_gaia_unconvertible
+		number_of_objects 99
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 3
+		avoid_actor_area 2 avoid_actor_area 4
+		actor_area 7 actor_area_radius 0
+	}
+	create_object O_INVIS_CORNER {
+		set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 3 find_closest
+		avoid_actor_area 4 avoid_actor_area 7
+		actor_area 8 actor_area_radius 20
+	}
+	create_object DLC_ROCKJUNGLE {
+		set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on DLC_GRAVELBEACH
+		place_on_specific_land_id 3 find_closest
+		avoid_actor_area 4 avoid_actor_area 7 avoid_actor_area 8
+	}
+
+/* distance rings around each player */
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 9 set_circular_placement
+	
+	actor_area 1010	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 14 set_circular_placement
+	avoid_actor_area 1010
+	
+	actor_area 1015	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 19 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015
+	
+	actor_area 1020	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 24 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	
+	actor_area 1025	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 29 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025
+	
+	actor_area 1030	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 34 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	
+	actor_area 1035	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 39 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	
+	actor_area 1040	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 44 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035 avoid_actor_area 1040
+	
+	actor_area 1045	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 49 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045
+	
+	actor_area 1050	actor_area_radius 2
+}
+create_object O_INVIS_CORNER {
+	set_gaia_object_only
+	set_place_for_every_player
+	
+	number_of_objects 999 temp_min_distance_group_placement 2
+	
+	find_closest max_distance_to_players 54 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050
+	
+	actor_area 1055	actor_area_radius 2
+}
+
+/* create water exclusion area:
+	use the fewest number of objects possible
+	exclude the fewest number of non-water tiles possible */
+create_object WATER_MARKER_1 {
+	number_of_objects 9999 find_closest_to_map_center
+	temp_min_distance_group_placement 1
+	actor_area 90 actor_area_radius 2
+	max_distance_to_other_zones 1
+}
+create_object WATER_MARKER_2 {
+	number_of_objects 9999
+	avoid_actor_area 90
+	temp_min_distance_group_placement 1
+	actor_area 91 actor_area_radius 1
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 9999
+	terrain_to_place_on BEACH
+	avoid_actor_area 90 avoid_actor_area 91
+	actor_area 92 actor_area_radius 0
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 9999
+	terrain_to_place_on DLC_GRAVELBEACH
+	avoid_actor_area 90 avoid_actor_area 91
+	actor_area 92
+}
+/* use
+	avoid_actor_areas 90, 91, and 92
+to disallow objects from spawning on shallows/beach/water */
+
+create_object O_INVIS_CORNER { /* both player lakes */
+	place_on_specific_land_id 5 find_closest
+	max_distance_to_players 13 set_circular_placement
+	number_of_objects 999 temp_min_distance_group_placement 3
+	actor_area 20 actor_area_radius 3
+}
+create_object O_INVIS_CORNER { /* neutral lake */
+	place_on_specific_land_id 4 find_closest
+	max_distance_to_players 15 set_circular_placement
+	number_of_objects 999 temp_min_distance_group_placement 3
+	actor_area 20 actor_area_radius 3
+}
+
+/* creates actor areas on the inner shore */
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 20 actor_area 21 actor_area_radius 0 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest actor_area_to_place_in 21 actor_area 23 actor_area_radius 2 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest actor_area_to_place_in 21 actor_area 22 actor_area_radius 1 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest terrain_to_place_on BEACH avoid_actor_area 22 actor_area_to_place_in 23 actor_area 21 max_distance_to_players 30 set_circular_placement }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 23 }
+create_object O_INVIS_CORNER { set_place_for_every_player find_closest avoid_actor_area 22 actor_area_to_place_in 21 actor_area 22 }
+
+/* creates actor areas on the outer shore (mostly) */
+/*
+create_object O_INVIS_CORNER { second_object SPEARMAN
+	set_place_for_every_player find_closest
+	avoid_actor_area 20 avoid_actor_area 23
+	terrain_to_place_on BEACH
+	number_of_objects 20 temp_min_distance_group_placement 2
+	actor_area 24 actor_area_radius 2
+}
+*/
+
+create_object O_INVIS_CORNER {
+	set_place_for_every_player
+	
+	actor_area_to_place_in 21
+	max_distance_to_players 45 set_circular_placement
+	
+	number_of_objects 999
+	temp_min_distance_group_placement 2
+	
+	actor_area 28 actor_area_radius 7
+}
+create_object O_INVIS_CORNER {
+	terrain_to_place_on T_HILL
+	
+	number_of_objects 999
+	temp_min_distance_group_placement 2
+	
+	actor_area 29 actor_area_radius 4
+}
+
+
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	set_place_for_every_player
+	
+	find_closest
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 18
+		
+	/* avoid_actor_area 24 */
+	actor_area_to_place_in 23
+	/* avoid_actor_area 29 */
+	
+	max_distance_to_other_zones 1
+	
+	actor_area 25 actor_area_radius 3
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	set_place_for_every_player
+	find_closest
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 11
+	
+	/* avoid_actor_area 24 */
+	actor_area_to_place_in 25
+	
+	max_distance_to_other_zones 3
+}
+
+
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	set_place_for_every_player
+	
+	find_closest
+	avoid_actor_area 1010 avoid_actor_area 1015
+	
+	avoid_actor_area 27 avoid_actor_area 28
+	
+	avoid_forest_zone 11
+}
+
+
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2 max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 20
+	terrain_to_place_on BEACH
+	number_of_objects 99 temp_min_distance_group_placement 4
+	actor_area 50 actor_area_radius 4
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 2 /* find_closest */ max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	max_distance_to_other_zones 2 min_distance_to_map_edge 5
+	actor_area_to_place_in 50
+	avoid_forest_zone 13
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 11
+	actor_area 51 actor_area_radius 3
+	
+	avoid_actor_area 20 avoid_actor_area 27
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 2 max_distance_to_players 38 set_circular_placement
+	actor_area_to_place_in 51
+	avoid_forest_zone 2
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 7
+	
+	avoid_actor_area 20 avoid_actor_area 27
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3 max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 20
+	terrain_to_place_on BEACH
+	number_of_objects 99 temp_min_distance_group_placement 4
+	actor_area 52 actor_area_radius 4
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 3 /* find_closest */ max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	max_distance_to_other_zones 2 min_distance_to_map_edge 5
+	actor_area_to_place_in 52
+	avoid_forest_zone 13
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 11
+	actor_area 53 actor_area_radius 3
+	
+	avoid_actor_area 20 avoid_actor_area 27
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 3 max_distance_to_players 38 set_circular_placement
+	actor_area_to_place_in 53
+	avoid_forest_zone 2
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 7
+	
+	avoid_actor_area 20 avoid_actor_area 27
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 10 max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 20
+	terrain_to_place_on BEACH
+	number_of_objects 99 temp_min_distance_group_placement 4
+	actor_area 60 actor_area_radius 4
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 10 /* find_closest */ max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	max_distance_to_other_zones 2 min_distance_to_map_edge 5
+	actor_area_to_place_in 60
+	avoid_forest_zone 13
+	
+	actor_area 61 actor_area_radius 3
+	
+	avoid_actor_area 20 avoid_actor_area 27 avoid_actor_area 29
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 10 max_distance_to_players 38 set_circular_placement
+	actor_area_to_place_in 61
+	avoid_forest_zone 2
+	
+	avoid_actor_area 20 avoid_actor_area 27 avoid_actor_area 29
+}
+
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 11 max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 20
+	terrain_to_place_on BEACH
+	number_of_objects 99 temp_min_distance_group_placement 4
+	actor_area 62 actor_area_radius 4
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 11 /* find_closest */ max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	max_distance_to_other_zones 2 min_distance_to_map_edge 5
+	actor_area_to_place_in 62
+	avoid_forest_zone 13
+	
+	actor_area 63 actor_area_radius 3
+	
+	avoid_actor_area 20 avoid_actor_area 27 avoid_actor_area 29
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 11 max_distance_to_players 38 set_circular_placement
+	actor_area_to_place_in 63
+	avoid_forest_zone 2
+	
+	avoid_actor_area 20 avoid_actor_area 27 avoid_actor_area 29
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 1 max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 20
+	terrain_to_place_on BEACH
+	number_of_objects 99 temp_min_distance_group_placement 4
+	actor_area 65 actor_area_radius 4
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 1 /* find_closest */ max_distance_to_players 35 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	max_distance_to_other_zones 2 min_distance_to_map_edge 5
+	actor_area_to_place_in 65
+	avoid_forest_zone 13
+	
+	actor_area 66 actor_area_radius 3
+	
+	avoid_actor_area 20 avoid_actor_area 27 avoid_actor_area 29
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 1 max_distance_to_players 38 set_circular_placement
+	actor_area_to_place_in 66
+	avoid_forest_zone 2
+	/* actor_area 67 actor_area_radius 7 avoid_actor_area 67 */
+	
+	avoid_actor_area 20 avoid_actor_area 27 avoid_actor_area 29
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 6 max_distance_to_players 25 set_circular_placement
+	terrain_to_place_on BEACH
+	number_of_objects 99 temp_min_distance_group_placement 4
+	actor_area 70 actor_area_radius 4
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 6 /* find_closest */ max_distance_to_players 25 set_circular_placement
+	max_distance_to_other_zones 2 min_distance_to_map_edge 5
+	actor_area_to_place_in 70
+	avoid_forest_zone 13
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 25
+	actor_area 71 actor_area_radius 3
+	
+	avoid_actor_area 27
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	place_on_specific_land_id 6 max_distance_to_players 28 set_circular_placement
+	actor_area_to_place_in 71
+	avoid_forest_zone 2
+	
+	number_of_objects 2
+	temp_min_distance_group_placement 7
+	
+	avoid_actor_area 27
+}
+
+create_object O_INVIS_CORNER {
+	avoid_actor_area 9
+	place_on_specific_land_id 7 max_distance_to_players 35 set_circular_placement
+	actor_area_to_place_in 27 find_closest
+	number_of_objects 999 temp_min_distance_group_placement 3
+	actor_area 80 actor_area_radius 3
+}
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	
+	place_on_specific_land_id 7 max_distance_to_players 25 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	max_distance_to_other_zones 2
+	
+	avoid_forest_zone 11
+	
+	number_of_objects 9 /* usually enough space for 3-5 */
+	temp_min_distance_group_placement 13
+	
+	avoid_actor_area 27
+	avoid_actor_area 80 /* avoids mountain ranges a little more */
+}
+
+create_object DLC_BAOBABTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	
+	place_on_specific_land_id 9 min_distance_to_players 9 max_distance_to_players 25 set_circular_placement
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	max_distance_to_other_zones 2 min_distance_to_map_edge 4
+	
+	avoid_forest_zone 11
+	
+	avoid_actor_area 27 avoid_actor_area 29
+}
+
+/* create roundish forests around each forest marker */
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	actor_area 31 actor_area_radius 0
+}
+create_object DLC_DRAGONTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	number_of_objects 999
+	place_on_forest_zone
+	avoid_actor_area 31
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	actor_area 32 actor_area_radius 0
+}
+create_object DLC_AFRICANBUSH {
+	set_gaia_object_only set_gaia_unconvertible
+	number_of_objects 999
+	place_on_forest_zone
+	avoid_actor_area 32
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	actor_area 33 actor_area_radius 0
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	avoid_actor_area 33 actor_area 33
+}
+create_object DLC_DRAGONTREE {
+	set_gaia_object_only set_gaia_unconvertible
+	number_of_objects 999
+	place_on_forest_zone
+	avoid_actor_area 33
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	actor_area 34 actor_area_radius 0
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	avoid_actor_area 34 actor_area 34
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	avoid_actor_area 34 actor_area 34
+}
+create_object O_INVIS_CORNER {
+	number_of_objects 99
+	temp_min_distance_group_placement 11
+	place_on_specific_land_id 9
+	place_on_forest_zone
+	find_closest
+	avoid_actor_area 34 actor_area 34
+}
+create_object DLC_AFRICANBUSH {
+	set_gaia_object_only set_gaia_unconvertible
+	number_of_objects 999
+	place_on_forest_zone
+	avoid_actor_area 34
+}
+
+create_object FOREST_TERRAIN_BLOCKER { terrain_to_place_on BEACH place_on_forest_zone number_of_objects 9999 actor_area 95001 actor_area_radius 1 }
+create_object FOREST_TERRAIN_BLOCKER { terrain_to_place_on DLC_GRAVELBEACH place_on_forest_zone number_of_objects 9999 actor_area 95001 actor_area_radius 1 }
+create_object FOREST_TERRAIN_BLOCKER { place_on_forest_zone number_of_objects 9999 actor_area 95000 actor_area_radius 0 }
+create_object FOREST_TERRAIN_SPAWNER { set_gaia_object_only set_gaia_unconvertible place_on_forest_zone number_of_objects 9999 avoid_actor_area 95000 avoid_actor_area 95001 }
+
+create_object O_INVIS_CORNER {
+	set_place_for_every_player
+	terrain_to_place_on BEACH actor_area_to_place_in 23
+	find_closest max_distance_to_players 30 set_circular_placement
+	
+	number_of_objects 99 temp_min_distance_group_placement 3
+	actor_area 207 actor_area_radius 7
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 1
+	find_closest
+	
+	actor_area 208 actor_area_radius 25
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 10
+	find_closest
+	
+	avoid_forest_zone 2 avoid_actor_area 9 avoid_actor_area 203
+	avoid_actor_area 207
+	
+	/* equivalent to placing in 1020 */
+	avoid_actor_area 208 min_distance_to_map_edge 8 avoid_actor_area 1010
+	avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	number_of_objects 4 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 11
+	find_closest
+	
+	avoid_forest_zone 2 avoid_actor_area 9 avoid_actor_area 203
+	avoid_actor_area 207
+	
+	/* equivalent to placing in 1020 */
+	avoid_actor_area 208 min_distance_to_map_edge 8 avoid_actor_area 1010
+	avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	number_of_objects 4 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 10 find_closest
+	actor_area 210 actor_area_radius 55
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 11 find_closest
+	actor_area 211 actor_area_radius 55
+}
+
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 11 ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	avoid_forest_zone 4 avoid_actor_area 27
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	max_distance_to_players 65 set_circular_placement avoid_actor_area 210
+	number_of_objects 4
+	temp_min_distance_group_placement 11
+	
+	avoid_actor_area 20
+	
+	min_distance_to_map_edge 2
+	
+	actor_area 201 actor_area_radius 1
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 11 ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	actor_area_to_place_in 201
+	temp_min_distance_group_placement 3
+	number_of_objects 4 find_closest
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 11 ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	actor_area_to_place_in 201
+	temp_min_distance_group_placement 3
+	number_of_objects 4 find_closest
+	
+	actor_area 203 actor_area_radius 9
+}
+
+
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 10 ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	avoid_forest_zone 4 avoid_actor_area 27
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	max_distance_to_players 65 set_circular_placement avoid_actor_area 211
+	number_of_objects 4
+	temp_min_distance_group_placement 11
+	
+	avoid_actor_area 20
+	
+	min_distance_to_map_edge 2
+	
+	actor_area 202 actor_area_radius 1
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 10 ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	actor_area_to_place_in 202
+	temp_min_distance_group_placement 3
+	number_of_objects 4 find_closest
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 10 ignore_terrain_restrictions avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	
+	actor_area_to_place_in 202
+	temp_min_distance_group_placement 3
+	number_of_objects 4 find_closest
+	
+	actor_area 203 actor_area_radius 9
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 10
+	terrain_to_place_on T_N_LAKE
+	find_closest
+	actor_area 205 actor_area_radius 13
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 10
+	avoid_forest_zone 4 avoid_actor_area 27 avoid_actor_area 203
+	actor_area_to_place_in 205
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 11
+	terrain_to_place_on T_N_LAKE
+	find_closest
+	actor_area 205 actor_area_radius 13
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 11
+	avoid_forest_zone 4 avoid_actor_area 27 avoid_actor_area 203
+	actor_area_to_place_in 205
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 10
+	terrain_to_place_on T_CENTER
+	find_closest
+	actor_area 206 actor_area_radius 16
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 10
+	avoid_forest_zone 2 avoid_actor_area 27 avoid_actor_area 203
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	actor_area_to_place_in 206
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 11
+	terrain_to_place_on T_CENTER
+	find_closest
+	actor_area 206 actor_area_radius 16
+}
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 11
+	avoid_forest_zone 2 avoid_actor_area 27 avoid_actor_area 203
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	actor_area_to_place_in 206
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+
+create_object MINE1 { set_gaia_object_only
+	place_on_specific_land_id 1
+	avoid_forest_zone 4 avoid_actor_area 27 avoid_actor_area 203
+	max_distance_to_other_zones 3
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+
+
+/* this side of the map always has a path, so it doesn't have to bypass terrain restrictions */
+
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 5
+	find_closest
+	
+	actor_area 308 actor_area_radius 25
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 2
+	find_closest
+	
+	avoid_forest_zone 2 avoid_actor_area 9 avoid_actor_area 203
+	avoid_actor_area 207
+	
+	/* equivalent to placing in 1020 */
+	avoid_actor_area 308 min_distance_to_map_edge 8 avoid_actor_area 1010
+	avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	number_of_objects 4 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 3
+	find_closest
+	
+	avoid_forest_zone 2 avoid_actor_area 9 avoid_actor_area 203
+	avoid_actor_area 207
+	
+	/* equivalent to placing in 1020 */
+	avoid_actor_area 308 min_distance_to_map_edge 8 avoid_actor_area 1010
+	avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	number_of_objects 4 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2 find_closest
+	actor_area 302 actor_area_radius 55
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3 find_closest
+	actor_area 303 actor_area_radius 55
+}
+
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 2
+	avoid_forest_zone 4 avoid_actor_area 27
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	max_distance_to_players 65 set_circular_placement avoid_actor_area 303
+	number_of_objects 3 set_tight_grouping
+	number_of_groups 4
+	temp_min_distance_group_placement 11
+	
+	avoid_actor_area 20
+	
+	min_distance_to_map_edge 2
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 3
+	avoid_forest_zone 4 avoid_actor_area 27
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	max_distance_to_players 65 set_circular_placement avoid_actor_area 302
+	number_of_objects 3 set_tight_grouping
+	number_of_groups 4
+	temp_min_distance_group_placement 11
+	
+	avoid_actor_area 20
+	
+	min_distance_to_map_edge 2
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2
+	terrain_to_place_on T_P1_LAKE
+	find_closest
+	actor_area 304 actor_area_radius 22
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2
+	terrain_to_place_on DLC_NEWSHALLOW
+	find_closest
+	actor_area_to_place_in 304
+	actor_area 305 actor_area_radius 17
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 2
+	
+	avoid_forest_zone 4 avoid_actor_area 27 avoid_actor_area 203
+	actor_area_to_place_in 305
+	find_closest
+	
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040
+	
+	number_of_objects 2 set_tight_grouping
+	
+	actor_area 203 actor_area_radius 9
+	
+	max_distance_to_other_zones 4
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3
+	terrain_to_place_on T_P1_LAKE
+	find_closest
+	actor_area 306 actor_area_radius 22
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3
+	terrain_to_place_on DLC_NEWSHALLOW
+	find_closest
+	actor_area_to_place_in 306
+	actor_area 307 actor_area_radius 17
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 3
+	
+	avoid_forest_zone 4 avoid_actor_area 27 avoid_actor_area 203
+	actor_area_to_place_in 307
+	find_closest
+	
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040
+	
+	number_of_objects 2 set_tight_grouping
+	
+	actor_area 203 actor_area_radius 9
+	
+	max_distance_to_other_zones 4
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2
+	terrain_to_place_on T_P1_LAKE
+	find_closest
+	actor_area 310 actor_area_radius 25
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2
+	terrain_to_place_on T_P1_LAKE
+	find_closest
+	avoid_actor_area 310
+	actor_area 311 actor_area_radius 11
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 2
+	
+	avoid_forest_zone 2 avoid_actor_area 9 avoid_actor_area 203
+	actor_area_to_place_in 311
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	
+	actor_area 203 actor_area_radius 9
+	
+	max_distance_to_other_zones 4
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3
+	terrain_to_place_on T_P1_LAKE
+	find_closest
+	actor_area 312 actor_area_radius 25
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3
+	terrain_to_place_on T_P1_LAKE
+	find_closest
+	avoid_actor_area 312
+	actor_area 313 actor_area_radius 11
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 3
+	
+	avoid_forest_zone 2 avoid_actor_area 9 avoid_actor_area 203
+	actor_area_to_place_in 313
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	
+	actor_area 203 actor_area_radius 9
+	
+	max_distance_to_other_zones 4
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2
+	terrain_to_place_on T_CENTER
+	find_closest
+	actor_area 314 actor_area_radius 16
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 2
+	avoid_forest_zone 2 avoid_actor_area 27 avoid_actor_area 203
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	actor_area_to_place_in 314
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3
+	terrain_to_place_on T_CENTER
+	find_closest
+	actor_area 315 actor_area_radius 16
+}
+create_object MINE2 { set_gaia_object_only
+	place_on_specific_land_id 3
+	avoid_forest_zone 2 avoid_actor_area 27 avoid_actor_area 203
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	actor_area_to_place_in 315
+	find_closest
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 203 actor_area_radius 9
+}
+
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 7
+	find_closest
+	actor_area 400 actor_area_radius 65
+}
+
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 10 find_closest
+	terrain_to_place_on T_N_CONNECT
+	
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030 avoid_actor_area 1035
+	
+	actor_area 410 actor_area_radius 4
+	number_of_objects 2 temp_min_distance_group_placement 25
+	avoid_actor_area 419
+}
+create_object FORAGE { set_gaia_object_only
+	place_on_specific_land_id 10 find_closest
+	actor_area_to_place_in 410
+	
+	number_of_objects 6 set_tight_grouping group_placement_radius 1
+	number_of_groups 2 temp_min_distance_group_placement 20
+	actor_area 419 actor_area_radius 9 avoid_actor_area 419
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 11 find_closest
+	terrain_to_place_on T_N_CONNECT
+	
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030 avoid_actor_area 1035
+	
+	actor_area 411 actor_area_radius 4
+	number_of_objects 2 temp_min_distance_group_placement 25
+	avoid_actor_area 419
+}
+create_object FORAGE { set_gaia_object_only
+	place_on_specific_land_id 11 find_closest
+	actor_area_to_place_in 411
+	
+	number_of_objects 6 set_tight_grouping group_placement_radius 1
+	number_of_groups 2 temp_min_distance_group_placement 20
+	actor_area 419 actor_area_radius 9 avoid_actor_area 419
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 2 find_closest
+	terrain_to_place_on T_N_CONNECT
+	
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030 avoid_actor_area 1035
+	
+	actor_area 412 actor_area_radius 4
+	number_of_objects 2 temp_min_distance_group_placement 25
+	avoid_actor_area 419
+}
+create_object FORAGE { set_gaia_object_only
+	place_on_specific_land_id 2 find_closest
+	actor_area_to_place_in 412
+	
+	number_of_objects 6 set_tight_grouping group_placement_radius 1
+	number_of_groups 2 temp_min_distance_group_placement 20
+	actor_area 419 actor_area_radius 9 avoid_actor_area 419
+}
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 3 find_closest
+	terrain_to_place_on T_N_CONNECT
+	
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030 avoid_actor_area 1035
+	
+	actor_area 413 actor_area_radius 4
+	number_of_objects 2 temp_min_distance_group_placement 25
+	avoid_actor_area 419
+}
+create_object FORAGE { set_gaia_object_only
+	place_on_specific_land_id 3 find_closest
+	actor_area_to_place_in 413
+	
+	number_of_objects 6 set_tight_grouping group_placement_radius 1
+	number_of_groups 2 temp_min_distance_group_placement 20
+	actor_area 419 actor_area_radius 9 avoid_actor_area 419
+}
+
+
+create_object FORAGE { set_gaia_object_only
+	set_place_for_every_player find_closest
+	actor_area_to_place_in 207
+	
+	number_of_objects 6 set_tight_grouping group_placement_radius 1
+	actor_area 419 actor_area_radius 9 avoid_actor_area 419
+	
+	avoid_actor_area 1010 avoid_actor_area 1015
+	
+	avoid_forest_zone 3
+}
+
+create_object GAZELLE { set_gaia_object_only
+	set_place_for_every_player find_closest ignore_terrain_restrictions
+	terrain_to_place_on DLC_NEWSHALLOW
+	
+	avoid_actor_area 1010 avoid_actor_area 1015
+	avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030
+	
+	number_of_objects 4 set_tight_grouping
+	
+	actor_area 420 actor_area_radius 20 avoid_actor_area 420
+}
+create_object O_INVIS_BLOCKER { second_object SHORE_FISH
+	set_place_for_every_player find_closest ignore_terrain_restrictions set_gaia_object_only
+	terrain_to_place_on DLC_NEWSHALLOW avoid_forest_zone 5 min_distance_to_map_edge 3 avoid_actor_area 20
+	
+	
+	avoid_actor_area 1010 avoid_actor_area 1015
+	avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030 avoid_actor_area 1035
+	avoid_actor_area 1040
+	
+	actor_area 421 actor_area_radius 3
+	avoid_actor_area 420
+}
+create_object GAZELLE { set_gaia_object_only
+	set_place_for_every_player ignore_terrain_restrictions
+	actor_area_to_place_in 421
+	
+	number_of_objects 4 set_tight_grouping
+	
+	actor_area 420 actor_area_radius 20
+}
+create_object O_INVIS_BLOCKER { second_object SHORE_FISH set_gaia_object_only
+	set_place_for_every_player find_closest ignore_terrain_restrictions
+	terrain_to_place_on DLC_NEWSHALLOW avoid_forest_zone 5 min_distance_to_map_edge 3 avoid_actor_area 20
+	
+	avoid_actor_area 1010 avoid_actor_area 1015
+	avoid_actor_area 1020 avoid_actor_area 1025
+	avoid_actor_area 1030 avoid_actor_area 1035
+	avoid_actor_area 1040 avoid_actor_area 1045
+	
+	actor_area 422 actor_area_radius 1
+	avoid_actor_area 420
+}
+create_object O_INVIS_BLOCKER { second_object SHORE_FISH set_gaia_object_only
+	set_place_for_every_player ignore_terrain_restrictions ignore_terrain_restrictions
+	actor_area_to_place_in 422
+	
+	actor_area 423 actor_area_radius 3
+}
+create_object GAZELLE { set_gaia_object_only
+	set_place_for_every_player ignore_terrain_restrictions
+	actor_area_to_place_in 423
+	
+	number_of_objects 4 set_tight_grouping
+	
+	actor_area 420 actor_area_radius 20
+}
+
+create_object DLC_RHINO { set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 12
+	max_distance_to_players 14
+	avoid_forest_zone 1
+	avoid_actor_area 27
+	actor_area 430 actor_area_radius 10 avoid_actor_area 430 avoid_actor_area 419
+}
+
+create_object DLC_GOAT { set_gaia_object_only
+	set_place_for_every_player
+	actor_area_to_place_in 1020
+	avoid_forest_zone 1
+	avoid_actor_area 9
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 430 actor_area_radius 10 avoid_actor_area 430 avoid_actor_area 419
+}
+create_object DLC_GOAT { set_gaia_object_only
+	set_place_for_every_player
+	actor_area_to_place_in 1030
+	avoid_forest_zone 1
+	avoid_actor_area 9
+	
+	number_of_objects 2 set_tight_grouping
+	actor_area 430 actor_area_radius 10 avoid_actor_area 430 avoid_actor_area 419
+}
+create_object DLC_DEADTREE { set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 5 max_distance_to_players 6 set_circular_placement enable_tile_shuffling
+	avoid_forest_zone 1
+	avoid_actor_area 9
+	number_of_objects 3 temp_min_distance_group_placement 3
+}
+
+
+
+		/* Placeholder object with no terrain restrictions. */
+		#const PH_GENERIC_ON 600
+		#const PH_GENERIC_OFF 649
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_TERRAIN_ID 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_ON ATTR_STORAGE_VALUE 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_TERRAIN_ID 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_GENERIC_OFF ATTR_STORAGE_VALUE 0
+	
+		/* Placeholder object that may only generate on land terrains. */
+		#const PH_LAND_ON 601
+		#const PH_LAND_OFF 643
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_TERRAIN_ID 8
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_LAND_ON ATTR_STORAGE_VALUE 0
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_TERRAIN_ID 8
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_LAND_OFF ATTR_STORAGE_VALUE 0
+	
+		/* Placeholder object that may only generate on land terrains. */
+		#const PH_WATER_ON 601
+		#const PH_WATER_OFF 643
+		effect_amount SET_ATTRIBUTE PH_WATER_ON ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_WATER_ON ATTR_TERRAIN_ID 19
+		effect_amount SET_ATTRIBUTE PH_WATER_ON ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_WATER_ON ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_WATER_ON ATTR_STORAGE_VALUE 0
+		effect_amount SET_ATTRIBUTE PH_WATER_OFF ATTR_DEAD_ID -1
+		effect_amount SET_ATTRIBUTE PH_WATER_OFF ATTR_TERRAIN_ID 19
+		effect_amount SET_ATTRIBUTE PH_WATER_OFF ATTR_LINE_OF_SIGHT 0
+		effect_amount SET_ATTRIBUTE PH_WATER_OFF ATTR_HITPOINTS 0
+		effect_amount SET_ATTRIBUTE PH_WATER_OFF ATTR_STORAGE_VALUE 0
+	
+		#const LAZY_MALE 1285 /* FE Flag */
+		effect_amount SET_ATTRIBUTE LAZY_MALE ATTR_DEAD_ID 83
+		effect_amount SET_ATTRIBUTE LAZY_MALE ATTR_HITPOINTS 0
+	
+		#const LAZY_FEMALE 851 /* ES Flag */
+		effect_amount SET_ATTRIBUTE LAZY_FEMALE ATTR_DEAD_ID 293
+		effect_amount SET_ATTRIBUTE LAZY_FEMALE ATTR_HITPOINTS 0
+
+			
+				create_object PH_GENERIC_OFF
+				{
+					set_place_for_every_player
+					set_gaia_object_only
+					min_distance_to_players 0
+					max_distance_to_players 0
+			
+					actor_area 6001
+					actor_area_radius 1
+				}
+
+					create_object PH_GENERIC_OFF /* Near Positioner */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						number_of_objects 5
+						min_distance_to_players 1
+						max_distance_to_players 1
+						find_closest
+
+						actor_area 5100
+						actor_area_radius 0
+
+						if DEBUG_MODE
+							second_object FLAG_A
+						endif
+					}
+
+					create_object PH_GENERIC_OFF /* Far Positioner */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						number_of_objects 5
+						max_distance_to_players 2
+						temp_min_distance_group_placement 1
+						find_closest
+
+						actor_area 5101
+						actor_area_radius 1
+
+						avoid_actor_area 6001 /* Minimum Player Distance */
+
+						if DEBUG_MODE
+							second_object FLAG_B
+						endif
+					}
+
+					create_object PH_GENERIC_OFF /* Villager Avoider */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						min_distance_to_players 1
+						max_distance_to_players 1
+						find_closest
+
+						actor_area 5102
+						actor_area_radius 0
+
+						avoid_actor_area 5100 /* Near Positioner */
+
+						if DEBUG_MODE
+							second_object FLAG_C
+						endif
+					}
+
+					create_object PH_GENERIC_OFF /* Blocking Seventh Villager */
+					{
+						set_place_for_every_player
+						set_gaia_object_only
+						max_distance_to_players 2
+						find_closest
+
+						actor_area 5103
+						actor_area_radius 0
+
+						avoid_actor_area 5101 /* Far Positioner */
+						avoid_actor_area 6001 /* Minimum Player Distance */
+
+						if DEBUG_MODE
+							second_object FLAG_D
+						endif
+					}
+
+					if CENTRALISE_OBJECT
+						create_object PH_GENERIC_ON
+					else
+						create_object PH_GENERIC_OFF
+					endif
+					{
+						second_object DLC_GOAT
+						set_place_for_every_player
+						min_distance_to_players 1
+						max_distance_to_players 1
+						find_closest
+
+						actor_area 2000
+						actor_area_radius 1
+
+						avoid_actor_area 5100 /* Herdable Positioner */
+					}
+
+				start_random
+				  percent_chance 50 #define LM_A
+				  percent_chance 50 #define LF_A
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_A
+				   create_object LAZY_MALE
+				  elseif LF_A
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_A
+				     second_object LAZY_MALE
+				    elseif LF_A
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_B
+				  percent_chance 50 #define LF_B
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_B
+				   create_object LAZY_MALE
+				  elseif LF_B
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_B
+				     second_object LAZY_MALE
+				    elseif LF_B
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_C
+				  percent_chance 50 #define LF_C
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_C
+				   create_object LAZY_MALE
+				  elseif LF_C
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_C
+				     second_object LAZY_MALE
+				    elseif LF_C
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_D
+				  percent_chance 50 #define LF_D
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_D
+				   create_object LAZY_MALE
+				  elseif LF_D
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_D
+				     second_object LAZY_MALE
+				    elseif LF_D
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_E
+				  percent_chance 50 #define LF_E
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_E
+				   create_object LAZY_MALE
+				  elseif LF_E
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_E
+				     second_object LAZY_MALE
+				    elseif LF_E
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+				
+				start_random
+				  percent_chance 50 #define LM_F
+				  percent_chance 50 #define LF_F
+				end_random
+				
+				if CENTRALISE_OBJECT
+				  if LM_F
+				   create_object LAZY_MALE
+				  elseif LF_F
+				   create_object LAZY_FEMALE
+				  endif
+				else
+				  create_object PH_GENERIC_OFF
+				endif
+				{
+				  set_place_for_every_player
+				  min_distance_to_players 1
+				  actor_area_to_place_in 2000 /* EW Herdable */
+				
+				  actor_area 1000
+				  actor_area_radius 0
+				
+				  avoid_actor_area 1000 /* Villager */
+				  avoid_actor_area 5102 /* Villager Avoider */
+				  avoid_actor_area 5103 /* Blocking Seventh Villager */
+				
+				  if CENTRALISE_OBJECT
+				  else
+				    if LM_F
+				     second_object LAZY_MALE
+				    elseif LF_F
+				      second_object LAZY_FEMALE
+				    endif
+				  endif
+				}
+
+create_object DLC_DEADTREE
+{ 
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 5
+	max_distance_to_players 6
+	set_circular_placement
+	enable_tile_shuffling
+	avoid_forest_zone 2
+	avoid_actor_area 9
+	number_of_objects 1
+	actor_area 5423
+	actor_area_radius 1
+}
+
+create_object VILLAGER
+{
+	set_place_for_every_player
+	number_of_objects 3
+	actor_area_to_place_in 5423
+}
+
+create_object HOUSE 
+{
+	number_of_objects 2
+	temp_min_distance_group_placement 6
+	find_closest
+	set_place_for_every_player
+	min_distance_to_players 8
+}
+
+
+
+create_object SCOUT {
+	set_place_for_every_player
+	max_distance_to_players 12 set_circular_placement find_closest_to_map_edge
+	avoid_forest_zone 1
+	avoid_actor_area 9
+}
+create_object DLC_GOAT { set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 5 max_distance_to_players 6 set_circular_placement
+	avoid_forest_zone 1
+	avoid_actor_area 9
+	number_of_objects 2
+}
+
+create_object DLC_GOAT { set_gaia_object_only
+	set_place_for_every_player
+	if SHEEPA_40
+		actor_area_to_place_in 1040
+	endif
+	if SHEEPA_45
+		actor_area_to_place_in 1045
+	endif
+	if SHEEPA_50
+		actor_area_to_place_in 1050
+	endif
+	number_of_objects 2 temp_min_distance_group_placement 10
+}
+
+
+create_object SHEEP {
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020 avoid_actor_area 1025 avoid_actor_area 1030
+	avoid_actor_area 1035 avoid_actor_area 1040 avoid_actor_area 1045 avoid_actor_area 1050 avoid_actor_area 1055
+	
+	number_of_objects 8 temp_min_distance_group_placement 10
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 5 find_closest
+	terrain_to_place_on DLC_GRAVELBEACH
+	actor_area 440 actor_area_radius 2
+	number_of_objects 4 temp_min_distance_group_placement 2
+}
+create_object SHORE_FISH {  set_gaia_object_only
+	place_on_specific_land_id 5
+	max_distance_to_players 16
+
+
+	terrain_to_place_on T_P1_LAKE
+	number_of_objects 6 temp_min_distance_group_placement 3
+
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 4 find_closest
+	terrain_to_place_on DLC_GRAVELBEACH
+	actor_area 441 actor_area_radius 2
+	number_of_objects 4 temp_min_distance_group_placement 2
+}
+create_object O_INVIS_BLOCKER { second_object SHORE_FISH set_gaia_object_only
+	place_on_specific_land_id 4
+	find_closest set_circular_placement
+	terrain_to_place_on T_N_LAKE
+	avoid_actor_area 441
+	
+	number_of_objects 9 temp_min_distance_group_placement 1
+}
+
+/* decorative: blend terrains a bit so the map doesn't look like rings */
+if NOT_EDITOR
+	create_object BUILDING_TERRAIN_DEC1 { set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on T_CENTER
+		number_of_objects 99
+		avoid_forest_zone 1
+	}
+	create_object BUILDING_TERRAIN_DEC2 { set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on T_MIDDLE_RDM_CLUMPS
+		number_of_objects 50
+		temp_min_distance_group_placement 3
+	}
+	create_object BUILDING_TERRAIN_DEC1 { set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on T_LANDMASS2
+		number_of_objects 5
+		set_loose_grouping group_placement_radius 5
+		number_of_groups 20
+		temp_min_distance_group_placement 12
+		avoid_forest_zone 2
+		max_distance_to_other_zones 2
+		avoid_actor_area 29
+	}
+	create_object BUILDING_TERRAIN_DEC2 { set_gaia_object_only set_gaia_unconvertible
+		terrain_to_place_on T_LANDMASS1
+		number_of_objects 4
+		set_loose_grouping group_placement_radius 4
+		number_of_groups 10
+		temp_min_distance_group_placement 12
+		avoid_forest_zone 2
+		max_distance_to_other_zones 2
+		avoid_actor_area 29
+	}
+endif
+
+
+create_object DLC_DEADTREE {
+	place_on_specific_land_id 9
+	max_distance_to_players 75
+	number_of_objects 5
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	min_distance_to_map_edge 1
+}
+create_object DLC_AFRICANBUSH {
+	place_on_specific_land_id 9
+	max_distance_to_players 75
+	number_of_objects 15
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	avoid_actor_area 1025 avoid_actor_area 1030 avoid_actor_area 1035
+	min_distance_to_map_edge 1
+}
+create_object DLC_DEADTREE { set_gaia_object_only
+	set_place_for_every_player
+	max_distance_to_players 40 set_circular_placement
+	number_of_objects 5
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+}
+create_object DLC_AFRICANBUSH { set_gaia_object_only
+	set_place_for_every_player
+	max_distance_to_players 40 set_circular_placement
+	number_of_objects 15
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+}
+
+create_object DLC_ANIMALSKELETON {
+	place_on_specific_land_id 9
+	max_distance_to_players 75
+	number_of_objects 15
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	min_distance_to_map_edge 2
+}
+
+create_object O_INVIS_CORNER {
+	place_on_specific_land_id 9
+	max_distance_to_players 75
+	number_of_objects 5 temp_min_distance_group_placement 10
+	terrain_to_place_on BEACH
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	
+	actor_area 900
+	actor_area_radius 1
+}
+create_object FLOWER_BED {
+	place_on_specific_land_id 9
+	
+	number_of_objects 15 temp_min_distance_group_placement 1
+	
+	actor_area_to_place_in 900
+	avoid_actor_area 90 avoid_actor_area 91 avoid_actor_area 92
+	min_distance_to_map_edge 2
+}
+
+#const PLANT_RAINFOREST 1354
+create_object PLANT_RAINFOREST {
+	place_on_specific_land_id 9
+	max_distance_to_players 75
+	number_of_objects 20
+	avoid_actor_area 1010 avoid_actor_area 1015 avoid_actor_area 1020
+	terrain_to_place_on DLC_NEWSHALLOW
+	min_distance_to_map_edge 2
+}
