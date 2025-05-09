@@ -9,10 +9,9 @@ class Constant(Script):
     _valid_id_list = list
 
     def model_post_init(self, context):
-
         if self.id not in self._valid_id_list:
             raise ValueError(f"Provided id {self.id} is not a valid {self._type} ID.")
-        
+
         if self.description:
             self.__doc__ = self.description
 
@@ -24,7 +23,7 @@ class Constant(Script):
             declare_str += f" /* {desc} */"
         declare_str += "\n"
         return declare_str
-    
+
     def compile(self, prefix=""):
         return prefix + self.name
 

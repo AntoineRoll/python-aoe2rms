@@ -285,7 +285,7 @@ class CreateObject(CommandModel):
         default=None,
         description="Objects will avoid the specified actor_area by its radius.",
         examples=[1234, 5678],
-    ) # TODO: avoid_actor_area can be repeated multiple times
+    )  # TODO: avoid_actor_area can be repeated multiple times
     avoid_all_actor_areas: bool | None = pdt.Field(
         default=None,
         description="Objects will avoid all actor areas that have been defined so far.",

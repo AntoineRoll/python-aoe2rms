@@ -5,7 +5,6 @@ from typing import Any
 from aoe2rms.constants import Constant
 
 
-
 class BaseGenerationModel(BaseModel):
     _header: str
     constants: list[Constant] = Field(default_factory=list)
@@ -24,12 +23,18 @@ class BaseGenerationModel(BaseModel):
         for attr, val in self.__dict__.items():
             if attr not in ("commands", "constants", "map") and val is not None:
                 result += f"{attr} {val}\n"
-                logging.debug("%s - %s - Attributes scripted.", self.__class__.__name__, attr)
+                logging.debug(
+                    "%s - %s - Attributes scripted.", self.__class__.__name__, attr
+                )
 
         result += "\n"
         for command in self.commands:
             result += command.compile()
-            logging.debug("%s - %s - Commands scripted.", self.__class__.__name__, command.__class__.__name__)
+            logging.debug(
+                "%s - %s - Commands scripted.",
+                self.__class__.__name__,
+                command.__class__.__name__,
+            )
 
         return result
 
@@ -45,7 +50,7 @@ class BaseGenerationModel(BaseModel):
         BaseGenerationModel.commands = self.commands
         BaseGenerationModel.constants = self.constants
         return self
-    
+
     def assign_to_map(self) -> None:
         raise NotImplementedError
 

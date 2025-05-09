@@ -153,7 +153,9 @@ class Map(BaseModel):
 
         if self.elevation_generation:
             script += self.elevation_generation.compile()
-            logging.debug("%s - Elevation generation scripted.", self.__class__.__name__)
+            logging.debug(
+                "%s - Elevation generation scripted.", self.__class__.__name__
+            )
 
         if self.cliff_generation:
             script += self.cliff_generation.compile()
@@ -165,7 +167,9 @@ class Map(BaseModel):
 
         if self.connection_generation:
             script += self.connection_generation.compile()
-            logging.debug("%s - Connection generation scripted.", self.__class__.__name__)
+            logging.debug(
+                "%s - Connection generation scripted.", self.__class__.__name__
+            )
 
         if self.objects_generation:
             script += self.objects_generation.compile()

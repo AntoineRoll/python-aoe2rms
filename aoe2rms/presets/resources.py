@@ -1,5 +1,6 @@
 from aoe2rms.commands.objects import CreateObject
 
+
 def generate_standard_resources():
     """
     Generate the standard starting resources for a random map mode game.
@@ -46,8 +47,7 @@ def generate_standard_resources():
         actor_area_radius=4,
         min_distance_group_placement=2,
     )
-    
-    
+
     # Create sheep for each player
     main_sheep = CreateObject(
         object_type="SHEEP",
@@ -60,7 +60,7 @@ def generate_standard_resources():
         avoid_forest_zone=2,
         avoid_cliff_zone=3,
     )
-    
+
     additional_sheep = CreateObject(
         object_type="SHEEP",
         number_of_objects=2,
@@ -74,9 +74,9 @@ def generate_standard_resources():
         avoid_cliff_zone=3,
         max_distance_to_other_zones=2,
         min_distance_group_placement=3,
-        temp_min_distance_group_placement=3
+        temp_min_distance_group_placement=3,
     )
-    
+
     # Create boar for each player
     boar = CreateObject(
         object_type="BOAR",
@@ -90,7 +90,7 @@ def generate_standard_resources():
         max_distance_to_other_zones=2,
         min_distance_group_placement=1,
     )
-    
+
     # Create deer for each player
     deer = CreateObject(
         object_type="DEER",
@@ -106,9 +106,8 @@ def generate_standard_resources():
         max_distance_to_other_zones=2,
         min_distance_group_placement=2,
         actor_area=776,
-        actor_area_radius=3
+        actor_area_radius=3,
     )
-
 
     # Create primary gold mine for each player
     primary_gold = CreateObject(
@@ -128,7 +127,7 @@ def generate_standard_resources():
         avoid_forest_zone=2,
         min_distance_group_placement=2,
     )
-    
+
     # Create additional gold and stone for each player
     secondary_gold = CreateObject(
         object_type="GOLD",
@@ -227,7 +226,7 @@ def generate_standard_resources():
         actor_area_radius=5,
         min_distance_group_placement=4,
     )
-    
+
     neutral_stone = CreateObject(
         object_type="STONE",
         number_of_objects=3,
@@ -241,7 +240,7 @@ def generate_standard_resources():
         actor_area=67,
         actor_area_radius=5,
     )
-    
+
     # Create Relic
     relic = CreateObject(
         object_type="RELIC",
@@ -251,11 +250,11 @@ def generate_standard_resources():
         temp_min_distance_group_placement=35,
         avoid_forest_zone=2,
         avoid_cliff_zone=3,
-        min_distance_group_placement=1
+        min_distance_group_placement=1,
     )
-    
+
     # TODO: straggler tree (home & shared), shore fish, other fish, hawk, wolf
-    
+
     return [
         town_center,
         villagers,
@@ -272,7 +271,5 @@ def generate_standard_resources():
         secondary_stone,
         neutral_gold,
         neutral_stone,
-        relic
+        relic,
     ]
-
-

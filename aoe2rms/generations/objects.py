@@ -7,6 +7,6 @@ class ObjectsGeneration(BaseGenerationModel):
     """
 
     _header: str = "<OBJECTS_GENERATION>"
-    
+
     def assign_to_map(self):
         self.map.objects_generation = self

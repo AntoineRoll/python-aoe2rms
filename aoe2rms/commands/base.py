@@ -13,7 +13,7 @@ class CommandModel(pdt.BaseModel):
 
     def compile(self):
         result = ""
-        
+
         if self.comment:
             result += f"/* {self.comment}  */\n"
         result += f"{self._command_name} "
