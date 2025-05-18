@@ -40,11 +40,13 @@ class BaseGenerationModel(BaseModel):
 
     @classmethod
     def get_current_commands(self):
-        return self.commands
+        if hasattr(self, "commands"):
+            return self.commands
 
     @classmethod
     def get_current_constants(self):
-        return self.constants
+        if hasattr(self, "constants"):
+            return self.constants
 
     def __enter__(self) -> BaseModel:
         BaseGenerationModel.commands = self.commands
