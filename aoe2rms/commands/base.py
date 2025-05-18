@@ -25,7 +25,10 @@ class CommandModel(pdt.BaseModel):
         result += "{\n"
 
         for attr, val in self.__dict__.items():
-            if val is not None and attr not in self._command_parameters:
+            if (
+                attr not in ("comment", *self._command_parameters)
+                and val is not None 
+            ):
                 if isinstance(val, tuple):
                     # Handle tuples like land_position, circle_radius, and replace_terrain
                     result += f"\t{attr} {' '.join(map(str, val))}\n"
