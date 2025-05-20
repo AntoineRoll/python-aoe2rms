@@ -11,7 +11,7 @@ from aoe2rms.generations.connection import ConnectionGeneration
 from aoe2rms.generations.objects import ObjectsGeneration
 
 
-class PlayerSetupModel(BaseGenerationModel):
+class PlayerSetup(BaseGenerationModel):
     """Model for PLAYER_SETUP section in RMS scripts."""
 
     _header: str = "<PLAYER_SETUP>"
@@ -102,7 +102,7 @@ class Map(BaseModel):
     author: Optional[str] = None
 
     # RMS Sections in the order they are processed
-    player_setup: PlayerSetupModel = Field(default_factory=PlayerSetupModel)
+    player_setup: PlayerSetup = Field(default_factory=PlayerSetup)
     land_generation: LandGeneration = Field(default_factory=LandGeneration)
     elevation_generation: Optional[ElevationGeneration] = None
     cliff_generation: Optional[CliffGeneration] = None
