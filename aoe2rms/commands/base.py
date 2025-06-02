@@ -1,14 +1,17 @@
 import pydantic as pdt
 from typing import Iterable
 
+from aoe2rms import Script
 from aoe2rms.constants import Constant
 from aoe2rms.generations.base import BaseGenerationModel
 
 
-class CommandModel(pdt.BaseModel):
+class CommandModel(Script):
     _command_name: str
     _command_parameters: Iterable[str] = tuple()
     _generation_section_commands: list | None = None
+    _special_attrs = ("autoregister", "comment")
+    autoregister: bool = True
     comment: str = ""
 
     def compile(self):
@@ -26,7 +29,7 @@ class CommandModel(pdt.BaseModel):
 
         for attr, val in self.__dict__.items():
             if (
-                attr not in ("comment", *self._command_parameters)
+                attr not in (*self._special_attrs, *self._command_parameters)
                 and val is not None 
             ):
                 if isinstance(val, tuple):
@@ -44,7 +47,7 @@ class CommandModel(pdt.BaseModel):
         section_commands = BaseGenerationModel.get_current_commands()
 
         # Explicit section definition
-        if section_commands is not None:
+        if self.autoregister and section_commands is not None:
             section_commands.append(self)
 
         section_constants = BaseGenerationModel.get_current_constants()

@@ -9,7 +9,6 @@ class CreateLand(CommandModel):
     """
 
     _command_name: str = "create_land"
-    _command_parameters = ("terrain_type",)
 
     # Parameters and attributes as described in RmsLandReference.md
     terrain_type: str | None = Field(
@@ -103,3 +102,6 @@ class CreateLand(CommandModel):
         ge=0,
         description="Number of tiles to stay away from the origins of previously created lands when randomly selecting an origin for this land.",
     )
+
+class CreatePlayerLand(CreateLand):
+    _command_name = "create_player_lands"

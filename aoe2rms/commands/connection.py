@@ -17,40 +17,45 @@ class ConnectionCommandBase(CommandModel):
         "Used when a connection passes through terrain that doesn't match any replace_terrain entry.",
         examples=["DIRT", "ROAD", "SHALLOW"],
     )
-    replace_terrain: tuple[str, str] | None = pdt.Field(
-        default=None,
+    replace_terrain: list[tuple[str, str]] = pdt.Field(
+        default_factory=list,
         description="Replace the first terrain with the second terrain when making connections. "
         "Multiple replace_terrain commands can be used to handle different terrain types.",
         examples=[("FOREST", "GRASS"), ("WATER", "SHALLOW")],
     )
-    terrain_cost: tuple[str, int] | None = pdt.Field(
-        default=None,
+    terrain_cost: list[tuple[str, int]] = pdt.Field(
+        default_factory=list,
         description="Cost of crossing the specified terrain when calculating path. "
         "Higher values make the pathfinding algorithm avoid this terrain.",
         examples=[("WATER", 15), ("FOREST", 7)],
     )
-    terrain_size: tuple[str, int, int] | None = pdt.Field(
-        default=None,
+    terrain_size: list[tuple[str, int, int]] = pdt.Field(
+        default_factory=list,
         description="Width and variability of the connection when it crosses the specified terrain. "
         "First number is width, second is variability (0 for straight paths).",
         examples=[("FOREST", 10, 0), ("GRASS", 1, 1)],
     )
 
     def compile(self):
-        print(f"{self._command_name}", end=" {\n")
+        result = f"{self._command_name} {{\n"
 
-        for attr, val in self.__dict__.items():
-            if attr != "_command_name" and val is not None:
-                if attr == "replace_terrain" and val is not None:
-                    print(f"\t{attr} {val[0]} {val[1]}")
-                elif attr == "terrain_cost" and val is not None:
-                    print(f"\t{attr} {val[0]} {val[1]}")
-                elif attr == "terrain_size" and val is not None:
-                    print(f"\t{attr} {val[0]} {val[1]} {val[2]}")
-                else:
-                    print(f"\t{attr} {val}")
+        if self.default_terrain_replacement:
+            result += f"default_terrain_replacement {self.default_terrain_replacement}\n"
+            
+        for (base_terrain, replacement_terrain) in self.replace_terrain:
+            result += f"replace_terrain {base_terrain} {replacement_terrain}\n"
+        
+        for (terrain, cost) in self.terrain_cost:
+            result += f"terrain_cost {terrain} {cost}\n"
+        
+        for (terrain, radius, variance) in self.terrain_size:
+            result += f"replace_terrain {terrain} {radius} {variance}\n"
+            
 
-        print("}\n")
+        result += "}\n"
+        
+        return result
+        
 
 
 class ConnectAllPlayersLand(ConnectionCommandBase):

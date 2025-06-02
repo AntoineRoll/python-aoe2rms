@@ -1,7 +1,9 @@
 import pydantic as pdt
 
 from aoe2rms.commands import CommandModel
+from aoe2rms import Script
 
+RmsInt = int | Script | None
 
 class CreateObject(CommandModel):
     """
@@ -9,6 +11,7 @@ class CreateObject(CommandModel):
     """
 
     _command_name: str = "create_object"
+    _command_parameters: tuple[str] = tuple()
 
     # The object_type parameter is part of the command syntax itself
     # e.g. create_object TOWN_CENTER { ... }
@@ -19,25 +22,25 @@ class CreateObject(CommandModel):
     )
 
     # Basic object attributes
-    number_of_objects: int | None = pdt.Field(
+    number_of_objects: RmsInt = pdt.Field(
         default=None,
         description="Number of individual objects to create. For villagers, omitting this will give "
         "each civilization their correct number of starting villagers.",
         examples=[1, 4, 10],
     )
-    number_of_groups: int | None = pdt.Field(
+    number_of_groups: RmsInt = pdt.Field(
         default=None,
         description="Place the specified number of groups. Each group consists of the number of individual "
         "objects chosen in number_of_objects. Total objects = number_of_objects × number_of_groups.",
         examples=[1, 2, 10],
     )
-    group_variance: int | None = pdt.Field(
+    group_variance: RmsInt = pdt.Field(
         default=None,
         description="Randomly varies the number_of_objects by up to the amount specified. "
         "A minimum of 1 object will always be generated even if the variance would make the count 0 or negative.",
         examples=[1, 2, 3],
     )
-    group_placement_radius: int | None = pdt.Field(
+    group_placement_radius: RmsInt = pdt.Field(
         default=None,
         description="Number of tiles out from the central tile that objects belonging to the same group may spawn. "
         "Activates grouping behavior. Useful for keeping resources from forming long lines.",
@@ -55,14 +58,14 @@ class CreateObject(CommandModel):
         "This is the default type of grouping. Commonly used for sheep and deer.",
         examples=[True],
     )
-    min_connected_tiles: int | None = pdt.Field(
+    min_connected_tiles: RmsInt = pdt.Field(
         default=None,
         description="Prevents grouped objects from being placed in an area with fewer tiles than the specified amount. "
         "Intended to keep objects off tiny islands and out of tiny forest clearings. "
         "Note: This can cause objects to be biased toward being placed in the top left of the map.",
         examples=[10, 20, 50],
     )
-    resource_delta: int | None = pdt.Field(
+    resource_delta: RmsInt = pdt.Field(
         default=None,
         description="Modifies the resource amount of resources. Can be positive or negative. "
         "For example, gold mines with -100 will have 100 less gold.",
@@ -97,7 +100,7 @@ class CreateObject(CommandModel):
         "Mutually exclusive with place_on_specific_land_id.",
         examples=[True],
     )
-    place_on_specific_land_id: int | None = pdt.Field(
+    place_on_specific_land_id: RmsInt = pdt.Field(
         default=None,
         description="Place the object(s) on each land of the specified identifier. IDs are set in LAND_GENERATION by using "
         "the land_id attribute. Mutually exclusive with set_place_for_every_player.",
@@ -137,14 +140,14 @@ class CreateObject(CommandModel):
     )
 
     # Distance constraints
-    min_distance_to_players: int | None = pdt.Field(
+    min_distance_to_players: RmsInt = pdt.Field(
         default=None,
         description="Minimum distance in tiles from the origin of player lands that the object can be placed. "
         "When used with set_place_for_every_player or place_on_specific_land_id, this applies to ALL lands in "
         "versions before April 2025 update.",
         examples=[0, 7, 15],
     )
-    max_distance_to_players: int | None = pdt.Field(
+    max_distance_to_players: RmsInt = pdt.Field(
         default=None,
         description="Maximum distance in tiles from the origin of player lands that the object can be placed. "
         "If min exceeds max, no objects are placed.",
@@ -178,7 +181,7 @@ class CreateObject(CommandModel):
     )
 
     # Zone constraints
-    max_distance_to_other_zones: int | None = pdt.Field(
+    max_distance_to_other_zones: RmsInt = pdt.Field(
         default=None,
         description="Minimum distance, in tiles, that objects will stay away from terrains that they are "
         "restricted from being placed on. Useful for keeping resources away from coastlines.",
@@ -190,13 +193,13 @@ class CreateObject(CommandModel):
         "trees and scenario editor trees).",
         examples=[True],
     )
-    avoid_forest_zone: int | None = pdt.Field(
+    avoid_forest_zone: RmsInt = pdt.Field(
         default=None,
         description="Objects will stay the specified number of tiles away from any trees. "
         "Defaults to 1 if you specify the attribute but omit the distance.",
         examples=[1, 2, 5],
     )
-    avoid_cliff_zone: int | None = pdt.Field(
+    avoid_cliff_zone: RmsInt = pdt.Field(
         default=None,
         description="Objects will stay the specified number of tiles away from cliffs. "
         "Defaults to 1 if you specify the attribute but omit the distance.",
@@ -204,20 +207,20 @@ class CreateObject(CommandModel):
     )
 
     # Edge constraints
-    min_distance_to_map_edge: int | None = pdt.Field(
+    min_distance_to_map_edge: RmsInt = pdt.Field(
         default=None,
         description="Minimum distance, in tiles, that objects will stay away from the edge of the map.",
         examples=[3, 5, 10],
     )
 
     # Other group placement constraints
-    min_distance_group_placement: int | None = pdt.Field(
+    min_distance_group_placement: RmsInt = pdt.Field(
         default=None,
         description="Minimum distance, in tiles, that individual objects of the same create_object command, "
         "and ALL future objects, must stay away from each object.",
         examples=[2, 4, 8],
     )
-    temp_min_distance_group_placement: int | None = pdt.Field(
+    temp_min_distance_group_placement: RmsInt = pdt.Field(
         default=None,
         description="Like min_distance_group_placement, but only applies to the current create_object command - "
         "future objects are unaffected. Useful for scattering objects like neutral resources and relics.",
@@ -243,7 +246,7 @@ class CreateObject(CommandModel):
         "Overridden by find_closest and find_closest_to_map_center.",
         examples=[True],
     )
-    require_path: int | None = pdt.Field(
+    require_path: RmsInt = pdt.Field(
         default=None,
         description="Objects with this attribute must have a path to the origin of their associated land. "
         "Use this attribute to prevent player resources from being trapped in or behind forests.",
@@ -258,13 +261,13 @@ class CreateObject(CommandModel):
     )
 
     # Actor area attributes
-    actor_area: int | None = pdt.Field(
+    actor_area: RmsInt = pdt.Field(
         default=None,
         description="Specifies a numerical identifier which can be referred to in future objects with "
         "avoid_actor_area or actor_area_to_place_in.",
         examples=[1234, 5678],
     )
-    actor_area_radius: int | None = pdt.Field(
+    actor_area_radius: RmsInt = pdt.Field(
         default=None,
         description="Radius in tiles of the actor_area around the placed object. "
         "Actor areas are useful for making certain objects avoid certain positions or areas of the map.",
@@ -276,12 +279,12 @@ class CreateObject(CommandModel):
         "that is too small to contain them, by expanding the valid placement area outwards.",
         examples=[True],
     )
-    actor_area_to_place_in: int | None = pdt.Field(
+    actor_area_to_place_in: RmsInt = pdt.Field(
         default=None,
         description="Place the object within the radius of the actor area with the specified ID.",
         examples=[1234, 5678],
     )
-    avoid_actor_area: int | None = pdt.Field(
+    avoid_actor_area: RmsInt = pdt.Field(
         default=None,
         description="Objects will avoid the specified actor_area by its radius.",
         examples=[1234, 5678],
@@ -299,7 +302,7 @@ class CreateObject(CommandModel):
         "using the first entry. Useful when using both find_closest and set_circular_placement.",
         examples=[True],
     )
-    set_facet: int | None = pdt.Field(
+    set_facet: RmsInt = pdt.Field(
         default=None,
         description="For units, this corresponds to the angle they are facing. For other objects, "
         "this may correspond to alternative appearances.",
@@ -311,17 +314,15 @@ class CreateObject(CommandModel):
         "rather than using the default style.",
         examples=[True],
     )
-
-    def compile(self):
-        # Override to include the object_type parameter in the command name
-        result = f"{self._command_name} {self.object_type} {{\n"
+    def compile(self, prefix=""):
+        result = f"{prefix}{self._command_name} {self.object_type} {{\n"
 
         # Skip the object_type parameter when printing attributes
         for attr, val in self.__dict__.items():
-            if attr != "_command_name" and attr != "object_type" and val is not None:
+            if attr not in (*self._command_parameters, *self._special_attrs) and val is not None:
                 # Handle boolean flags that don't need values
                 if isinstance(val, bool) and val and attr.startswith("set_"):
-                    result += f"\t{attr}\n"
+                    result += f"{prefix}\t{attr}\n"
                 elif (
                     isinstance(val, bool)
                     and val
@@ -342,11 +343,14 @@ class CreateObject(CommandModel):
                         ]
                     )
                 ):
-                    result += f"\t{attr}\n"
+                    result += f"{prefix}\t{attr}\n"
+                elif isinstance(val, Script):
+                    compiled_val = val.compile(prefix + "\t\t")
+                    result += f"{prefix}\t{attr}\n{compiled_val}\n"
                 else:
-                    result += f"\t{attr} {val}\n"
+                    result += f"{prefix}\t{attr} {val}\n"
 
-        result += "}\n\n"
+        result += f"{prefix}}}\n\n"
         return result
 
 
