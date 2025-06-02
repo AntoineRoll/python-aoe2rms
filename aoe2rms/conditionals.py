@@ -10,6 +10,35 @@ class Variable(Script):
         result = f"{prefix}#define {self.name}\n"
         return result
 
+class ConditionalScript(Script):
+    
+    cases: list[tuple[str, Script | str]]
+    else_case: Script | str | None = None
+    
+    def compile(self, prefix=""):
+        result = ""
+        is_first = True
+        for condition, script in self.cases:
+            if is_first:
+                result += f"{prefix}if {condition}"
+            else:
+                result += f"{prefix}elseif {condition}"
+            
+            if isinstance(script, Script):
+                result += "\n" + script.compile(prefix + "\t")
+            else:
+                result += f" {prefix}\t{script}\n"
+            
+            is_first = False
+            
+        if self.else_case is not None:
+            result += f"{prefix}else\n"
+            if isinstance(self.else_case, Script):
+                result += self.else_case.compile(prefix + "\t")
+            else:
+                result += f"{prefix}\t{self.else_case}\n"
+        result += f"{prefix}endif\n"
+        return result
 
 class ConditionalConstant(BaseModel):
     first_condition: str
