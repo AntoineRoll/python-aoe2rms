@@ -31,11 +31,6 @@ class ConnectionGeneration(BaseGenerationModel):
         description="List of connection commands that define how lands should be connected.",
     )
 
-    def compile(self):
-        print(self._header, end="\n\n")
 
-        if self.accumulate_connections is not None and self.accumulate_connections:
-            print("accumulate_connections\n")
-
-        for command in self.commands:
-            command.compile()
+    def assign_to_map(self):
+        self.map.connection_generation = self

@@ -17,3 +17,6 @@ class ElevationGeneration(BaseGenerationModel):
         default_factory=list,
         description="List of create_elevation commands to generate hills on the map",
     )
+
+    def assign_to_map(self):
+        self.map.elevation_generation = self

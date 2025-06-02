@@ -82,3 +82,7 @@ class CliffGeneration(BaseGenerationModel):
                 lines.append(f"{attr} {val}")
 
         return "\n".join(lines)
+
+
+    def assign_to_map(self):
+        self.map.cliff_generation = self

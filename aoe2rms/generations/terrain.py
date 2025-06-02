@@ -10,3 +10,7 @@ class TerrainGeneration(BaseGenerationModel):
 
     # Section-level attributes
     color_correction: str | None = None
+
+
+    def assign_to_map(self):
+        self.map.terrain_generation = self
