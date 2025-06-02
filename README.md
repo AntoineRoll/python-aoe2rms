@@ -90,7 +90,7 @@ with open("my_map.rms", "w") as f:
 
 ## Sections
 
-The RMS structure in `aoe2rms` follows the official RMS sections:
+The RMS structure in `aoe2rms.generations` follows the official RMS sections:
 
 1. `player_setup` - Player positioning and global parameters
 2. `land_generation` - Main landmasses and terrain
@@ -113,6 +113,20 @@ Tournament maps have been included in this repository. First, it offers access t
 For now, we have included almost all maps from S-Tier tournaments (RM, 1v1) of 2024-2025. Feel free to contribute with more map scripts!
 
 All credits are due to Map scripters and Tournament organizers. You will usually find the map author in a commented section at the top of the script file.
+
+### Example
+
+Note: Work in progress generations start diverging with during objects generations.
+
+As Ring Nomad has the shortest script of all recent S-Tier maps, we will use it as an example.
+
+Official Warlord 4 map by Zetnus: [Ring Nomad](tournament_maps/s-tier/warlords-4/W4%20-%20Ring%20Nomad.rms)
+Minimap with seed 4269:
+![Ring Nomad](examples/W4%20-%20Ring%20Nomad.PNG)
+
+Python recreation: [Ring Nomad.py](examples/Ring%20Nomad.py)
+Minimap with seed 4269:
+![Ring Nomad.py](examples/Ring%20Nomad.py.PNG)
 
 ## Advanced Usage
 
