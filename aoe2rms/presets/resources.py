@@ -1,4 +1,40 @@
 from aoe2rms.commands.objects import CreateObject
+from aoe2rms.conditionals import ConditionalScript
+
+def generate_standard_relics():
+    """
+    Generate the standard starting relics for a random map mode game.
+    """
+    return CreateObject(
+        object_type="RELIC",
+        max_distance_to_other_zones=2,
+        avoid_forest_zone=2,
+        min_distance_to_players=25,
+        set_circular_placement=True,
+        min_distance_group_placement=1,
+        number_of_objects=ConditionalScript(
+            cases=[
+                ("TINY_MAP", "5"), 
+                ("SMALL_MAP", "5"), 
+                ("MEDIUM_MAP", "5"), 
+                ("LARGE_MAP", "7"),
+                ("HUGE_MAP", "8"),
+            ],
+            else_case="999",
+        ),
+        temp_min_distance_group_placement=ConditionalScript(
+            cases=[
+                ("TINY_MAP", "35"), 
+                ("SMALL_MAP", "38"), 
+                ("MEDIUM_MAP", "38"), 
+                ("LARGE_MAP", "48"),
+                ("HUGE_MAP", "52"),
+            ],
+            else_case="52",
+        ),
+        min_distance_to_map_edge=2
+    )
+
 
 def generate_standard_resources(
     town_center=True,
