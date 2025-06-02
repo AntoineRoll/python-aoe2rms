@@ -34,3 +34,8 @@ class Constant(Script):
 class TerrainConstant(Constant):
     _type = "terrain"
     _valid_id_list = range(200)
+
+
+class ObjectConstant(Constant):
+    _type = "object"
+    _valid_id_list = range(2382)
