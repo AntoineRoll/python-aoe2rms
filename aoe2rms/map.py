@@ -1,4 +1,5 @@
 import logging
+import os
 from pydantic import BaseModel, Field
 from typing import Optional, List, Union
 
@@ -177,6 +178,8 @@ class Map(BaseModel):
 
         return script.strip()
 
-    def save_to_file(self, file_path):
+    def save_to_file(self, file_path, overwrite=False):
+        if os.path.exists(file_path) and not overwrite:
+            raise FileExistsError(f"File {file_path} already exists. Set explicitly `overwrite=True` to write anyway.")
         with open(file_path, "w") as file:
             file.write(self.compile())
