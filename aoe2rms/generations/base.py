@@ -15,8 +15,12 @@ class BaseGenerationModel(BaseModel):
         result = f"{self._header}\n\n"
         logging.debug("%s - Header scripted.", self.__class__.__name__)
 
+        declared_constants = [] # to avoid unncessary repetitions
         for constant in self.constants:
+            if constant._is_default or (constant.id, constant.name) in declared_constants:
+                continue
             result += constant.declare()
+            declared_constants.append((constant.id, constant.name))
         if self.constants:
             logging.debug("%s - Constants scripted.", self.__class__.__name__)
 
