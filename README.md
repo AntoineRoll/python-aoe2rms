@@ -116,8 +116,6 @@ All credits are due to Map scripters and Tournament organizers. You will usually
 
 ### Example
 
-Note: Work in progress - generations start diverging with during objects generations.
-
 As Ring Nomad has the shortest script of all recent S-Tier maps, we will use it as an example.
 
 Official Warlord 4 map by Zetnus: [Ring Nomad](tournament_maps/s-tier/warlords-4/W4%20-%20Ring%20Nomad.rms)
