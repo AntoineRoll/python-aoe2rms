@@ -7,6 +7,7 @@ class Constant(Script):
     description: str | None = None
     _type: str
     _valid_id_list = list
+    _is_default: bool = False
 
     def model_post_init(self, context):
         if self.id not in self._valid_id_list:
