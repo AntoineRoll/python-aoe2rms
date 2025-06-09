@@ -1,5 +1,5 @@
 from aoe2rms.commands.objects import CreateObject
-from aoe2rms.conditionals import ConditionalScript
+from aoe2rms.conditionals import Attribute, ConditionalAttribute
 
 def generate_standard_relics():
     """
@@ -12,30 +12,28 @@ def generate_standard_relics():
         min_distance_to_players=25,
         set_circular_placement=True,
         min_distance_group_placement=1,
-        number_of_objects=ConditionalScript(
+        number_of_objects=ConditionalAttribute(
             cases=[
-                ("TINY_MAP", "5"), 
-                ("SMALL_MAP", "5"), 
-                ("MEDIUM_MAP", "5"), 
-                ("LARGE_MAP", "7"),
-                ("HUGE_MAP", "8"),
+                ("TINY_MAP", Attribute(name="number_of_objects", value=5)), 
+                ("SMALL_MAP", Attribute(name="number_of_objects", value=5)),
+                ("MEDIUM_MAP", Attribute(name="number_of_objects", value=5)),
+                ("LARGE_MAP", Attribute(name="number_of_objects", value=7)),
+                ("HUGE_MAP", Attribute(name="number_of_objects", value=8)),
             ],
-            else_case="999",
+            else_case=Attribute(name="number_of_objects", value=999),
         ),
-        temp_min_distance_group_placement=ConditionalScript(
+        temp_min_distance_group_placement=ConditionalAttribute(
             cases=[
-                ("TINY_MAP", "35"), 
-                ("SMALL_MAP", "38"), 
-                ("MEDIUM_MAP", "38"), 
-                ("LARGE_MAP", "48"),
-                ("HUGE_MAP", "52"),
+                ("TINY_MAP", Attribute(name="temp_min_distance_group_placement", value=35)),
+                ("SMALL_MAP", Attribute(name="temp_min_distance_group_placement", value=38)),
+                ("MEDIUM_MAP", Attribute(name="temp_min_distance_group_placement", value=38)),
+                ("LARGE_MAP", Attribute(name="temp_min_distance_group_placement", value=48)),
+                ("HUGE_MAP", Attribute(name="temp_min_distance_group_placement", value=52)),
             ],
-            else_case="52",
+            else_case=Attribute(name="temp_min_distance_group_placement", value=52),
         ),
         min_distance_to_map_edge=2
     )
-
-
 def generate_standard_resources(
     town_center=True,
     villagers=True,
