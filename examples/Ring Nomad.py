@@ -11,6 +11,8 @@ from aoe2rms.commands.objects import CreateObject
 from aoe2rms.commands.terrain import CreateTerrain
 from aoe2rms.commands.connection import ConnectAllPlayersLand
 import aoe2rms.constants.terrains as ter
+import aoe2rms.constants.objects as obj
+from aoe2rms.constants import TerrainConstant
 
 from aoe2rms.presets.resources import generate_standard_relics
 from aoe2rms.conditionals import ConditionalScript
@@ -85,7 +87,7 @@ with TerrainGeneration(map=my_map):
         land_percent=7,
         number_of_clumps=14,
         set_scale_by_groups=True,
-        spacing_to_other_terrain_types=4,
+        spacing_to_other_terrain_types=6,
         comment="forests",
     )
 
@@ -95,7 +97,7 @@ with TerrainGeneration(map=my_map):
         land_percent=3,
         number_of_clumps=5,
         set_scale_by_groups=True,
-        spacing_to_other_terrain_types=8,
+        spacing_to_other_terrain_types=6,
     )
 
     CreateTerrain(
@@ -108,10 +110,10 @@ with TerrainGeneration(map=my_map):
     )
 
     CreateTerrain(
-        terrain_type=ter.LEAVES, land_percent=8, number_of_clumps=30, terrain_mask=1
+        terrain_type=ter.LEAVES, base_terrain=ter.GRASS, land_percent=8, number_of_clumps=30, terrain_mask=1
     )
     CreateTerrain(
-        terrain_type="UNDERBRUSH",
+        terrain_type=TerrainConstant(id=71, name="UNDERBRUSH"),
         base_terrain=ter.GRASS,
         land_percent=8,
         number_of_clumps=30,
@@ -132,7 +134,7 @@ with TerrainGeneration(map=my_map):
         terrain_mask=1,
     )
     CreateTerrain(
-        terrain_type="UNDERBRUSH",
+        terrain_type=TerrainConstant(id=71, name="UNDERBRUSH"),
         base_terrain=ter.GRASS2,
         land_percent=8,
         number_of_clumps=30,
@@ -233,13 +235,13 @@ with ConnectionGeneration(map=my_map):
 # Define objects generation
 with ObjectsGeneration(map=my_map) as objects:
     CreateObject(
-        object_type="TRANSPORT_SHIP",
+        object_type=obj.TRANSPORT_SHIP,
         set_place_for_every_player=True,
         max_distance_to_players=0,
     )
 
     CreateObject(
-        object_type="VILLAGER",
+        object_type=obj.VILLAGER,
         number_of_objects=9,
         set_place_for_every_player=True,
         min_distance_to_players=1,
@@ -256,7 +258,7 @@ with ObjectsGeneration(map=my_map) as objects:
                     CreateObject(
                         autoregister=False,
                         comment="test",
-                        object_type="KING",
+                        object_type=obj.KING,
                         ignore_terrain_restrictions=True,
                         set_place_for_every_player=True,
                         min_distance_to_players=1,
@@ -272,12 +274,14 @@ with ObjectsGeneration(map=my_map) as objects:
 
     CreateObject(
         comment="scatter ressources evenly across the map",
-        object_type="FORAGE",
+        object_type=obj.FORAGE,
         number_of_groups=9999,
+        number_of_objects=6,
         group_placement_radius=2,
         set_tight_grouping=True,
         set_gaia_object_only=True,
         min_distance_group_placement=4,
+        temp_min_distance_group_placement=24,
         avoid_forest_zone=3,
         terrain_to_place_on=ter.GRASS2,
         max_distance_to_other_zones=2,
@@ -286,7 +290,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="GOLD",
+        object_type=obj.GOLD,
         number_of_groups=9999,
         number_of_objects=6,
         temp_min_distance_group_placement=22,
@@ -301,7 +305,7 @@ with ObjectsGeneration(map=my_map) as objects:
         actor_area_radius=22,
     )
     CreateObject(
-        object_type="STONE",
+        object_type=obj.STONE,
         number_of_groups=9999,
         number_of_objects=4,
         temp_min_distance_group_placement=24,
@@ -317,7 +321,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="SHEEP",
+        object_type=obj.SHEEP,
         number_of_groups=9999,
         number_of_objects=1,
         set_gaia_object_only=True,
@@ -330,7 +334,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="DEER",
+        object_type=obj.DEER,
         number_of_groups=9999,
         number_of_objects=3,
         set_gaia_object_only=True,
@@ -343,7 +347,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="BOAR",
+        object_type=obj.BOAR,
         number_of_groups=9999,
         number_of_objects=1,
         set_gaia_object_only=True,
@@ -356,7 +360,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="FORAGE",
+        object_type=obj.FORAGE,
         number_of_groups=9999,
         group_placement_radius=2,
         set_tight_grouping=True,
@@ -372,7 +376,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="GOLD",
+        object_type=obj.GOLD,
         number_of_groups=9999,
         number_of_objects=6,
         temp_min_distance_group_placement=32,
@@ -388,7 +392,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="STONE",
+        object_type=obj.STONE,
         number_of_groups=9999,
         number_of_objects=4,
         temp_min_distance_group_placement=34,
@@ -404,7 +408,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="SHEEP",
+        object_type=obj.SHEEP,
         number_of_groups=9999,
         number_of_objects=1,
         set_gaia_object_only=True,
@@ -417,7 +421,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="DEER",
+        object_type=obj.DEER,
         number_of_groups=9999,
         number_of_objects=3,
         set_gaia_object_only=True,
@@ -430,7 +434,7 @@ with ObjectsGeneration(map=my_map) as objects:
     )
 
     CreateObject(
-        object_type="BOAR",
+        object_type=obj.BOAR,
         number_of_groups=9999,
         number_of_objects=1,
         set_gaia_object_only=True,
@@ -444,7 +448,7 @@ with ObjectsGeneration(map=my_map) as objects:
 
     CreateObject(
         comment="fish",
-        object_type="SHORE_FISH",
+        object_type=obj.SHORE_FISH,
         number_of_objects=12,
         set_scaling_to_map_size=True,
         set_gaia_object_only=True,
@@ -454,7 +458,7 @@ with ObjectsGeneration(map=my_map) as objects:
         find_closest=True,
     )
     CreateObject(
-        object_type="MARLIN2",
+        object_type=obj.MARLIN2,
         number_of_objects=1,
         set_scaling_to_map_size=True,
         terrain_to_place_on=ter.DLC_WATER4,
@@ -466,9 +470,9 @@ with ObjectsGeneration(map=my_map) as objects:
         find_closest=True,
     )
     CreateObject(
-        object_type="SALMON",
+        object_type=obj.SALMON,
         number_of_objects=5,
-        set_scaling_to_map_size=True,
+        # set_scaling_to_map_size=True,
         set_gaia_object_only=True,
         max_distance_to_other_zones=4,
         min_distance_group_placement=4,
@@ -479,9 +483,9 @@ with ObjectsGeneration(map=my_map) as objects:
         find_closest=True,
     )
     CreateObject(
-        object_type="FISH_PERCH",
+        object_type=obj.FISH_PERCH,
         number_of_objects=5,
-        set_scaling_to_map_size=True,
+        # set_scaling_to_map_size=True,
         set_gaia_object_only=True,
         max_distance_to_other_zones=4,
         min_distance_group_placement=4,
@@ -492,9 +496,9 @@ with ObjectsGeneration(map=my_map) as objects:
         find_closest=True,
     )
     CreateObject(
-        object_type="OAKTREE",
+        object_type=obj.OAKTREE,
         number_of_groups=30,
-        set_scaling_to_map_size=True,
+        # set_scaling_to_map_size=True,
         set_gaia_object_only=True,
         min_distance_group_placement=1,
         avoid_forest_zone=1,
@@ -502,9 +506,9 @@ with ObjectsGeneration(map=my_map) as objects:
     )
     CreateObject(
         comment="birds",
-        object_type="HAWK",
+        object_type=obj.HAWK,
         number_of_objects=6,
-        set_scaling_to_map_size=True,
+        # set_scaling_to_map_size=True,
     )
 
 if __name__ == "__main__":
@@ -512,5 +516,4 @@ if __name__ == "__main__":
     rms_script = my_map.compile()
 
     # Write it to a file
-    with open(__file__ + ".rms", "w") as f:
-        f.write(rms_script)
+    my_map.save_to_file(__file__ + ".rms", overwrite=True)
