@@ -339,16 +339,7 @@ def generate_standard_resources(
 
     # Create Relic
     if relic:
-        relic = CreateObject(
-            object_type="RELIC",
-            # Only valid for 1v1
-            number_of_objects=5,
-            min_distance_to_players=25,
-            temp_min_distance_group_placement=35,
-            avoid_forest_zone=2,
-            avoid_cliff_zone=3,
-            min_distance_group_placement=1,
-        )
+        relic = generate_standard_relics()
         standard_resources.append(relic)
 
     # TODO: straggler tree (home & shared), shore fish, other fish, hawk, wolf
