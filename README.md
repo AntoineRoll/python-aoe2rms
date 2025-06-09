@@ -11,10 +11,16 @@
 
 - Create AoE2 random map scripts using Python instead of the traditional RMS syntax
 - Strong typing and validation with Pydantic to catch errors before generating scripts
-- Intuitive, object-oriented API that closely mirrors the RMS structure
+- Include default presets L
+- Let you create your own module to be reused (base setups, "tricks", ...)
+
+And also:
 - Well-documented models with descriptions and examples for each attribute
 - Easy to extend and customize with your own functionality
 - Leverage programmatic features such as loops and modularity to develop your maps
+- Access lists of default objects, terrains, etc.
+- Include scripts of most popular maps
+- And more to come if you're willing to leave a feature request in Github Issues or contribute
 
 ## Installation
 
@@ -35,8 +41,8 @@ This package is not yet available on PyPi.
 
 ```python
 from aoe2rms.map import Map
-from aoe2rms.generations.land import CreateLand
-from aoe2rms.generations.objects import CreateObject
+from aoe2rms.generations.objects import ObjectsGeneration
+from aoe2rms.presets.resources import generate_standard_resources
 
 # Create a simple map
 my_map = Map(
@@ -45,52 +51,16 @@ my_map = Map(
     description="A map created with python-aoe2rms"
 )
 
-# Add a create_land command to the land_generation section
-my_map.land_generation.commands.append(
-    CreateLand(
-        terrain_type="GRASS",
-        land_percent=100
-    )
-)
+with ObjectsGeneration(map=my_map):
+    # Generate standar resources
+    generate_standard_resources()
 
-# Add player lands
-my_map.land_generation.commands.append(
-    CreateLand(
-        _command_name="create_player_lands",
-        terrain_type="DIRT",
-        land_percent=20,
-        base_size=12,
-        other_zone_avoidance_distance=5
-    )
-)
-
-# Add some gold
-if my_map.objects_generation is None:
-    from aoe2rms.generations.objects import ObjectsGeneration
-    my_map.objects_generation = ObjectsGeneration()
-
-my_map.objects_generation.commands.append(
-    CreateObject(
-        object_type="GOLD",
-        number_of_objects=8,
-        group_placement_radius=3,
-        set_place_for_every_player=True,
-        min_distance_to_players=10,
-        max_distance_to_players=20
-    )
-)
-
-# Generate the RMS script
-rms_script = my_map.compile()
-
-# Write it to a file
-with open("my_map.rms", "w") as f:
-    f.write(rms_script)
+my_map.save_to_file("my_map.rms")
 ```
 
 ## Sections
 
-The RMS structure in `aoe2rms.generations` follows the official RMS sections:
+The RMS structure in `aoe2rms` follows the official RMS sections:
 
 1. `player_setup` - Player positioning and global parameters
 2. `land_generation` - Main landmasses and terrain
