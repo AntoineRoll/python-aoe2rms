@@ -1,7 +1,12 @@
 from aoe2rms.constants import Constant
 from aoe2rms import Script
-from pydantic import BaseModel
 
+class Attribute(Script):
+    name: str
+    value: str | int
+    
+    def compile(self, prefix = ""):
+        return f"{prefix}{self.name} {self.value}\n"
 
 class Variable(Script):
     name: str
@@ -40,7 +45,11 @@ class ConditionalScript(Script):
         result += f"{prefix}endif\n"
         return result
 
-class ConditionalConstant(BaseModel):
+class ConditionalAttribute(ConditionalScript):
+    cases: list[tuple[str, Attribute]]
+    else_case: Attribute | None = None
+
+class ConditionalConstant(Script):
     first_condition: str
     first_output: Constant | list[Constant]
 
