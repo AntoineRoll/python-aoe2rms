@@ -1,6 +1,7 @@
 import pydantic as pdt
 
 from aoe2rms.commands import CommandModel
+from aoe2rms.constants import TerrainConstant, ObjectConstant
 from aoe2rms import Script
 
 RmsInt = int | Script | None
@@ -11,12 +12,11 @@ class CreateObject(CommandModel):
     """
 
     _command_name: str = "create_object"
-    _command_parameters: tuple[str] = tuple()
+    _command_parameters: tuple[str] = ("object_type", )
 
     # The object_type parameter is part of the command syntax itself
     # e.g. create_object TOWN_CENTER { ... }
-    object_type: str = pdt.Field(
-        ...,
+    object_type: str | ObjectConstant = pdt.Field(
         description="The type of object to create. Must be a valid object constant.",
         examples=["TOWN_CENTER", "GOLD", "RELIC", "SHEEP", "VILLAGER", "SCOUT"],
     )
@@ -161,7 +161,7 @@ class CreateObject(CommandModel):
     )
 
     # Terrain constraints
-    terrain_to_place_on: str | None = pdt.Field(
+    terrain_to_place_on: str | TerrainConstant | None = pdt.Field(
         default=None,
         description="Object will only be placed on the specified terrain type. Using this largely overrides "
         "the default terrain restrictions for the object.",
@@ -314,44 +314,7 @@ class CreateObject(CommandModel):
         "rather than using the default style.",
         examples=[True],
     )
-    def compile(self, prefix=""):
-        result = f"{prefix}{self._command_name} {self.object_type} {{\n"
-
-        # Skip the object_type parameter when printing attributes
-        for attr, val in self.__dict__.items():
-            if attr not in (*self._command_parameters, *self._special_attrs) and val is not None:
-                # Handle boolean flags that don't need values
-                if isinstance(val, bool) and val and attr.startswith("set_"):
-                    result += f"{prefix}\t{attr}\n"
-                elif (
-                    isinstance(val, bool)
-                    and val
-                    and (
-                        attr
-                        in [
-                            "place_on_forest_zone",
-                            "find_closest",
-                            "find_closest_to_map_center",
-                            "find_closest_to_map_edge",
-                            "force_placement",
-                            "override_actor_radius_if_required",
-                            "avoid_all_actor_areas",
-                            "enable_tile_shuffling",
-                            "match_player_civ",
-                            "make_indestructible",
-                            "ignore_terrain_restrictions",
-                        ]
-                    )
-                ):
-                    result += f"{prefix}\t{attr}\n"
-                elif isinstance(val, Script):
-                    compiled_val = val.compile(prefix + "\t\t")
-                    result += f"{prefix}\t{attr}\n{compiled_val}\n"
-                else:
-                    result += f"{prefix}\t{attr} {val}\n"
-
-        result += f"{prefix}}}\n\n"
-        return result
+    
 
 
 class CreateActorAreaCommand(CommandModel):

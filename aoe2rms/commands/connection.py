@@ -1,7 +1,7 @@
 import pydantic as pdt
 
 from aoe2rms.commands import CommandModel
-
+from aoe2rms.constants import TerrainConstant
 
 class ConnectionCommandBase(CommandModel):
     """
@@ -11,25 +11,25 @@ class ConnectionCommandBase(CommandModel):
     They can create roads, shallows, or ensure passable paths through forests.
     """
 
-    default_terrain_replacement: str | None = pdt.Field(
+    default_terrain_replacement: str | TerrainConstant | None = pdt.Field(
         default=None,
         description="Terrain type used to replace any terrain type that is not explicitly specified. "
         "Used when a connection passes through terrain that doesn't match any replace_terrain entry.",
         examples=["DIRT", "ROAD", "SHALLOW"],
     )
-    replace_terrain: list[tuple[str, str]] = pdt.Field(
+    replace_terrain: list[tuple[str | TerrainConstant, str | TerrainConstant]] = pdt.Field(
         default_factory=list,
         description="Replace the first terrain with the second terrain when making connections. "
         "Multiple replace_terrain commands can be used to handle different terrain types.",
         examples=[("FOREST", "GRASS"), ("WATER", "SHALLOW")],
     )
-    terrain_cost: list[tuple[str, int]] = pdt.Field(
+    terrain_cost: list[tuple[str | TerrainConstant, int]] = pdt.Field(
         default_factory=list,
         description="Cost of crossing the specified terrain when calculating path. "
         "Higher values make the pathfinding algorithm avoid this terrain.",
         examples=[("WATER", 15), ("FOREST", 7)],
     )
-    terrain_size: list[tuple[str, int, int]] = pdt.Field(
+    terrain_size: list[tuple[str | TerrainConstant, int, int]] = pdt.Field(
         default_factory=list,
         description="Width and variability of the connection when it crosses the specified terrain. "
         "First number is width, second is variability (0 for straight paths).",
@@ -49,7 +49,7 @@ class ConnectionCommandBase(CommandModel):
             result += f"terrain_cost {terrain} {cost}\n"
         
         for (terrain, radius, variance) in self.terrain_size:
-            result += f"replace_terrain {terrain} {radius} {variance}\n"
+            result += f"terrain_size {terrain} {radius} {variance}\n"
             
 
         result += "}\n"

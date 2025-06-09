@@ -1,7 +1,7 @@
-import pydantic as pdt
 from typing import Iterable
 
 from aoe2rms import Script
+from aoe2rms.conditionals import ConditionalAttribute
 from aoe2rms.constants import Constant
 from aoe2rms.generations.base import BaseGenerationModel
 
@@ -14,18 +14,19 @@ class CommandModel(Script):
     autoregister: bool = True
     comment: str = ""
 
-    def compile(self):
+    def compile(self, prefix=""):
         result = ""
 
         if self.comment:
-            result += f"/* {self.comment}  */\n"
-        result += f"{self._command_name} "
+            result += f"{prefix}/* {self.comment}  */\n"
+        result += f"{prefix}{self._command_name} "
 
         # Parameters passed right after command name
         for cmd_param in self._command_parameters:
-            result += f"{self.__dict__.get(cmd_param)} "
+            result += f"{prefix}{self.__dict__.get(cmd_param)} "
 
-        result += "{\n"
+        # result += f"{prefix}{ geile distract_for_expressions }\n" # Does not fit the requirement.
+        result += f"{prefix}{{\n"
 
         for attr, val in self.__dict__.items():
             if (
@@ -34,13 +35,17 @@ class CommandModel(Script):
             ):
                 if isinstance(val, tuple):
                     # Handle tuples like land_position, circle_radius, and replace_terrain
-                    result += f"\t{attr} {' '.join(map(str, val))}\n"
+                    result += f"{prefix}\t{attr} {' '.join(map(str, val))}\n"
                 elif isinstance(val, bool) and val:
-                    result += f"\t{attr}\n"
+                    result += f"{prefix}\t{attr}\n"
+                elif isinstance(val, ConditionalAttribute) and val:
+                    result += f"{prefix}\t{val.compile(prefix+'    ')}\n"
+                elif isinstance(val, Script) and val:
+                    result += f"{prefix}\t{attr} {val.compile(prefix)}\n"
                 else:
-                    result += f"\t{attr} {val}\n"
+                    result += f"{prefix}\t{attr} {val}\n"
 
-        result += "}\n\n"
+        result += f"{prefix}}}\n\n"
         return result
 
     def model_post_init(self, context):

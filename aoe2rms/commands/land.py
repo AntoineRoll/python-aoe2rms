@@ -1,6 +1,7 @@
 from pydantic import Field
 from typing import Tuple
 from aoe2rms.commands.base import CommandModel
+from aoe2rms.constants import TerrainConstant
 
 
 class CreateLand(CommandModel):
@@ -11,7 +12,7 @@ class CreateLand(CommandModel):
     _command_name: str = "create_land"
 
     # Parameters and attributes as described in RmsLandReference.md
-    terrain_type: str | None = Field(
+    terrain_type: str | TerrainConstant | None = Field(
         default=None, description="Specify which terrain the land should have."
     )
     land_percent: int | None = Field(
